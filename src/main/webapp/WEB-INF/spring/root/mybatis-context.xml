@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd">
+		
+		
+			
+	<!-- 마이바티스 사용 설정 -->
+    <!-- 어떤 DB 를 쓸건지 정보 제공 -->
+    <!-- 쿼리문(xml)이 어디에 있는지 지정 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="datasource"/>
+        <property name="mapperLocations">
+        	<list>
+        		<value>classpath:com/jmt/main/dao/*.xml</value>
+        		<value>classpath:com/jmt/member/dao/*.xml</value>
+        		<value>classpath:com/jmt/mypage/dao/*.xml</value>
+        		<value>classpath:com/jmt/moim/dao/*.xml</value>
+        		<value>classpath:com/jmt/groupreview/dao/*.xml</value>
+        		<value>classpath:com/jmt/restaurant/dao/*.xml</value>
+        		<value>classpath:com/jmt/admin/dao/*.xml</value>
+        	</list>
+        </property>
+        <property name="configLocation" value="classpath:config/aliase.xml"/>
+    </bean>
+    
+    <!-- 간편 사용 설정(마이바티스 사용 하는 패키지 범위) -->
+    <mybatis-spring:scan base-package="com.jmt.main.dao"/>
+    <mybatis-spring:scan base-package="com.jmt.member.dao"/>
+    <mybatis-spring:scan base-package="com.jmt.mypage.dao"/>
+    <mybatis-spring:scan base-package="com.jmt.moim.dao"/>
+    <mybatis-spring:scan base-package="com.jmt.groupreview.dao"/>
+    <mybatis-spring:scan base-package="com.jmt.restaurant.dao"/>
+	<mybatis-spring:scan base-package="com.jmt.admin.dao"/>
+
+
+</beans>

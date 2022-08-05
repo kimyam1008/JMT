@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+	
+	<configuration>
+	<typeAliases>
+		<package name="com.jmt.main.dto"/>
+		<package name="com.jmt.member.dto"/>
+		<package name="com.jmt.mypage.dto"/>
+		<package name="com.jmt.moim.dto"/>
+		<package name="com.jmt.groupreview.dto"/>
+		<package name="com.jmt.restaurant.dto"/>
+		<package name="com.jmt.admin.dto"/>
+	</typeAliases>
+</configuration>
