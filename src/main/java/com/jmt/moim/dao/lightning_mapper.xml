@@ -3,4 +3,9 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jmt.moim.dao.LightningDAO">
 	
+	<select id="foodList" resultType="com.jmt.moim.dto.LightningDTO">
+		SELECT * FROM food
+	</select>
+	
+	
 </mapper>
