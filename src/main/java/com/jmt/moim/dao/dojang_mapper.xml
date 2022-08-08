@@ -2,5 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jmt.moim.dao.DojangDAO">
+
+	<select id="dojangList" resultType="dojang">
+		SELECT d.dojang_no, f.food_name, d.leader_id, d.dojang_title, d.dojang_create, d.member_count, d.dojang_status
+		FROM dojanglist d
+		JOIN food f ON d.food_no = f.food_no
+		ORDER BY d.dojang_no DESC limit #{param1} OFFSET #{param2};
+	</select>
+	
+	<select id="allCount" parameterType="hashmap" resultType="int">
+		SELECT
+			COUNT(dojang_no)
+		FROM dojanglist d
+	</select>
+	
+	<select id="foodname" resultType="dojang">
+		SELECT food_no, food_name FROM food
+	</select>
+	
+	<!-- 
+	<select id="memberCOUNT" parameterType="String" resultType="String">
+	UPDATE dojanglist SET member_count = (SELECT COUNT(member_id)+1 FROM apply a WHERE class_no = 3 and status = '승인' and idx = #{dojangNo}
+	WHERE dojang_no IN (#{dojangNo});
+	</select>
+	 -->
 	
 </mapper>
