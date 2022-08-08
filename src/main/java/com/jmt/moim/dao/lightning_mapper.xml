@@ -3,4 +3,76 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jmt.moim.dao.LightningDAO">
 	
+	<select id="foodList" resultType="com.jmt.moim.dto.LightningDTO">
+		SELECT * FROM food
+	</select>
+	
+	<!-- 
+	
+	<select id="list" resultType="com.jmt.moim.dto.LightningDTO">
+		SELECT
+			lightning_no
+			,leader_id
+			,lightning_title
+			,lightning_date
+			,member_num
+			,(select count(apply_no)+1 from apply a  where status="승인" and class_no = 1 and a.idx=l.lightning_no) as member_count
+			,lightning_status
+			,r.restaurant_name
+			,food_name
+		FROM lightninglist l JOIN restaurant r USING(restaurant_no)  
+		LEFT OUTER JOIN food f ON r.food_no = f.food_no
+	</select>
+	 -->
+	
+	
+	<select id="selectedList" resultType="com.jmt.moim.dto.LightningDTO" 
+	parameterType="hashmap">
+		SELECT
+			lightning_no
+			,leader_id
+			,lightning_title
+			,lightning_date
+			,member_num
+			,(select count(apply_no)+1 from apply a  where status="승인" and class_no = 1 and a.idx=l.lightning_no) as member_count
+			,lightning_status
+			,r.restaurant_name
+			,food_name
+		FROM lightninglist l JOIN restaurant r USING(restaurant_no)  
+		LEFT OUTER JOIN food f ON r.food_no = f.food_no
+		
+			<include refid="selectedListSql"></include>
+		limit 0,10	
+	</select>
+	
+	<sql id="selectedListSql">
+		<trim prefix="where" suffixOverrides="and">
+		
+			<if test = "!lightning_title.equals('')">
+				lightning_title LIKE CONCAT('%',#{lightning_title}, '%') and
+			</if>
+		
+			<if test = "!food_no.equals('')">
+				f.food_no = #{food_no} and 
+			</if>
+		
+			<if test = "!eat_speed.equals('')">
+				eat_speed = #{eat_speed} and 
+			</if>
+			
+			<if test = "!eat_speed.equals('')">
+				eat_speed = #{eat_speed} and 
+			</if>
+			
+			<if test = "!job.equals('')">
+				job = #{job} and 
+			</if>
+			
+			<if test = "gender!=null">
+				gender = #{gender} and 
+			</if>
+			
+		</trim>
+	</sql>
+	
 </mapper>
