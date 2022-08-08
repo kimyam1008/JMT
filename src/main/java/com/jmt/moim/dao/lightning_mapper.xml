@@ -42,7 +42,7 @@
 		LEFT OUTER JOIN food f ON r.food_no = f.food_no
 		
 			<include refid="selectedListSql"></include>
-			
+		limit 0,10	
 	</select>
 	
 	<sql id="selectedListSql">

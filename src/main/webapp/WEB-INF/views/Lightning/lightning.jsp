@@ -5,6 +5,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+ <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> 
+<script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
+
 <style>
 	table,th,td {
 		border : 1px solid black;
@@ -76,11 +82,22 @@
 		 	</c:forEach>
 		 -->
 		</tbody>
+			<tr>
+				<td colspan="8" id="paging">
+					<!-- plugin 사용법  -->
+					<div class="container">
+						<nav arial-label="Page navigation" style="text-align:center">
+							<ul class="pagination" id="pagination"></ul>
+						</nav>
+					</div>
+				</td>
+			</tr>
 	</table>
 
 </body>
 <script>
-listCall();
+var currpage = 1;
+listCall(currpage);
 
 	//검색버튼 클릭시
 	$("button").on("click",function(){
@@ -123,7 +140,7 @@ listCall();
 	});
 
 
-	function listCall(){
+	function listCall(page){
 		
 		var lightning_title = $("#lightning_title").val();
 		var food_no = $("#food_no").val();
@@ -146,12 +163,26 @@ listCall();
 				'food_no' : food_no,
 				'eat_speed' : eat_speed,
 				'job' : job,
-				'gender' : gender
+				'gender' : gender,
+				'page' : page
 			},
 			dataType : 'json',
 			success : function(data){
 				//console.log(data);
 				drawList(data.list);
+				
+				//리스트불러오기가 성공되며 플러그인을 이용해 페이징 처리 //{} 옵션 추가
+				 $("#pagination").twbsPagination({
+					 startPage:1, //시작페이지
+					 totalPages : 20, //총페이지(전체 게시물 수/한 페이지에 보여줄 게시물 수) 300게시물/10개씩 보여줄거야 - 30 페이지 
+					visiblePages : 5, //한번에 보여줄 페이지 수 [1][2][3][4][5]
+					 onPageClick:function(e,page){
+						 //console.log(e); //클릭한 페이지와 관련된 이벤트 객체
+						 console.log(page); //사용자가 클릭한 페이지 
+						 //currPage = page;
+						 //listCall(page);
+					 }
+				 });
 			},
 			error : function(e){
 				console.log(e);
