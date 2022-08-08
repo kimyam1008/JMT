@@ -23,7 +23,7 @@ th, td {
 		<input type="text" id="search" placeholder="모임이름을 검색해주세요">
 		<button id="moimSearch">검색</button>
 		<br/>
-		<select id='food_name'></select>
+		<select id="food_name"></select>
 		<br/>
 		<select id='eat_speed'>
 		    <option value='식사속도' selected>식사속도</option>
@@ -71,6 +71,7 @@ th, td {
 </table>
 </body>
 <script>
+
 var currPage = 1;
 
 listCall(currPage);
@@ -114,6 +115,86 @@ function listCall(page){
 }
 
 
+$('#moimSearch').on('click',function(){
+	
+	$("#pagination").twbsPagination('destroy');
+	dojangSearch(currPage);
+	
+});
+
+
+$('#food_name').on('change', function () {
+	
+	if($("#food_name option:selected").val() == 'all'){
+		$("#pagination").twbsPagination('destroy');
+		listCall(currPage);
+	}else{
+	$("#pagination").twbsPagination('destroy');
+	dojangSearch(currPage);
+	}
+});
+
+
+$("input[name='gender']").change(function(){
+	dojangSearch(currPage);
+});
+
+
+//도장깨기 검색
+
+function dojangSearch(page){
+	
+	var pagePerNum = 10;
+	
+	var search = $("#search").val();
+	var foodname = $("#food_name option:selected").val();
+	 var gender = $("input:radio[name='gender']:checked").val();
+	 
+		$.ajax({
+			type:'get',
+			url:'dojangSearch.ajax',
+			data:{
+				cnt:pagePerNum,
+				page:page,
+				search:search,
+				foodname:foodname,
+				gender:gender
+			},
+			dataType:'JSON',
+			success:function(data){
+					console.log(data);
+					drawList(data.dojangList);
+					currPage = data.currPage;
+					console.log("데이터확인:::",data.dojangList)
+
+					
+					$("#pagination").twbsPagination({
+						startPage: data.currPage, //시작 페이지
+						totalPages: data.pages, //총 페이지
+						visiblePages: 5, //한번에 보여줄 리스트 수
+						onPageClick: function(e,page){
+							console.log(page); //사용자가 클릭한 페이지
+							currPage = page;
+							dojangSearch(page);
+						}
+					});
+			},
+			error:function(e){
+				console.log(e);
+	    		if(e.statusText == 'error'){
+					alert("조회된 데이터가 없습니다.");
+					listCall(currPage);
+					$('#search').val('');
+				}
+			}
+				
+		});
+		
+	
+	
+}
+
+
 
 function drawList(list){
 	var content = '';
@@ -126,7 +207,7 @@ function drawList(list){
 		content += '<td>'+item.leader_id+'</td>';
 		content += '<td>'+item.dojang_title+'</td>';
 		content += '<td>'+create+'</td>';
-		content += '<td>'+item.member_count+'</td>';
+		content += '<td>'+item.member_count+'/'+item.people_num+'</td>';
 		content += '<td>'+item.dojang_status+'</td>';
 		content += '</tr>';
 	});

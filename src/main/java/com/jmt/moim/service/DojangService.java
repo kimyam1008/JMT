@@ -24,12 +24,27 @@ public class DojangService {
 		int page = Integer.parseInt(params.get("page"));
 		logger.info("보여줄 페이지 :" + page);
 		
+		//검색조건
+		String search = params.get("search");
+		String foodname = params.get("foodname");
+		String gender = params.get("gender");
+		
+		
+		
+		HashMap<String, Object> searchResult = new HashMap<String, Object>();
+		
+		searchResult.put("search", search);
+		searchResult.put("foodname", foodname);
+		searchResult.put("gender", gender);
+		
 
-		int allCnt = dao.allCount();
+		int allCnt = dao.allCount(searchResult);
 		logger.info("allCnt : " + allCnt);
 		
 		int pages = allCnt % cnt > 0 ? (allCnt / cnt)+1 : (allCnt / cnt);
 		logger.info("pages : " + pages);
+		
+		if(pages==0) {pages=1;}
 		
 		if(page>pages) {
 			page = pages;
@@ -42,7 +57,11 @@ public class DojangService {
 		int offset = (page-1)*cnt; 
 		logger.info("offset: " + offset);
 		
-		ArrayList<DojangDTO> list = dao.dojangList(cnt, offset);
+		
+		searchResult.put("cnt", cnt);
+		searchResult.put("offset", offset);
+		
+		ArrayList<DojangDTO> list = dao.dojangList(searchResult);
 
 		//dao.memberCOUNT(dojangNo);
 		map.put("dojangList", list);
