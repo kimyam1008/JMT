@@ -9,8 +9,10 @@ public interface LightningDAO {
 
 	ArrayList<LightningDTO> foodList();
 
-	ArrayList<LightningDTO> list();
-
+	//ArrayList<LightningDTO> list();
+	
 	ArrayList<LightningDTO> selectedList(HashMap<String, String> params);
+
+	int allCount(HashMap<String, String> params);
 
 }

@@ -42,7 +42,7 @@
 		LEFT OUTER JOIN food f ON r.food_no = f.food_no
 		
 			<include refid="selectedListSql"></include>
-		limit 0,10	
+		limit 10 offset ${offset}
 	</select>
 	
 	<sql id="selectedListSql">
@@ -74,5 +74,10 @@
 			
 		</trim>
 	</sql>
+	
+	<select id="allCount" resultType="int" parameterType="hashmap">
+		SELECT count(lightning_no) FROM lightninglist join food f using(food_no)
+		<include refid="selectedListSql"></include>
+	</select>
 	
 </mapper>

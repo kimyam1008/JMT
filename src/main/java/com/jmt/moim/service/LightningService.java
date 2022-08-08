@@ -35,4 +35,9 @@ public class LightningService {
 		return dao.selectedList(params);
 	}
 
+	public int allCount(HashMap<String, String> params) {
+		logger.info("총개수 서비스 요청");
+		return dao.allCount(params);
+	}
+
 }

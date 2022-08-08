@@ -69,12 +69,33 @@ public class LightningController {
 			}
 		}
 		*/
-		//페이징
+		 
+		//페이징- 현재페이지
 		int page = Integer.parseInt(params.get("page"));
+		//int page = params.get("page");
 		logger.info("보여줄 페이지 :" + page);
+		
+		//offset 구하기 
+		//params가 String,String이니까 숫자를 문자열로 변환
+		//String offset = Integer.toString( 10 * (page-1));
+		//int offset = 10 * (page-1);
+		//int offset = Integer.parseInt(String.valueOf(10 * (page-1)));
+		String offset = String.valueOf(10 * (page-1));
+		logger.info("offset : " + offset);
+		params.put("offset",offset);
+		
+		//총개수 
+		int allCnt = service.allCount(params);
+		logger.info("allCnt : " + allCnt);
+		
+		//생성가능한 페이지(pages)
+		int pages = allCnt%10>0? (allCnt/10+1) : (allCnt/10);
+		logger.info("pages : " + pages);
+		if(pages<page) {
+			page = pages;
+		}
 		map.put("currPage", page);
-		
-		
+		map.put("pages", pages);
 		
 		
 		//리스트 불러오기
