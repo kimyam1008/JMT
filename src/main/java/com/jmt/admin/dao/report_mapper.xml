@@ -2,5 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jmt.admin.dao.ReportDAO">
+	<select id="reportList" resultType="hashmap">
+	SELECT c.class_name ,r.reporter ,r.reported ,r.report_date ,r.report_proc_status ,r.report_proc_date ,r.idx ,r.class_no,r.report_reason  FROM report r 
+	JOIN codetable c on c.class_no = r.class_no  
+	ORDER BY r.report_date DESC limit #{param1} offset #{param2}
+	</select>
 	
+	<select id="allCount" resultType="Integer">
+		SELECT COUNT(report_no) FROM report 	
+	</select>
 </mapper>
