@@ -38,6 +38,7 @@ public class LightningController {
 				model.addAttribute("list", list);
 			}
 			*/
+			
 		return "./Lightning/lightning";
 	}
 	
@@ -68,6 +69,15 @@ public class LightningController {
 			}
 		}
 		*/
+		//페이징
+		int page = Integer.parseInt(params.get("page"));
+		logger.info("보여줄 페이지 :" + page);
+		map.put("currPage", page);
+		
+		
+		
+		
+		//리스트 불러오기
 		ArrayList<LightningDTO> selectedList = service.selectedList(params);
 		map.put("list", selectedList);
 	
