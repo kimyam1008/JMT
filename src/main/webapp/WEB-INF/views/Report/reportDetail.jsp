@@ -26,7 +26,7 @@
 				<th>글 내용</th> <td colspan="3"></td>
 			</tr>
 			<tr>
-				<th>게시판</th><td></td>
+				<th>게시판.</th><td></td>
 				<th>처리상태</th>
 				<td>
 					<select name="report_status">
