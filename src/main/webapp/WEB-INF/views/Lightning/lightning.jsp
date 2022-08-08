@@ -19,7 +19,7 @@
 <body>
 
 		<input type="text" id="lightning_title" placeholder="모임 이름을 입력해주세요"
-		 onKeypress="javascript:if(event.keyCode==13) {enterkey()}" />
+		 onKeypress="javascript:if(event.keyCode==13) {enterkey()}"/>
 		<button>검색</button><br/>
 	
 	
@@ -84,24 +84,32 @@ listCall();
 
 	//검색버튼 클릭시
 	$("button").on("click",function(){
-		// 검색 시 기존 옵션 값 날리기위해
-		$("#food_no").val("");
-		$("#eat_speed").val("");
-		$("#job").val("");
-		$("#gender:checked").prop("checked",false);
-		
-		listCall();
+		if($("#lightning_title").val() != ""){ //유효성검사
+			// 검색 시 기존 옵션 값 날리기위해
+			$("#food_no").val("");
+			$("#eat_speed").val("");
+			$("#job").val("");
+			$("#gender:checked").prop("checked",false);
+			
+			listCall();
+		} else {
+		 	alert("검색어를 입력해주세요.");
+		}
 	});
 	
 	//검색값 입력 후 enter누를 시 
 	function enterkey(){
-		// 검색 시 기존 옵션 값 날리기위해
-		$("#food_no").val("");
-		$("#eat_speed").val("");
-		$("#job").val("");
-		$("#gender:checked").prop("checked",false);
+		if($("#lightning_title").val() != ""){
+			// 검색 시 기존 옵션 값 날리기위해
+			$("#food_no").val("");
+			$("#eat_speed").val("");
+			$("#job").val("");
+			$("#gender:checked").prop("checked",false);
 			
-		listCall();
+			listCall();
+		} else {
+		 	alert("검색어를 입력해주세요.");
+		}
 	}
 
 	//셀렉트박스 값이 변경될 때 
