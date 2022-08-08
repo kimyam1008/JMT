@@ -46,6 +46,17 @@ public class DojangController {
 	}
 	
 	
+	//도장모임 검색
+	@RequestMapping("/dojangSearch.ajax")
+	@ResponseBody
+	public HashMap<String, Object> courSearch(
+			@RequestParam HashMap<String, String> params){
+		//HashMap<String, Object> map = new HashMap<String, Object>();
+		logger.info("검색결과 리스트 요청"+params);
+		return service.dojangList(params);
+	}
+	
+	
 	
 	
 	

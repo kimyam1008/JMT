@@ -25,11 +25,26 @@
 </style>
 <body>
 <h1>신고 리스트 입니다.</h1>
+<select name="report_status">
+	<option value="wait">처리대기</option>
+	<option value="end">처리완료</option>
+	<option value="blind">블라인드</option>
+</select>
+<select name="report_sort">
+	<option value= "allList">전체</option>
+	<option value= "post">게시글</option>
+	<option value= "sort">분류</option>
+	<option value= "reporter">작성자ID</option>
+	<option value= "title">제목</option>
+</select>
+<input type="text" name="keyword" placeholder="검색어를 입력해 주세요"/>
+<button type="button" onclick="searchClick()">검색</button>
 
 <table>
 		<thead>
 			<tr>
-				<th><input type="checkbox"/></th>
+				<th><input type="checkbox" id="all"/></th>
+				<th>신고글</th>
 				<th>분류</th>
 				<th>신고자ID</th>
 				<th>신고날짜</th>
@@ -43,7 +58,7 @@
 		
 		</tbody>
 		 <tr>
-			<td colspan="8" id="paging">
+			<td colspan="9" id="paging">
 				
 				<div class="container">
 					<nav arial-label="Page navigation" style="text-align:center">
@@ -89,6 +104,7 @@ $('#pagePerNum').on('change',function(){
 		success:function(data){
 			console.log("dd");
 			console.log(data);
+			console.log(data.list);
 			drawList(data.list);
 			//currPage = data.currPage;
 			//불러오기가 성공되면 플러그인 을 이용해 페이징 처리
@@ -117,7 +133,8 @@ function drawList(list){
 	list.forEach(function(item){
 		//console.log(item);
 		content += '<tr>';
-		content += '<td> <input type="checkbox"></td>';
+		content += '<td> <input type="checkbox"></td>';	
+		content += '<td>'+'<a href=report/detail?report_no='+item.report_no+'>'+item.report_title+'<a/></td>';
 		content += '<td>'+item.class_name+'</td>';
 		content += '<td>'+item.reporter+'</td>';
 		content += '<td>'+item.report_date+'</td>';
@@ -130,5 +147,114 @@ function drawList(list){
 	$('#list').empty();
 	$('#list').append(content);
 }
+
+
+/* 검색 */
+function searchClick(page){
+/* 검색 */
+ 
+/* $('#searchBtn').on('click',function(){ */
+	
+	 var pagePerNum=5;
+	//var page= null;
+	if( page==null){
+		page=1;
+	} 
+	
+	
+	
+	$("#pagination").twbsPagination('destroy');
+		
+	let report_status =$('select[name=report_status]').val();
+	let report_sort = $('select[name=report_sort]').val();
+	let keyword = $('input[name=keyword]').val();
+
+	if(keyword.trim()==""){
+		alert('검색어를 입력해 주세요'); 
+	}
+
+	$.ajax({
+		type:'get',
+		url:'report/list.ajax',
+		async: false,
+		data:{
+			cnt:pagePerNum,
+			page:page,
+			report_status:report_status,
+			report_sort:report_sort,
+			keyword:keyword		
+		},
+		dataType:'json',
+		success:function(data){
+			console.log("검색결과"+data.list);
+			drawList(data.list);
+			//	subSearch(); 
+				//currPage = data.currPage;
+				//불러오기가 성공되면 플러그인 을 이용해 페이징 처리
+				$("#pagination").twbsPagination({
+					initiateStartPageClick: false,
+					startPage:data.currPage, //시작 페이지
+					totalPages: data.pages, // 총 페이지(전체 개시물 수 / 한 페이지에 보여줄 게시물 수)
+					visiblePages: 5, //한번에 보여줄 페이지 수 [1][2][3][4][5]
+					//href:'cliSearch.ajax?cnt='+pagePerNum+'&page='+currPage+'&searchType='+searchType+'&keyword='+keyword;
+					/* onPageClick:function(){
+						  //href:'?page={{number}}&searchcol='+$('#search_select').val()+'&searchval='+$('#searchval').val()
+						//href:'?cnt='+pagePerNum+'&page='+currPage+'&searchType='+searchType+'&keyword='+keyword;
+						 $('.page-link').on('click',function(){
+								console.log('s');
+								location.href='cliSearch.ajax?cnt='+pagePerNum+'&page='+currPage+'&searchType='+searchType+'&keyword='+keyword;
+							
+						 })
+						
+					} ,
+					  */
+					
+					
+			 		onPageClick:function(e,page){
+						//console.log(e);//클릭한 페이지와 관련된 이벤트 객체
+						console.log("정보"+page);//사용자가 클릭한 페이지
+						//currPage = page;
+					
+						searchClick(page);
+						 
+					}   
+				});			
+		},
+		error:function(e){
+			console.log(e);
+		}	
+	});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* 체크박스 */
+
+
+$('#all').click(function(){
+	//console.log($('input[type="checkbox"]'))
+	var $chk = $('input[type="checkbox"]'); // 체크박스를 모두 가져옴 
+	console.log($chk);
+	//console.log($(this).is(":checked"));
+	if($(this).is(":checked")){ // 현재 일어난 이벤트 (this)가 checked 상태이면 true 
+		$chk.prop("checked",true); //prop과 attr의 차이 
+	}else{		// prop는 동적인 요소의 속성 -> 애초에 html로  있던 요소가 아니라 나중에 js를 통해 그려진 요소
+		$chk.prop("checked",false); // attr 정정 요소의 속성-> 애초에 html로 있었던 요소 
+	}
+});
+
+
+
+
+
 </script>
 </html>

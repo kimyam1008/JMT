@@ -2,18 +2,35 @@ package com.jmt.admin.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 public class ReportDTO {
 	//신고 DTO 
 	private Integer report_no;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH시mm분", timezone = "Asia/Seoul")
 	private Date report_date; 
 	private String report_reason; 
 	private String report_proc_status; 
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH시mm분", timezone = "Asia/Seoul")
 	private Date report_proc_date; 
 	private Integer class_no; 
 	private Integer idx; 
 	private String reported; 
 	private String reporter;
+	private String report_title; 
+
 	
+	public String getReport_title() {
+		return report_title;
+	}
+	public void setReport_title(String report_title) {
+		this.report_title = report_title;
+	}
+
 	// class code 
 	private String class_name; 
 	

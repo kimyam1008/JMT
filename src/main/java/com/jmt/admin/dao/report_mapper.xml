@@ -2,13 +2,102 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jmt.admin.dao.ReportDAO">
-	<select id="reportList" resultType="hashmap">
-	SELECT c.class_name ,r.reporter ,r.reported ,r.report_date ,r.report_proc_status ,r.report_proc_date ,r.idx ,r.class_no,r.report_reason  FROM report r 
+	
+	
+	
+	<select id="reportList" parameterType="hashmap" resultType="com.jmt.admin.dto.ReportDTO">
+	SELECT c.class_name ,c.class_no,r.reporter ,r.reported ,r.report_date ,r.report_proc_status ,r.report_proc_date ,r.idx ,r.class_no,r.report_reason,r.report_no ,r.report_title  FROM report r 
 	JOIN codetable c on c.class_no = r.class_no  
-	ORDER BY r.report_date DESC limit #{param1} offset #{param2}
+	
+		<where>
+			
+			<if test = "report_status != '' and report_status != null">
+				<if test='report_status.equals("wait")'>
+					AND r.report_proc_status = '처리대기'
+				</if>
+				<if test="report_status.equals('blind')">
+					AND r.report_proc_status = '블라인드'
+				</if>
+				<if test="report_status.equals('end')">
+					AND r.report_proc_status = '처리완료'
+				</if>
+			</if>
+			
+			<if test="report_sort !='' and report_sort!= null and keyword !=''  and keyword !=null ">
+				<if test ="report_sort.equals('allList')">
+					
+				</if>
+				<if test ="report_sort.equals('post')">
+					 
+				</if>
+				<if test ="report_sort.equals('sort')">
+					AND c.class_name  LIKE concat('%',#{keyword},'%') 
+				</if>
+				<if test ="report_sort.equals('reporter')">
+					AND r.reporter LIKE concat('%',#{keyword},'%') 
+				</if>
+				<if test ="report_sort.equals('title')">
+					AND r.report_title LIKE concat('%',#{keyword},'%') 
+				</if>
+			</if>
+			
+		</where>
+	ORDER BY r.report_date DESC limit #{cnt} offset #{offset}
 	</select>
 	
-	<select id="allCount" resultType="Integer">
-		SELECT COUNT(report_no) FROM report 	
+	
+	
+	<select id="allCount" parameterType="hashmap" resultType="Integer">
+		SELECT COUNT(r.report_no) FROM report r 	
+		join codetable c on c.class_no = r.class_no  
+		<where>
+			
+			<if test = "report_status != '' and report_status != null">
+				<if test='report_status.equals("wait")'>
+					AND r.report_proc_status = '처리대기'
+				</if>
+				<if test="report_status.equals('blind')">
+					AND r.report_proc_status = '블라인드'
+				</if>
+				<if test="report_status.equals('end')">
+					AND r.report_proc_status = '처리완료'
+				</if>
+			</if>
+			
+			<if test="report_sort !='' and report_sort!= null and keyword !=''  and keyword !=null ">
+				<if test ="report_sort.equals('allList')">
+					
+				</if>
+				<if test ="report_sort.equals('post')">
+					 
+				</if>
+				<if test ="report_sort.equals('sort')">
+					AND c.class_name  LIKE concat('%',#{keyword},'%') 
+				</if>
+				<if test ="report_sort.equals('reporter')">
+					AND r.reporter LIKE concat('%',#{keyword},'%') 
+				</if>
+				<if test ="report_sort.equals('title')">
+					AND r.report_title LIKE concat('%',#{keyword},'%') 
+				</if>
+			</if>
+			
+		</where>
+	
 	</select>
+	
+	
+	<!-- 신고 상세보기 -->
+	<select id="reportDetail" parameterType="int" resultType="com.jmt.admin.dto.ReportDTO">
+		select r.report_no , r.report_date ,r.report_reason ,r.report_proc_status ,r.report_proc_date ,r.reported ,r.reporter ,r.report_title from report r 
+		where r.report_no =#{param1}
+	</select> 
+	
+	<!-- 신고 상세 수정하기 -->
+	<update id="reportUpdate" parameterType="hashmap">
+		UPDATE report r SET r.report_reason = #{reason} , r.report_proc_status=#{report_status} WHERE r.report_no = #{report_no}
+	</update>
+	
+	
+	
 </mapper>
