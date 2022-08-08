@@ -32,12 +32,12 @@ public class LightningController {
 			if(foodList.size()>0) {
 				model.addAttribute("foodList", foodList);
 			}
-		
+		/*
 			ArrayList<LightningDTO> list = service.list();
 			if(list.size()>0) {
 				model.addAttribute("list", list);
 			}
-			
+			*/
 		return "./Lightning/lightning";
 	}
 	
@@ -52,7 +52,6 @@ public class LightningController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		//params 확인
-		logger.info("params : " + params);
 		logger.info("모임 이름 : "+params.get("lightning_title"));
 		logger.info("음식카테고리 : "+params.get("food_no"));
 		logger.info("속도 : "+params.get("eat_speed"));
@@ -70,9 +69,8 @@ public class LightningController {
 		}
 		*/
 		ArrayList<LightningDTO> selectedList = service.selectedList(params);
-		if(selectedList.size()>0) {
-			map.put("list", selectedList);
-		}
+		map.put("list", selectedList);
+	
 		
 		
 		return map;

@@ -18,8 +18,9 @@
 </head>
 <body>
 
-		<input type="text" id="lightning_title" placeholder="모임 이름을 입력해주세요" required/>
-		<button  type="submit" >검색</button><br/>
+		<input type="text" id="lightning_title" placeholder="모임 이름을 입력해주세요"
+		 onKeypress="javascript:if(event.keyCode==13) {enterkey()}" />
+		<button>검색</button><br/>
 	
 	
 	<select id="food_no">
@@ -60,6 +61,7 @@
 			</tr>
 		</thead>
 		<tbody id="list">
+		<!-- 
 				<c:forEach items="${list}" var="list">
 			        <tr>
 			            <td>${list.restaurant_name}</td>
@@ -72,87 +74,117 @@
 			            <td>참여여부</td>
 					</tr>
 		 	</c:forEach>
+		 -->
 		</tbody>
 	</table>
 
 </body>
 <script>
+listCall();
 
-$("button").on("click",function(){
-	listCall();
-});
-
-$("select").on("change", function(){ 
-	listCall();
-});
-
-$("input[name='gender']:radio").on("change",function(){
-	listCall();
-});
-
-
-function listCall(){
+	//검색버튼 클릭시
+	$("button").on("click",function(){
+		// 검색 시 기존 옵션 값 날리기위해
+		$("#food_no").val("");
+		$("#eat_speed").val("");
+		$("#job").val("");
+		$("#gender:checked").prop("checked",false);
+		
+		listCall();
+	});
 	
-	var lightning_title = $("#lightning_title").val();
-	var food_no = $("#food_no").val();
-	var eat_speed = $("#eat_speed").val();
-	var job = $("#job").val();
-	var gender = $("#gender:checked").val(); // ->아무것도 체크안됐을때 undefined /다른건 공백
-	
-	/*
-	console.log(food_no);
-	console.log(eat_speed);
-	console.log(job);
-	console.log(gender);
-	*/
-	
-	
-	$.ajax({
-		type: 'get',
-		url : 'lightList.ajax',
-		data : {
-			'lightning_title' : lightning_title,
-			'food_no' : food_no,
-			'eat_speed' : eat_speed,
-			'job' : job,
-			'gender' : gender
-		},
-		dataType : 'json',
-		success : function(data){
-			console.log(data);
-			drawList(data.list);
-		},
-		error : function(e){
-			console.log(e);
+	//검색값 입력 후 enter누를 시 
+	function enterkey(){
+		// 검색 시 기존 옵션 값 날리기위해
+		$("#food_no").val("");
+		$("#eat_speed").val("");
+		$("#job").val("");
+		$("#gender:checked").prop("checked",false);
+			
+		listCall();
+	}
+
+	//셀렉트박스 값이 변경될 때 
+	$("select").on("change", function(){ 
+		listCall();
+	});
+
+	//radio 값이 변경될 때
+	$("input[name='gender']:radio").on("change",function(){
+		listCall();
+	});
+
+
+	function listCall(){
+		
+		var lightning_title = $("#lightning_title").val();
+		var food_no = $("#food_no").val();
+		var eat_speed = $("#eat_speed").val();
+		var job = $("#job").val();
+		var gender = $("#gender:checked").val(); // ->아무것도 체크안됐을때 undefined /다른건 공백
+		
+		/*
+		console.log(food_no);
+		console.log(eat_speed);
+		console.log(job);
+		console.log(gender);
+		*/
+		
+		$.ajax({
+			type: 'get',
+			url : 'lightList.ajax',
+			data : {
+				'lightning_title' : lightning_title,
+				'food_no' : food_no,
+				'eat_speed' : eat_speed,
+				'job' : job,
+				'gender' : gender
+			},
+			dataType : 'json',
+			success : function(data){
+				//console.log(data);
+				drawList(data.list);
+			},
+			error : function(e){
+				console.log(e);
+			}
+			
+		});
+	}
+
+
+	function drawList(list){
+		//console.log(list);
+		var content ='';
+		//데이터가 있는 경우
+		if(list.length>0){					
+			list.forEach(function(item,idx){
+				//console.log(item);
+				var date = new Date(item.lightning_date);
+
+				content += '<tr>';
+				content += '<td>'+item.restaurant_name+'</td>';
+				content += '<td>'+item.food_name+'</td>';
+				content += '<td>'+item.leader_id+'</td>';
+				content += '<td><a href="detail.go?idx='+item.lightning_no+'">'+item.lightning_title+'</a></td>';
+				content += '<td>'+date.toLocaleDateString("ko-KR")+'</td>';
+				content += '<td>'+item.member_count +' / '+ item.member_num+'</td>';
+				content += '<td>'+item.lightning_status+'</td>';
+				content += '<td>참여여부</td>';
+				content += '</tr>';
+			});
+			$('#list').empty();
+			$('#list').append(content); 
+			
+		//데이터가 없을 경우	
+		} else{
+			content += '<tr>';
+			content += '<td colspan="8" style="text-align: center">찾으시는 데이터가 없습니다.</td>';
+			content += '</tr>';
+			$('#list').empty();
+			$('#list').append(content); 
+			
 		}
-		
-	});
-}
-
-
-
-function drawList(list){
-	//console.log(list);
-	var content ='';
-	
-	list.forEach(function(item,idx){
-		//console.log(item);
-		var date = new Date(item.lightning_date);
-		
-		content += '<tr>';
-		content += '<td>'+item.restaurant_name+'</td>';
-		content += '<td>'+item.food_name+'</td>';
-		content += '<td>'+item.leader_id+'</td>';
-		content += '<td><a href="detail.go?idx='+item.lightning_no+'">'+item.lightning_title+'</a></td>';
-		content += '<td>'+date.toLocaleDateString("ko-KR")+'</td>';
-		content += '<td>'+item.member_count +' / '+ item.member_num+'</td>';
-		content += '<td>'+item.lightning_status+'</td>';
-		content += '<td>참여여부</td>';
-		content += '</tr>';
-	});
-	$('#list').empty();
-	$('#list').append(content);
-	
-}
+	}
 </script>
 </html>
