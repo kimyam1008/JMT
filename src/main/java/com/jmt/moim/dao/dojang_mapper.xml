@@ -2,5 +2,57 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jmt.moim.dao.DojangDAO">
+
+	<select id="dojangList" parameterType="hashmap" resultType="dojang">
+		SELECT 
+			d.dojang_no
+			, f.food_name
+			, d.leader_id
+			, d.dojang_title
+			, d.dojang_create
+			,(select count(member_id)+1 from apply a where class_no = 3 and status = '승인' and a.idx = d.dojang_no) as member_count
+			, d.dojang_status
+			, d.people_num
+			, d.gender
+		FROM dojanglist d
+		JOIN food f ON d.food_no = f.food_no
+		<where>
+			<if test="search != null and search != ''">
+				AND d.dojang_title LIKE CONCAT('%', #{search}, '%')
+			</if>
+	        <if test="foodname != null and foodname != ''">
+	        	AND  d.food_no = #{foodname}
+        	</if>
+        	<if test="gender != null and gender != ''">
+	        	AND  d.gender = #{gender}
+        	</if>
+		</where>
+		ORDER BY d.dojang_no DESC limit #{cnt} OFFSET #{offset};
+	</select>
+	
+	<select id="allCount" parameterType="hashmap" resultType="int">
+		SELECT
+			COUNT(dojang_no)
+		FROM dojanglist d
+		<where>
+			<if test="search != null and search != ''">
+				AND d.dojang_title LIKE CONCAT('%', #{search}, '%')
+			</if>
+			<if test="foodname != null and foodname != ''">
+	        	AND  d.food_no = #{foodname}
+        	</if>
+		</where>
+	</select>
+	
+	<select id="foodname" resultType="dojang">
+		SELECT food_no, food_name FROM food
+	</select>
+	
+	<!-- 
+	<select id="memberCOUNT" parameterType="String" resultType="String">
+	UPDATE dojanglist SET member_count = (SELECT COUNT(member_id)+1 FROM apply a WHERE class_no = 3 and status = '승인' and idx = #{dojangNo}
+	WHERE dojang_no IN (#{dojangNo});
+	</select>
+	 -->
 	
 </mapper>
