@@ -23,18 +23,16 @@ public class GroupReviewController {
 	
 	//리스트 호출
 	@RequestMapping(value = "/groupReviewList")
-	public String groupReviewList(){
+	public String groupReviewMain(){
 		String page ="./GroupReview/groupReviewList";
 		return page;
 	}
 	
 	@RequestMapping("/groupReviewList.ajax")
 	@ResponseBody
-	public HashMap<String, Object> groupReviewListAjax(@RequestParam HashMap<String, String> params){
+	public HashMap<String, Object> groupReviewList(@RequestParam HashMap<String, String> params){
 		logger.info("모임 후기 리스트 요청 : "+params);
-		HashMap<String, Object> map = service.groupReviewList(params);
-		ArrayList<GroupReviewDTO> groupReviewList = (ArrayList<GroupReviewDTO>) map.get("groupReviewList");
-		return map;
+		return service.groupReviewList(params);
 	}
 	
 	//모임 후기 검색 ajax

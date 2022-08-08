@@ -5,7 +5,9 @@
 <meta charset="UTF-8">
 <title>모임 후기 리스트</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="resources/JS/groupReview/jquery.twbsPagination.js"></script>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> 
+<script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
 <style>
 table,th,td {
 	border:1px solid black;
@@ -18,13 +20,17 @@ th,td {
 </head>
 <body>
 	<h3>모임 후기 리스트</h3>
-	<!-- <form action="reviewSearch.do" method="get"> -->
 		<fieldset>
+			<input type="hidden" id="searchCate" value="idx"/>
 			<input type="text" id="keyword" value="" placeholder="모임 이름을 입력해주세요"/>
 			<button id="reviewSearch">검색</button>
 		</fieldset>
-	<!-- </form> -->
-	<button onclick="location.href='moimReviewRegister.go'">글쓰기</button>
+	<button onclick="location.href='groupReviewRegister.go'">글쓰기</button>
+	<div>
+		<button name="idx" value="전체" onclick="groupSort()">전체</button>
+		<button name="idx" value="1" onclick="groupSort()">번개</button>
+		<button name="idx" value="3" onclick="groupSort()">도장깨기</button>
+	</div>
 	<table>
 		<thead>
 			<tr>
@@ -55,6 +61,81 @@ var currPage = 1;
 
 listCall(currPage);
 
+
+function groupSort(){
+	var idx = $("button[name='idx']").val();
+	console.log(idx);
+}
+
+function groupSortLight(){
+	var idx = $("button[name='idx']").val();
+	console.log(idx);
+}
+
+function groupSortDojang(){
+	var idx = $("button[name='idx']").val();
+	console.log(idx);
+}
+
+/* var moimKind = $('.moimKind').text();
+console.log(moimKind);
+
+idxChange(currPage);
+
+//번개, 도장 넣기
+function idxChange(){
+	if ($('.moimKind').text() == 1) {
+		$('.moimKind').text() = "번개";
+	} else {
+		$('.moimKind').text() = "도장깨기";
+	}
+} */
+
+/*
+//분류 선택
+$("input[name='idx']").on("click",function(){
+	$("#pagination").twbsPagination('destroy');
+	sortChangeCall(currPage);
+});
+
+function sortChangeCall(page){
+	var pagePerNum = 5;
+	var sortNum = $("input[name='idx']:clicked").val();
+	$('#keyword').val('');
+	console.log(sortNum);
+	
+	$.ajax({
+		type:'get',
+		url:'reviewSearch.ajax',
+		data:{
+			sortNum:sortNum,
+			cnt:pagePerNum,
+			page:page
+			},
+		dataType:'JSON',
+		success:function(data){
+			drawList(data.sortChange);
+			currPage = data.currPage;
+			
+			$("#pagination").twbsPagination({
+				startPage: data.currPage, //시작 페이지
+				totalPages: data.pages, //총 페이지
+				visiblePages: 5, //한번에 보여줄 페이지 수
+				onPageClick: function(e,page){
+					console.log(page); //사용자가 클릭한 페이지
+					currPage = page;
+					sortChangeCall(page);
+				}
+			});
+		},
+		error:function(e){
+			console.log(e);
+		}
+	});
+}
+*/
+
+//리스트 호출
 function listCall(page){
 	
 	var pagePerNum = 10;
@@ -72,6 +153,7 @@ function listCall(page){
 			//console.log(data);
 			drawList(data.groupReviewList);
 			currPage=data.currPage;
+			console.log(currPage);
 			
 			//플러그인 사용 페이징
 			$("#pagination").twbsPagination({
@@ -90,6 +172,8 @@ function listCall(page){
 			console.log(e);
 		}
 	});
+	
+	
 }
 
 //검색
@@ -103,8 +187,10 @@ function reviewSearch(page){
 	
 	var pagePerNum = 10;
 	 
-	 var keyword = $("#keyword").val();
-	 console.log(keyword);
+	var searchCate = $("#searchCate").val();
+	console.log(searchCate);
+	var keyword = $("#keyword").val();
+	console.log(keyword);
 	 
 	 $.ajax({
 		 type:'get',
@@ -112,7 +198,8 @@ function reviewSearch(page){
 		 data:{
 			 cnt : pagePerNum,
 			 page : page,
-			 reviewSearch : reviewSearch,
+			 //reviewSearch : reviewSearch,
+			 searchCate : searchCate,
 			 keyword : keyword
 		 },
 		dataType:'json',
@@ -146,17 +233,22 @@ function drawList(groupReviewList){
 	
 	var content="";
 	
-	groupReviewList.forEach(function(item){
+	/* if ($('.moimKind') == 1) {
+		$('.moimKind').html() = "번개";
+	}; */
+	
+	groupReviewList.forEach(function(item,groupReview_no){
 		
 		//console.log(item);
 		content += '<tr>';
 		content += '<td>'+item.groupReview_no+'</td>';
 		content += '<td><a href="groupReviewDetail.do?groupReview_no='+item.groupReview_no+'">'+item.review_title+'</a></td>';
-		content += '<td>'+item.class_no+'</td>';
+		content += '<td class="class_no">'+item.class_no+'</td>';
 		content += '<td>'+item.idx+'</td>';
 		content += '<td>'+item.review_date+'</td>';
 		content += '</tr>';
 	});
+	
 	
 	$('#list').empty();
 	$('#list').append(content);

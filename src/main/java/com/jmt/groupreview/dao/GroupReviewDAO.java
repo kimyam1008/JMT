@@ -15,4 +15,6 @@ public interface GroupReviewDAO {
 
 	int allCount(HashMap<String, Object> searchResult);
 
+	ArrayList<GroupReviewDTO> sortNumChange(String sortNum, int cnt, int offset);
+
 }
