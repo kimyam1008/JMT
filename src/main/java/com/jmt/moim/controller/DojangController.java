@@ -51,10 +51,32 @@ public class DojangController {
 	
 	//도장 상세
 	@RequestMapping("/dojangDetail.do")
-	public ModelAndView dojangDetail(@RequestParam String dojang_no) {
-		return service.dojangDetail(dojang_no);
+	public ModelAndView dojangDetail(@RequestParam String dojang_no, HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+		return service.dojangDetail(dojang_no,loginId);
 	}
 	
+	//가입신청 팝업
+	@RequestMapping("/dojangApply.go")
+	public String dojangApplyGo(@RequestParam String dojang_no, HttpSession session) {
+		session.setAttribute("dojang_no", dojang_no);
+		logger.info("도장가입신청"+dojang_no+"로그인아이디::"+session.getAttribute("loginId"));
+		return"./Dojang/dojangApply";	
+	}
+	
+	
+	@RequestMapping("/dojangApply.ajax")
+	@ResponseBody
+	public HashMap<String, Object> dojangApply(HttpSession session){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String loginId = (String) session.getAttribute("loginId");
+		String dojang_no = (String) session.getAttribute("dojang_no");
+		
+		boolean dojangApply = service.dojangApply(dojang_no,loginId);
+		map.put("dojangApply", dojangApply);
+
+		return map;
+	}
 	
 	
 	

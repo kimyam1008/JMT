@@ -66,22 +66,42 @@
 	
 	<select id="dojangDetail" parameterType="String" resultType="dojang">
 		SELECT 
-			dojang_no
-			,dojang_title
-			,leader_id
-			,people_num
-			,gender
-			,eat_speed
-			,job
+			d.dojang_no
+			,d.dojang_title
+			,d.leader_id
+			,d.people_num
+			,d.gender
+			,d.eat_speed
+			,d.job
 			,(select count(member_id)+1 from apply a where class_no = 3 and status = '승인' and a.idx = d.dojang_no) as member_count
-			,dojang_create
+			,d.dojang_create
 			,f.food_name
-			,gender
-			,dojang_content
+			,d.dojang_content
 			FROM dojanglist d
 			JOIN food f ON d.food_no = f.food_no
-			WHERE d.dojang_no = #{dojang_no}
-			
+			WHERE d.dojang_no = #{dojang_no}	
+	</select>
+	
+	<select id="dojangGreview" parameterType="String" resultType="dojang">
+			SELECT
+				g.groupReview_no
+				,g.member_id
+				,g.review_title
+				,review_date 
+				FROM groupreview g
+				JOIN dojanglist d ON d.dojang_no = idx AND g.class_no = 3
+				WHERE d.dojang_no = #{dojang_no}
+	</select>
+	
+	<insert id="dojangApply">
+		insert into apply(idx,class_no,status,member_id)
+			values(#{param1},3,'대기',#{param2});
+	</insert>
+	
+	<select id="applyStatus" resultType="String">
+		SELECT status 
+			FROM apply a 
+		WHERE class_no = 3 AND member_id = #{param1} AND idx = #{param2};
 	</select>
 	
 </mapper>

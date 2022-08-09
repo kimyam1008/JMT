@@ -15,5 +15,11 @@ public interface DojangDAO {
 
 	DojangDTO dojangDetail(String dojang_no);
 
+	ArrayList<DojangDTO> dojangGreview(String dojang_no);
+
+	int dojangApply(String dojang_no, String loginId);
+
+	String applyStatus(String loginId, String dojang_no);
+
 
 }

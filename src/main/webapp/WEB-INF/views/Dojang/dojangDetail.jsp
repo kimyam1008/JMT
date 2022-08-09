@@ -16,6 +16,10 @@ table, th, td{
 </style>
 </head>
 <body>
+<div>
+	 ${sessionScope.loginId} 님 환영합니다, <a href="logout.do">로그아웃</a>
+</div>
+<br/>
 <h3>도장 상세</h3>
 	<table>
 	<tr>
@@ -43,17 +47,38 @@ table, th, td{
 		<td>${dojangDetail.job}</td>
 	</tr>
 	<tr>
-		<td colspan="4">${dojangDetail.dojang_content}</td>
+		<td colspan="4">
+		<h5>소개글</h5>	
+		${dojangDetail.dojang_content}</td>
 	</tr>
 	<tr>
-		<td colspan="4">모임후기</td>
+		<td colspan="4">
+			<h5>모임후기</h5>
+			<ul>
+			<c:if test = "${dojangGreview.size() ==0}">
+				등록된 글이 없습니다.
+			</c:if>
+				<c:forEach items="${dojangGreview}" var="djg">
+					<p>${djg.member_id}<span style="padding-right: 5px"></span>
+					: <span style="padding-right: 5px"></span>
+					<a href="?groupReview_no=${djg.groupReview_no}">${djg.review_title}</a>
+				</c:forEach>
+			</ul>
+		</td>
 	</tr>
 	<tr>
-		<th>성별</th>
-		<td colspan="3">${dojangDetail.gender}</td>
-	</tr>
+			<th colspan="4">
+				<input type="button" value="신청" onclick="dojangApply_pop()"/>
+				<input type="button" value="목록" onclick="location.href='dojang.go'"/>
+			</th>
+		</tr>
 	</table>
 </body>
 <script>
+function dojangApply_pop(){
+	window.open("/dojangApply.go?dojang_no="+${dojangDetail.dojang_no},"new","width=400, height=200, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+
+}
+
 </script>
 </html>
