@@ -52,8 +52,8 @@
 			,groupReview.member_id
 			,member_name
 			,review_date
-			,lightning_title as title
-			,dojang_title as title
+			,lightning_title
+			,dojang_title
 			,class_name
 			,review_content
 			,groupReview_no

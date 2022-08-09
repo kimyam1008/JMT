@@ -45,7 +45,7 @@
 </head>
 <body>
 	<h3>모임 후기 작성</h3>
-	<form action="groupReviewRegister" method="POST">
+	<!-- <form action="groupReviewRegister" method="POST"> -->
 		<table>
 			<tr>
 				<th>모임 검색</th>
@@ -79,11 +79,11 @@
 				</th>
 			</tr>
 		</table>
-	</form>
+	<!-- </form> -->
 </body>
 <script>
 function groupSearchPop(){
-	window.open("/groupSearchPop.go","new","width=1000, height=400, left=400 ,top=200, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	window.open("/groupSearchPop.go","new","width=500, height=400, left=400 ,top=200, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 
 }
 
