@@ -136,6 +136,6 @@ public class LightningController {
 	@Scheduled(cron="0 0 0 * * *")
 	public void changeStatus() {
 		service.changeStatus();
-		logger.info("업데이트완료");
+		logger.info("모집마감 변경 완료");
 	}
 }
