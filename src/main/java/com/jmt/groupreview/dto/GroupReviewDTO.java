@@ -14,9 +14,45 @@ public class GroupReviewDTO {
 	private Date review_date;
 	private String groupReview_status;
 	private int idx;
+	private String title;
 	private String dojang_title;
 	private String lightning_title;
+	private String class_name;
+	private int dojang_no;
+	private int lightning_no;
+	private String member_name;
 	
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public String getClass_name() {
+		return class_name;
+	}
+	public void setClass_name(String class_name) {
+		this.class_name = class_name;
+	}
+	public int getDojang_no() {
+		return dojang_no;
+	}
+	public void setDojang_no(int dojang_no) {
+		this.dojang_no = dojang_no;
+	}
+	public int getLightning_no() {
+		return lightning_no;
+	}
+	public void setLightning_no(int lightning_no) {
+		this.lightning_no = lightning_no;
+	}
 	public String getDojang_title() {
 		return dojang_title;
 	}

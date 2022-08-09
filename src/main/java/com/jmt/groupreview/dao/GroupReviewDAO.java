@@ -17,4 +17,6 @@ public interface GroupReviewDAO {
 
 	ArrayList<GroupReviewDTO> sortNumChange(String sortNum, int cnt, int offset);
 
+	GroupReviewDTO groupReviewDetail(String groupReview_no);
+
 }
