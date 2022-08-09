@@ -63,11 +63,25 @@
 		SELECT food_no, food_name FROM food
 	</select>
 	
-	<!-- 
-	<select id="memberCOUNT" parameterType="String" resultType="String">
-	UPDATE dojanglist SET member_count = (SELECT COUNT(member_id)+1 FROM apply a WHERE class_no = 3 and status = '승인' and idx = #{dojangNo}
-	WHERE dojang_no IN (#{dojangNo});
+	
+	<select id="dojangDetail" parameterType="String" resultType="dojang">
+		SELECT 
+			dojang_no
+			,dojang_title
+			,leader_id
+			,people_num
+			,gender
+			,eat_speed
+			,job
+			,(select count(member_id)+1 from apply a where class_no = 3 and status = '승인' and a.idx = d.dojang_no) as member_count
+			,dojang_create
+			,f.food_name
+			,gender
+			,dojang_content
+			FROM dojanglist d
+			JOIN food f ON d.food_no = f.food_no
+			WHERE d.dojang_no = #{dojang_no}
+			
 	</select>
-	 -->
 	
 </mapper>

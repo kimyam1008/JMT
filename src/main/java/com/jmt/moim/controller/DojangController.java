@@ -3,6 +3,8 @@ package com.jmt.moim.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.jmt.moim.dto.DojangDTO;
 import com.jmt.moim.service.DojangService;
@@ -28,7 +31,7 @@ public class DojangController {
 		return "./Dojang/dojang";
 	}
 	
-	
+	//도장 리스트
 	@RequestMapping(value = "/dojang.ajax")
 	@ResponseBody
 	public HashMap<String, Object> dojangList(@RequestParam HashMap<String, String> params) {
@@ -36,6 +39,7 @@ public class DojangController {
 		return service.dojangList(params);
 	}
 	
+	//음식 카테고리
 	@RequestMapping("/foodname.ajax")
 	@ResponseBody
 	public HashMap<String, Object> foodname(){
@@ -44,6 +48,14 @@ public class DojangController {
 		map.put("foodname", foodname);
 		return map;
 	}
+	
+	//도장 상세
+	@RequestMapping("/dojangDetail.do")
+	public ModelAndView dojangDetail(@RequestParam String dojang_no) {
+		return service.dojangDetail(dojang_no);
+	}
+	
+	
 	
 	
 	//도장모임 검색

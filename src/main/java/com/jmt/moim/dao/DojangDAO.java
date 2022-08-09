@@ -13,5 +13,7 @@ public interface DojangDAO {
 
 	ArrayList<DojangDTO> dojangList(HashMap<String, Object> searchResult);
 
+	DojangDTO dojangDetail(String dojang_no);
+
 
 }

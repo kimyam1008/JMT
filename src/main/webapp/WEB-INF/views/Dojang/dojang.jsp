@@ -227,7 +227,7 @@ function drawList(list){
 		content += '<tr>';
 		content += '<td>'+item.food_name+'</td>';
 		content += '<td>'+item.leader_id+'</td>';
-		content += '<td>'+item.dojang_title+'</td>';
+		content += '<td><a href="dojangDetail.do?dojang_no='+item.dojang_no+'">'+item.dojang_title+'</td>';
 		content += '<td>'+create+'</td>';
 		content += '<td>'+item.member_count+'/'+item.people_num+'</td>';
 		content += '<td>'+item.dojang_status+'</td>';

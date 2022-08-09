@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.jmt.moim.dao.DojangDAO;
 import com.jmt.moim.dto.DojangDTO;
@@ -67,7 +68,6 @@ public class DojangService {
 		
 		ArrayList<DojangDTO> list = dao.dojangList(searchResult);
 
-		//dao.memberCOUNT(dojangNo);
 		map.put("dojangList", list);
 
 		return map;
@@ -75,6 +75,14 @@ public class DojangService {
 
 	public ArrayList<DojangDTO> foodname() {
 		return dao.foodname();
+	}
+
+	public ModelAndView dojangDetail(String dojang_no) {
+		logger.info("도장 상세보기");
+		DojangDTO dojangDetail = dao.dojangDetail(dojang_no);
+		ModelAndView mav = new ModelAndView("./Dojang/dojangDetail");
+		mav.addObject("dojangDetail",dojangDetail);
+		return mav;
 	}
 
 

@@ -45,7 +45,39 @@ public class DojangDTO {
 	private String food_name;
 	
 	
+	private int groupReview_no;
+	private String review_title;
+	private String review_date;
+	private String groupReview_status;
 	
+	
+	
+	
+	
+	public int getGroupReview_no() {
+		return groupReview_no;
+	}
+	public void setGroupReview_no(int groupReview_no) {
+		this.groupReview_no = groupReview_no;
+	}
+	public String getReview_title() {
+		return review_title;
+	}
+	public void setReview_title(String review_title) {
+		this.review_title = review_title;
+	}
+	public String getReview_date() {
+		return review_date;
+	}
+	public void setReview_date(String review_date) {
+		this.review_date = review_date;
+	}
+	public String getGroupReview_status() {
+		return groupReview_status;
+	}
+	public void setGroupReview_status(String groupReview_status) {
+		this.groupReview_status = groupReview_status;
+	}
 	public String getFood_name() {
 		return food_name;
 	}
