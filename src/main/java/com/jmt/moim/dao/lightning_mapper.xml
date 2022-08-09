@@ -23,6 +23,7 @@
 		FROM lightninglist l JOIN restaurant r USING(restaurant_no)  
 		LEFT OUTER JOIN food f ON r.food_no = f.food_no
 	</select>
+	<include refid="selectedListSql"></include>
 	 -->
 	
 	
@@ -42,38 +43,37 @@
 		FROM lightninglist l JOIN restaurant r USING(restaurant_no)  
 		LEFT OUTER JOIN food f ON r.food_no = f.food_no
 		
+		WHERE lightning_status IN ("모집중","모집마감")
+		
 			<include refid="selectedListSql"></include>
+			
 		ORDER BY lightning_status DESC, lightning_create ASC limit 10 offset #{offset}
 	</select>
 	
 	<sql id="selectedListSql">
-		<trim prefix="where" suffixOverrides="and">
-		
 			<if test = "!lightning_title.equals('')">
-				lightning_title LIKE CONCAT('%',#{lightning_title}, '%') and
+				and lightning_title LIKE CONCAT('%',#{lightning_title}, '%') 
 			</if>
 		
 			<if test = "!food_no.equals('')">
-				f.food_no = #{food_no} and 
+				and f.food_no = #{food_no} 
 			</if>
 		
 			<if test = "!eat_speed.equals('')">
-				eat_speed = #{eat_speed} and 
+				and eat_speed = #{eat_speed}  
 			</if>
 			
 			<if test = "!job.equals('')">
-				job = #{job} and 
+				and job = #{job} 
 			</if>
 			
 			<if test = "gender!=null">
-				gender = #{gender} and 
+				and gender = #{gender}
 			</if>
-			
-		</trim>
 	</sql>
 	
 	<select id="allCount" resultType="int" parameterType="hashmap">
-		SELECT count(lightning_no) FROM lightninglist join food f using(food_no)
+		SELECT count(lightning_no) FROM lightninglist join food f using(food_no) WHERE lightning_status IN ("모집중","모집마감")
 		<include refid="selectedListSql"></include>
 	</select>
 	
