@@ -172,9 +172,11 @@ listCall(currpage);
 			},
 			dataType : 'json',
 			success : function(data){
-				console.log(data);
+				//console.log(data);
 				drawList(data.list);
-				console.log(data.pages);
+				//console.log(data.pages);
+				
+				
 				currPage = data.currPage;
 				//리스트불러오기가 성공되며 플러그인을 이용해 페이징 처리 //{} 옵션 추가
 				if(data.list.length>0){
@@ -205,6 +207,7 @@ listCall(currpage);
 	}
 
 
+		
 	function drawList(list){
 		//console.log(list);
 		var content ='';
@@ -218,11 +221,11 @@ listCall(currpage);
 				content += '<td>'+item.restaurant_name+'</td>';
 				content += '<td>'+item.food_name+'</td>';
 				content += '<td>'+item.leader_id+'</td>';
-				content += '<td><a href="detail.go?idx='+item.lightning_no+'">'+item.lightning_title+'</a></td>';
+				content += item.lightning_status == "모집중"? '<td><a href="detail.go?idx='+item.lightning_no+'">'+item.lightning_title+'</a></td>' : '<td>'+item.lightning_title+'</td>';
 				content += '<td>'+date.toLocaleDateString("ko-KR")+'</td>';
 				content += '<td>'+item.member_count +' / '+ item.member_num+'</td>';
 				content += '<td>'+item.lightning_status+'</td>';
-				content += '<td>참여여부</td>';
+				content += item.participate=="승인"? '<td>참여</td>' : '<td>미참여</td>'; 
 				content += '</tr>';
 			});
 			$('#list').empty();
@@ -238,5 +241,7 @@ listCall(currpage);
 			
 		}
 	}
+	
+
 </script>
 </html>

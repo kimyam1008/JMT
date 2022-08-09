@@ -3,6 +3,8 @@ package com.jmt.moim.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.jmt.moim.dto.LightningDTO;
 import com.jmt.moim.service.LightningService;
 
+import lombok.extern.slf4j.Slf4j;
+import sun.rmi.runtime.Log;
+
 @Controller
 public class LightningController {
 	
@@ -28,12 +33,12 @@ public class LightningController {
 	@RequestMapping("/lightList.go") 
 	public String listPage(Model model) {
 		logger.info("리스트 페이지 이동");
-		
 		//음식카테고리 가져오기 
 		ArrayList<LightningDTO> foodList = service.foodList();
 			if(foodList.size()>0) {
 				model.addAttribute("foodList", foodList);
 			}
+		
 		/*
 			ArrayList<LightningDTO> list = service.list();
 			if(list.size()>0) {
@@ -49,10 +54,12 @@ public class LightningController {
 	@RequestMapping(value = "/lightList.ajax")
 	@ResponseBody
 	public HashMap<String, Object> list(Model model,
-			@RequestParam HashMap<String, String>params) {
+			@RequestParam HashMap<String, String>params, HttpSession session) {
 		
 		logger.info("리스트 불러오기");
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		
 		
 		//params 확인
 		logger.info("모임 : "+params.get("lightning_title"));
@@ -67,6 +74,7 @@ public class LightningController {
 		selectedparams.put("eat_speed", params.get("eat_speed"));
 		selectedparams.put("job", params.get("job"));
 		selectedparams.put("gender", params.get("gender"));
+		selectedparams.put("loginId", session.getAttribute("loginId"));
 		
 		
 		/*

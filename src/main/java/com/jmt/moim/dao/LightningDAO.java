@@ -17,4 +17,6 @@ public interface LightningDAO {
 
 	void changeStatus();
 
+	int[] applyIdx(String loginId);
+
 }
