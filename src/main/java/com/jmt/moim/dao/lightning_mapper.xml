@@ -64,7 +64,7 @@
 				job = #{job} and 
 			</if>
 			
-			<if test = "gender!=null and !gender.equals('')">
+			<if test = "gender!=null">
 				gender = #{gender} and 
 			</if>
 			
