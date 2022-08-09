@@ -27,6 +27,8 @@ public class DojangService {
 		//검색조건
 		String search = params.get("search");
 		String foodname = params.get("foodname");
+		String eat_speed = params.get("eat_speed");
+		String job = params.get("job");
 		String gender = params.get("gender");
 		
 		
@@ -35,6 +37,8 @@ public class DojangService {
 		
 		searchResult.put("search", search);
 		searchResult.put("foodname", foodname);
+		searchResult.put("eat_speed", eat_speed);
+		searchResult.put("job", job);
 		searchResult.put("gender", gender);
 		
 
