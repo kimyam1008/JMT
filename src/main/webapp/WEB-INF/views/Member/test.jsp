@@ -5,12 +5,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<style>
-</style>
 </head>
 <body>
-소영님 파이팅 ㅎㅎ
+<jsp:include page="loginBox.jsp"/>
 </body>
-<script>
-</script>
+<script></script>
 </html>
