@@ -9,6 +9,13 @@ public class MemberDTO {
 	private String member_birth;
 	private String member_status;
 	
+	private int profile_no;
+	private int food_no;
+	private int grade_no;
+	private String eat_speed;
+	private String profile_gender;
+	private String profile_job;
+	
 	public String getMember_id() {
 		return member_id;
 	}
@@ -45,6 +52,44 @@ public class MemberDTO {
 	public void setMember_status(String member_status) {
 		this.member_status = member_status;
 	}
+	public int getProfile_no() {
+		return profile_no;
+	}
+	public void setProfile_no(int profile_no) {
+		this.profile_no = profile_no;
+	}
+	public int getFood_no() {
+		return food_no;
+	}
+	public void setFood_no(int food_no) {
+		this.food_no = food_no;
+	}
+	public int getGrade_no() {
+		return grade_no;
+	}
+	public void setGrade_no(int grade_no) {
+		this.grade_no = grade_no;
+	}
+	public String getEat_speed() {
+		return eat_speed;
+	}
+	public void setEat_speed(String eat_speed) {
+		this.eat_speed = eat_speed;
+	}
+	public String getProfile_gender() {
+		return profile_gender;
+	}
+	public void setProfile_gender(String profile_gender) {
+		this.profile_gender = profile_gender;
+	}
+	public String getProfile_job() {
+		return profile_job;
+	}
+	public void setProfile_job(String profile_job) {
+		this.profile_job = profile_job;
+	}
+	
+	
 	
 	
 

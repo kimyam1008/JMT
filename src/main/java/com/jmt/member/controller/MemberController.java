@@ -152,11 +152,47 @@ public class MemberController {
 		// 로그아웃
 		@RequestMapping(value = "logout.do")
 		public String logout(Model model,HttpSession session) {
-				session.removeAttribute("loginId");
-				session.removeAttribute("mb_class");
-				model.addAttribute("msg", "로그아웃 되었습니다");
+			session.removeAttribute("loginId");
+			session.removeAttribute("mb_class");
+			model.addAttribute("msg", "로그아웃 되었습니다");
 				
 			return "/Member/login"; 
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		//프로필 등록 페이지
+		@RequestMapping(value = "profileRegister.go")
+		public String profileRegister() {
+				
+			return "/Member/profileRegister"; 
+		}
+		
+		//프로필 등록
+		@RequestMapping(value = "profileRegister.do")
+		public String profileRegister(HttpSession session, @RequestParam HashMap<String, Object> params) {
+			logger.info("프로필 요청 값 {}: ",params);
+			String loginId = (String) session.getAttribute("loginId");
+			if(params.get("") != null) {
+				//service.profileRegister(loginId,params);
+			}
+				
+			return null; 
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 }
