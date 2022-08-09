@@ -19,6 +19,10 @@ th, td {
 </style>
 </head>
 <body>
+<div>
+	 ${sessionScope.loginId} 님 환영합니다, <a href="logout.do">로그아웃</a>
+</div>
+<br/>
 	<div style="float: left;">
 		<input type="text" id="search" placeholder="모임이름을 검색해주세요">
 		<button id="moimSearch">검색</button>
@@ -227,7 +231,7 @@ function drawList(list){
 		content += '<tr>';
 		content += '<td>'+item.food_name+'</td>';
 		content += '<td>'+item.leader_id+'</td>';
-		content += '<td>'+item.dojang_title+'</td>';
+		content += '<td><a href="dojangDetail.do?dojang_no='+item.dojang_no+'">'+item.dojang_title+'</td>';
 		content += '<td>'+create+'</td>';
 		content += '<td>'+item.member_count+'/'+item.people_num+'</td>';
 		content += '<td>'+item.dojang_status+'</td>';

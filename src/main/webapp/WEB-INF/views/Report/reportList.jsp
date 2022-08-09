@@ -26,6 +26,7 @@
 <body>
 <h1>신고 리스트 입니다.</h1>
 <select name="report_status">
+	<option selected >전체</option>
 	<option value="wait">처리대기</option>
 	<option value="end">처리완료</option>
 	<option value="blind">블라인드</option>
@@ -34,12 +35,12 @@
 	<option value= "allList">전체</option>
 	<option value= "post">게시글</option>
 	<option value= "sort">분류</option>
-	<option value= "reporter">작성자ID</option>
+	<option value= "reporter">신고자</option>
 	<option value= "title">제목</option>
 </select>
 <input type="text" name="keyword" placeholder="검색어를 입력해 주세요"/>
 <button type="button" onclick="searchClick()">검색</button>
-
+<button type="button" onclick="blind()">블라인드</button>
 <table>
 		<thead>
 			<tr>
@@ -133,8 +134,9 @@ function drawList(list){
 	list.forEach(function(item){
 		//console.log(item);
 		content += '<tr>';
-		content += '<td> <input type="checkbox"></td>';	
-		content += '<td>'+'<a href=report/detail?report_no='+item.report_no+'>'+item.report_title+'<a/></td>';
+		content += '<td> <input type="checkbox" value='+item.report_no+'></td>';	
+		content += '<td>'+'<a href=report/detail?report_no='+item.report_no+'&class_no='+item.class_no+'&idx='+item.idx+'>'+item.report_title+'<a/></td>'; 
+		/* content += '<td>'+'<a href=report/detail?report_no='+item.report_no+'>'+item.report_title+'<a/></td>'; */
 		content += '<td>'+item.class_name+'</td>';
 		content += '<td>'+item.reporter+'</td>';
 		content += '<td>'+item.report_date+'</td>';
@@ -230,8 +232,34 @@ function searchClick(page){
 
 
 
+/* 블라인드 */
+function blind(){ 
+	var blindPost= [] ;
 
+	$('#list input[type="checkbox"]:checked').each(function(idx,item){
+		blindPost.push($(this).val());		
+	}); 
+	
+	
 
+ 	$.ajax({
+		url:'report/blind.ajax',
+		type:'post',
+		dataType:'json',
+		data:{blindPost:blindPost},
+		success:function(data){console.log(data);
+		console.log('블라인드 성공');
+		listCall(currPage); 
+		alert(" 블라인드 처리를 했습니다.");
+		},
+		
+		error: function(e){console.log(e);}
+	
+	}); 
+	
+	
+	
+}
 
 
 
