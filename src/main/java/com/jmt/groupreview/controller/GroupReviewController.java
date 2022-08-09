@@ -48,7 +48,8 @@ public class GroupReviewController {
 
 	//모임 후기 작성 페이지 이동
 	@RequestMapping(value = "/groupReviewRegister.go")
-	public String groupReviewRegisterGo(){
+	public String groupReviewRegisterGo(HttpSession session){
+		session.getAttribute("loginId");
 		return "./GroupReview/groupReviewRegister";
 	}
 	
