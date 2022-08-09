@@ -19,7 +19,7 @@ public interface DojangDAO {
 
 	int dojangApply(String dojang_no, String loginId);
 
-	String applyStatus(String loginId, String dojang_no);
+	DojangDTO applyStatus(String loginId, String dojang_no);
 
 
 }

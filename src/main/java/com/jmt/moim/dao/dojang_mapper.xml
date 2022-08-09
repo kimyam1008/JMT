@@ -98,7 +98,7 @@
 			values(#{param1},3,'대기',#{param2});
 	</insert>
 	
-	<select id="applyStatus" resultType="String">
+	<select id="applyStatus" resultType="dojang">
 		SELECT status 
 			FROM apply a 
 		WHERE class_no = 3 AND member_id = #{param1} AND idx = #{param2};

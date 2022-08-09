@@ -82,7 +82,8 @@ public class DojangService {
 		DojangDTO dojangDetail = dao.dojangDetail(dojang_no);
 		ArrayList<DojangDTO> dojangGreview = dao.dojangGreview(dojang_no);
 		
-		String applyStatus = dao.applyStatus(loginId,dojang_no);
+		DojangDTO applyStatus = dao.applyStatus(loginId,dojang_no);
+		logger.info("data:::"+loginId+","+dojang_no);
 		
 		ModelAndView mav = new ModelAndView("./Dojang/dojangDetail");
 		mav.addObject("dojangDetail",dojangDetail);
