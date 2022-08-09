@@ -46,9 +46,10 @@ public class LightningService {
 		logger.info("업데이트완료");
 	}
 
-	public int[] applyIdx(String loginId) {
-		logger.info("승인된 모임의 글번호 가져오기 서비스 요청");
-		return dao.applyIdx(loginId);
+
+	public LightningDTO detail(String lightning_no) {
+		logger.info("상세보기 서비스 요청");
+		return dao.detail(lightning_no);
 	}
 	
 }

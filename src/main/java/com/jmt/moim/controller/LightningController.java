@@ -117,20 +117,27 @@ public class LightningController {
 		map.put("currPage", page);
 		map.put("pages", pages);
 		
-		
 		//리스트 불러오기
 		ArrayList<LightningDTO> selectedList = service.selectedList(selectedparams);
 		map.put("list", selectedList);
 		
-		
-	
-
-		
-		
-		
-		
 		return map;
 	}
+	
+	
+	@RequestMapping("/lightDetail.go") 
+	public String lightDetail(Model model,@RequestParam String lightning_no) {
+		logger.info("상세보기 페이지 이동");
+		
+		LightningDTO dto = service.detail(lightning_no);
+		
+		
+		return "./Lightning/lightDetail";
+	}
+	
+	
+	
+	
 	
 	//매일 밤 12시 모임날짜가 지난 게시글 모집마감으로 변경
 	@Scheduled(cron="0 0 0 * * *")

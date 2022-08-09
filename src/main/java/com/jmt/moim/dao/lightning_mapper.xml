@@ -82,5 +82,17 @@
 		UPDATE lightninglist SET lightning_status="모집마감" WHERE <![CDATA[lightning_date < curdate()]]> 
 	</update>
 	
+	<select id="detail" resultType="light" parameterType="String">
+		select 
+			lightning_title
+			,leader_id
+			,member_num
+			,(select count(apply_no)+1 from apply a where status="승인" and class_no = 1 and l.lightning_no = #{lightning_no}) as member_count
+			,eat_speed
+			,lightning_create
+			,lightning_date
+			
+		from lightninglist l join restaurant r where lightning_no = #{lightning_no}
+	</select>
 	
 </mapper>
