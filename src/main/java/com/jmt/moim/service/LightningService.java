@@ -22,15 +22,33 @@ public class LightningService {
 		logger.info("음식카테고리 가져오기 서비스");
 		return dao.foodList();
 	}
-
+	
+	/*
 	public ArrayList<LightningDTO> list() {
 		logger.info("전체리스트 서비스 요청");
 		return dao.list();
 	}
+	*/
 
-	public ArrayList<LightningDTO> selectedList(HashMap<String, String> params) {
+	public ArrayList<LightningDTO> selectedList(HashMap<String, Object> selectedparams) {
 		logger.info("검색필터 옵션 리스트 요청");
-		return dao.selectedList(params);
+		return dao.selectedList(selectedparams);
 	}
 
+	public int allCount(HashMap<String, Object> selectedparams) {
+		logger.info("총개수 서비스 요청");
+		return dao.allCount(selectedparams);
+	}
+
+	
+	public void changeStatus() {
+		dao.changeStatus();
+		logger.info("업데이트완료");
+	}
+
+	public int[] applyIdx(String loginId) {
+		logger.info("승인된 모임의 글번호 가져오기 서비스 요청");
+		return dao.applyIdx(loginId);
+	}
+	
 }

@@ -108,7 +108,8 @@ listCall(currpage);
 			$("#job").val("");
 			$("#gender:checked").prop("checked",false);
 			
-			listCall();
+			$("#pagination").twbsPagination('destroy');
+			listCall(currpage);
 		} else {
 		 	alert("검색어를 입력해주세요.");
 		}
@@ -123,7 +124,8 @@ listCall(currpage);
 			$("#job").val("");
 			$("#gender:checked").prop("checked",false);
 			
-			listCall();
+			$("#pagination").twbsPagination('destroy');
+			listCall(currpage);
 		} else {
 		 	alert("검색어를 입력해주세요.");
 		}
@@ -131,12 +133,14 @@ listCall(currpage);
 
 	//셀렉트박스 값이 변경될 때 
 	$("select").on("change", function(){ 
-		listCall();
+		$("#pagination").twbsPagination('destroy');
+		listCall(currpage);
 	});
 
 	//radio 값이 변경될 때
 	$("input[name='gender']:radio").on("change",function(){
-		listCall();
+		$("#pagination").twbsPagination('destroy');
+		listCall(currpage);
 	});
 
 
@@ -170,19 +174,30 @@ listCall(currpage);
 			success : function(data){
 				//console.log(data);
 				drawList(data.list);
+				//console.log(data.pages);
 				
+				
+				currPage = data.currPage;
 				//리스트불러오기가 성공되며 플러그인을 이용해 페이징 처리 //{} 옵션 추가
-				 $("#pagination").twbsPagination({
-					 startPage:1, //시작페이지
-					 totalPages : 20, //총페이지(전체 게시물 수/한 페이지에 보여줄 게시물 수) 300게시물/10개씩 보여줄거야 - 30 페이지 
-					visiblePages : 5, //한번에 보여줄 페이지 수 [1][2][3][4][5]
-					 onPageClick:function(e,page){
-						 //console.log(e); //클릭한 페이지와 관련된 이벤트 객체
-						 console.log(page); //사용자가 클릭한 페이지 
-						 //currPage = page;
-						 //listCall(page);
-					 }
-				 });
+				if(data.list.length>0){
+					 $("#pagination").twbsPagination({
+						 startPage:1, //시작페이지
+						 totalPages : data.pages, //총페이지(전체 게시물 수/한 페이지에 보여줄 게시물 수) 300게시물/10개씩 보여줄거야 - 30 페이지 
+						visiblePages : 5, //한번에 보여줄 페이지 수 [1][2][3][4][5]
+						 onPageClick:function(e,page){
+							 //console.log(e); //클릭한 페이지와 관련된 이벤트 객체
+							 //console.log(page); //사용자가 클릭한 페이지 
+							 currPage = page;
+							 listCall(page);
+						 }
+					 });
+				}else{ //데이터 없을 때 페이징 어떻게 보여질건지 
+					$("#pagination").twbsPagination({
+						 startPage:1,
+						 totalPages : 1, 
+						visiblePages : 1
+					 });
+				}
 			},
 			error : function(e){
 				console.log(e);
@@ -192,6 +207,7 @@ listCall(currpage);
 	}
 
 
+		
 	function drawList(list){
 		//console.log(list);
 		var content ='';
@@ -205,11 +221,11 @@ listCall(currpage);
 				content += '<td>'+item.restaurant_name+'</td>';
 				content += '<td>'+item.food_name+'</td>';
 				content += '<td>'+item.leader_id+'</td>';
-				content += '<td><a href="detail.go?idx='+item.lightning_no+'">'+item.lightning_title+'</a></td>';
+				content += item.lightning_status == "모집중"? '<td><a href="detail.go?idx='+item.lightning_no+'">'+item.lightning_title+'</a></td>' : '<td>'+item.lightning_title+'</td>';
 				content += '<td>'+date.toLocaleDateString("ko-KR")+'</td>';
 				content += '<td>'+item.member_count +' / '+ item.member_num+'</td>';
 				content += '<td>'+item.lightning_status+'</td>';
-				content += '<td>참여여부</td>';
+				content += item.participate=="승인"? '<td>참여</td>' : '<td>미참여</td>'; 
 				content += '</tr>';
 			});
 			$('#list').empty();
@@ -225,5 +241,7 @@ listCall(currpage);
 			
 		}
 	}
+	
+
 </script>
 </html>

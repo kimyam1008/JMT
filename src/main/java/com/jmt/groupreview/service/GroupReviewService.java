@@ -26,14 +26,15 @@ public class GroupReviewService {
 		int page = Integer.parseInt(params.get("page"));
 		logger.info("보여줄 페이지 : "+page);
 		
-		String sortNum = params.get("sortNum");
+		//받아온 검색 조건
+		String groupSort = params.get("groupSort");
 		String searchCate = params.get("searchCate");
 		String keyword = params.get("keyword");
+		
 		HashMap<String, Object> searchResult = new HashMap<String, Object>();		
 		searchResult.put("keyword", keyword);
 		searchResult.put("searchCate", searchCate);
-
-		param.put("sortNum", sortNum);
+		searchResult.put("groupSort", groupSort);
 		
 		logger.info("keyword : "+keyword+"/"+"셀렉트박스 선택값 : "+searchCate);
 		
@@ -44,7 +45,7 @@ public class GroupReviewService {
 		int pages = allCnt % cnt > 0 ? (allCnt / cnt)+1 : (allCnt / cnt);
 		logger.info("pages : "+pages);
 		
-		//if(pages==0) {pages=1;}
+		if(pages==0) {pages=1;}
 		
 		if(page > pages) { //5개씩 보는 마지막 페이지로 갔을 때, 15개씩 보는 걸로 바꿨을때 뜨는 에러 해결
 			page = pages;
@@ -61,12 +62,14 @@ public class GroupReviewService {
 		searchResult.put("offset", offset);
 		
 		ArrayList<GroupReviewDTO> groupReviewList = dao.groupReviewList(searchResult);
-		//ArrayList<GroupReviewDTO> sortNumChange = dao.sortNumChange(sortNum,cnt,offset);
 
-		//map.put("sortNumChange", sortNumChange);
 		map.put("groupReviewList", groupReviewList);
 		
 		return map;
+	}
+
+	public GroupReviewDTO groupReviewDetail(String groupReview_no) {
+		return dao.groupReviewDetail(groupReview_no);
 	}
 
 }

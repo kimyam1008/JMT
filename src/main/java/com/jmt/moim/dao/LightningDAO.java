@@ -9,8 +9,14 @@ public interface LightningDAO {
 
 	ArrayList<LightningDTO> foodList();
 
-	ArrayList<LightningDTO> list();
+	//ArrayList<LightningDTO> list();
+	
+	ArrayList<LightningDTO> selectedList(HashMap<String, Object> selectedparams);
 
-	ArrayList<LightningDTO> selectedList(HashMap<String, String> params);
+	int allCount(HashMap<String, Object> selectedparams);
+
+	void changeStatus();
+
+	int[] applyIdx(String loginId);
 
 }

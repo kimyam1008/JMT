@@ -1,5 +1,8 @@
 package com.jmt.member.dto;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("member")
 public class MemberDTO {
 	
 	private String member_id;
@@ -11,10 +14,12 @@ public class MemberDTO {
 	
 	private int profile_no;
 	private int food_no;
+	private String food_name;
 	private int grade_no;
 	private String eat_speed;
 	private String profile_gender;
 	private String profile_job;
+	
 	
 	public String getMember_id() {
 		return member_id;
@@ -88,6 +93,13 @@ public class MemberDTO {
 	public void setProfile_job(String profile_job) {
 		this.profile_job = profile_job;
 	}
+	public String getFood_name() {
+		return food_name;
+	}
+	public void setFood_name(String food_name) {
+		this.food_name = food_name;
+	}
+	
 	
 	
 	
