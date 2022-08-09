@@ -26,7 +26,7 @@ th, td {
 		<select id="food_name"></select>
 		<br/>
 		<select id='eat_speed'>
-		    <option value='식사속도' selected>식사속도</option>
+		    <option value='' selected>식사속도</option>
 		    <option value='빠름'>빠름</option>
 		    <option value='보통'>보통</option>
 		    <option value='느림'>느림</option>
@@ -34,7 +34,7 @@ th, td {
 		</select>
 		<br/>
 		<select id='job'>
-		    <option value='직업' selected>직업</option>
+		    <option value='' selected>직업</option>
 		    <option value='직장인'>직장인</option>
 		    <option value='취준생'>취준생</option>
 		    <option value='학생'>학생</option>
@@ -79,21 +79,33 @@ listCall(currPage);
 
 function listCall(page){
 	
-	var pagePerNum = 10;	
+	var pagePerNum = 10;
+	
+	var search = $("#search").val();
+	var foodname = $("#food_name option:selected").val();
+	var eat_speed = $("#eat_speed option:selected").val();
+	var job = $("#job option:selected").val();
+	var gender = $("input:radio[name='gender']:checked").val();
 	
 	$.ajax({
 		type:'get',
 		url:'dojang.ajax',
 		data:{
 			cnt:pagePerNum,
-			page:page
+			page:page,
+			search:search,
+			foodname:foodname,
+			gender:gender,
+			eat_speed:eat_speed,
+			job:job
+			
 		},
 		dataType:'JSON',
 		success:function(data){
 				console.log(data);
 				drawList(data.dojangList);
 				currPage = data.currPage;
-				console.log(currPage);
+				console.log("데이터",data.dojangList);
 				
 				$("#pagination").twbsPagination({
 					startPage: data.currPage, //시작 페이지
@@ -116,32 +128,35 @@ function listCall(page){
 
 
 $('#moimSearch').on('click',function(){
-	
-	$("#pagination").twbsPagination('destroy');
-	dojangSearch(currPage);
+	if($("#search").val() != ""){
+		$("#food_name").val("");
+		$("#eat_speed").val("");
+		$("#job").val("");
+		$("input:radio[name='gender']:checked").prop("checked",false);
+		
+		$("#pagination").twbsPagination('destroy');
+		listCall(currPage);
+	} else {
+	 	alert("모임이름을 입력해주세요.");
+	}
 	
 });
 
 
-$('#food_name').on('change', function () {
-	
-	if($("#food_name option:selected").val() == 'all'){
-		$("#pagination").twbsPagination('destroy');
-		listCall(currPage);
-	}else{
+$('select').on('change', function () {
 	$("#pagination").twbsPagination('destroy');
-	dojangSearch(currPage);
-	}
+	listCall(currPage);
 });
 
 
 $("input[name='gender']").change(function(){
-	dojangSearch(currPage);
+	listCall(currPage);
 });
 
 
 //도장깨기 검색
 
+/*
 function dojangSearch(page){
 	
 	var pagePerNum = 10;
@@ -194,14 +209,21 @@ function dojangSearch(page){
 	
 }
 
+*/
 
 
 function drawList(list){
 	var content = '';
+	console.log("data::",list);
+	if(list.length == 0){
+		content += '<tr>';
+		content += '<td colspan="6">'+"조회된 데이터가 없습니다."+'</td>';
+		content += '</tr>';
+	}
 	list.forEach(function(item,dojang_no){
 		var date = new Date(item.dojang_create);
 		var create = date.toLocaleDateString("ko-KR");
-		console.log(item.dojang_no);
+		console.log("조회::",item.dojang_no);
 		content += '<tr>';
 		content += '<td>'+item.food_name+'</td>';
 		content += '<td>'+item.leader_id+'</td>';
@@ -219,7 +241,7 @@ function drawList(list){
 
 function darwName(food_name) {
 	var content = '';
-		content += '<option value="all">음식 카테고리</option>';
+		content += '<option value="">음식 카테고리</option>';
 		food_name.forEach(function(item){
 		content += '<option value="'+item.food_no+'">'+item.food_name+'</option>';
 	});
