@@ -20,6 +20,12 @@
 		SELECT member_id FROM member WHERE member_id = #{param1} AND member_pw = #{param2}
 	</select>
 	
+	<!-- 암호화 된 비밀번호 조회 -->
+	<select id="con" resultType="String">
+		SELECT member_pw FROM member WHERE member_id = #{id}
+	</select>
+	
+	<!-- 회원상태 조회 -->
 	<select id="getMbClass" resultType="String">
 		SELECT member_status FROM member WHERE member_id = #{param1} AND member_pw = #{param2}
 	</select>
@@ -35,6 +41,21 @@
 	<update id="pwUpdate">
 		UPDATE member SET member_pw = #{param2} WHERE member_id = #{param1}
 	</update>
+	
+	
+	
+	<insert id="profileRegister" parameterType="hashmap">
+		INSERT INTO profile (food_no, member_id, grade_no, eat_speed, profile_gender, profile_job)
+			VALUES(#{food_no}, #{loginId}, '1', #{speed}, #{gender}, #{job})
+	</insert>
+	
+	<select id="profileExist" resultType="String">
+		SELECT member_id FROM profile WHERE member_id = #{param1}
+	</select>
+	
+	<select id="foodList" resultType="member">
+		SELECT * FROM food
+	</select>
 	
 	
 </mapper>
