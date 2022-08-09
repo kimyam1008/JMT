@@ -2,10 +2,10 @@ package com.jmt.moim.dto;
 
 import java.sql.Date;
 
-import lombok.Getter;
-import lombok.Setter;
+import org.apache.ibatis.type.Alias;
 
 
+@Alias("light")
 public class LightningDTO {
 
 	private int food_no;
