@@ -2,5 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jmt.member.dao.MemberDAO">
+
+	<insert id="join" parameterType="hashmap">
+		INSERT INTO member(member_id, member_pw, member_name, member_email, member_birth, member_status)
+		VALUES(#{id},#{pw},#{name},#{email},#{birth}, '일반회원')
+	</insert>
+	
+	<select id="idoverlay" parameterType="String" resultType="String">
+		SELECT member_id FROM member WHERE member_id = #{chkId}
+	</select>
+	
+	<select id="emailoverlay" parameterType="String" resultType="String">
+		SELECT member_email FROM member WHERE member_email = #{chkEmail}
+	</select>
+	
+	<select id="login" resultType="String">
+		SELECT member_id FROM member WHERE member_id = #{param1} AND member_pw = #{param2}
+	</select>
+	
+	<select id="getMbClass" resultType="String">
+		SELECT member_status FROM member WHERE member_id = #{param1} AND member_pw = #{param2}
+	</select>
+	
+	<select id="idFind" resultType="String">
+		SELECT member_id FROM member WHERE member_email = #{param1} AND member_birth = #{param2}
+	</select>
+	
+	<select id="pwFind" resultType="String">
+		SELECT member_pw FROM member WHERE member_id = #{param1} AND member_email = #{param2}
+	</select>
+	
+	<update id="pwUpdate">
+		UPDATE member SET member_pw = #{param2} WHERE member_id = #{param1}
+	</update>
+	
 	
 </mapper>

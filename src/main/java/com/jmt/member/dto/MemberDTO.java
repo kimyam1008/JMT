@@ -1,5 +1,96 @@
 package com.jmt.member.dto;
 
 public class MemberDTO {
+	
+	private String member_id;
+	private String member_pw;
+	private String member_email;
+	private String member_name;
+	private String member_birth;
+	private String member_status;
+	
+	private int profile_no;
+	private int food_no;
+	private int grade_no;
+	private String eat_speed;
+	private String profile_gender;
+	private String profile_job;
+	
+	public String getMember_id() {
+		return member_id;
+	}
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
+	public String getMember_pw() {
+		return member_pw;
+	}
+	public void setMember_pw(String member_pw) {
+		this.member_pw = member_pw;
+	}
+	public String getMember_email() {
+		return member_email;
+	}
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
+	}
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
+	public String getMember_birth() {
+		return member_birth;
+	}
+	public void setMember_birth(String member_birth) {
+		this.member_birth = member_birth;
+	}
+	public String getMember_status() {
+		return member_status;
+	}
+	public void setMember_status(String member_status) {
+		this.member_status = member_status;
+	}
+	public int getProfile_no() {
+		return profile_no;
+	}
+	public void setProfile_no(int profile_no) {
+		this.profile_no = profile_no;
+	}
+	public int getFood_no() {
+		return food_no;
+	}
+	public void setFood_no(int food_no) {
+		this.food_no = food_no;
+	}
+	public int getGrade_no() {
+		return grade_no;
+	}
+	public void setGrade_no(int grade_no) {
+		this.grade_no = grade_no;
+	}
+	public String getEat_speed() {
+		return eat_speed;
+	}
+	public void setEat_speed(String eat_speed) {
+		this.eat_speed = eat_speed;
+	}
+	public String getProfile_gender() {
+		return profile_gender;
+	}
+	public void setProfile_gender(String profile_gender) {
+		this.profile_gender = profile_gender;
+	}
+	public String getProfile_job() {
+		return profile_job;
+	}
+	public void setProfile_job(String profile_job) {
+		this.profile_job = profile_job;
+	}
+	
+	
+	
+	
 
 }
