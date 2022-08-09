@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,17 +48,20 @@ public class LightningController {
 	@RequestMapping(value = "/lightList.ajax")
 	@ResponseBody
 	public HashMap<String, Object> list(Model model,
-			@RequestParam HashMap<String, String> params) {
+			@RequestParam HashMap<String, String>params) {
 		
 		logger.info("리스트 불러오기");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		//params 확인
-		logger.info("모임 이름 : "+params.get("lightning_title"));
-		logger.info("음식카테고리 : "+params.get("food_no"));
+		logger.info("모임 : "+params.get("lightning_title"));
+		logger.info("음식 카테고리 : "+params.get("food_no"));
 		logger.info("속도 : "+params.get("eat_speed"));
 		logger.info("직업 : "+params.get("job"));
 		logger.info("성별 : "+params.get("gender"));
+		
+		
+		
 		
 		/*
 		//받아오는 파라미터가 없을 경우 // is empty도 안돼 size도 안돼 
@@ -70,6 +74,7 @@ public class LightningController {
 		}
 		*/
 		 
+	
 		//페이징- 현재페이지
 		int page = Integer.parseInt(params.get("page"));
 		//int page = params.get("page");
@@ -101,7 +106,12 @@ public class LightningController {
 		//리스트 불러오기
 		ArrayList<LightningDTO> selectedList = service.selectedList(params);
 		map.put("list", selectedList);
+		
+		
 	
+
+		
+		
 		
 		
 		return map;

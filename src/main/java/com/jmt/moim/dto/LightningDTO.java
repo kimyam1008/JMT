@@ -10,6 +10,7 @@ public class LightningDTO {
 	
 	private String restaurant_name;
 	
+	
 	private int lightning_no;
 	private String leader_id;
 	private String lightning_title;
@@ -17,6 +18,7 @@ public class LightningDTO {
 	private int member_num;
 	private int member_count;
 	private String lightning_status;
+	
 	
 	
 	
