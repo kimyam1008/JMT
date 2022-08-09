@@ -89,15 +89,40 @@
 	
 	<!-- 신고 상세보기 -->
 	<select id="reportDetail" parameterType="int" resultType="com.jmt.admin.dto.ReportDTO">
-		select r.report_no , r.report_date ,r.report_reason ,r.report_proc_status ,r.report_proc_date ,r.reported ,r.reporter ,r.report_title from report r 
+		select c.class_name, r.report_no , r.report_date ,r.report_reason ,r.report_proc_status ,r.report_proc_date ,r.reported ,r.reporter ,r.report_title ,r.idx ,r.class_no from report r 
+		JOIN codetable c on r.class_no =c.class_no 
 		where r.report_no =#{param1}
 	</select> 
 	
-	<!-- 신고 상세 수정하기 -->
+	<!-- 신고 상세 수정하기   , insert로 바꾸기 -->
 	<update id="reportUpdate" parameterType="hashmap">
-		UPDATE report r SET r.report_reason = #{reason} , r.report_proc_status=#{report_status} WHERE r.report_no = #{report_no}
+		UPDATE report r SET r.report_reason = #{reason} , r.report_proc_status=#{report_status},r.report_proc_date = now() WHERE r.report_no = #{report_no}
 	</update>
 	
+	
+	<!-- 신고 게시물...  -->
+	<select id="select_no1" parameterType="integer" resultType="com.jmt.admin.dto.ReportPostDto">
+		SELECT l.lightning_title, l.lightningList_content FROM  lightninglist l WHERE lightning_no  =#{idx} 
+	</select>
+	
+	<select id="select_no2" parameterType="integer" resultType="com.jmt.admin.dto.ReportPostDto">
+		SELECT c.comment_content  FROM comment c WHERE c.comment_no =#{idx}
+	</select>
+	
+	<select id="select_no3" parameterType="integer" resultType="com.jmt.admin.dto.ReportPostDto">
+		SELECT d.dojang_title,d.dojang_content FROM dojanglist d WHERE dojang_no =#{idx}
+	</select>
+	
+	<select id="select_no4" parameterType="integer" resultType="com.jmt.admin.dto.ReportPostDto">
+		SELECT d.dojangPost_subject ,d.dojangPost_content  FROM dojangpost d  WHERE dojangPost_no =#{idx}
+	</select>
+	<select id="select_no6" parameterType="integer" resultType="com.jmt.admin.dto.ReportPostDto">
+		SELECT g.review_title, g.review_content FROM groupreview g WHERE g.groupReview_no =#{idx}
+	</select>
+	
+	<update id="blind" parameterType="String">
+		UPDATE report SET report_proc_status ='블라인드', report_proc_date = now() WHERE report_no =#{idx}
+	</update>
 	
 	
 </mapper>
