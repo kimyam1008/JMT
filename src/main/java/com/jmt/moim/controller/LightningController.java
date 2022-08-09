@@ -60,7 +60,12 @@ public class LightningController {
 		logger.info("직업 : "+params.get("job"));
 		logger.info("성별 : "+params.get("gender"));
 		
-		
+		HashMap<String, Object> selectedparams = new HashMap<String, Object>();
+		selectedparams.put("lightning_title", params.get("lightning_title"));
+		selectedparams.put("food_no", params.get("food_no"));
+		selectedparams.put("eat_speed", params.get("eat_speed"));
+		selectedparams.put("job", params.get("job"));
+		selectedparams.put("gender", params.get("gender"));
 		
 		
 		/*
@@ -83,14 +88,15 @@ public class LightningController {
 		//offset 구하기 
 		//params가 String,String이니까 숫자를 문자열로 변환
 		//String offset = Integer.toString( 10 * (page-1));
-		//int offset = 10 * (page-1);
+		int offset = 10 * (page-1);
 		//int offset = Integer.parseInt(String.valueOf(10 * (page-1)));
-		String offset = String.valueOf(10 * (page-1));
+		//String offset = String.valueOf(10 * (page-1));
 		logger.info("offset : " + offset);
-		params.put("offset",offset);
+		//params.put("offset",offset);
+		selectedparams.put("offset", offset);
 		
 		//총개수 
-		int allCnt = service.allCount(params);
+		int allCnt = service.allCount(selectedparams);
 		logger.info("allCnt : " + allCnt);
 		
 		//생성가능한 페이지(pages)
@@ -104,7 +110,7 @@ public class LightningController {
 		
 		
 		//리스트 불러오기
-		ArrayList<LightningDTO> selectedList = service.selectedList(params);
+		ArrayList<LightningDTO> selectedList = service.selectedList(selectedparams);
 		map.put("list", selectedList);
 		
 		

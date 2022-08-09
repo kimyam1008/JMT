@@ -30,14 +30,14 @@ public class LightningService {
 	}
 	*/
 
-	public ArrayList<LightningDTO> selectedList(HashMap<String, String> params) {
+	public ArrayList<LightningDTO> selectedList(HashMap<String, Object> selectedparams) {
 		logger.info("검색필터 옵션 리스트 요청");
-		return dao.selectedList(params);
+		return dao.selectedList(selectedparams);
 	}
 
-	public int allCount(HashMap<String, String> params) {
+	public int allCount(HashMap<String, Object> selectedparams) {
 		logger.info("총개수 서비스 요청");
-		return dao.allCount(params);
+		return dao.allCount(selectedparams);
 	}
 
 }

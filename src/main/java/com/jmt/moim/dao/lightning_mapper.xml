@@ -42,7 +42,7 @@
 		LEFT OUTER JOIN food f ON r.food_no = f.food_no
 		
 			<include refid="selectedListSql"></include>
-		limit 10 offset ${offset}
+		limit 10 offset #{offset}
 	</select>
 	
 	<sql id="selectedListSql">
@@ -60,15 +60,11 @@
 				eat_speed = #{eat_speed} and 
 			</if>
 			
-			<if test = "!eat_speed.equals('')">
-				eat_speed = #{eat_speed} and 
-			</if>
-			
 			<if test = "!job.equals('')">
 				job = #{job} and 
 			</if>
 			
-			<if test = "gender!=null">
+			<if test = "gender!=null and !gender.equals('')">
 				gender = #{gender} and 
 			</if>
 			

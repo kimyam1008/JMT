@@ -11,8 +11,8 @@ public interface LightningDAO {
 
 	//ArrayList<LightningDTO> list();
 	
-	ArrayList<LightningDTO> selectedList(HashMap<String, String> params);
+	ArrayList<LightningDTO> selectedList(HashMap<String, Object> selectedparams);
 
-	int allCount(HashMap<String, String> params);
+	int allCount(HashMap<String, Object> selectedparams);
 
 }
