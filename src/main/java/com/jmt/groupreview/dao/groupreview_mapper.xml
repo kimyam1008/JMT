@@ -4,17 +4,24 @@
 <mapper namespace="com.jmt.groupreview.dao.GroupReviewDAO">
 	<!-- class_no가 1(번개모임리스트), 3(도장깨기리스트) -->
 	<select id="groupReviewList" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
-		SELECT idx
-			,review_title
-			,review_date
-			,class_no
-			,groupReview_no
-			,member_id
-		FROM groupReview
+		 select
+			 g.groupReview_no
+			 ,g.review_title
+			 ,l.lightning_title
+			 ,dojang_title
+			 ,c.class_name
+			 ,g.review_date
+		 FROM groupreview g
+		 LEFT OUTER join lightninglist l on l.lightning_no = idx and g.class_no = 1
+		 LEFT OUTER join dojangList ON dojang_no = idx AND g.class_no = 3
+		 JOIN codetable c on g.class_no = c.class_no
 		<where>
-			<if test="searchCate != null">
-				<if test="searchCate.equals('idx')">
-					idx LIKE CONCAT('%',#{keyword},'%')
+			<if test="searchCate != null and searchCate !=''">
+				<if test="searchCate.equals('lightning')">
+					AND lightning_title LIKE CONCAT('%',#{keyword},'%')
+				</if>
+				<if test="searchCate.equals('dojang')">
+					AND dojang_title LIKE CONCAT('%',#{keyword},'%')
 				</if>
 			</if>
 		</where>
@@ -22,31 +29,39 @@
 	</select>
 	
 	<select id="allCount" parameterType="hashmap" resultType="int">
-		SELECT COUNT(groupReview_no) FROM groupReview
+		SELECT COUNT(groupReview_no) 
+		FROM groupreview g
+		LEFT OUTER join lightninglist l on l.lightning_no = idx and g.class_no = 1
+		LEFT OUTER join dojangList ON dojang_no = idx AND g.class_no = 3
+		JOIN codetable c on g.class_no = c.class_no
 		<where>
-			<if test="searchCate != null">
-				<if test="searchCate.equals('idx')">
-					idx LIKE CONCAT('%',#{keyword},'%')
+			<if test="searchCate != null and searchCate !=''">
+				<if test="searchCate.equals('lightning')">
+					AND lightning_title LIKE CONCAT('%',#{keyword},'%')
+				</if>
+				<if test="searchCate.equals('dojang')">
+					AND dojang_title LIKE CONCAT('%',#{keyword},'%')
 				</if>
 			</if>
 		</where>
 	</select>
-
-	<!-- <select id="sortNumChange" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
-		<if test="param1 == '전체'">
-			SELECT * FROM groupReview
-		</if>
-		<if test="parma1 == '번개' OR param1 == '도장깨기'">
-			SELECT idx
-				,review_title
-				,review_date
-				,class_no
-				,groupReview_no
-				,member_id
-			FROM groupReview
-				
-			WHERE idx={param1}
-		</if>
-		ORDER BY groupReview_no DESC limit #{param2} OFFSET #{param3}
-	</select> -->
+	
+	<!-- 모임후기 상세보기 -->
+	<select id="groupReviewDetail" parameterType="String" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
+		SELECT review_title
+			,groupReview.member_id
+			,member_name
+			,review_date
+			,lightning_title as title
+			,dojang_title as title
+			,class_name
+			,review_content
+			,groupReview_no
+		FROM groupReview
+		LEFT OUTER JOIN lightningList ON lightning_no = idx and groupReview.class_no = 1
+		LEFT OUTER JOIN dojangList ON dojang_no = idx AND groupReview.class_no = 3
+		LEFT OUTER JOIN member ON member.member_id = groupReview.member_id
+		JOIN codeTable ON groupReview.class_no = codeTable.class_no
+		WHERE groupReview_no = #{groupReview_no}
+	</select>
 </mapper>

@@ -21,16 +21,19 @@ th,td {
 <body>
 	<h3>모임 후기 리스트</h3>
 		<fieldset>
-			<input type="hidden" id="searchCate" value="idx"/>
+			<!-- <input type="hidden" id="searchCate" value="idx"/> -->
+			<select id="searchCate">
+				<option value="lightning">번개모임</option>
+				<option value="dojang">도장깨기</option>
+			</select>
 			<input type="text" id="keyword" value="" placeholder="모임 이름을 입력해주세요"/>
 			<button id="reviewSearch">검색</button>
 		</fieldset>
-	<button onclick="location.href='groupReviewRegister.go'">글쓰기</button>
-	<div>
-		<button name="idx" value="전체" onclick="groupSort()">전체</button>
-		<button name="idx" value="1" onclick="groupSort()">번개</button>
-		<button name="idx" value="3" onclick="groupSort()">도장깨기</button>
-	</div>
+	<button onclick="location.href='groupReviewRegister.go'">글쓰기</button><br/>
+<!-- 	<button name="groupAll" value="전체" onclick="location.href='groupReviewList.go'">전체</button>
+	<input type="radio" name="groupSort" id="groupSort" value="번개모임"/>번개모임
+	<input type="radio" name="groupSort" id="groupSort" value="도장깨기"/>도장깨기 -->
+
 	<table>
 		<thead>
 			<tr>
@@ -59,87 +62,25 @@ th,td {
 <script>
 var currPage = 1;
 
-listCall(currPage);
+reviewSearch(currPage);
+
+console.log($("#searchCate option:selected").val());
+//console.log($("#groupTitle").text());
 
 
-function groupSort(){
-	var idx = $("button[name='idx']").val();
-	console.log(idx);
-}
-
-function groupSortLight(){
-	var idx = $("button[name='idx']").val();
-	console.log(idx);
-}
-
-function groupSortDojang(){
-	var idx = $("button[name='idx']").val();
-	console.log(idx);
-}
-
-/* var moimKind = $('.moimKind').text();
-console.log(moimKind);
-
-idxChange(currPage);
-
-//번개, 도장 넣기
-function idxChange(){
-	if ($('.moimKind').text() == 1) {
-		$('.moimKind').text() = "번개";
-	} else {
-		$('.moimKind').text() = "도장깨기";
-	}
-} */
-
-/*
-//분류 선택
-$("input[name='idx']").on("click",function(){
+//라디오 값 변경
+/* $("input[name='groupSort']").on("change",function(){
 	$("#pagination").twbsPagination('destroy');
-	sortChangeCall(currPage);
-});
-
-function sortChangeCall(page){
-	var pagePerNum = 5;
-	var sortNum = $("input[name='idx']:clicked").val();
-	$('#keyword').val('');
-	console.log(sortNum);
-	
-	$.ajax({
-		type:'get',
-		url:'reviewSearch.ajax',
-		data:{
-			sortNum:sortNum,
-			cnt:pagePerNum,
-			page:page
-			},
-		dataType:'JSON',
-		success:function(data){
-			drawList(data.sortChange);
-			currPage = data.currPage;
-			
-			$("#pagination").twbsPagination({
-				startPage: data.currPage, //시작 페이지
-				totalPages: data.pages, //총 페이지
-				visiblePages: 5, //한번에 보여줄 페이지 수
-				onPageClick: function(e,page){
-					console.log(page); //사용자가 클릭한 페이지
-					currPage = page;
-					sortChangeCall(page);
-				}
-			});
-		},
-		error:function(e){
-			console.log(e);
-		}
-	});
-}
-*/
+	reviewSearch(currPage);
+	//console.log($("input[name='groupSort']:checked").val());
+}); */
 
 //리스트 호출
 function listCall(page){
 	
 	var pagePerNum = 10;
 	//console.log("param page : " + page);
+	
 	
 	$.ajax({
 		type:'get',
@@ -191,6 +132,8 @@ function reviewSearch(page){
 	console.log(searchCate);
 	var keyword = $("#keyword").val();
 	console.log(keyword);
+	//var groupSort = $("input[name='groupSort']:checked").val();
+	//console.log(groupSort);
 	 
 	 $.ajax({
 		 type:'get',
@@ -200,7 +143,8 @@ function reviewSearch(page){
 			 page : page,
 			 //reviewSearch : reviewSearch,
 			 searchCate : searchCate,
-			 keyword : keyword
+			 keyword : keyword,
+			//groupSort : groupSort
 		 },
 		dataType:'json',
 		success:function(data){
@@ -233,20 +177,31 @@ function drawList(groupReviewList){
 	
 	var content="";
 	
-	/* if ($('.moimKind') == 1) {
-		$('.moimKind').html() = "번개";
-	}; */
-	
 	groupReviewList.forEach(function(item,groupReview_no){
 		
-		//console.log(item);
-		content += '<tr>';
-		content += '<td>'+item.groupReview_no+'</td>';
-		content += '<td><a href="groupReviewDetail.do?groupReview_no='+item.groupReview_no+'">'+item.review_title+'</a></td>';
-		content += '<td class="class_no">'+item.class_no+'</td>';
-		content += '<td>'+item.idx+'</td>';
-		content += '<td>'+item.review_date+'</td>';
-		content += '</tr>';
+		if ($("#searchCate option:selected").val() == "lightning") {
+			
+			//console.log(item);
+			content += '<tr>';
+			content += '<td>'+item.groupReview_no+'</td>';
+			content += '<td><a href="groupReviewDetail.do?groupReview_no='+item.groupReview_no+'">'+item.review_title+'</a></td>';
+			content += '<td>'+item.class_name+'</td>';
+			content += '<td id="groupTitle">'+item.lightning_title+'</td>';	
+			content += '<td>'+item.review_date+'</td>';
+			content += '</tr>';
+			
+		} else {
+			
+			//console.log(item);
+			content += '<tr>';
+			content += '<td>'+item.groupReview_no+'</td>';
+			content += '<td><a href="groupReviewDetail.do?groupReview_no='+item.groupReview_no+'">'+item.review_title+'</a></td>';
+			content += '<td>'+item.class_name+'</td>';
+			content += '<td>'+item.dojang_title+'</td>';
+			content += '<td>'+item.review_date+'</td>';
+			content += '</tr>';
+
+		}
 	});
 	
 	
