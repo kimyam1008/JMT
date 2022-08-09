@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -121,5 +122,12 @@ public class LightningController {
 		
 		
 		return map;
+	}
+	
+	//매일 밤 12시 모임날짜가 지난 게시글 모집마감으로 변경
+	@Scheduled(cron="0 0 0 * * *")
+	public void changeStatus() {
+		service.changeStatus();
+		logger.info("업데이트완료");
 	}
 }

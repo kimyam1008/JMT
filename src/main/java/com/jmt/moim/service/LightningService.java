@@ -40,4 +40,10 @@ public class LightningService {
 		return dao.allCount(selectedparams);
 	}
 
+	
+	public void changeStatus() {
+		dao.changeStatus();
+		logger.info("업데이트완료");
+	}
+	
 }

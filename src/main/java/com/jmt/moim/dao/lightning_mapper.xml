@@ -42,7 +42,7 @@
 		LEFT OUTER JOIN food f ON r.food_no = f.food_no
 		
 			<include refid="selectedListSql"></include>
-		limit 10 offset #{offset}
+		ORDER BY lightning_status DESC, lightning_create ASC limit 10 offset #{offset}
 	</select>
 	
 	<sql id="selectedListSql">
@@ -76,4 +76,8 @@
 		<include refid="selectedListSql"></include>
 	</select>
 	
+	
+	<update id="changeStatus">
+		UPDATE lightninglist SET lightning_status="모집마감" WHERE <![CDATA[lightning_date < curdate()]]> 
+	</update>
 </mapper>

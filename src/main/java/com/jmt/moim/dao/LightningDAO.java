@@ -15,4 +15,6 @@ public interface LightningDAO {
 
 	int allCount(HashMap<String, Object> selectedparams);
 
+	void changeStatus();
+
 }
