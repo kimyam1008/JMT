@@ -32,10 +32,7 @@ th,td {
 		</tr>
 		<tr>
 			<th>모임 이름</th>
-			<% if(${dto.class_name} == "도장깨기"){
-				<td>${dto.dojang_title}</td>
-			}%>
-			<td>${dto.title}</td>
+			<td>${dto.dojang_title} ${dto.lightning_title}</td>
 			<th>모임 종류</th>
 			<td>${dto.class_name}</td>
 		</tr>
@@ -47,5 +44,6 @@ th,td {
 	<input type="button" value="목록" onclick="location.href='groupReviewList.go'"/>
 </body>
 <script>
+
 </script>
 </html>

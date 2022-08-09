@@ -8,6 +8,13 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
+table,th,td {
+	border:1px solid black;
+	border-collapse:collapse;
+}
+th,td {
+	padding:5px 10px;
+}
 </style>
 </head>
 <body>
