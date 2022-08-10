@@ -22,6 +22,12 @@ table, th, td{
 <br/>
 <h3>도장 상세</h3>
 <input type="hidden" id="status" value="${applyStatus.status}"/>
+<input type="hidden" id="profile_eat_speed" value="${profileStatus.eat_speed}"/>
+<input type="hidden" id="profile_gender" value="${profileStatus.profile_gender}"/>
+<input type="hidden" id="profile_job" value="${profileStatus.profile_job}"/>
+<input type="hidden" id="eat_speed" value="${dojangDetail.eat_speed}"/>
+<input type="hidden" id="gender" value="${dojangDetail.gender}"/>
+<input type="hidden" id="job" value="${dojangDetail.job}"/>
 	<table>
 	<tr>
 		<th>모임 이름</th>
@@ -34,6 +40,7 @@ table, th, td{
 		<td>${dojangDetail.member_count}/${dojangDetail.people_num}</td>
 		<th>식사 속도</th>
 		<td>${dojangDetail.eat_speed}</td>
+		
 	</tr>
 	<tr>
 		<th>모임 생성 날짜</th>
@@ -78,8 +85,14 @@ table, th, td{
 <script>
 
 
+console.log($("#eat_speed").val());
+console.log($("#profile_eat_speed").val());
+
+
 //상태에 따른 가입신청 관리
 $("input:button[name='Apply']").on('click',function(){
+	
+	//가입신청 상태
 	if($("#status").val() == '대기'){
 		alert("이미 신청이 완료됐습니다.");
 	}else if($("#status").val() == '강퇴'){
@@ -87,8 +100,22 @@ $("input:button[name='Apply']").on('click',function(){
 	}else if($("#status").val() == '탈퇴'){
 		alert("이미 탈퇴한 방입니다.");
 	}else{
-		dojangApply_pop();
+		
+		//프로필 상태 기반
+		if($("#eat_speed").val() !="상관없음" && $("#eat_speed").val() != $("#profile_eat_speed").val()){
+			alert("식사속도 조건이 맞지않습니다.");
+		}else if($("#gender").val() !="상관없음" && $("#gender").val() != $("#profile_gender").val()){
+			alert("성별 조건이 맞지않습니다.");
+		}else if($("#job").val() !="상관없음" && $("#job").val() != $("#profile_job").val()){
+			alert("직업 조건이 맞지않습니다.");
+		}else{
+			dojangApply_pop();
+		}
+		
 	}
+	
+	
+	
 });
 
 

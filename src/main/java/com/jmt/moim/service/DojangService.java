@@ -93,10 +93,14 @@ public class DojangService {
 		DojangDTO applyStatus = dao.applyStatus(loginId,dojang_no);
 		logger.info("data:::"+loginId+","+dojang_no);
 		
+		//가입신청 프로필조건
+		DojangDTO profileStatus = dao.profileStatus(loginId);
+		
 		ModelAndView mav = new ModelAndView("./Dojang/dojangDetail");
 		mav.addObject("dojangDetail",dojangDetail);
 		mav.addObject("dojangGreview",dojangGreview);
 		mav.addObject("applyStatus",applyStatus);
+		mav.addObject("profileStatus",profileStatus);
 		return mav;
 	}
 

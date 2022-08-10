@@ -105,6 +105,14 @@
 		WHERE class_no = 3 AND member_id = #{param1} AND idx = #{param2};
 	</select>
 	
+	<select id="profileStatus" resultType="dojang">
+		SELECT 
+			eat_speed
+			,profile_gender
+			,profile_job
+			FROM profile WHERE member_id = #{param1}
+	</select>
+	
 	<insert id="dojangReg" parameterType="hashmap">
 		INSERT INTO dojanglist(dojang_title,food_no,people_num,eat_speed,gender,job,dojang_content,leader_id,dojang_status,class_no)
 			VALUES (#{dojang_title},#{food_name},#{points},#{eat_speed},#{gender},#{job},#{dojang_content},#{loginId},'모집중',3)
