@@ -34,6 +34,8 @@ public interface ReportDAO {
 
 	int blind(String idx);
 
+	ArrayList<ReportDTO> blindList();
+
 
 
 }
