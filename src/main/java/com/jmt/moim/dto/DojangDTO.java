@@ -19,6 +19,7 @@ public class DojangDTO {
 	private int people_num;
 	private int food_no;
 	private int member_count;
+	private String test;
 	private Date dojang_create;
 	
 	
@@ -54,6 +55,14 @@ public class DojangDTO {
 	
 	
 	
+	
+	
+	public String getTest() {
+		return test;
+	}
+	public void setTest(String test) {
+		this.test = test;
+	}
 	public int getGroupReview_no() {
 		return groupReview_no;
 	}

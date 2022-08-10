@@ -74,6 +74,8 @@ public class DojangService {
 		ArrayList<DojangDTO> list = dao.dojangList(searchResult);
 
 		map.put("dojangList", list);
+		
+		
 
 		return map;
 	}
@@ -131,12 +133,7 @@ public class DojangService {
 		return success;
 	}
 	
-	
-	
-	public int[] applyIdx(String loginId) {
-		logger.info("승인된 모임의 글번호 가져오기 서비스 요청");
-		return dao.applyIdx(loginId);
-	}
+
 	
 
 

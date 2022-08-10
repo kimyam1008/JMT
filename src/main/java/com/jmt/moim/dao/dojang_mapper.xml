@@ -11,7 +11,7 @@
 			, d.dojang_title
 			, d.dojang_create
 			,(select count(member_id)+1 from apply a where class_no = 3 and status = '승인' and a.idx = d.dojang_no) as member_count
-			,(select status from apply a  where  class_no = 3 and a.idx=d.dojang_no and member_id=#{loginId}) as test
+			,(select status from apply a where class_no = 3 and a.idx = d.dojang_no and member_id=#{loginId}) as test
 			, d.dojang_status
 			, d.people_num
 			, d.gender
