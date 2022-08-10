@@ -51,7 +51,7 @@
 			<td>${dto.job}</td>
 		</tr>
 		<tr>
-			<td colspan="4">${dto.lightning_content}</td>
+			<td colspan="4">${dto.lightning_content} <p>삭제</p><p>신고하기</p></td>
 		</tr>
 	</table>
 	<button id="application" onclick="application()">신청</button>
@@ -63,8 +63,10 @@
 		alert(msg);
 	}
 	
-	
 	var status = "${dto.status}";
+	var leader_id="${dto.leader_id}";
+	var loginId = "${loginId}";
+	
 	
 	if(status=="승인"){
 		$("#application").text("탈퇴");
@@ -72,12 +74,13 @@
 	}
 	
 	
-	
 	function application(){
 		console.log(status);
-		//방장아이디랑 로그인아이디 비교해서 같으면 신청불가쓰~ 
+		//방장아이디랑 로그인아이디 비교해서 같으면 신청불가
+		if(leader_id == loginId){
+			alert("방장은 신청할 수 없습니다.");
 		//아직 가입신청을 안한 경우
-		if (status == ""){
+		}else if (status == ""){
 			if(confirm("가입 신청하시겠습니까?")){
 				alert("신청완료 되었습니다.");
 				location.href='/lightRegister.do?lightning_no=${dto.lightning_no}';

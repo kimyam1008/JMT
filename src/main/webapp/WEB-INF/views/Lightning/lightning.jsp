@@ -96,8 +96,9 @@
 
 </body>
 <script>
-var currpage = 1;
-listCall(currpage);
+	var loginId = "${loginId}";
+	var currpage = 1;
+	listCall(currpage);
 
 	//검색버튼 클릭시
 	$("button").on("click",function(){
@@ -206,7 +207,7 @@ listCall(currpage);
 		});
 	}
 
-
+	
 		
 	function drawList(list){
 		//console.log(list);
@@ -225,7 +226,7 @@ listCall(currpage);
 				content += '<td>'+date.toLocaleDateString("ko-KR")+'</td>';
 				content += '<td>'+item.member_count +' / '+ item.member_num+'</td>';
 				content += '<td>'+item.lightning_status+'</td>';
-				content += item.participate=="승인"? '<td>참여</td>' : '<td>미참여</td>'; 
+				content += item.participate=="승인"? '<td>참여</td>' : item.leader_id == loginId? '<td>참여</td>' :  '<td>미참여</td>'; 
 				content += '</tr>';
 			});
 			$('#list').empty();

@@ -32,14 +32,17 @@ public class LightningController {
 
 	//번개모임리스트 lightning.jsp 페이지 이동 
 	@RequestMapping("/lightList.go") 
-	public String listPage(Model model) {
+	public String listPage(Model model,HttpSession session) {
 		logger.info("리스트 페이지 이동");
 		//음식카테고리 가져오기 
 		ArrayList<LightningDTO> foodList = service.foodList();
 			if(foodList.size()>0) {
 				model.addAttribute("foodList", foodList);
 			}
-		
+			
+			//방장아이디와 로그인아이디 비교하기 위해서 
+			String loginId = (String) session.getAttribute("loginId");
+			model.addAttribute("loginId", loginId);
 		/*
 			ArrayList<LightningDTO> list = service.list();
 			if(list.size()>0) {
@@ -131,6 +134,7 @@ public class LightningController {
 			,@RequestParam String lightning_no) {
 		logger.info("상세보기 페이지 이동");
 		String loginId = (String) session.getAttribute("loginId");
+		model.addAttribute("loginId", loginId);
 		
 		LightningDTO dto = service.detail(lightning_no,loginId);
 		if(dto != null) {
