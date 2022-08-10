@@ -35,9 +35,9 @@ public class DojangController {
 	//도장 리스트
 	@RequestMapping(value = "/dojang.ajax")
 	@ResponseBody
-	public HashMap<String, Object> dojangList(@RequestParam HashMap<String, String> params) {
+	public HashMap<String, Object> dojangList(@RequestParam HashMap<String, String> params, HttpSession session) {
 		logger.info("도장 리스트 요청");
-		return service.dojangList(params);
+		return service.dojangList(params,session);
 	}
 	
 	//음식 카테고리

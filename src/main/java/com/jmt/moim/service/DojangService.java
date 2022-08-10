@@ -21,7 +21,7 @@ public class DojangService {
 
 	@Autowired  DojangDAO dao;
 
-	public HashMap<String, Object> dojangList(HashMap<String, String> params) {
+	public HashMap<String, Object> dojangList(HashMap<String, String> params, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int cnt = Integer.parseInt(params.get("cnt"));
 		int page = Integer.parseInt(params.get("page"));
@@ -43,6 +43,9 @@ public class DojangService {
 		searchResult.put("eat_speed", eat_speed);
 		searchResult.put("job", job);
 		searchResult.put("gender", gender);
+		searchResult.put("loginId", session.getAttribute("loginId"));
+		
+		logger.info("확인:::"+session.getAttribute("loginId"));
 		
 
 		int allCnt = dao.allCount(searchResult);
@@ -127,7 +130,14 @@ public class DojangService {
 		result.put("success", success);
 		return success;
 	}
-
+	
+	
+	
+	public int[] applyIdx(String loginId) {
+		logger.info("승인된 모임의 글번호 가져오기 서비스 요청");
+		return dao.applyIdx(loginId);
+	}
+	
 
 
 }

@@ -25,5 +25,7 @@ public interface DojangDAO {
 
 	int dojangReg(HashMap<String, String> params);
 
+	int[] applyIdx(String loginId);
+
 
 }

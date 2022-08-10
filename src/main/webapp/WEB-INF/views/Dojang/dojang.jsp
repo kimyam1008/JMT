@@ -62,6 +62,7 @@ th, td {
 			<th>모임 생성일</th>
 			<th>인원</th>
 			<th>상태</th>
+			<th>참여여부</th>
 		</tr>
 	</thead>
 	<tbody id="list">
@@ -232,6 +233,7 @@ function drawList(list){
 		var date = new Date(item.dojang_create);
 		var create = date.toLocaleDateString("ko-KR");
 		console.log("조회::",item.dojang_no);
+		console.log("왜안됨?",item.participate)
 		content += '<tr>';
 		content += '<td>'+item.food_name+'</td>';
 		content += '<td>'+item.leader_id+'</td>';
@@ -239,6 +241,7 @@ function drawList(list){
 		content += '<td>'+create+'</td>';
 		content += '<td>'+item.member_count+'/'+item.people_num+'</td>';
 		content += '<td>'+item.dojang_status+'</td>';
+		content += item.participate=="승인"? '<td>참여</td>' : '<td>미참여</td>'; 
 		content += '</tr>';
 	});
 	$('#list').empty();
