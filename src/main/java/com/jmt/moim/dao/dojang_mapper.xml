@@ -11,6 +11,7 @@
 			, d.dojang_title
 			, d.dojang_create
 			,(select count(member_id)+1 from apply a where class_no = 3 and status = '승인' and a.idx = d.dojang_no) as member_count
+			,(select status from apply a where class_no = 3 and a.idx = d.dojang_no and member_id=#{loginId}) as test
 			, d.dojang_status
 			, d.people_num
 			, d.gender
@@ -102,6 +103,14 @@
 		SELECT status 
 			FROM apply a 
 		WHERE class_no = 3 AND member_id = #{param1} AND idx = #{param2};
+	</select>
+	
+	<select id="profileStatus" resultType="dojang">
+		SELECT 
+			eat_speed
+			,profile_gender
+			,profile_job
+			FROM profile WHERE member_id = #{param1}
 	</select>
 	
 	<insert id="dojangReg" parameterType="hashmap">

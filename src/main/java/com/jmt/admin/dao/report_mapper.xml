@@ -57,7 +57,7 @@
 					AND r.report_proc_status = '처리대기'
 				</if>
 				<if test="report_status.equals('blind')">
-					AND r.report_proc_status = '블라인드'
+					AND r.report_proc_status = "블라인드"
 				</if>
 				<if test="report_status.equals('end')">
 					AND r.report_proc_status = '처리완료'
@@ -89,20 +89,20 @@
 	
 	<!-- 신고 상세보기 -->
 	<select id="reportDetail" parameterType="int" resultType="com.jmt.admin.dto.ReportDTO">
-		select c.class_name, r.report_no , r.report_date ,r.report_reason ,r.report_proc_status ,r.report_proc_date ,r.reported ,r.reporter ,r.report_title ,r.idx ,r.class_no from report r 
+		select c.class_name,r.result_reason, r.report_no , r.report_date ,r.report_reason ,r.report_proc_status ,r.report_proc_date ,r.reported ,r.reporter ,r.report_title ,r.idx ,r.class_no from report r 
 		JOIN codetable c on r.class_no =c.class_no 
 		where r.report_no =#{param1}
 	</select> 
 	
 	<!-- 신고 상세 수정하기   , insert로 바꾸기 -->
 	<update id="reportUpdate" parameterType="hashmap">
-		UPDATE report r SET r.report_reason = #{reason} , r.report_proc_status=#{report_status},r.report_proc_date = now() WHERE r.report_no = #{report_no}
+		UPDATE report r SET r.result_reason =#{reason} , r.report_proc_status=#{report_status},r.report_proc_date = now() WHERE r.report_no = #{report_no}
 	</update>
 	
 	
 	<!-- 신고 게시물...  -->
 	<select id="select_no1" parameterType="integer" resultType="com.jmt.admin.dto.ReportPostDto">
-		SELECT l.lightning_title, l.lightningList_content FROM  lightninglist l WHERE lightning_no  =#{idx} 
+		SELECT l.lightning_title, l.lightning_content FROM  lightninglist l WHERE lightning_no  =#{idx} 
 	</select>
 	
 	<select id="select_no2" parameterType="integer" resultType="com.jmt.admin.dto.ReportPostDto">
@@ -124,5 +124,26 @@
 		UPDATE report SET report_proc_status ='블라인드', report_proc_date = now() WHERE report_no =#{idx}
 	</update>
 	
+	<!-- 블라인드 리스트 -->
+	<select id="blindList" parameterType="map" resultType="com.jmt.admin.dto.ReportDTO">
+	select b.blind_no ,r.class_no ,r.idx,r.reporter ,r.reported ,r.report_proc_status ,r.report_proc_date  ,(select l.lightning_title from lightninglist l  where l.lightning_no =r.idx and r.class_no =l.class_no  )as mb_ligntning_title 
+		,(select c.comment_content  from comment c  where c.comment_no  =r.idx  and r.class_no =c.class_no  )as mb_comment
+		,(select d.dojang_title  from  dojanglist d  where d.dojang_no  =r.idx and r.class_no  =d.class_no   )as mb_dojang_title
+		,(select d2.dojangPost_content  from  dojangpost d2  where d2.dojangPost_no  =r.idx and r.class_no = d2.class_no  )as mb_dojang_post
+		,(select g.review_title  from groupreview g where g.groupReview_no = r.idx and r.class_no = g.class_no  )as mb_groupreview
+		from blind b  left outer join report r on r.report_no = b.report_no  group by r.class_no , r.idx
+		ORDER BY r.report_date DESC limit #{cnt} offset #{offset}
+	</select>
+	
+	<select id="updateCheck" parameterType="int" resultType="String">
+		SELECT report_proc_status  from report WHERE report_no=#{report_no}
+	</select>
+	<!-- 블라인드 insert -->
+	<insert id="insertBlind" parameterType="map">
+		INSERT INTO blind (member_id, report_no, admin_id, blind_reason, blind_status) VALUES(#{reported}, #{report_no}, 'admin1', #{reason}, #{report_status})
+	</insert>
+	<select id="blindCount" parameterType="map" resultType="int">
+		select count(dd.blind_no) from (select b.blind_no from blind b  left outer join report r ON r.report_no = b.report_no  group by r.class_no , r.idx) as dd
+	</select>
 	
 </mapper>

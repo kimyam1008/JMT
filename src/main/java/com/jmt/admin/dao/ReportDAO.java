@@ -34,6 +34,14 @@ public interface ReportDAO {
 
 	int blind(String idx);
 
+	ArrayList<ReportDTO> blindList(Map<String, Object> data);
+
+	String updateCheck(int report_no);
+
+	void insertBlind(Map<String, Object> data);
+
+	int blindCount(Map<String, Object> data);
+
 
 
 }

@@ -19,7 +19,7 @@ public class ReportPostDto {
 	private String job;
 	private Date lightning_date;
 	private int food_no;
-	private String lightningList_content;
+	private String lightning_content;
 	private int  member_count;
 	private int class_no;
 	
@@ -118,11 +118,12 @@ public class ReportPostDto {
 	public void setFood_no(int food_no) {
 		this.food_no = food_no;
 	}
-	public String getLightningList_content() {
-		return lightningList_content;
+
+	public String getLightning_content() {
+		return lightning_content;
 	}
-	public void setLightningList_content(String lightningList_content) {
-		this.lightningList_content = lightningList_content;
+	public void setLightning_content(String lightning_content) {
+		this.lightning_content = lightning_content;
 	}
 	public int getMember_count() {
 		return member_count;

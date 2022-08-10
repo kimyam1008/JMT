@@ -21,7 +21,7 @@ public class DojangService {
 
 	@Autowired  DojangDAO dao;
 
-	public HashMap<String, Object> dojangList(HashMap<String, String> params) {
+	public HashMap<String, Object> dojangList(HashMap<String, String> params, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int cnt = Integer.parseInt(params.get("cnt"));
 		int page = Integer.parseInt(params.get("page"));
@@ -43,6 +43,9 @@ public class DojangService {
 		searchResult.put("eat_speed", eat_speed);
 		searchResult.put("job", job);
 		searchResult.put("gender", gender);
+		searchResult.put("loginId", session.getAttribute("loginId"));
+		
+		logger.info("확인:::"+session.getAttribute("loginId"));
 		
 
 		int allCnt = dao.allCount(searchResult);
@@ -71,6 +74,8 @@ public class DojangService {
 		ArrayList<DojangDTO> list = dao.dojangList(searchResult);
 
 		map.put("dojangList", list);
+		
+		
 
 		return map;
 	}
@@ -88,10 +93,14 @@ public class DojangService {
 		DojangDTO applyStatus = dao.applyStatus(loginId,dojang_no);
 		logger.info("data:::"+loginId+","+dojang_no);
 		
+		//가입신청 프로필조건
+		DojangDTO profileStatus = dao.profileStatus(loginId);
+		
 		ModelAndView mav = new ModelAndView("./Dojang/dojangDetail");
 		mav.addObject("dojangDetail",dojangDetail);
 		mav.addObject("dojangGreview",dojangGreview);
 		mav.addObject("applyStatus",applyStatus);
+		mav.addObject("profileStatus",profileStatus);
 		return mav;
 	}
 
@@ -127,7 +136,9 @@ public class DojangService {
 		result.put("success", success);
 		return success;
 	}
+	
 
+	
 
 
 }
