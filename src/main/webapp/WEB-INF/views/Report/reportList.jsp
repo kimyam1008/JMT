@@ -8,7 +8,7 @@
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
+<script type="text/javascript" src="/resources/js/jquery.twbsPagination.js"></script>
 
 
 </head>
@@ -96,7 +96,7 @@ $('#pagePerNum').on('change',function(){
 	console.log("param page : "+page); 
 	$.ajax({
 		type:'GET',
-		url:'report/list.ajax',
+		url:'/report/list.ajax',
 		data:{
 			cnt:pagePerNum,
 			page:page
@@ -135,7 +135,7 @@ function drawList(list){
 		//console.log(item);
 		content += '<tr>';
 		content += '<td> <input type="checkbox" value='+item.report_no+'></td>';	
-		content += '<td>'+'<a href=report/detail.go?report_no='+item.report_no+'&class_no='+item.class_no+'&idx='+item.idx+'>'+item.report_title+'<a/></td>'; 
+		content += '<td>'+'<a href=/report/detail.go?report_no='+item.report_no+'&class_no='+item.class_no+'&idx='+item.idx+'>'+item.report_title+'<a/></td>'; 
 		/* content += '<td>'+'<a href=report/detail?report_no='+item.report_no+'>'+item.report_title+'<a/></td>'; */
 		content += '<td>'+item.class_name+'</td>';
 		content += '<td>'+item.reporter+'</td>';
@@ -177,7 +177,7 @@ function searchClick(page){
 
 	$.ajax({
 		type:'get',
-		url:'report/list.ajax',
+		url:'/report/list.ajax',
 		async: false,
 		data:{
 			cnt:pagePerNum,

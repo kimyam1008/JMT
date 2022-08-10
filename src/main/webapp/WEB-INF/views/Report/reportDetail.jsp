@@ -27,6 +27,7 @@
 		<input type="hidden" name="report_no" value="${detailDto.report_no}"/>
 		<input type="hidden" name="idx" value="${detailDto.idx}"/>
 		<input type="hidden" name="class_no" value="${detailDto.class_no}"/>
+		<input type="hidden" name="reported" value="${detailDto.reported}"/>
 	
 		<table>
 			<tr>
@@ -97,7 +98,7 @@ if(msg!= null && msg!=""){
 }
 
 function returnList(){ 
-	location.href="/report";
+	location.href="/report/";
 }
 
 </script>

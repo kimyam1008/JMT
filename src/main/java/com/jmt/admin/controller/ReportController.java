@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class ReportController {
 
 	@Autowired ReportService service;
 	
-	@GetMapping
+	@GetMapping("/")
 	public String listGo() {
 		return "Report/reportList";
 	}
@@ -67,7 +68,7 @@ public class ReportController {
 	
 
 	@PostMapping("/reportUpdate.do")
-	public String reportUpdate(int report_no, String report_status , String reason, RedirectAttributes ra, Integer class_no , Integer idx) {
+	public String reportUpdate(int report_no, String report_status , String reason, RedirectAttributes ra, Integer class_no , Integer idx,String reported) {
 		Map<String, Object> data  = new HashMap<String, Object>();
 
 		data.put("report_no",report_no);
@@ -78,13 +79,20 @@ public class ReportController {
 		ra.addAttribute("class_no",class_no);
 		ra.addAttribute("idx",idx);
 		
-		logger.info("test 과녕..  {}", result);
+		
 		
 		String msg = null;
-		if(result>0) { 
+		if(result>0) {
+			//변경된 status 가 블라인드인 경우 블라인드 리스트 생성해야 함. 
+			String updateCheck= service.updateCheck(report_no); 
+			if(updateCheck.equals("블라인드")) { 
+				data.put("reported", reported);
+				service.insertBlind(data);
+			}
+	
 			msg = "상태변경을 완료했습니다.";
 			ra.addFlashAttribute("msg",msg); 
-		}
+		}	
 		return "redirect:/report/detail.go";
 	}
 
@@ -95,6 +103,7 @@ public class ReportController {
 		logger.info("파라미터 모음,{}",blindPost);
 		
 		 int resut = service.blind(blindPost);
+		 
 	
 		return map; 
 	}
@@ -107,11 +116,11 @@ public class ReportController {
 	
 	@RequestMapping("/blindList.ajax")
 	@ResponseBody
-	public Map<String, Object> blindList(){ 
+	public Map<String, Object> blindList(@RequestParam HashMap<String, String> params){ 
+		logger.info("params: {}",params); 
 		
 		
-		
-		return service.blindList();
+		return service.blindList(params);
 	}
 	
 	

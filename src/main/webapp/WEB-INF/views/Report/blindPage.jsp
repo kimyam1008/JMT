@@ -8,7 +8,7 @@
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
+<script type="text/javascript" src="/resources/js/jquery.twbsPagination.js"></script>
 </head>
 <style>
 	table , th, td{ 
@@ -28,7 +28,7 @@
 <table>
 	<thead>
 		<tr>
-			<td>게시글 번호</td>
+			<td>블라인드 번호</td>
 			<td>글제목</td>
 			<td>신고자</td>
 			<td>피신고자</td>
@@ -58,17 +58,32 @@ var currPage = 1;
 listCall(currPage)
 
 
-function listCall(currPage){
-	
+function listCall(page){
+	 var pagePerNum=5;
 	$.ajax({
 		type:'get',
 		url:'/report/blindList.ajax', 
 		dateType:'json', 
-		data:{}, 
+		data:{
+			cnt:pagePerNum,
+			page:page
+			
+		}, 
 		success:function(data){
 			console.log(data.blindList); 
 			drawList(data.blindList);
 			
+		 	$("#pagination").twbsPagination({
+				startPage:data.currPage, //시작 페이지
+				totalPages: data.pages, // 총 페이지(전체 개시물 수 / 한 페이지에 보여줄 게시물 수)
+				visiblePages: 5, //한번에 보여줄 페이지 수 [1][2][3][4][5]
+				onPageClick:function(e,page){
+					//console.log(e);//클릭한 페이지와 관련된 이벤트 객체
+					console.log(page);//사용자가 클릭한 페이지
+					currPage = page;
+					listCall(page);
+				}
+			}); 
 		},
 		error:function(e){console.log(e);}
 		
@@ -76,6 +91,8 @@ function listCall(currPage){
 	});	
 	
 }
+
+
 
 function drawList(list){ 
 	var content =''; 
@@ -101,7 +118,7 @@ function drawList(list){
 			mb_group_review= ''; 
 		} 
 		content += '<tr>';
-		content += '<td>'+list.report_no+'</td>';
+		content += '<td>'+list.blind_no+'</td>';
 		content += '<td>'+mb_ligntning_title + mb_comment+mb_dojang_title+mb_dojang_post+ mb_group_review + '</td>';
 		content += '<td>'+list.reporter+'</td>';
 		content += '<td>'+list.reported+'</td>';
