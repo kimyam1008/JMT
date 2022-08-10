@@ -6,9 +6,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.Getter;
-import lombok.Setter;
-
 
 public class ReportDTO {
 	//신고 DTO 
@@ -29,12 +26,54 @@ public class ReportDTO {
 	private String report_title; 
 	private String result_reason;
 	
+	// 마이바티스 서브쿼리 test
+	private String mb_ligntning_title;
+	private String 	mb_comment;
+	private String mb_dojang_title;
+	private String mb_dojang_post;
+	private String mb_group_review;
 	
 	
-	
-	
-	
-	
+	public String getMb_ligntning_title() {
+		return mb_ligntning_title;
+	}
+
+
+	public void setMb_ligntning_title(String mb_ligntning_title) {
+		this.mb_ligntning_title = mb_ligntning_title;
+	}
+
+
+	public String getMb_comment() {
+		return mb_comment;
+	}
+
+
+	public void setMb_comment(String mb_comment) {
+		this.mb_comment = mb_comment;
+	}
+
+
+	public String getMb_dojang_title() {
+		return mb_dojang_title;
+	}
+
+
+	public void setMb_dojang_title(String mb_dojang_title) {
+		this.mb_dojang_title = mb_dojang_title;
+	}
+
+
+	public String getMb_dojang_post() {
+		return mb_dojang_post;
+	}
+
+
+	public void setMb_dojang_post(String mb_dojang_post) {
+		this.mb_dojang_post = mb_dojang_post;
+	}
+
+
 	public String getResult_reason() {
 		return result_reason;
 	}

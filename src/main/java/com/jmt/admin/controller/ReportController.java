@@ -43,7 +43,7 @@ public class ReportController {
 		return service.reportList(params); 
 	}
 	
-	@GetMapping("/detail")
+	@GetMapping("/detail.go")
 	public String reportList(@RequestParam("report_no") int report_no ,Model model,Integer class_no , Integer idx) {
 		logger.info("신고 번호 {}",report_no);
 
@@ -66,7 +66,7 @@ public class ReportController {
 	
 	
 
-	@PostMapping("/reportUpdate")
+	@PostMapping("/reportUpdate.do")
 	public String reportUpdate(int report_no, String report_status , String reason, RedirectAttributes ra, Integer class_no , Integer idx) {
 		Map<String, Object> data  = new HashMap<String, Object>();
 
@@ -77,8 +77,15 @@ public class ReportController {
 		ra.addAttribute("report_no",report_no);
 		ra.addAttribute("class_no",class_no);
 		ra.addAttribute("idx",idx);
-	
-		return "redirect:/report/detail";
+		
+		logger.info("test 과녕..  {}", result);
+		
+		String msg = null;
+		if(result>0) { 
+			msg = "상태변경을 완료했습니다.";
+			ra.addFlashAttribute("msg",msg); 
+		}
+		return "redirect:/report/detail.go";
 	}
 
 	@RequestMapping("/blind.ajax")
@@ -88,9 +95,24 @@ public class ReportController {
 		logger.info("파라미터 모음,{}",blindPost);
 		
 		 int resut = service.blind(blindPost);
-		
-		
+	
 		return map; 
 	}
+	
+	@RequestMapping("/blind.go")
+	public String blindPage() { 
+		
+		return "Report/blindPage";
+	}
+	
+	@RequestMapping("/blindList.ajax")
+	@ResponseBody
+	public Map<String, Object> blindList(){ 
+		
+		
+		
+		return service.blindList();
+	}
+	
 	
 }

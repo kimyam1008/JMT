@@ -89,14 +89,14 @@
 	
 	<!-- 신고 상세보기 -->
 	<select id="reportDetail" parameterType="int" resultType="com.jmt.admin.dto.ReportDTO">
-		select c.class_name, r.report_no , r.report_date ,r.report_reason ,r.report_proc_status ,r.report_proc_date ,r.reported ,r.reporter ,r.report_title ,r.idx ,r.class_no from report r 
+		select c.class_name,r.result_reason, r.report_no , r.report_date ,r.report_reason ,r.report_proc_status ,r.report_proc_date ,r.reported ,r.reporter ,r.report_title ,r.idx ,r.class_no from report r 
 		JOIN codetable c on r.class_no =c.class_no 
 		where r.report_no =#{param1}
 	</select> 
 	
 	<!-- 신고 상세 수정하기   , insert로 바꾸기 -->
 	<update id="reportUpdate" parameterType="hashmap">
-		UPDATE report r SET r.report_reason = #{reason} , r.report_proc_status=#{report_status},r.report_proc_date = now() WHERE r.report_no = #{report_no}
+		UPDATE report r SET r.result_reason =#{reason} , r.report_proc_status=#{report_status},r.report_proc_date = now() WHERE r.report_no = #{report_no}
 	</update>
 	
 	
@@ -123,6 +123,20 @@
 	<update id="blind" parameterType="String">
 		UPDATE report SET report_proc_status ='블라인드', report_proc_date = now() WHERE report_no =#{idx}
 	</update>
+	
+	<!-- 블라인드 리스트 -->
+	<select id="blindList" resultType="com.jmt.admin.dto.ReportDTO">
+	select r.*
+		, (select l.lightning_title from lightninglist l  where l.lightning_no =r.idx and r.class_no =l.class_no  )as mb_ligntning_title 
+		,(select c.comment_content  from comment c  where c.comment_no  =r.idx  and r.class_no =c.class_no  )as mb_comment
+		,(select d.dojang_title  from  dojanglist d  where d.dojang_no  =r.idx and r.class_no  =d.class_no  )as mb_dojang_title
+		,(select d2.dojangPost_content  from  dojangpost d2  where d2.dojangPost_no  =r.idx and r.class_no = d2.class_no  )as mb_dojang_post
+		,(select g.review_title  from groupreview g where g.groupReview_no = r.idx and r.class_no = g.class_no  )as mb_group_review
+		from report r where r.report_proc_status ='블라인드'
+		
+	</select>
+	
+	
 	
 	
 </mapper>
