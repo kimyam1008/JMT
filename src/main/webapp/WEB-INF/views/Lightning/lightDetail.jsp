@@ -56,7 +56,6 @@
 	</table>
 	<button id="application" onclick="application()">신청</button>
 	<button onclick="location.href='/lightList.go'">목록</button>
-	<button style="visibility : hidden ">탈퇴</button>
 </body>
 <script>
 	var msg = "${msg}";
@@ -64,14 +63,23 @@
 		alert(msg);
 	}
 	
+	
 	var status = "${dto.status}";
+	
+	if(status=="승인"){
+		$("#application").text("탈퇴");
+		$("#application").attr("onclick","dropout()");
+	}
+	
+	
 	
 	function application(){
 		console.log(status);
-		
+		//방장아이디랑 로그인아이디 비교해서 같으면 신청불가쓰~ 
 		//아직 가입신청을 안한 경우
 		if (status == ""){
 			if(confirm("가입 신청하시겠습니까?")){
+				alert("신청완료 되었습니다.");
 				location.href='/lightRegister.do?lightning_no=${dto.lightning_no}';
 			}
 		}else if(status=="대기"){
@@ -86,8 +94,13 @@
 		
 	}
 	
-	if(status=="승인"){
-		
+	
+	
+	function dropout(){
+		if(confirm("모임에서 탈퇴할 경우 재신청 할 수 없습니다. 정말 탈퇴하시겠습니까?")){
+			alert("탈퇴 되었습니다.");
+			location.href='/lightDropOut.do?lightning_no=${dto.lightning_no}';
+		}
 	}
 </script>
 </html>

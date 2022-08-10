@@ -57,5 +57,10 @@ public class LightningService {
 		logger.info("번개 모임 신청 서비스");
 		return dao.register(loginId,lightning_no);
 	}
+
+	public void dropout(String loginId, String lightning_no) {
+		logger.info("탈퇴 서비스 요청");
+		dao.dropout(loginId,lightning_no);
+	}
 	
 }

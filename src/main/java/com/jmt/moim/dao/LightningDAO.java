@@ -19,4 +19,6 @@ public interface LightningDAO {
 
 	int register(String lightning_no, String loginId);
 
+	void dropout(String loginId, String lightning_no);
+
 }

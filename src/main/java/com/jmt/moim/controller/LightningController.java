@@ -153,10 +153,9 @@ public class LightningController {
 		
 		//가입신청종합 테이블에 대기로 insert
 		int row = service.register(loginId,lightning_no);
+		
 		String msg = "";
-		if(row>0){
-			msg = "신청 완료되었습니다.";
-		}else{
+		if(row<1){
 			msg = "신청에 실패했습니다.";
 		}
 		
@@ -166,6 +165,22 @@ public class LightningController {
 	}
 	
 	
+	//탈퇴 
+	@RequestMapping("/lightDropOut.do") 
+	public String lightStatusUpdate(Model model,HttpSession session
+			,@RequestParam String lightning_no) {
+		
+		
+		logger.info("번개 모임 탈퇴 : " + lightning_no);
+		String loginId = (String) session.getAttribute("loginId");
+		
+		//탈퇴- apply 테이블 update
+		service.dropout(loginId,lightning_no);
+		
+	
+		
+		return "redirect:/lightList.go";
+	}
 	
 	
 	

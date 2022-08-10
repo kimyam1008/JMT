@@ -107,4 +107,7 @@
 			VALUES(#{param1},1,#{param2})
 	</insert>
 	
+	<update id="dropout">
+		UPDATE apply SET status="탈퇴" WHERE class_no = 1 AND member_id = #{param1} AND idx = #{param2}
+	</update>
 </mapper>
