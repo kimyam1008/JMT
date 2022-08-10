@@ -78,14 +78,19 @@ table, th, td{
 <script>
 
 
+//상태에 따른 가입신청 관리
 $("input:button[name='Apply']").on('click',function(){
 	if($("#status").val() == '대기'){
 		alert("이미 신청이 완료됐습니다.");
+	}else if($("#status").val() == '강퇴'){
+		alert("강퇴 당한 방입니다.");
+	}else if($("#status").val() == '탈퇴'){
+		alert("이미 탈퇴한 방입니다.");
 	}else{
 		dojangApply_pop();
 	}
-	
 });
+
 
 console.log($("#status").val());
 

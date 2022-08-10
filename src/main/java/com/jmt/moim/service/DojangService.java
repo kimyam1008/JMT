@@ -3,6 +3,8 @@ package com.jmt.moim.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +84,7 @@ public class DojangService {
 		DojangDTO dojangDetail = dao.dojangDetail(dojang_no);
 		ArrayList<DojangDTO> dojangGreview = dao.dojangGreview(dojang_no);
 		
+		//가입신청 관리
 		DojangDTO applyStatus = dao.applyStatus(loginId,dojang_no);
 		logger.info("data:::"+loginId+","+dojang_no);
 		
@@ -110,6 +113,19 @@ public class DojangService {
 		
 		
 		
+	}
+
+
+	public boolean dojangReg(HashMap<String, String> params) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		boolean success = false;
+		
+		if(dao.dojangReg(params)>0) {
+			success = true;
+		}
+		
+		result.put("success", success);
+		return success;
 	}
 
 

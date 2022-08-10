@@ -94,8 +94,8 @@
 	</select>
 	
 	<insert id="dojangApply">
-		insert into apply(idx,class_no,status,member_id)
-			values(#{param1},3,'대기',#{param2});
+		INSERT INTO apply(idx,class_no,status,member_id)
+			VALUES(#{param1},3,'대기',#{param2});
 	</insert>
 	
 	<select id="applyStatus" resultType="dojang">
@@ -103,5 +103,10 @@
 			FROM apply a 
 		WHERE class_no = 3 AND member_id = #{param1} AND idx = #{param2};
 	</select>
+	
+	<insert id="dojangReg" parameterType="hashmap">
+		INSERT INTO dojanglist(dojang_title,food_no,people_num,eat_speed,gender,job,dojang_content,leader_id,dojang_status,class_no)
+			VALUES (#{dojang_title},#{food_name},#{points},#{eat_speed},#{gender},#{job},#{dojang_content},#{loginId},'모집중',3)
+	</insert>
 	
 </mapper>
