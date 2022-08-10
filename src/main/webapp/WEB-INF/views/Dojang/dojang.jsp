@@ -23,6 +23,10 @@ th, td {
 	 ${sessionScope.loginId} 님 환영합니다, <a href="logout.do">로그아웃</a>
 </div>
 <br/>
+<div  style="width:80px;">
+<input type="button" value="도장깨기 생성" onclick="location.href='dojangReg.go'"/>
+</div >
+<br/>
 	<div style="float: left;">
 		<input type="text" id="search" placeholder="모임이름을 검색해주세요">
 		<button id="moimSearch">검색</button>

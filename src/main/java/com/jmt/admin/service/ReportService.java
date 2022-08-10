@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jmt.admin.dao.ReportDAO;
 import com.jmt.admin.dto.ReportDTO;
+import com.jmt.admin.dto.ReportPostDto;
 
 @Service
 public class ReportService {
@@ -71,5 +72,58 @@ public class ReportService {
 	public int reportUpdate(Map<String, Object> data) {
 		return dao.reportUpdate(data);
 	}
+	
+	// 상세보기 내 신고 게시글 
+	public ReportPostDto reportPost(Map<String, Object> data) {
+		int class_no=(int) data.get("class_no");
+		int idx = (int) data.get("idx");
+		logger.info("class_no 정보 {} , idx 정보 {}",class_no,idx);
+		ReportPostDto reportPost = null; 
+		
+		if(class_no==1) {
+			 reportPost= dao.select_no1(idx);
+		}
+		
+		else if(class_no==2) {
+			 reportPost= dao.select_no2(idx);
+		}
+		
+		else if(class_no==3) {
+			 reportPost= dao.select_no3(idx);
+		}
+		
+		else if(class_no==4) {
+			reportPost= dao.select_no4(idx);
+		}
+		
+		else if(class_no==5) { // 도장깨기 댓글
+			reportPost= dao.select_no2(idx);
+		}
+		
+		else if(class_no==6) {// 모임 후기 
+			 reportPost= dao.select_no6(idx);
+		}
+		
+		else if(class_no==7) { // 모임후기 댓글 
+			reportPost= dao.select_no2(idx);
+		}
+		
+		else if(class_no==8) { // 맛집리뷰 댓글 
+			reportPost= dao.select_no2(idx);
+		}
+		
+		return reportPost;
+	}
+
+	public int blind(ArrayList<String> blindPost) {
+		int i=0; 
+		for (String idx : blindPost) {
+			i += dao.blind(idx);
+		}
+		
+		return i;
+	}
+
+	
 
 }

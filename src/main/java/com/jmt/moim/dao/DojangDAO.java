@@ -3,6 +3,8 @@ package com.jmt.moim.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import com.jmt.moim.dto.DojangDTO;
 
 public interface DojangDAO {
@@ -19,7 +21,9 @@ public interface DojangDAO {
 
 	int dojangApply(String dojang_no, String loginId);
 
-	String applyStatus(String loginId, String dojang_no);
+	DojangDTO applyStatus(String loginId, String dojang_no);
+
+	int dojangReg(HashMap<String, String> params);
 
 
 }
