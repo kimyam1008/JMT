@@ -135,7 +135,7 @@ function drawList(list){
 		//console.log(item);
 		content += '<tr>';
 		content += '<td> <input type="checkbox" value='+item.report_no+'></td>';	
-		content += '<td>'+'<a href=report/detail?report_no='+item.report_no+'&class_no='+item.class_no+'&idx='+item.idx+'>'+item.report_title+'<a/></td>'; 
+		content += '<td>'+'<a href=report/detail.go?report_no='+item.report_no+'&class_no='+item.class_no+'&idx='+item.idx+'>'+item.report_title+'<a/></td>'; 
 		/* content += '<td>'+'<a href=report/detail?report_no='+item.report_no+'>'+item.report_title+'<a/></td>'; */
 		content += '<td>'+item.class_name+'</td>';
 		content += '<td>'+item.reporter+'</td>';
@@ -143,7 +143,7 @@ function drawList(list){
 		content += '<td>'+item.reported+'</td>';
 		content += '<td>'+item.report_proc_status+'</td>';
 		content += '<td>'+item.report_proc_date+'</td>';
-		content += '<td>'+item.report_reason+'</td>';
+		content += '<td>'+item.report_reason+'</td>'; 
 		content += '</tr>';
 	});
 	$('#list').empty();

@@ -123,6 +123,17 @@ public class ReportService {
 		
 		return i;
 	}
+	
+	// 블라인드 리스트 .. 
+	public Map<String, Object> blindList() {
+		Map<String, Object> map = new HashMap<String, Object>(); 
+		//리스트 뿌려주기 . 
+		ArrayList<ReportDTO> blindList= dao.blindList(); 
+
+		map.put("blindList", blindList);
+		
+		return map;
+	}
 
 	
 

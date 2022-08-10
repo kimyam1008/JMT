@@ -19,4 +19,14 @@ public interface GroupReviewDAO {
 
 	GroupReviewDTO groupReviewDetail(String groupReview_no);
 
+	ArrayList<GroupReviewDTO> groupSearchList(String groupSortChange, String loginId);
+
+	//void groupReviewRegister(GroupReviewDTO dto, String loginId);
+
+	void grFileWrite(String newFileName, String string, int class_no, int idx);
+
+	void groupReviewRegister(GroupReviewDTO dto);
+
+	ArrayList<GroupReviewDTO> grPhotoList(String idx);
+
 }

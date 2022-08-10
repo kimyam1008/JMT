@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,9 +35,9 @@ public class DojangController {
 	//도장 리스트
 	@RequestMapping(value = "/dojang.ajax")
 	@ResponseBody
-	public HashMap<String, Object> dojangList(@RequestParam HashMap<String, String> params) {
+	public HashMap<String, Object> dojangList(@RequestParam HashMap<String, String> params, HttpSession session) {
 		logger.info("도장 리스트 요청");
-		return service.dojangList(params);
+		return service.dojangList(params,session);
 	}
 	
 	//음식 카테고리
@@ -64,7 +65,7 @@ public class DojangController {
 		return"./Dojang/dojangApply";	
 	}
 	
-	
+	//도장가입 신청 팝업
 	@RequestMapping("/dojangApply.ajax")
 	@ResponseBody
 	public HashMap<String, Object> dojangApply(HttpSession session){
@@ -77,6 +78,28 @@ public class DojangController {
 
 		return map;
 	}
+	
+	
+	//도장깨기 생성 페이지
+	@RequestMapping("/dojangReg.go")
+	public String dojangRegGo() {
+		logger.info("도장깨기 생성");
+		return "./Dojang/dojangReg";
+	}
+	
+	//도장깨기 생성
+	@RequestMapping("/dojangReg.ajax")
+	@ResponseBody
+	public HashMap<String, Object> dojangReg(@RequestParam HashMap<String, String> params, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		//String loginId = (String) session.getAttribute("loginId");
+		boolean dojangReg = service.dojangReg(params);
+		map.put("dojangReg", dojangReg);
+		
+		return map;
+	}
+	
 	
 	
 	
