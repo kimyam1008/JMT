@@ -23,8 +23,57 @@ public class LightningDTO {
 	private int member_count;
 	private String lightning_status;
 	private String participate;
+	private String lightning_content;
+	private Date lightning_create;
+	
+	private String eat_speed;
+	private String gender;
+	private String job;
+	
+	//apply
+	private String status;
 	
 	
+	
+	
+	
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public Date getLightning_create() {
+		return lightning_create;
+	}
+	public void setLightning_create(Date lightning_create) {
+		this.lightning_create = lightning_create;
+	}
+	public String getEat_speed() {
+		return eat_speed;
+	}
+	public void setEat_speed(String eat_speed) {
+		this.eat_speed = eat_speed;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getJob() {
+		return job;
+	}
+	public void setJob(String job) {
+		this.job = job;
+	}
+	public String getLightning_content() {
+		return lightning_content;
+	}
+	public void setLightning_content(String lightning_content) {
+		this.lightning_content = lightning_content;
+	}
 	public int getFood_no() {
 		return food_no;
 	}

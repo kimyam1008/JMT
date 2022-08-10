@@ -47,9 +47,15 @@ public class LightningService {
 	}
 
 
-	public LightningDTO detail(String lightning_no) {
+	public LightningDTO detail(String lightning_no, String loginId) {
 		logger.info("상세보기 서비스 요청");
-		return dao.detail(lightning_no);
+		return dao.detail(lightning_no,loginId);
+	}
+
+
+	public int register(String loginId,String lightning_no) {
+		logger.info("번개 모임 신청 서비스");
+		return dao.register(loginId,lightning_no);
 	}
 	
 }

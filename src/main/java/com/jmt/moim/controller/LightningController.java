@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jmt.moim.dto.LightningDTO;
 import com.jmt.moim.service.LightningService;
@@ -126,20 +127,50 @@ public class LightningController {
 	
 	
 	@RequestMapping("/lightDetail.go") 
-	public String lightDetail(Model model,@RequestParam String lightning_no) {
+	public String lightDetail(Model model,HttpSession session
+			,@RequestParam String lightning_no) {
 		logger.info("상세보기 페이지 이동");
+		String loginId = (String) session.getAttribute("loginId");
 		
-		LightningDTO dto = service.detail(lightning_no);
-		
+		LightningDTO dto = service.detail(lightning_no,loginId);
+		if(dto != null) {
+			model.addAttribute("dto", dto);
+		}
 		
 		return "./Lightning/lightDetail";
 	}
 	
 	
 	
+	//상세보기페이지 - 번개모임에 신청할 시 
+	@RequestMapping("/lightRegister.do") 
+	public String lightRegister(Model model,HttpSession session
+			,RedirectAttributes rAttr, @RequestParam String lightning_no) {
+		
+		
+		logger.info("번개 모임 신청 : " + lightning_no);
+		String loginId = (String) session.getAttribute("loginId");
+		
+		//가입신청종합 테이블에 대기로 insert
+		int row = service.register(loginId,lightning_no);
+		String msg = "";
+		if(row>0){
+			msg = "신청 완료되었습니다.";
+		}else{
+			msg = "신청에 실패했습니다.";
+		}
+		
+		rAttr.addFlashAttribute("msg", msg);
+		
+		return "redirect:/lightDetail.go?lightning_no="+lightning_no;
+	}
 	
 	
-	//매일 밤 12시 모임날짜가 지난 게시글 모집마감으로 변경
+	
+	
+	
+	
+	//매일 밤 12시 모임날짜가 지난 게시글 모집마감으로 변경 
 	@Scheduled(cron="0 0 0 * * *")
 	public void changeStatus() {
 		service.changeStatus();

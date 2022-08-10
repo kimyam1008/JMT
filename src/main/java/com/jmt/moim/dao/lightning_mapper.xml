@@ -82,17 +82,29 @@
 		UPDATE lightninglist SET lightning_status="모집마감" WHERE <![CDATA[lightning_date < curdate()]]> 
 	</update>
 	
-	<select id="detail" resultType="light" parameterType="String">
-		select 
-			lightning_title
+	<select id="detail" resultType="light">
+		SELECT 
+			lightning_no
+			,lightning_title
 			,leader_id
 			,member_num
-			,(select count(apply_no)+1 from apply a where status="승인" and class_no = 1 and l.lightning_no = #{lightning_no}) as member_count
+			,(select count(apply_no)+1 from apply a where status="승인" and class_no = 1 and l.lightning_no = #{param1}) as member_count
+			,(select status from apply a where  class_no = 1 and idx= #{param1} and member_id=#{param2}) as status
 			,eat_speed
 			,lightning_create
 			,lightning_date
-			
-		from lightninglist l join restaurant r where lightning_no = #{lightning_no}
+			,restaurant_name
+			,f.food_name
+			,gender
+			,job
+			,lightning_content
+		FROM lightninglist l JOIN restaurant r USING(restaurant_no) LEFT OUTER JOIN food f ON f.food_no = r.food_no 
+			WHERE lightning_no = #{param1}
 	</select>
+	
+	<insert id="register">
+		INSERT INTO apply(member_id, class_no, idx) 
+			VALUES(#{param1},1,#{param2})
+	</insert>
 	
 </mapper>

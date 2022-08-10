@@ -15,6 +15,8 @@ public interface LightningDAO {
 
 	void changeStatus();
 
-	LightningDTO detail(String lightning_no);
+	LightningDTO detail(String lightning_no, String loginId);
+
+	int register(String lightning_no, String loginId);
 
 }

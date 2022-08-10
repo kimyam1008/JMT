@@ -18,44 +18,76 @@
 </head>
 
 <body>
+	<a href="#">방장페이지</a>
 	<table>
 		<tr>
 			<th>모임 이름</th>
-			<td></td>
+			<td>${dto.lightning_title}</td>
 			<th>방장ID</th>
-			<td></td>
+			<td>${dto.leader_id}</td>
 		</tr>
 		<tr>
 			<th>인원</th>
-			<td></td>
+			<td>${dto.member_count}/${dto.member_num}</td>
 			<th>식사속도</th>
-			<td></td>
+			<td>${dto.eat_speed}</td>
 		</tr>
 		<tr>
 			<th>모임 생성 날짜</th>
-			<td></td>
+			<td>${dto.lightning_create}</td>
 			<th>모임 날짜</th>
-			<td></td>
+			<td>${dto.lightning_date}</td>
 		</tr>
 		<tr>
 			<th>장소</th>
-			<td></td>
+			<td>${dto.restaurant_name}</td>
 			<th>음식 카테고리</th>
-			<td></td>
+			<td>${dto.food_name}</td>
 		</tr>
 		<tr>
 			<th>성별</th>
-			<td></td>
+			<td>${dto.gender}</td>
 			<th>직업</th>
-			<td></td>
+			<td>${dto.job}</td>
 		</tr>
 		<tr>
-			<td colspan="4"></td>
+			<td colspan="4">${dto.lightning_content}</td>
 		</tr>
 	</table>
-	<button>신청</button>
+	<button id="application" onclick="application()">신청</button>
 	<button onclick="location.href='/lightList.go'">목록</button>
+	<button style="visibility : hidden ">탈퇴</button>
 </body>
 <script>
+	var msg = "${msg}";
+	if (msg != ""){
+		alert(msg);
+	}
+	
+	var status = "${dto.status}";
+	
+	function application(){
+		console.log(status);
+		
+		//아직 가입신청을 안한 경우
+		if (status == ""){
+			if(confirm("가입 신청하시겠습니까?")){
+				location.href='/lightRegister.do?lightning_no=${dto.lightning_no}';
+			}
+		}else if(status=="대기"){
+			alert("이미 신청한 방입니다.");
+		}else if(status=="거절"){
+			alert("방장이 승인을 거절하여 재신청이 불가합니다.");
+		}else if(status=="탈퇴"){
+			alert("모임에서 탈퇴하여 재신청이 불가합니다.");
+		}else if(status=="강퇴"){
+			alert("모임에서 강퇴당하여 재신청이 불가합니다.");
+		}
+		
+	}
+	
+	if(status=="승인"){
+		
+	}
 </script>
 </html>
