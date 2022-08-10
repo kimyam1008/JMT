@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.jmt.groupreview.dto.GroupReviewDTO;
 import com.jmt.groupreview.service.GroupReviewService;
@@ -47,10 +49,11 @@ public class GroupReviewController {
 	}
 
 	//모임 후기 작성 페이지 이동
-	@RequestMapping(value = "/groupReviewRegister.go")
-	public String groupReviewRegisterGo(HttpSession session){
-		session.getAttribute("loginId");
-		return "./GroupReview/groupReviewRegister";
+	@RequestMapping(value = "/grRegisterForm.go")
+	public String grRegisterForm(HttpSession session,Model model){
+		String loginId = (String) session.getAttribute("loginId");
+		model.addAttribute("loginId", loginId);
+		return "./GroupReview/grRegisterForm";
 	}
 	
 	//모임 후기 작성 > 모임 검색 팝업
@@ -59,13 +62,46 @@ public class GroupReviewController {
 		return "./GroupReview/groupSearchPop";
 	}
 	
+	//모임 검색 팝업 ajax
+	@RequestMapping("/groupSearch.ajax")
+	@ResponseBody
+	public HashMap<String, Object> groupSearch(@RequestParam String groupSortChange,HttpSession session){
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info(loginId+"가 가입한 모임 리스트 요청 : "+groupSortChange);
+		return service.groupSearch(groupSortChange,loginId);
+	}
+	
+	//파일 업로드
+	@RequestMapping(value = "/grFileUpload")
+	public ModelAndView grFileUpload(MultipartFile file, HttpSession session) {
+		logger.info("upload 요청");
+		return service.fileUpload(file,session);
+	}
+	
+	//파일 삭제
+	@RequestMapping(value = "/grFileDelete.ajax")
+	@ResponseBody
+	public HashMap<String, Object> grFileDelete(@RequestParam String fileName, HttpSession session) {
+		logger.info(fileName+"삭제 요청");
+		return service.grFileDelete(fileName,session);
+	}
+	
+	//모임 후기글 작성
+	@RequestMapping(value = "/groupReviewRegister")
+	public ModelAndView groupReviewRegister(@RequestParam HashMap<String, String> params, HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("글쓰기 요청"+params,loginId);
+		return service.groupReviewRegister(params,session,loginId);
+	}
+	
 	//모임 후기 상세보기
 	@RequestMapping(value = "/groupReviewDetail.do")
-	public String groupReviewDet(String groupReview_no, Model model){
-		GroupReviewDTO dto = service.groupReviewDetail(groupReview_no);
+	public ModelAndView groupReviewDet(@RequestParam String groupReview_no,
+			HttpSession session,@RequestParam String idx){
+		String loginId = (String) session.getAttribute("loginId");
+		//GroupReviewDTO dto = service.groupReviewDetail(groupReview_no,idx);
 		logger.info("모임 후기 상세 페이지 이동 요청");
-		model.addAttribute("dto", dto);
-		return "./GroupReview/groupReviewDetail";
+		return service.groupReviewDetail(groupReview_no,idx);
 	}
 	
 	@RequestMapping(value = "/groupReviewDetail.go")
@@ -74,4 +110,6 @@ public class GroupReviewController {
 		session.setAttribute("groupReview_no", groupReview_no);
 		return "./GroupReview/groupReviewDetail";
 	}
+	
+
 }

@@ -4,7 +4,7 @@
 <mapper namespace="com.jmt.groupreview.dao.GroupReviewDAO">
 	<!-- class_no 1(번개모임리스트), 3(도장깨기리스트) -->
 	<select id="groupReviewList" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
-		 select
+		 SELECT
 			 g.groupReview_no
 			 ,g.review_title
 			 ,l.lightning_title
@@ -63,5 +63,35 @@
 		LEFT OUTER JOIN member ON member.member_id = groupReview.member_id
 		JOIN codeTable ON groupReview.class_no = codeTable.class_no
 		WHERE groupReview_no = #{groupReview_no}
+	</select>
+	
+	<!-- 모임검색 팝업 -->
+	<select id="groupSearchList" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
+		SELECT lightning_title
+			,dojang_title
+			,d.leader_id
+			,l.leader_id
+		FROM member m
+		LEFT OUTER JOIN dojangList d ON d.leader_id = m.member_id 
+		LEFT OUTER JOIN lightningList l ON l.leader_id = m.member_id
+		LEFT OUTER JOIN apply a ON a.member_id = m.member_id
+		WHERE m.member_id = #{param2} AND a.status = "승인"
+	</select>
+	
+	<!-- 글쓰기 -->
+	<insert id="groupReviewRegister" parameterType="com.jmt.groupreview.dto.GroupReviewDTO"
+	useGeneratedKeys="true" keyColumn="groupReview_no" keyProperty="groupReview_no">
+		INSERT INTO groupReview(review_title,review_content,groupReview_status,member_id)
+		VALUES(#{subject},#{content},"노출",#{member_id})
+	</insert>
+	
+	<!-- DB에 파일 저장 -->
+	<insert id="grFileWrite">
+		INSERT INTO photo(newFileName,oriFileName,class_no,idx)
+		VALUES(#{param1},#{param2},#{param3},#{idx})
+	</insert>
+	
+	<select id="grPhotoList" parameterType="String" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
+		SELECT * FROM photo WHERE idx = #{idx}
 	</select>
 </mapper>
