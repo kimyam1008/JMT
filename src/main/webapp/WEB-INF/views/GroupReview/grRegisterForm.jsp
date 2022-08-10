@@ -45,14 +45,15 @@
 </head>
 <body>
 	<h3>모임 후기 작성</h3>
-	<!-- <form action="groupReviewRegister" method="POST"> -->
+	<form action="groupReviewRegister" method="POST">
 		<table>
 			<tr>
 				<th>모임 검색</th>
 				<td>
-					<input type="text" name="subject" readonly/>모임 이름
-					<button onclick="groupSearchPop()">검색</button>
-				</td>
+					<!-- <input type="text" id="groupName" value="" readonly/> -->
+					<p id="groupName"></p>
+					<input type="button" value="검색" onclick="groupSearchPop()"/>
+					<input type="hidden" name="user_id" value=""/>
 			</tr>
 			<tr>
 				<th>글 제목</th>
@@ -79,14 +80,57 @@
 				</th>
 			</tr>
 		</table>
-	<!-- </form> -->
+	</form>
 </body>
 <script>
+$('input[name=user_id]').attr('value',"${sessionScope.loginId}");
+
+//모임 검색 팝업
 function groupSearchPop(){
 	window.open("/groupSearchPop.go","new","width=500, height=400, left=400 ,top=200, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
-
 }
 
+//글 업로드
+function save(){
+	$('#content a').removeAttr('onclick');
+	//id가 content인 태그의 자식태그 a 태그에서 onclick 속성 삭제
+	$('#content').val($('#editable').html());
+	//content 안에 editable 넣음
+	$('form').submit();
+}
+
+//파일업로드 팝업
+function fileUp(){
+	if ($('img').length < 4) {
+		window.open('grFileUploadForm.go','','width=400, height=100');
+	} else {
+		alert('이미지 업로드 제한 갯수를 초과했습니다.');
+	}
+}
+
+//사진 삭제
+function del(elem){
+	console.log(elem);
+	//id에서 삭제할 파일명을 추출
+	var id = $(elem).attr("id");
+	var fileName = id.substring(id.lastIndexOf("/")+1);
+	console.log(fileName);
+	//해당 파일 삭제 요청
+	$.ajax({
+		url:'grFileDelete.ajax',
+		type:'get',
+		data:{'fileName':fileName},
+		dataType:'json',
+		success:function(data){
+			console.log(data)
+			//a 태그를 포함한 img 태그를 삭제
+			$(elem).remove();
+		},
+		error:function(e){
+			console.log(e);
+		}
+	});
+}
 
 </script>
 </html>

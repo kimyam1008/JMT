@@ -21,6 +21,7 @@ table, th, td{
 </div>
 <br/>
 <h3>도장 상세</h3>
+<input type="hidden" id="status" value="${applyStatus.status}"/>
 	<table>
 	<tr>
 		<th>모임 이름</th>
@@ -68,16 +69,34 @@ table, th, td{
 	</tr>
 	<tr>
 			<th colspan="4">
-				<input type="button" value="신청" onclick="dojangApply_pop()"/>
+				<input type="button" name='Apply' value="신청"/>
 				<input type="button" value="목록" onclick="location.href='dojang.go'"/>
 			</th>
 		</tr>
 	</table>
 </body>
 <script>
+
+
+//상태에 따른 가입신청 관리
+$("input:button[name='Apply']").on('click',function(){
+	if($("#status").val() == '대기'){
+		alert("이미 신청이 완료됐습니다.");
+	}else if($("#status").val() == '강퇴'){
+		alert("강퇴 당한 방입니다.");
+	}else if($("#status").val() == '탈퇴'){
+		alert("이미 탈퇴한 방입니다.");
+	}else{
+		dojangApply_pop();
+	}
+});
+
+
+console.log($("#status").val());
+
+
 function dojangApply_pop(){
 	window.open("/dojangApply.go?dojang_no="+${dojangDetail.dojang_no},"new","width=400, height=200, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
-
 }
 
 </script>

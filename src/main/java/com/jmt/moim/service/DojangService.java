@@ -3,6 +3,8 @@ package com.jmt.moim.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ public class DojangService {
 
 	@Autowired  DojangDAO dao;
 
-	public HashMap<String, Object> dojangList(HashMap<String, String> params) {
+	public HashMap<String, Object> dojangList(HashMap<String, String> params, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int cnt = Integer.parseInt(params.get("cnt"));
 		int page = Integer.parseInt(params.get("page"));
@@ -41,6 +43,9 @@ public class DojangService {
 		searchResult.put("eat_speed", eat_speed);
 		searchResult.put("job", job);
 		searchResult.put("gender", gender);
+		searchResult.put("loginId", session.getAttribute("loginId"));
+		
+		logger.info("확인:::"+session.getAttribute("loginId"));
 		
 
 		int allCnt = dao.allCount(searchResult);
@@ -82,7 +87,9 @@ public class DojangService {
 		DojangDTO dojangDetail = dao.dojangDetail(dojang_no);
 		ArrayList<DojangDTO> dojangGreview = dao.dojangGreview(dojang_no);
 		
-		String applyStatus = dao.applyStatus(loginId,dojang_no);
+		//가입신청 관리
+		DojangDTO applyStatus = dao.applyStatus(loginId,dojang_no);
+		logger.info("data:::"+loginId+","+dojang_no);
 		
 		ModelAndView mav = new ModelAndView("./Dojang/dojangDetail");
 		mav.addObject("dojangDetail",dojangDetail);
@@ -111,6 +118,26 @@ public class DojangService {
 		
 	}
 
+
+	public boolean dojangReg(HashMap<String, String> params) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		boolean success = false;
+		
+		if(dao.dojangReg(params)>0) {
+			success = true;
+		}
+		
+		result.put("success", success);
+		return success;
+	}
+	
+	
+	
+	public int[] applyIdx(String loginId) {
+		logger.info("승인된 모임의 글번호 가져오기 서비스 요청");
+		return dao.applyIdx(loginId);
+	}
+	
 
 
 }

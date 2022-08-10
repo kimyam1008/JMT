@@ -1,12 +1,22 @@
 package com.jmt.groupreview.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.jmt.groupreview.dao.GroupReviewDAO;
 import com.jmt.groupreview.dto.GroupReviewDTO;
@@ -68,8 +78,119 @@ public class GroupReviewService {
 		return map;
 	}
 
-	public GroupReviewDTO groupReviewDetail(String groupReview_no) {
-		return dao.groupReviewDetail(groupReview_no);
+	public ModelAndView groupReviewDetail(String groupReview_no, String idx) {
+		ModelAndView mav = new ModelAndView("./GroupReview/groupReviewDetail");
+		GroupReviewDTO dto = dao.groupReviewDetail(groupReview_no);
+		mav.addObject("dto", dto);
+		ArrayList<GroupReviewDTO> grPhotoList = dao.grPhotoList(idx);
+		mav.addObject("grPhotoList",grPhotoList);
+		return mav;
 	}
 
+	public HashMap<String, Object> groupSearch(String groupSortChange, String loginId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		logger.info("받아온 셀렉트박스 값 : "+groupSortChange);
+		
+		//HashMap<String, Object> groupSearchResult = new HashMap<String, Object>();		
+		//groupSearchResult.put("groupSortChange", groupSortChange);
+		
+		ArrayList<GroupReviewDTO> groupSearchList = dao.groupSearchList(groupSortChange,loginId);
+		map.put("groupSearchList", groupSearchList);
+		return map;
+	}
+
+	public ModelAndView fileUpload(MultipartFile file, HttpSession session) {
+		ModelAndView mav = new ModelAndView("grFileUploadForm");
+		
+		//1. 파일명 추출
+		String fileName = file.getOriginalFilename();
+		
+		//2. 신규파일명 생성
+		String ext = fileName.substring(fileName.lastIndexOf(".")); //확장자 받아오기
+		String newFileName = System.currentTimeMillis()+ext;
+		
+		try {
+			//3. 파일 받아오기
+			byte[] bytes = file.getBytes();
+			
+			//4. 파일 저장(java nio 사용)
+			Path filePath = Paths.get("C:/upload/"+newFileName);
+			Files.write(filePath, bytes);
+			
+			//5. DB에 저장(아직 저장 안했으니 세션에 임시저장)
+			HashMap<String, String> map = (HashMap<String, String>) session.getAttribute("fileList");
+			if(map==null) {
+				map = new HashMap<String, String>();
+			}
+			
+			map.put(newFileName, fileName);
+			logger.info("업로드 된 파일 수 : "+map.size());
+			session.setAttribute("fileList",map);
+			
+			//6. 이미지 url 전달
+			mav.addObject("path", "/photo/"+newFileName);
+			
+			//Servers > server.xml 가서 photo 경로 추가!!
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+
+	public HashMap<String, Object> grFileDelete(String fileName, HttpSession session) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		
+		//파일 삭제 성공시
+		boolean success = delFile(fileName);
+		if (success) {
+			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
+			fileList.remove(fileName);
+			logger.info("삭제 후 남은 파일 수 : "+fileList.size());
+			session.setAttribute("fileList", fileList);
+		}
+		result.put("success", success);
+		return result;
+	}
+
+	private boolean delFile(String fileName) {
+		File file = new File("C:/upload/"+fileName);
+		boolean success = false;
+		if(file.exists()) {
+			success = file.delete();
+		}
+		return success;
+	}
+	
+	@Transactional
+	public ModelAndView groupReviewRegister(HashMap<String, String> params, HttpSession session, String loginId) {
+		String page = "redirect:/grRegisterForm.go";
+		
+		//1. 글 저장 작업
+		GroupReviewDTO dto = new GroupReviewDTO();
+		dto.setReview_title(params.get("subject"));
+		dto.setMember_id(params.get("user_id"));
+		dto.setReview_content(params.get("content"));
+		//dao.groupReviewRegister(dto,loginId);
+		dao.groupReviewRegister(dto);
+		
+		//2. 글 저장 후 groupReview_no 추출
+		int groupReview_no = dto.getGroupReview_no();
+		int idx = dto.getIdx();
+		int class_no = dto.getClass_no();
+		if(class_no > 0) {
+			page = "redirect:/groupReviewDetail.do?groupReview_no="+groupReview_no;
+			//3.class_no로 파일 DB에 저장
+			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
+			for (String newFileName : fileList.keySet()) {
+				dao.grFileWrite(newFileName, fileList.get(newFileName), class_no, idx);
+			}
+		}
+		//4. session 에서 fileList 삭제
+		session.removeAttribute("fileList");
+		
+		return new ModelAndView(page);
+	}
+
+	
 }

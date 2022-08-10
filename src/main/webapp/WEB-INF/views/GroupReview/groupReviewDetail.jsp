@@ -19,6 +19,9 @@ th,td {
 </head>
 <body>
 	<h3>모임 후기 상세보기</h3>
+	<div>
+	 ${sessionScope.loginId} 님 환영합니다, <a href="logout.do">로그아웃</a>
+	</div>
 	<table>
 		<tr>
 			<th>글 제목</th>
