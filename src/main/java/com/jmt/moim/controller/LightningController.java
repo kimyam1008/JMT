@@ -189,15 +189,19 @@ public class LightningController {
 	
 	//번개모임 게시글 신고 팝업 페이지 이동
 	@RequestMapping("/lightReport.go")
-	public String dojangApplyGo(@RequestParam String lightning_no, HttpSession session) {
-		
-		session.setAttribute("lightning_no", lightning_no);
-		logger.info("번개모임글 신고 : "+lightning_no+" 로그인아이디 : "+session.getAttribute("loginId"));
+	public String lightReportPopup(Model model,@RequestParam String lightning_no) {
+		logger.info("번개 모임 신고 팝업 이동  : "+lightning_no);
+		model.addAttribute("lightning_no", lightning_no);
 		return"./Lightning/lightReport";	
 	}
 	
 	
-	
+	@RequestMapping("/lightReport.do")
+	public String lightReport(@RequestParam HashMap<String, String> params, HttpSession session) {
+		logger.info("번개 모임 글 신고  : "+ params);
+		
+		return"./Lightning/lightReport";	
+	}
 	
 	
 	//매일 밤 12시 모임날짜가 지난 게시글 모집마감으로 변경 
