@@ -51,11 +51,19 @@
 			<td>${dto.job}</td>
 		</tr>
 		<tr>
-			<td colspan="4">${dto.lightning_content} <p>삭제</p><p>신고하기</p></td>
+			<td colspan="4">
+				${dto.lightning_content} 
+				<p>삭제</p>
+				<button onclick="lightReport_pop()">신고하기</button>
+			</td>
+		</tr>
+		<tr>
+			<th colspan ="4">
+				<button id="application" onclick="application()">신청</button>
+				<button onclick="location.href='/lightList.go'">목록</button>			
+			</th>
 		</tr>
 	</table>
-	<button id="application" onclick="application()">신청</button>
-	<button onclick="location.href='/lightList.go'">목록</button>
 </body>
 <script>
 	var msg = "${msg}";
@@ -104,6 +112,11 @@
 			alert("탈퇴 되었습니다.");
 			location.href='/lightDropOut.do?lightning_no=${dto.lightning_no}';
 		}
+	}
+	
+	//신고 팝업
+	function lightReport_pop(){
+		window.open("/lightReport.go?lightning_no="+${dto.lightning_no},"new","width=400, height=200, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 	}
 </script>
 </html>

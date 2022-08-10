@@ -229,18 +229,15 @@
 				content += item.participate=="승인"? '<td>참여</td>' : item.leader_id == loginId? '<td>참여</td>' :  '<td>미참여</td>'; 
 				content += '</tr>';
 			});
-			$('#list').empty();
-			$('#list').append(content); 
-			
 		//데이터가 없을 경우	
-		} else{
+		}else{
 			content += '<tr>';
 			content += '<td colspan="8" style="text-align: center">찾으시는 데이터가 없습니다.</td>';
 			content += '</tr>';
-			$('#list').empty();
-			$('#list').append(content); 
-			
 		}
+		
+		$('#list').empty();
+		$('#list').append(content); 
 	}
 	
 
