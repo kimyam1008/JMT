@@ -55,9 +55,9 @@
 					<!-- <p id="groupName"></p> -->
 					<%-- ${joinGroup.title} --%>
 					<!-- <input type="button" value="검색" id="groupSearch"/> -->
-					<input type="hidden" id="groupNumber" name="groupNumber" value=""/>
+					<input type="hidden" id="" name="" value=""/>
 					<input type="button" value="검색" onclick="groupSearchPop()"/>
-					<input type="button" value="초기화" id="groupReset" onclick="groupReset()"/>
+					<!-- <input type="button" value="초기화" id="groupReset" onclick="groupReset()"/> -->
 				</td>
 			</tr>
 			<tr>
@@ -97,16 +97,8 @@ if($('#title').length > 2) {
 } else {
 	//모임 검색 팝업
 	function groupSearchPop(){
-		window.open("/groupSearchPop.go","new","width=500, height=400, left=400 ,top=200, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+		window.open("/dojangCall?","new","width=500, height=400, left=400 ,top=200, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 	}
-}
-
-//초기화
-function groupReset(){
-	//$('#group_name').val('');
-	//$('#groupNumber').val('');
-	document.getElementById("group_name").value ='';
-	document.getElementById("groupNumber").value ='';
 }
 
 

@@ -67,28 +67,28 @@
 	</select>
 	
 	<!-- 모임검색 팝업 -->
-	<!-- <select id="groupSearchList" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
-		SELECT lightning_title
-			,dojang_title
+	<select id="groupSearchList" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
+		SELECT lightning_title AS title
+			,dojang_title AS title
 			,d.leader_id
 			,l.leader_id
 			,d.class_no
 			,l.class_no
-			,d.dojang_no
-			,l.lightning_no
+			,d.dojang_no AS group_no
+			,l.lightning_no AS group_no
 		FROM member m
 		LEFT OUTER JOIN dojangList d ON d.leader_id = m.member_id 
 		LEFT OUTER JOIN lightningList l ON l.leader_id = m.member_id
 		LEFT OUTER JOIN apply a ON a.member_id = m.member_id
-		<where>
+		<!-- <where>
 			<if test="groupSortChange != null and groupSortChange !=''">
 				<if test="groupSortChange.equals('lightning')">
 					AND 
 				</if>
 			</if>
-		</where>
-		WHERE m.member_id = #{param2} AND a.status = "승인"
-	</select> -->
+		</where> -->
+		WHERE m.member_id = #{param1} AND a.status = "승인"
+	</select>
 	
 	<!-- 글쓰기 -->
 	<insert id="groupReviewRegister" parameterType="com.jmt.groupreview.dto.GroupReviewDTO"
@@ -115,10 +115,25 @@
 	</select>
 	
 	<select id="dojangCall" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
-		SELECT d.leader_id,dojang_title as title,dojang_no as groupNumber FROM apply a 
+		SELECT d.leader_id
+			,l.leader_id
+			,dojang_title as title
+			<!-- ,dojang_no as groupNumber -->
+			,c.class_name
+			,l.lightning_title as title
+			<!-- ,l.lightning_no as groupNumber -->
+		FROM apply a 
 		LEFT OUTER JOIN dojangList d ON d.leader_id = a.member_id
+		LEFT OUTER JOIN lightningList l ON l.leader_id = a.member_id
 		JOIN `member` m ON m.member_id = a.member_id
+		JOIN codeTable c ON a.class_no = c.class_no
 		WHERE d.class_no = 3 AND m.member_id = #{param1} AND status="승인"
+		GROUP BY lightning_title
+		,dojang_title
+		,d.leader_id
+		,l.leader_id
+		,d.dojang_no
+		,l.lightning_no
 	</select>
 	
  	<!-- <select id="joinGroup" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
@@ -136,18 +151,13 @@
 		WHERE m.member_id = #{param1} AND a.status = "승인"
 	</select> -->
 	
-	<!-- <select id="groupSearchEnd" parameterType="hashmap" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
-		SELECT lightning_title as title
-			,dojang_title as title
-			,d.leader_id
-			,l.leader_id
-			,d.dojang_no as group_no
-			,l.lightning_no as group_no
-		FROM member m
-		LEFT OUTER JOIN dojangList d ON d.leader_id = m.member_id 
-		LEFT OUTER JOIN lightningList l ON l.leader_id = m.member_id
-		LEFT OUTER JOIN groupReview g  ON g.member_id = m.member_id
-		LEFT OUTER JOIN apply a ON a.member_id = m.member_id
-		WHERE m.member_id = #{param1} AND a.status = "승인"
-	</select> -->
+	<update id="groupSearchEnd" parameterType="hashmap">
+		UPDATE groupReview SET idx=#{idx}
+		<!-- <if test="'lightning_no' != null">
+			UPDATE groupReview SET idx=#{idx} WHERE lightning_no=#{idx}
+		</if>
+		<if test="'dojang_no' != null">
+			UPDATE groupReview SET idx=#{dojang_no} WHERE lightning_no=#{dojang_no}
+		</if> -->
+	</update>
 </mapper>

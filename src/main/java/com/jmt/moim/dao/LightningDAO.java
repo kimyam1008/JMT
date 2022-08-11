@@ -21,4 +21,8 @@ public interface LightningDAO {
 
 	void dropout(String loginId, String lightning_no);
 
+	LightningDTO profile(String loginId);
+
+	int report(HashMap<String, String> params);
+
 }
