@@ -118,4 +118,11 @@
 			VALUES (#{dojang_title},#{food_name},#{points},#{eat_speed},#{gender},#{job},#{dojang_content},#{loginId},'모집중',3)
 	</insert>
 	
+	
+	<!--  
+	<insert id="dojangReport" parameterType="hashmap">
+		INSERT INTO report (report_reason,class_no,idx,reporter,reported)
+			VALUES("광고",3,24,"hi5","hi2");
+	</insert>
+	-->
 </mapper>

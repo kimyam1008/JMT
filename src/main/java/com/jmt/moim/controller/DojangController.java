@@ -110,6 +110,20 @@ public class DojangController {
 	}
 	
 	
+	//도장깨기 신고내용 
+		@RequestMapping("/dojangReport.ajax")
+		@ResponseBody
+		public HashMap<String, Object> dojangReport(@RequestParam HashMap<String, String> params){
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			
+			boolean dojangReport = service.dojangReport(params);
+			map.put("dojangReport", dojangReport);
+
+			return map;
+		}
+	
+	
 	
 	//도장모임 검색
 	/*

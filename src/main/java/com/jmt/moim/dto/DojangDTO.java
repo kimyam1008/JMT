@@ -56,8 +56,35 @@ public class DojangDTO {
 	private String profile_job;
 	
 	
+	private String report_reason;
+	private String reported;
+	private String reporter;
 	
 	
+	
+	
+	
+	
+	
+	
+	public String getReport_reason() {
+		return report_reason;
+	}
+	public void setReport_reason(String report_reason) {
+		this.report_reason = report_reason;
+	}
+	public String getReported() {
+		return reported;
+	}
+	public void setReported(String reported) {
+		this.reported = reported;
+	}
+	public String getReporter() {
+		return reporter;
+	}
+	public void setReporter(String reporter) {
+		this.reporter = reporter;
+	}
 	public String getProfile_gender() {
 		return profile_gender;
 	}
