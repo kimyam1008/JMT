@@ -43,10 +43,18 @@
 	</update>
 	
 	
-	
-	<insert id="profileRegister" parameterType="hashmap">
+	<insert id="profileRegister" 
+		useGeneratedKeys="true"
+		keyColumn="profile_no"
+		keyProperty="profile_no"
+		parameterType="member">
 		INSERT INTO profile (food_no, member_id, grade_no, eat_speed, profile_gender, profile_job)
-			VALUES(#{food_no}, #{loginId}, '1', #{speed}, #{gender}, #{job})
+			VALUES(#{food_no}, #{member_id}, '1', #{eat_speed}, #{profile_gender}, #{profile_job})
+	</insert>
+	
+	<insert id="fileWrite">
+		INSERT INTO photo(class_no, photo_oriFileName, photo_newFileName, idx)
+			VALUES('9', #{param1}, #{param2}, #{param3})
 	</insert>
 	
 	<select id="profileExist" resultType="String">

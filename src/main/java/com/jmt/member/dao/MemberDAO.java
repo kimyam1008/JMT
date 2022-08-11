@@ -23,12 +23,14 @@ public interface MemberDAO {
 
 	int pwUpdate(String id, String hashText);
 
-	void profileRegister(HashMap<String, Object> params);
+	int profileRegister(MemberDTO dto);
 
 	String profileExist(String loginId);
 
 	ArrayList<MemberDTO> foodList();
 
 	String con(String id);
+
+	void fileWrite(String oriFileName, String newFileName, int profile_no);
 
 }
