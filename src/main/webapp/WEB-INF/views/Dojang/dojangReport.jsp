@@ -49,6 +49,9 @@ table{
 </style>
 </head>
 <body>
+<input type="hidden" id="loginId" value="${sessionScope.loginId}"/>
+<input type="hidden" id="dojang_no" value="${sessionScope.dojang_no}"/>
+<input type="hidden" id="reported" value="${sessionScope.reported}"/>
 <br/>
 	<table>
 		<tr>
@@ -74,16 +77,100 @@ table{
 		</tr>
 			<tr>
 			<th>
-			<input type="radio" name="report" value=""/>
+			<input type="radio" name="report" value="기타"/>
 			</th>
 			<td>
 			<input type="text" id="report_text" placeholder="기타 (직접 작성)"/>
 			</td>
 		</tr>
 	</table>
-		<input type="button" value="신고" id="reportYes" onclick=""/>
-		<input type="button" value="취소" id="reportNo" onclick=""/>
+		<input type="button" value="신고" id="reportYes" onclick="dojangReport()"/>
+		<input type="button" value="취소" id="reportNo" onclick="dojangReportclose()"/>
 </body>
 <script>
+
+console.log($('#reported').val());
+
+
+
+//"기타" 선택 시 활성화
+$('input[name="report"]').on("change",function(){	
+	if($('input[name="report"]:checked').val()=="기타"){
+		$('#report_text').attr("disabled",false);
+	}else{
+		$('#report_text').val("");
+		$('#report_text').attr("disabled",true);
+	}
+})
+
+
+
+//글자 수 제한
+$('#report_text').keyup(function(){
+	  var content = $(this).val();
+	  if (content.length > 100){
+	    alert("최대 100자까지 입력 가능합니다.");
+	    $(this).val(content.substring(0, 100));
+	  }
+});
+
+
+
+function dojangReport(){
+	
+	var reporter = $('#loginId').val();
+	var dojang_no = $('#dojang_no').val();
+	var reported = $('#reported').val();
+	var report_reason = $('input[name="report"]:checked').val();
+	var report_text = $('#report_text').val();
+	
+	
+	if(!$('input[name="report"]').is(":checked")){
+		alert("신고 사유를 선택해 주세요");
+	}else if(report_reason =="기타" && report_text ==""){
+		alert("신고 사유를 입력해 주세요");
+		report_text.focus();
+	}else{
+	
+
+	$.ajax({
+		type:'get',
+		url:'dojangReport.ajax',
+		data:{
+			reporter:reporter,
+			dojang_no:dojang_no,
+			reported:reported,
+			report_reason:report_reason,
+			report_text:report_text
+
+		},
+		dataType:'JSON',
+		success:function(data){
+			console.log(data);
+			if(data.dojangReport){
+				console.log(data.dojangReport)
+				opener.parent.location.reload();
+				window.close();
+			}else{
+				alert("등록 실패");
+			}
+		},
+		error:function(e){
+			console.log(e);
+		}
+	});
+	
+	}
+	
+}
+
+
+
+function dojangReportclose(){
+	opener.parent.location.reload();
+	window.close();
+}
+
+
 </script>
 </html>

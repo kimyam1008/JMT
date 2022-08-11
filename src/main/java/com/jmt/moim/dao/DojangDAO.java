@@ -27,5 +27,9 @@ public interface DojangDAO {
 
 	DojangDTO profileStatus(String loginId);
 
+	int dojangReport(HashMap<String, String> params);
+
+	String reported(String dojang_no);
+
 
 }

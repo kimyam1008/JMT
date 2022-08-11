@@ -32,11 +32,9 @@
 	<option value="blind">블라인드</option>
 </select>
 <select name="report_sort">
-	<option value= "allList">전체</option>
-	<option value= "post">게시글</option>
+	<option value= "title">IDX</option>
 	<option value= "sort">분류</option>
 	<option value= "reporter">신고자</option>
-	<option value= "title">제목</option>
 </select>
 <input type="text" name="keyword" placeholder="검색어를 입력해 주세요"/>
 <button type="button" onclick="searchClick()">검색</button>
@@ -45,14 +43,14 @@
 		<thead>
 			<tr>
 				<th><input type="checkbox" id="all"/></th>
-				<th>신고글</th>
 				<th>분류</th>
+				<th>IDX</th>
+				<th>신고사유</th>
 				<th>신고자ID</th>
-				<th>신고날짜</th>
 				<th>피신고자ID</th>
 				<th>처리상태</th>
+				<th>신고날짜</th>
 				<th>처리날짜</th>
-				<th>신고사유</th>
 			</tr>
 		</thead>
 		<tbody id="list">
@@ -132,18 +130,43 @@ $('#pagePerNum').on('change',function(){
 function drawList(list){
 	var content = '';
 	list.forEach(function(item){
+		
+		var mb_ligntning_title = item.mb_ligntning_title;
+		var mb_comment = item.mb_comment;
+		var mb_dojang_title  =item.mb_dojang_title; 
+		var mb_dojang_post = item.mb_dojang_post; 
+		var mb_group_review = item.mb_group_review;
+		if(mb_ligntning_title== null){
+			mb_ligntning_title= ''; 
+		} 
+		if(mb_comment == null){
+			mb_comment= ''; 
+		}
+		if(mb_dojang_title == null){
+			mb_dojang_title= ''; 
+		} 
+		if(mb_dojang_post == null){
+			mb_dojang_post= ''; 
+		} 
+		if(mb_group_review == null){
+			mb_group_review= ''; 
+		} 
+		
+		
 		//console.log(item);
 		content += '<tr>';
 		content += '<td> <input type="checkbox" value='+item.report_no+'></td>';	
-		content += '<td>'+'<a href=/report/detail.go?report_no='+item.report_no+'&class_no='+item.class_no+'&idx='+item.idx+'>'+item.report_title+'<a/></td>'; 
+		/* content += '<td>'+'<a href=/report/detail.go?report_no='+item.report_no+'&class_no='+item.class_no+'&idx='+item.idx+'>'+mb_ligntning_title + mb_comment+mb_dojang_title+mb_dojang_post+ mb_group_review + '<a/></td>';  */
 		/* content += '<td>'+'<a href=report/detail?report_no='+item.report_no+'>'+item.report_title+'<a/></td>'; */
 		content += '<td>'+item.class_name+'</td>';
+		content += '<td><a href=/report/detail.go?report_no='+item.report_no+'&class_no='+item.class_no+'&idx='+item.idx+'>' +item.idx +'</a>' +'</td>';
+		content += '<td>'+item.report_reason+'</td>'; 
 		content += '<td>'+item.reporter+'</td>';
-		content += '<td>'+item.report_date+'</td>';
 		content += '<td>'+item.reported+'</td>';
 		content += '<td>'+item.report_proc_status+'</td>';
+		content += '<td>'+item.report_date+'</td>';
 		content += '<td>'+item.report_proc_date+'</td>';
-		content += '<td>'+item.report_reason+'</td>'; 
+		
 		content += '</tr>';
 	});
 	$('#list').empty();

@@ -136,6 +136,24 @@ public class DojangService {
 		result.put("success", success);
 		return success;
 	}
+
+	public boolean dojangReport(HashMap<String, String> params) {
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		boolean success = false;
+		
+		if(dao.dojangReport(params)>0) {
+			success = true;
+		}
+		
+		result.put("success", success);
+		return success;
+	
+	}
+
+	public String reported(String dojang_no) {
+		return dao.reported(dojang_no);
+	}
 	
 
 	

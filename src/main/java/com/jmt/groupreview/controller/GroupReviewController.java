@@ -78,14 +78,17 @@ public class GroupReviewController {
 	
 	@RequestMapping("/groupSearchEnd.ajax")
 	@ResponseBody
-	public int groupSearchEnd(String lightning_title, String dojang_title, 
-			int lightning_no, int dojang_no) {
+	public int groupSearchEnd(String title, String idx
+	/* String dojang_title, int lightning_no, int dojang_no */) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
-		map.put("lightning_title", lightning_title);
-		map.put("dojang_title", dojang_title);
-		map.put("lightning_no", lightning_no);
-		map.put("dojang_no", dojang_no);
+		map.put("title", title);
+		map.put("idx", idx);
+		logger.info("title : "+title+"/"+"idx : "+idx);
+		//map.put("lightning_title", lightning_title);
+		//map.put("dojang_title", dojang_title);
+		//map.put("lightning_no", lightning_no);
+		//map.put("dojang_no", dojang_no);
 		return service.groupSearchEnd(map);
 	}
 	

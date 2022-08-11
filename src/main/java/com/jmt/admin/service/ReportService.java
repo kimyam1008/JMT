@@ -180,6 +180,12 @@ public class ReportService {
 		
 	}
 
+	public ArrayList<ReportDTO> blindHistory(Integer report_no) {
+		return dao.blindHistory(report_no);
+	}
+
+
+	
 	
 
 }

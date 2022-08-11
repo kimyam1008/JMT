@@ -35,21 +35,25 @@ th,td {
 		<thead>
 			<tr>
 				<th>선택</th>
-				<th>모임 번호</th>
+				<th>모임 분류</th>
 				<th>제목</th>
 				<th>방장 ID</th>
 			</tr>
 		</thead>
 		<tbody id="list">
-				<%-- <c:forEach items="${dto}" var="dto">
+				<c:forEach items="${dto}" var="dto">
 				<tr>
+					<td><input type="radio" name="groupRadio"/></td>
+					<%-- <td id="${dto.groupNumber}">${dto.class_name}</td> --%>
+					<td id="${dto.class_name}">${dto.class_name}</td>
 					<td>
-						<input type="hidden" id="groupNumber" value="${dto.groupNumber}"/>
-						<input type="radio" id="group_name" name="group_name" value="${dto.title}"/>${dto.title}
+						<%-- <input type="hidden" id="groupNumber" value="${dto.groupNumber}"/> --%>
+						<%-- <input type="radio" id="group_name" name="group_name" value="${dto.title}"/>${dto.title} --%>
+						${dto.title}
 					</td>
 					<td>${dto.leader_id}</td>
 				</tr>
-				</c:forEach> --%>
+				</c:forEach>
 		</tbody>
 	</table><br/>
 	<button id="groupSearchEnd" onclick="groupSearchEnd()">확인</button>
@@ -92,13 +96,13 @@ th,td {
 */
 
 
-groupListCall();
+//groupListCall();
 
 //셀렉트박스 바뀔때
 /* $('#groupSortChange').on('change',function(){
 	groupListCall();
 }); */
-
+/*
 function groupListCall(){
 	//var groupSortChange = $("#groupSortChange option:selected").val();
 	//console.log(groupSortChange);
@@ -118,7 +122,8 @@ function groupListCall(){
 		}
 	});
 }
-
+*/
+/*
 //groupSearchPop
 function drawList(list){
 	var content = '';
@@ -131,26 +136,26 @@ function drawList(list){
 	}
 	
 	list.forEach(function(item){
-		/* if ($("#groupSortChange option:selected").val() == "lightning") { */
+		/* if ($("#groupSortChange option:selected").val() == "lightning") { **
 			content += '<tr>';
 			content += '<td><input type="radio" name="groupRadio"/></td>';
 			content += '<td>'+item.group_no+'</td>';
 			content += '<td>'+item.title+'</td>';
 			content += '<td>'+item.leader_id+'</td>';
 			content += '</tr>';
-		/* } else { */
+		/* } else { *
 			/* content += '<tr>';
 			content += '<td><input type="radio" name="groupRadio"/></td>';
 			content += '<td>'+item.lightning_title+'<input type="hidden" value="'+item.lightning_no+'"/></td>';
 			content += '<td>'+item.leader_id+'</td>';
 			content += '</tr>'; */
-		/* } */
+		/* } *
 	});
 	
 	$('#list').empty();
 	$('#list').append(content);
 }
-
+*/
 
 //라디오 선택값
 //console.log($("input[type='radio']:checked").val());
@@ -160,21 +165,26 @@ function drawList(list){
 
 //모임 선택 완료
 
+console.log($('input[type=radio]:checked').parents('td').next().next().text());
+console.log($('input[type=radio]:checked').parents('td').next().text());
+
 function groupSearchEnd() {
-	let group_name = $('input[type=radio]:checked').parents('td').next().next().text();
+	let title = $('input[type=radio]:checked').parents('td').next().next().text();
 	
 	/* if(groupSelect != ""){ */
-		let group_no = $('input[type=radio]:checked').parents('td').next().text();
-		//let group_no = '${joinGroup.group_no}';
+		let idx = $('input[type=radio]:checked').parents('td').next().html();
+		let idx = '${dto.groupNumber}';
 		
 		$.ajax({
 			type:'post',
 			url:'groupSearchEnd.ajax',
 			data:{
-				lightning_title:group_name,
-				dojang_title:group_name,
-				lightning_no:group_no,
-				dojang_no:group_no
+				title:title
+				//lightning_title:title,
+				//dojang_title:title,
+				idx:idx
+				//lightning_no:group_no,
+				//dojang_no:group_no
 			},
 			dataType:'json',
 			success:function(data){
@@ -189,8 +199,10 @@ function groupSearchEnd() {
 		
 		//var content = '<input type="text" name="title" value="'+groupSelect+'" readonly/>';
 		/* content += groupSelect **/
-		//content += '<input type="hidden" name="idx" value="'+idx+'/>';
-		//opener.document.getElementById("groupName").innerHTML += content;
+		//content += '<input type="hidden" id="groupNumber" value="'+idx+'/>';
+		//opener.document.getElementById("group_name").innerHTML += content;
+		window.opener.document.getElementById("group_name").value = title;
+		window.opener.document.getElementById("groupNumber").value = idx;
 		self.close();
 	/* } */
 	
