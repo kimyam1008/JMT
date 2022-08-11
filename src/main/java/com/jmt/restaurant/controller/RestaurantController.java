@@ -154,7 +154,14 @@ public class RestaurantController {
 		return null;
 	}
 	
-	
+	@RequestMapping(value = "/reviewDel.ajax")
+	@ResponseBody
+	public HashMap<String, String> reviewDel(HttpSession session, Model model, 
+			@RequestParam HashMap<String, String> params) {
+		
+		logger.info(":"+params);
+		return service.reviewDel(params);
+	}
 	
 	
 	

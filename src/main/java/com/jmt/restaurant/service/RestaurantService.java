@@ -224,6 +224,11 @@ public class RestaurantService {
 	}
 
 
+	public HashMap<String, String> reviewDel(HashMap<String, String> params) {
+		return dao.reviewDel(params);
+	}
+
+
 	
 
 

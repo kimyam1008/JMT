@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
 	<h3>맛집 상세보기</h3>
 	 <c:forEach items="${photoList}" var="path">
       	<img src="/image/${path.photo_newFileName}" height="400"/>

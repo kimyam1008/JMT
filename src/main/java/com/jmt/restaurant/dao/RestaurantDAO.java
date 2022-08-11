@@ -39,6 +39,8 @@ public interface RestaurantDAO {
 
 	ArrayList<RestaurantDTO> reviewPhoto(String comment_no);
 
+	HashMap<String, String> reviewDel(HashMap<String, String> params);
+
 	
 
 }

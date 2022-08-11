@@ -124,10 +124,12 @@
 	</select>
 	
 	<select id="reviewPhoto" resultType="res" parameterType="hashmap" >	
-		select photo_no, photo_newFileName from photo p where idx = #{comment_no}
+		select photo_no, photo_newFileName, idx from photo p where idx = #{comment_no}
 	</select>
 	
-	
+	<delete id="reviewDel">
+		DELETE FROM photo WHERE photo_no = #{photo_no}
+	</delete>
 	
 	
 	

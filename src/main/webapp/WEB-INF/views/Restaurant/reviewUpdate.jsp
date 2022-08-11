@@ -28,7 +28,7 @@
 	</form>
 	<c:forEach items="${reviewPhoto}" var="photo">
 		${photo.photo_newFileName}
-		<button type="button" id="${photo.photo_newFileName}" onclick="reviewDel()">X</button>
+		<button class="delBtn" onclick="reviewDel(this)" photoID="${photo.photo_no}">X</button>		
 		<br/>
 	</c:forEach>
 </body>
@@ -39,7 +39,7 @@
 	    
 	       $.ajax({
 	             type:'get',
-	             url:'commentDel.ajax',
+	             url:'reviewDel.ajax',
 	             data:{
 	            	 photo_no : photoID
 	             },

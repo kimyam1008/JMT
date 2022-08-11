@@ -30,6 +30,8 @@ public class RestaurantDTO {
 	
 	
 	// 사진
+	private int photo_no;
+	
 	private String photo_oriFileName;
 	private String photo_newFileName;
 	
@@ -44,7 +46,12 @@ public class RestaurantDTO {
 	private String comment_status;
 	private int idx;
 		
-	
+	public int getPhoto_no() {
+		return photo_no;
+	}
+	public void setPhoto_no(int photo_no) {
+		this.photo_no = photo_no;
+	}
 	public String getLightning_title() {
 		return lightning_title;
 	}
