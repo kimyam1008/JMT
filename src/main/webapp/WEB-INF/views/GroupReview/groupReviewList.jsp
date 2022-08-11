@@ -29,7 +29,7 @@ th,td {
 			<input type="text" id="keyword" value="" placeholder="모임 이름을 입력해주세요"/>
 			<button id="reviewSearch">검색</button>
 		</fieldset>
-	<button onclick="location.href='groupReviewRegister.go'">글쓰기</button><br/>
+	<button onclick="location.href='grRegisterForm.go'">글쓰기</button><br/>
 <!-- 	<button name="groupAll" value="전체" onclick="location.href='groupReviewList.go'">전체</button>
 	<input type="radio" name="groupSort" id="groupSort" value="번개모임"/>번개모임
 	<input type="radio" name="groupSort" id="groupSort" value="도장깨기"/>도장깨기 -->

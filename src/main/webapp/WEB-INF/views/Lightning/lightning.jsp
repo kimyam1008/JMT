@@ -43,8 +43,9 @@
 	</select>
 	<select id="job">
 		<option value="">직업</option>
-		<option value="학생">학생</option>
 		<option value="직장인">직장인</option>
+		<option value="취준생">취준생</option>
+		<option value="학생">학생</option>
 		<option value="상관없음">상관없음</option>
 	</select>
 	
@@ -96,8 +97,9 @@
 
 </body>
 <script>
-var currpage = 1;
-listCall(currpage);
+	var loginId = "${loginId}";
+	var currpage = 1;
+	listCall(currpage);
 
 	//검색버튼 클릭시
 	$("button").on("click",function(){
@@ -206,7 +208,7 @@ listCall(currpage);
 		});
 	}
 
-
+	
 		
 	function drawList(list){
 		//console.log(list);
@@ -221,25 +223,22 @@ listCall(currpage);
 				content += '<td>'+item.restaurant_name+'</td>';
 				content += '<td>'+item.food_name+'</td>';
 				content += '<td>'+item.leader_id+'</td>';
-				content += item.lightning_status == "모집중"? '<td><a href="detail.go?idx='+item.lightning_no+'">'+item.lightning_title+'</a></td>' : '<td>'+item.lightning_title+'</td>';
+				content += item.lightning_status == "모집중"? '<td><a href="lightDetail.go?lightning_no='+item.lightning_no+'">'+item.lightning_title+'</a></td>' : '<td>'+item.lightning_title+'</td>';
 				content += '<td>'+date.toLocaleDateString("ko-KR")+'</td>';
 				content += '<td>'+item.member_count +' / '+ item.member_num+'</td>';
 				content += '<td>'+item.lightning_status+'</td>';
-				content += item.participate=="승인"? '<td>참여</td>' : '<td>미참여</td>'; 
+				content += item.participate=="승인"? '<td>참여</td>' : item.leader_id == loginId? '<td>참여</td>' :  '<td>미참여</td>'; 
 				content += '</tr>';
 			});
-			$('#list').empty();
-			$('#list').append(content); 
-			
 		//데이터가 없을 경우	
-		} else{
+		}else{
 			content += '<tr>';
 			content += '<td colspan="8" style="text-align: center">찾으시는 데이터가 없습니다.</td>';
 			content += '</tr>';
-			$('#list').empty();
-			$('#list').append(content); 
-			
 		}
+		
+		$('#list').empty();
+		$('#list').append(content); 
 	}
 	
 

@@ -8,8 +8,6 @@ import com.jmt.moim.dto.LightningDTO;
 public interface LightningDAO {
 
 	ArrayList<LightningDTO> foodList();
-
-	//ArrayList<LightningDTO> list();
 	
 	ArrayList<LightningDTO> selectedList(HashMap<String, Object> selectedparams);
 
@@ -17,6 +15,14 @@ public interface LightningDAO {
 
 	void changeStatus();
 
-	int[] applyIdx(String loginId);
+	LightningDTO detail(String lightning_no, String loginId);
+
+	int register(String lightning_no, String loginId);
+
+	void dropout(String loginId, String lightning_no);
+
+	LightningDTO profile(String loginId);
+
+	int report(HashMap<String, String> params);
 
 }

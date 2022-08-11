@@ -101,6 +101,32 @@ public class DojangController {
 	}
 	
 	
+	//도장깨기 신고 팝업
+	@RequestMapping("/dojangReport.go")
+	public String dojangReportGo(@RequestParam String dojang_no, HttpSession session) {
+		session.setAttribute("dojang_no", dojang_no);
+		logger.info("도장가입신청"+dojang_no+"로그인아이디::"+session.getAttribute("loginId"));
+		
+		//신고당한 ID
+		String reported = service.reported(dojang_no);
+		session.setAttribute("reported",reported);
+		return"./Dojang/dojangReport";	
+	}
+	
+	
+	//도장깨기 신고내용 
+		@RequestMapping("/dojangReport.ajax")
+		@ResponseBody
+		public HashMap<String, Object> dojangReport(@RequestParam HashMap<String, String> params,HttpSession session){
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			
+			boolean dojangReport = service.dojangReport(params);
+			map.put("dojangReport", dojangReport);
+
+			return map;
+		}
+	
 	
 	
 	//도장모임 검색

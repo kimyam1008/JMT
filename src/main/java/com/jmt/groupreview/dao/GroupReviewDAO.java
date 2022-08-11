@@ -19,7 +19,7 @@ public interface GroupReviewDAO {
 
 	GroupReviewDTO groupReviewDetail(String groupReview_no);
 
-	ArrayList<GroupReviewDTO> groupSearchList(String groupSortChange, String loginId);
+	//ArrayList<GroupReviewDTO> groupSearchList(String groupSortChange, String loginId);
 
 	//void groupReviewRegister(GroupReviewDTO dto, String loginId);
 
@@ -28,5 +28,15 @@ public interface GroupReviewDAO {
 	void groupReviewRegister(GroupReviewDTO dto);
 
 	ArrayList<GroupReviewDTO> grPhotoList(String idx);
+
+	ArrayList<GroupReviewDTO> lightningCall(String loginId);
+
+	ArrayList<GroupReviewDTO> dojangCall(String loginId);
+
+	GroupReviewDTO joinGroup(String loginId);
+
+	int groupSearchEnd(HashMap<String, Object> map);
+
+	ArrayList<GroupReviewDTO> groupSearchList(String loginId);
 
 }

@@ -46,9 +46,37 @@ public class LightningService {
 		logger.info("업데이트완료");
 	}
 
-	public int[] applyIdx(String loginId) {
-		logger.info("승인된 모임의 글번호 가져오기 서비스 요청");
-		return dao.applyIdx(loginId);
+
+	public LightningDTO detail(String lightning_no, String loginId) {
+		logger.info("상세보기 서비스 요청");
+		return dao.detail(lightning_no,loginId);
+	}
+
+
+	public int register(String loginId,String lightning_no) {
+		logger.info("번개 모임 신청 서비스");
+		return dao.register(loginId,lightning_no);
+	}
+
+	public void dropout(String loginId, String lightning_no) {
+		logger.info("탈퇴 서비스 요청");
+		dao.dropout(loginId,lightning_no);
+	}
+
+	public LightningDTO profile(String loginId) {
+		logger.info("회원 프로필 정보 가져오기");
+		return dao.profile(loginId);
+	}
+
+	public boolean report(HashMap<String, String> params) {
+		logger.info("번개모임 신고하기 서비스 : " + params);
+		
+		boolean success = false;
+		int row = dao.report(params);
+		if(row>0) {
+			success = true;
+		}
+		return success;
 	}
 	
 }

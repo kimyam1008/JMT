@@ -87,7 +87,7 @@ function dojangReg() {
 	var food_name = $('#food_name option:selected').val();
 	var points = $('#points').val();
 	var eat_speed = $('#eat_speed option:selected').val();
-	var gender = $('input[name=gender]').val();
+	var gender = $('input[name="gender"]:checked').val();
 	var job = $('#job option:selected').val();
 	var dojang_content = $('#dojang_content').val();
 	var loginId = $('#loginId').val();

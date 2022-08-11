@@ -28,6 +28,7 @@ table, th, td{
 <input type="hidden" id="eat_speed" value="${dojangDetail.eat_speed}"/>
 <input type="hidden" id="gender" value="${dojangDetail.gender}"/>
 <input type="hidden" id="job" value="${dojangDetail.job}"/>
+<input type="button" name='report' style="position: absolute; left: 340px; top: 250px" value="신고하기" onclick="report()"/>	
 	<table>
 	<tr>
 		<th>모임 이름</th>
@@ -121,9 +122,14 @@ $("input:button[name='Apply']").on('click',function(){
 
 console.log($("#status").val());
 
-
+//가입신청 팝업
 function dojangApply_pop(){
 	window.open("/dojangApply.go?dojang_no="+${dojangDetail.dojang_no},"new","width=400, height=200, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+}
+
+//신고하기 팝업
+function report(){
+	window.open("/dojangReport.go?dojang_no="+${dojangDetail.dojang_no},"new","width=600, height=400, left=450 ,top=200, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 }
 
 </script>

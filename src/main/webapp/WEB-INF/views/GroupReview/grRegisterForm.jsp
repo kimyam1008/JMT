@@ -41,6 +41,7 @@
 	img:hover {
 		opacity: 0.5;
 	}
+
 </style>
 </head>
 <body>
@@ -50,14 +51,18 @@
 			<tr>
 				<th>모임 검색</th>
 				<td>
-					<!-- <input type="text" id="groupName" value="" readonly/> -->
-					<p id="groupName"></p>
+					<input type="text" id="group_name" style="width:30%" value="" readonly/>
+					<!-- <p id="groupName"></p> -->
+					<%-- ${joinGroup.title} --%>
+					<!-- <input type="button" value="검색" id="groupSearch"/> -->
+					<input type="hidden" id="" name="" value=""/>
 					<input type="button" value="검색" onclick="groupSearchPop()"/>
-					<input type="hidden" name="user_id" value=""/>
+					<!-- <input type="button" value="초기화" id="groupReset" onclick="groupReset()"/> -->
+				</td>
 			</tr>
 			<tr>
 				<th>글 제목</th>
-				<td><input type="text" name="subject"/></td>
+				<td><input type="text" name="review_title"/></td>
 			</tr>
 			<tr>
 				<th>내용</th>
@@ -66,7 +71,7 @@
 					<div id="editable" contenteditable="true"></div>
 					<!-- 하지만 div 는 서버에 값을 전송할 수가 없다. -->
 					<!-- 결국엔 div의 내용을 input에 담아 서버에 전송할 예정 -->
-					<input type="hidden" name="content" id="content"/>
+					<input type="hidden" name="review_content" id="review_content"/>
 				</td>
 			</tr>
 			<tr>
@@ -80,21 +85,28 @@
 				</th>
 			</tr>
 		</table>
-	</form>
+	</form>	
+	
 </body>
 <script>
-$('input[name=user_id]').attr('value',"${sessionScope.loginId}");
 
-//모임 검색 팝업
-function groupSearchPop(){
-	window.open("/groupSearchPop.go","new","width=500, height=400, left=400 ,top=200, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+//$('input[name=user_id]').attr('value',"${sessionScope.loginId}");
+
+if($('#title').length > 2) {
+	alert("모임은 한 개만 추가 할 수 있습니다.");
+} else {
+	//모임 검색 팝업
+	function groupSearchPop(){
+		window.open("/dojangCall?","new","width=500, height=400, left=400 ,top=200, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	}
 }
+
 
 //글 업로드
 function save(){
-	$('#content a').removeAttr('onclick');
+	$('#review_content a').removeAttr('onclick');
 	//id가 content인 태그의 자식태그 a 태그에서 onclick 속성 삭제
-	$('#content').val($('#editable').html());
+	$('#review_content').val($('#editable').html());
 	//content 안에 editable 넣음
 	$('form').submit();
 }
