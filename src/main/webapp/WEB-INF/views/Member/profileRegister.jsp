@@ -25,22 +25,14 @@
 		padding: 5px;
 		text-align: left;
 	}
-	
-	img {
-		cursor: pointer;
-	}
-	
-	img:hover {
-		opacity: 0.5;
-	}
 </style>
 </head>
 <body>
-	<form action="profileRegister.do" method="get">
+	<form action="profileRegister.do" method="post" enctype="multipart/form-data">
 		<h3>프로필 생성</h3>
 		<table>
 			<tr>
-				<th>프로필 사진 : <input type="button" name="fileUpload" value="파일 업로드" onclick="fileUp()"/></th>
+				<th>프로필 사진 : <input type="file" name="photos" multiple="multiple"/></th>
 			</tr>
 			<tr>
 				<th>성별 : <input type="radio" name="gender" value="남자"/>남자  <input type="radio" name="gender" value="여자"/>여자</th>

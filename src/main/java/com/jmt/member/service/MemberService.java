@@ -1,5 +1,9 @@
 package com.jmt.member.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jmt.member.dao.MemberDAO;
@@ -118,10 +123,55 @@ public class MemberService {
 		return map;
 	}
 
-	public void profileRegister(HashMap<String, Object> params) {
-		dao.profileRegister(params);
+	public void profileRegister(MultipartFile[] photos, HashMap<String, Object> params) {
+		
+		MemberDTO dto = new MemberDTO();
+		dto.setFood_no(Integer.parseInt((String) params.get("food_no")));
+		dto.setMember_id((String) params.get("loginId"));
+		dto.setEat_speed((String) params.get("speed"));
+		dto.setProfile_gender((String) params.get("gender"));
+		dto.setProfile_job((String) params.get("job"));
+		
+		int row = dao.profileRegister(dto);
+		
+		int profile_no = dto.getProfile_no();
+		logger.info("방금 넣은 프로필 번호 : "+profile_no);
+		
+		if (row > 0) {
+			fileSave(photos, profile_no);
+		}
 		
 	}
+	
+	public void fileSave(MultipartFile[] photos, int profile_no) { //photo, profile 테이블 idx를 알아야함
+		// 3. 파일 업로드
+		for (MultipartFile photo : photos) {
+			String oriFileName = photo.getOriginalFilename(); // 3-1. 파일명 추출
+			if(!oriFileName.equals("")) {
+				logger.info("업로드 진행");
+				// 3-2. 확장자 분리
+				String ext = oriFileName.substring(oriFileName.lastIndexOf(".")).toLowerCase();
+				// 3-3. 새 이름 만들기
+				String newFileName = System.currentTimeMillis()+ext;
+				
+				logger.info(oriFileName + "=>" + newFileName); 
+				
+				// 3-4. 파일 받아서 저장하기
+				try {
+					byte[] arr = photo.getBytes();
+					Path path = Paths.get("C:/upload/"+newFileName);
+					Files.write(path,arr);
+					logger.info(newFileName+" - save ok");
+					// 4. 업로드 후 photo 테이블에 데이터 입력
+					dao.fileWrite(oriFileName, newFileName, profile_no);
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}				
+			}
+		}
+	}
+	
 
 	public String profileExist(String loginId) {
 		

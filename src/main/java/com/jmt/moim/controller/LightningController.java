@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jmt.moim.dto.LightningDTO;
 import com.jmt.moim.service.LightningService;
@@ -31,14 +32,17 @@ public class LightningController {
 
 	//번개모임리스트 lightning.jsp 페이지 이동 
 	@RequestMapping("/lightList.go") 
-	public String listPage(Model model) {
+	public String listPage(Model model,HttpSession session) {
 		logger.info("리스트 페이지 이동");
 		//음식카테고리 가져오기 
 		ArrayList<LightningDTO> foodList = service.foodList();
 			if(foodList.size()>0) {
 				model.addAttribute("foodList", foodList);
 			}
-		
+			
+			//방장아이디와 로그인아이디 비교하기 위해서 
+			String loginId = (String) session.getAttribute("loginId");
+			model.addAttribute("loginId", loginId);
 		/*
 			ArrayList<LightningDTO> list = service.list();
 			if(list.size()>0) {
@@ -117,22 +121,94 @@ public class LightningController {
 		map.put("currPage", page);
 		map.put("pages", pages);
 		
-		
 		//리스트 불러오기
 		ArrayList<LightningDTO> selectedList = service.selectedList(selectedparams);
 		map.put("list", selectedList);
 		
-		
-	
-
-		
-		
-		
-		
 		return map;
 	}
 	
-	//매일 밤 12시 모임날짜가 지난 게시글 모집마감으로 변경
+	
+	@RequestMapping("/lightDetail.go") 
+	public String lightDetail(Model model,HttpSession session
+			,@RequestParam String lightning_no) {
+		logger.info("상세보기 페이지 이동");
+		String loginId = (String) session.getAttribute("loginId");
+		model.addAttribute("loginId", loginId);
+		
+		LightningDTO dto = service.detail(lightning_no,loginId);
+		if(dto != null) {
+			model.addAttribute("dto", dto);
+		}
+		
+		return "./Lightning/lightDetail";
+	}
+	
+	
+	
+	//상세보기페이지 - 번개모임에 신청할 시 
+	@RequestMapping("/lightRegister.do") 
+	public String lightRegister(Model model,HttpSession session
+			,RedirectAttributes rAttr, @RequestParam String lightning_no) {
+		
+		
+		logger.info("번개 모임 신청 : " + lightning_no);
+		String loginId = (String) session.getAttribute("loginId");
+		
+		//가입신청종합 테이블에 대기로 insert
+		int row = service.register(loginId,lightning_no);
+		
+		String msg = "";
+		if(row<1){
+			msg = "신청에 실패했습니다.";
+		}
+		
+		rAttr.addFlashAttribute("msg", msg);
+		
+		
+		//프로필 (식사속도, 직업, 성별) 
+		
+		
+		return "redirect:/lightDetail.go?lightning_no="+lightning_no;
+	}
+	
+	
+	//탈퇴 
+	@RequestMapping("/lightDropOut.do") 
+	public String lightStatusUpdate(Model model,HttpSession session
+			,@RequestParam String lightning_no) {
+		
+		
+		logger.info("번개 모임 탈퇴 : " + lightning_no);
+		String loginId = (String) session.getAttribute("loginId");
+		
+		//탈퇴- apply 테이블 update
+		service.dropout(loginId,lightning_no);
+		
+	
+		
+		return "redirect:/lightList.go";
+	}
+	
+	
+	//번개모임 게시글 신고 팝업 페이지 이동
+	@RequestMapping("/lightReport.go")
+	public String lightReportPopup(Model model,@RequestParam String lightning_no) {
+		logger.info("번개 모임 신고 팝업 이동  : "+lightning_no);
+		model.addAttribute("lightning_no", lightning_no);
+		return"./Lightning/lightReport";	
+	}
+	
+	
+	@RequestMapping("/lightReport.do")
+	public String lightReport(@RequestParam HashMap<String, String> params, HttpSession session) {
+		logger.info("번개 모임 글 신고  : "+ params);
+		
+		return"./Lightning/lightReport";	
+	}
+	
+	
+	//매일 밤 12시 모임날짜가 지난 게시글 모집마감으로 변경 
 	@Scheduled(cron="0 0 0 * * *")
 	public void changeStatus() {
 		service.changeStatus();

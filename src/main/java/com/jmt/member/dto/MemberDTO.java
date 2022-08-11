@@ -69,6 +69,12 @@ public class MemberDTO {
 	public void setFood_no(int food_no) {
 		this.food_no = food_no;
 	}
+	public String getFood_name() {
+		return food_name;
+	}
+	public void setFood_name(String food_name) {
+		this.food_name = food_name;
+	}
 	public int getGrade_no() {
 		return grade_no;
 	}
@@ -92,12 +98,6 @@ public class MemberDTO {
 	}
 	public void setProfile_job(String profile_job) {
 		this.profile_job = profile_job;
-	}
-	public String getFood_name() {
-		return food_name;
-	}
-	public void setFood_name(String food_name) {
-		this.food_name = food_name;
 	}
 	
 	
