@@ -178,11 +178,17 @@ public class LightningController {
 	}
 	
 	
-	@RequestMapping("/lightReport.do")
-	public String lightReport(@RequestParam HashMap<String, String> params, HttpSession session) {
-		logger.info("번개 모임 글 신고  : "+ params);
+	@RequestMapping("/lightReport.ajax")
+	@ResponseBody
+	public HashMap<String, Object> lightReport(@RequestParam HashMap<String, String> params, HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+		params.put("loginId", loginId);
 		
-		return"./Lightning/lightReport";	
+		logger.info("번개 모임 글 신고  : "+ params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		boolean report = service.report(params);
+		map.put("lightReport", report);
+		return map;	
 	}
 	
 	

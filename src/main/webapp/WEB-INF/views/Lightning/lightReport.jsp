@@ -15,11 +15,13 @@
 </style>
 </head>
 <body>
-	<form action="lightReport.do" method="post" onsubmit="return checkForm()">
 		<table>
 			<tr>
+				<th>사유 입력</th>
+			</tr>
+			<tr>
 				<td>	
-					<input type="hidden" name ="lightning_no" value="${lightning_no}"/>
+					<input type="hidden" id ="lightning_no" value="${lightning_no}"/>
 					<input type="radio" name ="report_reason" value="욕설 및 비방"/>욕설 및 비방
 				</td>
 			</tr>
@@ -33,13 +35,13 @@
 			<tr>
 				<td>
 					<input type="radio" name ="report_reason" id="etc" value="기타"/>
-					<textarea name="report_reason_text" placeholder="기타(직접작성)" style = "width:200px; height:30px; resize:none;"  disabled></textarea>
+					<textarea id="report_reason_text" placeholder="기타(직접작성)" style = "width:200px; height:30px; resize:none;"  disabled></textarea>
 				</td>
 			</tr>
 			<tr>
 				<th>
 					<input type="button" value="취소" onclick="lightReportclose()"/>
-					<input type="submit" value="신고"/>
+					<input type="button" value="신고" onclick="checkReport()"/>
 			</th>
 			</tr>
 		</table>
@@ -66,20 +68,47 @@
 		  }
 	});
 	
-	//form 유효성 검사
-	function checkForm(){
+	
+	//유효성 검사
+	function checkReport(){
+		
+		var lightning_no = $("#lightning_no").val();
+		var report_reason = $('input[name="report_reason"]:checked').val();
+		var report_reason_text = $('textarea').val();
+		
+		
 		if(!$('input[name="report_reason"]').is(":checked")){
 			alert("신고 사유를 선택해 주세요");
-			return false;
+			//return false;
 		}else if($('input[name="report_reason"]:checked').val()=="기타" && $("textarea").val()==""){
 			alert("신고 사유를 입력해 주세요");
 			$("textarea").focus();
-			return false;
+			//return false;
 		}else{
-			return true;
-			opener.parent.location.reload();
-			window.close();
-		}
+			//console.log(lightning_no,report_reason,report_reason_text);
+			$.ajax({
+				type:'get',
+				url:'lightReport.ajax',
+				data:{
+					'lightning_no' : lightning_no,
+					'report_reason' : report_reason,
+					'report_reason_text' : report_reason_text
+				},
+				dataType:'JSON',
+				success:function(data){
+					if(data.lightReport){
+						opener.parent.location.reload();
+						window.close();
+					}else{
+						alert("신고가 접수되지 않았습니다");
+					}
+				},
+				error:function(e){
+					console.log(e);
+				}
+			});
+		
+		}	
 	}
 	
 
@@ -90,3 +119,4 @@
 
 </script>
 </html>
+				

@@ -114,4 +114,15 @@
 	<select id="profile" resultType="light" parameterType="String">
 		SELECT eat_speed, profile_gender, profile_job FROM profile p WHERE member_id = #{loginId}
 	</select>
+	
+	<insert id="report" parameterType="hashmap">
+		INSERT INTO report(reporter,reported,class_no,report_reason,idx)
+			VALUES(
+			#{loginId}
+			,(select leader_id from lightninglist where lightning_no = #{lightning_no})
+			,1,
+			<if test="!report_reason.equals('기타')">#{report_reason}</if>
+			<if test="report_reason.equals('기타')">#{report_reason_text}</if>
+			,#{lightning_no})
+	</insert>
 </mapper>

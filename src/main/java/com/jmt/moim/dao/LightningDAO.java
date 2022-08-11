@@ -23,4 +23,6 @@ public interface LightningDAO {
 
 	LightningDTO profile(String loginId);
 
+	int report(HashMap<String, String> params);
+
 }

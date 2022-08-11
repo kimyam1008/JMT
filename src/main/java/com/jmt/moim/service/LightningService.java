@@ -67,5 +67,16 @@ public class LightningService {
 		logger.info("회원 프로필 정보 가져오기");
 		return dao.profile(loginId);
 	}
+
+	public boolean report(HashMap<String, String> params) {
+		logger.info("번개모임 신고하기 서비스 : " + params);
+		
+		boolean success = false;
+		int row = dao.report(params);
+		if(row>0) {
+			success = true;
+		}
+		return success;
+	}
 	
 }
