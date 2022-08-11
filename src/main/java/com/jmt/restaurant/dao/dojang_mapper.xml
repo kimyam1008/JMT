@@ -2,5 +2,104 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jmt.restaurant.dao.RestaurantDAO">
+
+	<select id="foodname" resultType="res">
+		SELECT food_no, food_name FROM food
+	</select>
 	
+	<select id="resList" parameterType="hashmap" resultType="res">
+		SELECT 
+			r.restaurant_no
+			, f.food_name
+			, r.restaurant_name
+			, r.restaurant_address
+		FROM restaurant r
+		JOIN food f ON r.food_no = f.food_no
+		<where>
+			<if test="search != null and search != ''">
+				AND r.restaurant_name LIKE CONCAT('%', #{search}, '%')
+			</if>
+	        <if test="foodname != null and foodname != ''">
+	        	AND  r.food_no = #{foodname}
+        	</if>
+		</where>
+		ORDER BY r.restaurant_no DESC limit #{cnt} OFFSET #{offset};
+	</select>
+	
+	<select id="allCount" parameterType="hashmap" resultType="int">
+		SELECT
+			COUNT(restaurant_no)
+		FROM restaurant r
+		<where>
+			<if test="search != null and search != ''">
+				AND r.restaurant_name LIKE CONCAT('%', #{search}, '%')
+			</if>
+			<if test="foodname != null and foodname != ''">
+	        	AND  r.food_no = #{foodname}
+        	</if>
+		</where>
+	</select>
+	
+	
+	<select id="resDetail" resultType="res" parameterType="String" >
+		SELECT 
+			r.restaurant_no
+			, f.food_name
+			, r.restaurant_name
+			, r.restaurant_address
+			, r.restaurant_call
+		 FROM restaurant r
+		 JOIN food f ON r.food_no = f.food_no
+		 WHERE restaurant_no = #{restaurant_no}
+	</select>
+	
+	<select id="lightninglist" resultType="res" parameterType="String" >
+		select
+			l.lightning_title 
+		from 
+			lightninglist l
+		inner join restaurant r on 
+			l.restaurant_no = r.restaurant_no
+		where
+			l.restaurant_no = #{restaurant_no}
+	</select>
+	
+	<insert id="reviewWrite" 
+	useGeneratedKeys="true"
+	keyColumn="comment_no"
+	keyProperty="comment_no"
+	parameterType="res">
+		INSERT INTO comment(class_no,member_id,comment_content,comment_date,comment_status,idx)
+			VALUES(8, #{member_id}, #{comment_content}, CURDATE(), '공개', #{idx})
+	</insert>
+	
+	<insert id="reviewFileWrite">
+		INSERT INTO photo(photo_oriFileName, photo_newFileName, idx, class_no)
+			VALUES(#{param1},#{param2},#{param3},#{param4})
+	</insert>
+	
+	
+	<insert id="restaurantWrite">
+		INSERT INTO restaurantupdate(restaurantUpdate_reason, restaurant_no, member_id)
+			VALUES(#{restaurantUpdate_reason},#{restaurant_no},#{member_id})
+	</insert>
+	
+	<select id="photoList" resultType="res" parameterType="hashmap" >
+		select
+			c.idx
+			, p.photo_newFileName
+			, c.comment_date 
+		from 
+			comment c 
+		inner join photo p on 
+			c.class_no = p.class_no
+		where
+			c.idx = #{restaurant_no};
+	</select>
+	
+	<select id="resCommet" resultType="res" parameterType="hashmap" >
+		select * from comment c where idx = #{restaurant_no}
+	</select>
+	
+
 </mapper>
