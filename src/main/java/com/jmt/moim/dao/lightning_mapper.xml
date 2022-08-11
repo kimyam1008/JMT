@@ -110,4 +110,8 @@
 	<update id="dropout">
 		UPDATE apply SET status="탈퇴" WHERE class_no = 1 AND member_id = #{param1} AND idx = #{param2}
 	</update>
+	
+	<select id="profile" resultType="light" parameterType="String">
+		SELECT eat_speed, profile_gender, profile_job FROM profile p WHERE member_id = #{loginId}
+	</select>
 </mapper>

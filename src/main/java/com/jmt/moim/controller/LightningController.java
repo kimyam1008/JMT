@@ -43,12 +43,6 @@ public class LightningController {
 			//방장아이디와 로그인아이디 비교하기 위해서 
 			String loginId = (String) session.getAttribute("loginId");
 			model.addAttribute("loginId", loginId);
-		/*
-			ArrayList<LightningDTO> list = service.list();
-			if(list.size()>0) {
-				model.addAttribute("list", list);
-			}
-			*/
 			
 		return "./Lightning/lightning";
 	}
@@ -79,18 +73,6 @@ public class LightningController {
 		selectedparams.put("job", params.get("job"));
 		selectedparams.put("gender", params.get("gender"));
 		selectedparams.put("loginId", session.getAttribute("loginId"));
-		
-		
-		/*
-		//받아오는 파라미터가 없을 경우 // is empty도 안돼 size도 안돼 
-		if(params.size()>0) {			
-			//전체 리스트 가져오기
-			ArrayList<LightningDTO> list = service.list();
-			if(list.size()>0) {
-				map.put("list", list);
-			}
-		}
-		*/
 		 
 	
 		//페이징- 현재페이지
@@ -99,13 +81,8 @@ public class LightningController {
 		logger.info("보여줄 페이지 :" + page);
 		
 		//offset 구하기 
-		//params가 String,String이니까 숫자를 문자열로 변환
-		//String offset = Integer.toString( 10 * (page-1));
 		int offset = 10 * (page-1);
-		//int offset = Integer.parseInt(String.valueOf(10 * (page-1)));
-		//String offset = String.valueOf(10 * (page-1));
 		logger.info("offset : " + offset);
-		//params.put("offset",offset);
 		selectedparams.put("offset", offset);
 		
 		//총개수 
@@ -141,6 +118,11 @@ public class LightningController {
 			model.addAttribute("dto", dto);
 		}
 		
+		//프로필 정보 
+		LightningDTO profileInfo = service.profile(loginId);
+		model.addAttribute("profileInfo", profileInfo);
+		
+		
 		return "./Lightning/lightDetail";
 	}
 	
@@ -148,7 +130,7 @@ public class LightningController {
 	
 	//상세보기페이지 - 번개모임에 신청할 시 
 	@RequestMapping("/lightRegister.do") 
-	public String lightRegister(Model model,HttpSession session
+	public String lightRegister(HttpSession session
 			,RedirectAttributes rAttr, @RequestParam String lightning_no) {
 		
 		
@@ -164,10 +146,6 @@ public class LightningController {
 		}
 		
 		rAttr.addFlashAttribute("msg", msg);
-		
-		
-		//프로필 (식사속도, 직업, 성별) 
-		
 		
 		return "redirect:/lightDetail.go?lightning_no="+lightning_no;
 	}

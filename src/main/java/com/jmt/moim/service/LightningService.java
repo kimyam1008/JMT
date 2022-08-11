@@ -62,5 +62,10 @@ public class LightningService {
 		logger.info("탈퇴 서비스 요청");
 		dao.dropout(loginId,lightning_no);
 	}
+
+	public LightningDTO profile(String loginId) {
+		logger.info("회원 프로필 정보 가져오기");
+		return dao.profile(loginId);
+	}
 	
 }
