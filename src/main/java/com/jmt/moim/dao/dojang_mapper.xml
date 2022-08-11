@@ -75,6 +75,7 @@
 			,d.eat_speed
 			,d.job
 			,(select count(member_id)+1 from apply a where class_no = 3 and status = '승인' and a.idx = d.dojang_no) as member_count
+			,(select status from apply a where class_no = 3 and a.idx = d.dojang_no and member_id=#{loginId}) as test
 			,d.dojang_create
 			,f.food_name
 			,d.dojang_content
@@ -116,6 +117,20 @@
 	<insert id="dojangReg" parameterType="hashmap">
 		INSERT INTO dojanglist(dojang_title,food_no,people_num,eat_speed,gender,job,dojang_content,leader_id,dojang_status,class_no)
 			VALUES (#{dojang_title},#{food_name},#{points},#{eat_speed},#{gender},#{job},#{dojang_content},#{loginId},'모집중',3)
+	</insert>
+	
+	
+	<select id="reported" resultType="String">
+		SELECT leader_id FROM dojanglist where dojang_no =#{param1}
+	</select>
+	
+	
+	<insert id="dojangReport" parameterType="hashmap">
+		INSERT INTO report (report_reason,class_no,idx,reporter,reported)
+			VALUES(
+			<if test="!report_reason.equals('기타')">#{report_reason}</if>
+			<if test="report_reason.equals('기타')">#{report_text}</if>
+			,3,#{dojang_no},#{reporter},#{reported});
 	</insert>
 	
 </mapper>
