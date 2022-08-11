@@ -3,20 +3,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-<<<<<<< HEAD
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	    <property name="defaultEncoding" value="UTF-8"/>
 	    <property name="maxUploadSize" value="10000000"/>
 	    <property name="maxInMemorySize" value="10000000"/>
 	</bean>
 		
-=======
-	<!-- Root Context: defines shared resources visible to all other web components -->
-	<!-- File Upload 관련 설정 -->
-   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-      <property name="defaultEncoding" value="UTF-8"/>
-      <property name="maxUploadSize" value="10000000"/>
-      <property name="maxInMemorySize" value="10000000"/>
-   </bean>
->>>>>>> f612226a9bb78c403f9e31dd393829aab38cb253
 </beans>
