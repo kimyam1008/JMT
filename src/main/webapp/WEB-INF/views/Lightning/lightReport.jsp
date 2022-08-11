@@ -33,7 +33,7 @@
 			<tr>
 				<td>
 					<input type="radio" name ="report_reason" id="etc" value="기타"/>
-					<textarea name="report_reason1" placeholder="기타(직접작성)" style = "width:200px; height:30px; resize:none;"  disabled></textarea>
+					<textarea name="report_reason_text" placeholder="기타(직접작성)" style = "width:200px; height:30px; resize:none;"  disabled></textarea>
 				</td>
 			</tr>
 			<tr>
