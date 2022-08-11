@@ -34,13 +34,14 @@ th,td {
 	<table>
 		<thead>
 			<tr>
-				<!-- <th>선택</th> -->
+				<th>선택</th>
+				<th>모임 번호</th>
 				<th>제목</th>
 				<th>방장 ID</th>
 			</tr>
 		</thead>
 		<tbody id="list">
-				<c:forEach items="${dto}" var="dto">
+				<%-- <c:forEach items="${dto}" var="dto">
 				<tr>
 					<td>
 						<input type="hidden" id="groupNumber" value="${dto.groupNumber}"/>
@@ -48,15 +49,15 @@ th,td {
 					</td>
 					<td>${dto.leader_id}</td>
 				</tr>
-				</c:forEach>
+				</c:forEach> --%>
 		</tbody>
 	</table><br/>
-	<button id="groupSearchEnd">확인</button>
+	<button id="groupSearchEnd" onclick="groupSearchEnd()">확인</button>
 	<!-- <button id="groupSearchEnd" onclick="groupSearchEnd()">확인</button> -->
 </body>
 <script>
-drawList(list);
-
+//drawList(list);
+/*
  window.onload = function(event){
     document.getElementById("groupSearchEnd").onclick = function(){
     	
@@ -72,8 +73,8 @@ drawList(list);
         
     }
 } 
-
- function drawList(list){
+*/
+/*  function drawList(list){
 		var content = '';
 		console.log("data:",list);
 		
@@ -82,7 +83,7 @@ drawList(list);
 			content += '<td colspan="2">'+"모임 종류를 선택하세요."+'</td>';
 			content += '</tr>';
 		}
- }
+ } */
 
 /*
  function groupSearchEnd(){             
@@ -90,22 +91,22 @@ drawList(list);
 	        }
 */
 
-/*
+
 groupListCall();
 
 //셀렉트박스 바뀔때
-$('#groupSortChange').on('change',function(){
+/* $('#groupSortChange').on('change',function(){
 	groupListCall();
-});
+}); */
 
 function groupListCall(){
-	var groupSortChange = $("#groupSortChange option:selected").val();
-	console.log(groupSortChange);
+	//var groupSortChange = $("#groupSortChange option:selected").val();
+	//console.log(groupSortChange);
 	
 	$.ajax({
 		type:'get',
 		url:'groupSearch.ajax',
-		data:{groupSortChange : groupSortChange},
+		data:{},
 		dataType:'json',
 		success:function(data){
 			console.log(data);
@@ -130,45 +131,48 @@ function drawList(list){
 	}
 	
 	list.forEach(function(item){
-		if ($("#groupSortChange option:selected").val() == "lightning") {
+		/* if ($("#groupSortChange option:selected").val() == "lightning") { */
 			content += '<tr>';
-			content += '<td><input type="radio" value="'+item.lightning_title+'"/>'+item.lightning_title;
-			content += '<input type="hidden" value="'+item.lightning_no+'"/></td>';
+			content += '<td><input type="radio" name="groupRadio"/></td>';
+			content += '<td>'+item.group_no+'</td>';
+			content += '<td>'+item.title+'</td>';
 			content += '<td>'+item.leader_id+'</td>';
 			content += '</tr>';
-		} else {
-			content += '<tr>';
-			content += '<td><input type="radio" value="'+item.dojang_title+'">'+item.dojang_title;
-			content += '<input type="hidden" value="'+item.dojang_no+'"/></td>';
+		/* } else { */
+			/* content += '<tr>';
+			content += '<td><input type="radio" name="groupRadio"/></td>';
+			content += '<td>'+item.lightning_title+'<input type="hidden" value="'+item.lightning_no+'"/></td>';
 			content += '<td>'+item.leader_id+'</td>';
-			content += '</tr>';
-		}
+			content += '</tr>'; */
+		/* } */
 	});
 	
 	$('#list').empty();
 	$('#list').append(content);
 }
-*/
+
 
 //라디오 선택값
-console.log($("input[type='radio']:checked").val());
+//console.log($("input[type='radio']:checked").val());
 
-var groupSelect = $("input[type='radio']:checked").val();
-var idx = $("input[type='hidden']").val();
+//var groupSelect = $("input[type='radio']:checked").val();
+//var idx = $("input[type='hidden']").val();
 
 //모임 선택 완료
-/*
+
 function groupSearchEnd() {
-	if(groupSelect != ""){
-		let title = $('input[type=radio]:checked').parents('td').next().html();
-		let group_no = '${joinGroup.group_no}';
+	let group_name = $('input[type=radio]:checked').parents('td').next().next().text();
+	
+	/* if(groupSelect != ""){ */
+		let group_no = $('input[type=radio]:checked').parents('td').next().text();
+		//let group_no = '${joinGroup.group_no}';
 		
 		$.ajax({
 			type:'post',
 			url:'groupSearchEnd.ajax',
 			data:{
-				lightning_title:title,
-				dojang_title:title,
+				lightning_title:group_name,
+				dojang_title:group_name,
 				lightning_no:group_no,
 				dojang_no:group_no
 			},
@@ -177,19 +181,19 @@ function groupSearchEnd() {
 				if(data>0){
 					alert('모임 선택이 완료되었습니다.');
 				}
-				location.reload();
+				//location.reload();
 			},
 			error:function(e){console.log(e)}
 			
 		});
 		
 		//var content = '<input type="text" name="title" value="'+groupSelect+'" readonly/>';
-		/* content += groupSelect **
+		/* content += groupSelect **/
 		//content += '<input type="hidden" name="idx" value="'+idx+'/>';
 		//opener.document.getElementById("groupName").innerHTML += content;
 		self.close();
-	}
+	/* } */
 	
-}*/
+}
 </script>
 </html>
