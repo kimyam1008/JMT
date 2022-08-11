@@ -43,8 +43,9 @@
 	</select>
 	<select id="job">
 		<option value="">직업</option>
-		<option value="학생">학생</option>
 		<option value="직장인">직장인</option>
+		<option value="취준생">취준생</option>
+		<option value="학생">학생</option>
 		<option value="상관없음">상관없음</option>
 	</select>
 	
