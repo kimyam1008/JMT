@@ -49,6 +49,7 @@
 	<!-- 모임후기 상세보기 -->
 	<select id="groupReviewDetail" parameterType="String" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
 		SELECT review_title
+			,(SELECT member_id FROM member m WHERE member_id=#{param2}) as login_id
 			,groupReview.member_id
 			,member_name
 			,review_date
@@ -63,7 +64,7 @@
 		LEFT OUTER JOIN dojangList ON dojang_no = idx AND groupReview.class_no = 3
 		LEFT OUTER JOIN member ON member.member_id = groupReview.member_id
 		JOIN codeTable ON groupReview.class_no = codeTable.class_no
-		WHERE groupReview_no = #{groupReview_no}
+		WHERE groupReview_no = #{param1}
 	</select>
 	
 	<!-- 모임검색 팝업 -->

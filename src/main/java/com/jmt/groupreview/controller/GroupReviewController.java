@@ -60,7 +60,7 @@ public class GroupReviewController {
 		model.addAttribute("groupList",groupList);
 		return "./GroupReview/grRegisterForm";
 	}
-	
+	/*
 	//모임 후기 작성 > 모임 검색 팝업
 	@RequestMapping(value = "/groupSearchPop.go")
 	public String groupSearchPopGo(){
@@ -75,7 +75,7 @@ public class GroupReviewController {
 		model.addAttribute("groupList",groupList);
 		return "./GroupReview/groupSearchPop";
 	}
-	
+	*/
 	//모임 검색 팝업 ajax
 	/*
 	@RequestMapping("/groupSearch.ajax")
@@ -137,13 +137,18 @@ public class GroupReviewController {
 	
 	//모임 후기 상세보기
 	@RequestMapping(value = "/groupReviewDetail.do")
-	public ModelAndView groupReviewDet(@RequestParam String groupReview_no,
-			HttpSession session){
+	public String groupReviewDet(@RequestParam String groupReview_no,
+			HttpSession session, Model model){
 		/*,@RequestParam String idx*/
+		logger.info("모임 후기 상세 페이지 요청");
 		String loginId = (String) session.getAttribute("loginId");
+		model.addAttribute("loginId", loginId);
 		//GroupReviewDTO dto = service.groupReviewDetail(groupReview_no,idx);
-		logger.info("모임 후기 상세 페이지 이동 요청");
-		return service.groupReviewDetail(groupReview_no);
+		GroupReviewDTO dto = service.groupReviewDetail(groupReview_no,loginId);
+		if (dto != null) {
+			model.addAttribute("dto", dto);
+		}
+		return "./GroupReview/groupReviewDetail";
 	}
 	
 	@RequestMapping(value = "/groupReviewDetail.go")
@@ -172,5 +177,12 @@ public class GroupReviewController {
 		boolean report = service.grReviewReport(params);
 		map.put("grReviewReport", report);
 		return map;	
+	}
+	
+	@RequestMapping(value = "/groupReviewUpdate.go")
+	public String groupReviewUpdateGo(@RequestParam String groupReview_no, Model model,HttpSession session){
+		logger.info("모임 후기 수정 페이지 이동 : "+groupReview_no);
+		session.setAttribute("groupReview_no", groupReview_no);
+		return "./GroupReview/groupReviewUpdate";
 	}
 }

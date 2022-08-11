@@ -15,6 +15,7 @@ public class GroupReviewDTO {
 	private Date review_date;
 	private String groupReview_status;
 	private int idx;
+	private String login_id;
 	
 	//dojang & lightning
 	private String title;
@@ -34,6 +35,13 @@ public class GroupReviewDTO {
 	private String photo_newFileName;
 	//private int groupNumber;
 	
+	
+	public String getLogin_id() {
+		return login_id;
+	}
+	public void setLogin_id(String login_id) {
+		this.login_id = login_id;
+	}
 	public int getGroup_no() {
 		return group_no;
 	}
