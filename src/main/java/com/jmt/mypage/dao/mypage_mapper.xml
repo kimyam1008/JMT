@@ -2,5 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jmt.mypage.dao.MypageDAO">
+
+	<select id="mypage" resultType="member">
+		SELECT * FROM profile p INNER JOIN member m ON p.member_id = #{param1} and m.member_id = #{param1};
+	</select>
+	
+	<select id="blindCount" resultType="int">
+		SELECT COUNT(blind_no) FROM blind WHERE member_id = #{param1}
+	</select>
+	
+	<select id="follower" resultType="int">
+		SELECT COUNT(follower_id) From follow f WHERE follower_id = #{param1}
+	</select>
+	
+	<select id="following" resultType="int">
+		SELECT COUNT(following_id) From follow f WHERE following_id = #{param1}
+	</select>
+	
+	<select id="profile_no" resultType="int">
+		SELECT profile_no FROM profile WHERE member_id = #{param1}
+	</select>
+	
+	<select id="photoList" resultType="photo">
+		SELECT * FROM profile p INNER JOIN photo p2 ON p.profile_no = #{param1} AND p2.idx = #{param1} ;
+	</select>
+	
+	<select id="foodList" resultType="member">
+		SELECT * FROM food
+	</select>
 	
 </mapper>
