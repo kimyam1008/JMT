@@ -123,5 +123,24 @@ public class ReportController {
 		return service.blindList(params);
 	}
 	
+	@RequestMapping("/blindDetail.go")
+	public String blindDetail(@RequestParam("report_no") Integer report_no ,Model model,Integer class_no , Integer idx) {
+		Map<String, Object> data  = new HashMap<String, Object>();
+	
+		data.put("class_no", class_no);
+		data.put("idx", idx);
+		
+		ReportDTO dto= service.reportDetail(report_no);
+		model.addAttribute("detailDto",dto);
+		
+		ReportPostDto reportPost= service.reportPost(data);
+		model.addAttribute("reportPost",reportPost);
+		
+		ArrayList<ReportDTO> blindHistory= service.blindHistory(report_no);
+		 model.addAttribute("blindHistory",blindHistory);
+		 
+		return "Report/blindDetail";
+	}
+	
 	
 }

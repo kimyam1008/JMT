@@ -23,7 +23,6 @@ public class ReportDTO {
 	private Integer idx; 
 	private String reported; 
 	private String reporter;
-	private String report_title; 
 	private String result_reason;
 	
 	// 마이바티스 서브쿼리 test
@@ -35,8 +34,54 @@ public class ReportDTO {
 	
 	private int blind_no;
 	
+	private String admin_id;
+	private String blind_reason;
+	private String blind_status;
+	@DateTimeFormat(pattern="yyyy-MM-dd HH시mm분")
+	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH시mm분", timezone = "Asia/Seoul")
+	private Date blind_proc_date;
 	
 	
+	public String getAdmin_id() {
+		return admin_id;
+	}
+
+
+	public void setAdmin_id(String admin_id) {
+		this.admin_id = admin_id;
+	}
+
+
+	public String getBlind_reason() {
+		return blind_reason;
+	}
+
+
+	public void setBlind_reason(String blind_reason) {
+		this.blind_reason = blind_reason;
+	}
+
+
+	public String getBlind_status() {
+		return blind_status;
+	}
+
+
+	public void setBlind_status(String blind_status) {
+		this.blind_status = blind_status;
+	}
+
+
+	public Date getBlind_proc_date() {
+		return blind_proc_date;
+	}
+
+
+	public void setBlind_proc_date(Date blind_proc_date) {
+		this.blind_proc_date = blind_proc_date;
+	}
+
+
 	public String getMb_group_review() {
 		return mb_group_review;
 	}
@@ -200,15 +245,6 @@ public class ReportDTO {
 		this.reporter = reporter;
 	}
 
-
-	public String getReport_title() {
-		return report_title;
-	}
-
-
-	public void setReport_title(String report_title) {
-		this.report_title = report_title;
-	}
 
 
 	public String getClass_name() {
