@@ -74,7 +74,10 @@
 	var status = "${dto.status}";
 	var leader_id="${dto.leader_id}";
 	var loginId = "${loginId}";
-	
+	//사용자 프로필
+	var eat_speed = "${profileInfo.eat_speed}";
+	var profile_gender = "${profileInfo.profile_gender}";
+	var profile_job = "${profileInfo.profile_job}";
 	
 	if(status=="승인"){
 		$("#application").text("탈퇴");
@@ -89,10 +92,20 @@
 			alert("방장은 신청할 수 없습니다.");
 		//아직 가입신청을 안한 경우
 		}else if (status == ""){
-			if(confirm("가입 신청하시겠습니까?")){
-				alert("신청완료 되었습니다.");
-				location.href='/lightRegister.do?lightning_no=${dto.lightning_no}';
+			//프로필 상태 기반
+			if("${dto.eat_speed}" !="상관없음" && "${dto.eat_speed}" != eat_speed){
+				alert("식사속도 조건이 맞지않습니다.");
+			}else if("${dto.gender}" !="상관없음" && "${dto.gender}" != profile_gender){
+				alert("성별 조건이 맞지않습니다.");
+			}else if("${dto.job}" !="상관없음" && "${dto.job}" != profile_job){
+				alert("직업 조건이 맞지않습니다.");
+			}else{
+				if(confirm("가입 신청하시겠습니까?")){
+					alert("신청완료 되었습니다.");
+					location.href='/lightRegister.do?lightning_no=${dto.lightning_no}';
+				}
 			}
+			
 		}else if(status=="대기"){
 			alert("이미 신청한 방입니다.");
 		}else if(status=="거절"){

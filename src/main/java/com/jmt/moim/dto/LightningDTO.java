@@ -33,11 +33,27 @@ public class LightningDTO {
 	//apply
 	private String status;
 	
+	//profile
+	private String profile_gender;
+	private String profile_job;
 	
 	
 	
 	
 	
+	
+	public String getProfile_gender() {
+		return profile_gender;
+	}
+	public void setProfile_gender(String profile_gender) {
+		this.profile_gender = profile_gender;
+	}
+	public String getProfile_job() {
+		return profile_job;
+	}
+	public void setProfile_job(String profile_job) {
+		this.profile_job = profile_job;
+	}
 	public String getStatus() {
 		return status;
 	}
