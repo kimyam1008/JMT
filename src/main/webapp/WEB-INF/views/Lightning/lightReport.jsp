@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>번개 모임 게시글 신고</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 	table {
@@ -34,7 +34,7 @@
 			</tr>
 			<tr>
 				<td>
-					<input type="radio" name ="report_reason" id="etc" value="기타"/>
+					<input type="radio" name ="report_reason"  value="기타"/>
 					<textarea id="report_reason_text" placeholder="기타(직접작성)" style = "width:200px; height:30px; resize:none;"  disabled></textarea>
 				</td>
 			</tr>
