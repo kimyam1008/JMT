@@ -57,7 +57,7 @@
 					<!-- <input type="button" value="검색" id="groupSearch"/> -->
 					<input type="hidden" id="groupNumber" name="groupNumber" value=""/>
 					<input type="button" value="검색" onclick="groupSearchPop()"/>
-					<input type="button" value="초기화" id="groupReset" onclick="groupReset()"/>
+					<!-- <input type="button" value="초기화" id="groupReset" onclick="groupReset()"/> -->
 				</td>
 			</tr>
 			<tr>
