@@ -182,6 +182,7 @@ public class LightningController {
 		return map;	
 	}
 	
+	//번개 모임 삭제(update)
 	@RequestMapping("/lightDelete.do")
 	public String lightDelete(Model model,@RequestParam String lightning_no) {
 		logger.info("번개 모임 게시글 삭제   : "+lightning_no);
