@@ -4,15 +4,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 
-<<<<<<< HEAD
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	    <property name="defaultEncoding" value="UTF-8"/>
-	    <property name="maxUploadSize" value="10000000"/>
-	    <property name="maxInMemorySize" value="10000000"/>
-	</bean>
-		
-
-=======
 
 	<!-- 서버가 켜지면 읽게되는 설정 파일(web.xml 에 경로가 명시되어 있다.) -->
 	<!-- 10000000 = 10 메가바이트 / 1000 = 1 키로바이트 / 1000000 = 1 메가바이트 / 주석은 빈 사이에 달지말기 에러날 수 있음-->
@@ -24,5 +15,5 @@
 	</bean>
 		
 
->>>>>>> origin/master
+
 </beans>
