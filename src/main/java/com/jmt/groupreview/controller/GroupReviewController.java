@@ -52,7 +52,9 @@ public class GroupReviewController {
 	@RequestMapping(value = "/grRegisterForm.go")
 	public String grRegisterForm(HttpSession session,Model model){
 		String loginId = (String) session.getAttribute("loginId");
+		//GroupReviewDTO joinGroup = service.joinGroup(loginId);
 		model.addAttribute("loginId", loginId);
+		//model.addAttribute("joinGroup", joinGroup);
 		return "./GroupReview/grRegisterForm";
 	}
 	
@@ -63,12 +65,52 @@ public class GroupReviewController {
 	}
 	
 	//모임 검색 팝업 ajax
+	/*
 	@RequestMapping("/groupSearch.ajax")
 	@ResponseBody
 	public HashMap<String, Object> groupSearch(@RequestParam String groupSortChange,HttpSession session){
 		String loginId = (String) session.getAttribute("loginId");
-		logger.info(loginId+"가 가입한 모임 리스트 요청 : "+groupSortChange);
+		logger.info(loginId+" 가 가입한 모임 리스트 요청 : "+groupSortChange);
 		return service.groupSearch(groupSortChange,loginId);
+	}
+	*/
+	/*
+	@RequestMapping("/groupSearchEnd.ajax")
+	@ResponseBody
+	public int groupSearchEnd(String lightning_title, String dojang_title, 
+			int lightning_no, int dojang_no) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		map.put("lightning_title", lightning_title);
+		map.put("dojang_title", dojang_title);
+		map.put("lightning_no", lightning_no);
+		map.put("dojang_no", dojang_no);
+		return service.groupSearchEnd(map);
+	}
+	*/
+	//가입한 번개 목록 가져오기
+	@RequestMapping(value = "/lightningCall")
+	public ModelAndView lightningCall(HttpSession session){
+		String loginId = (String) session.getAttribute("loginId");
+		//GroupReviewDTO dto = service.groupReviewDetail(groupReview_no,idx);
+		logger.info(loginId+" 가 가입한 번개 목록 요청");
+		return service.lightningCall(loginId);
+	}
+	
+	//가입한 도장깨기 목록 가져오기
+	@RequestMapping(value = "/dojangCall")
+	public ModelAndView dojangCall(HttpSession session){
+		String loginId = (String) session.getAttribute("loginId");
+		//GroupReviewDTO dto = service.groupReviewDetail(groupReview_no,idx);
+		logger.info(loginId+" 가 가입한 도장깨기 목록 요청");
+		return service.dojangCall(loginId);
+	}
+	
+	//파일 업로드 팝업
+	@RequestMapping(value = "/grFileUploadForm.go")
+	public String grFileUploadForm() {
+		logger.info("열려라 파일 업로드 팝업~");
+		return "./GroupReview/grFileUploadForm";
 	}
 	
 	//파일 업로드
@@ -97,11 +139,12 @@ public class GroupReviewController {
 	//모임 후기 상세보기
 	@RequestMapping(value = "/groupReviewDetail.do")
 	public ModelAndView groupReviewDet(@RequestParam String groupReview_no,
-			HttpSession session,@RequestParam String idx){
+			HttpSession session){
+		/*,@RequestParam String idx*/
 		String loginId = (String) session.getAttribute("loginId");
 		//GroupReviewDTO dto = service.groupReviewDetail(groupReview_no,idx);
 		logger.info("모임 후기 상세 페이지 이동 요청");
-		return service.groupReviewDetail(groupReview_no,idx);
+		return service.groupReviewDetail(groupReview_no);
 	}
 	
 	@RequestMapping(value = "/groupReviewDetail.go")

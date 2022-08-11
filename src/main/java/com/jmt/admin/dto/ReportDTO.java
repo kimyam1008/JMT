@@ -33,7 +33,30 @@ public class ReportDTO {
 	private String mb_dojang_post;
 	private String mb_group_review;
 	
+	private int blind_no;
 	
+	
+	
+	public String getMb_group_review() {
+		return mb_group_review;
+	}
+
+
+	public void setMb_group_review(String mb_group_review) {
+		this.mb_group_review = mb_group_review;
+	}
+
+
+	public int getBlind_no() {
+		return blind_no;
+	}
+
+
+	public void setBlind_no(int blind_no) {
+		this.blind_no = blind_no;
+	}
+
+
 	public String getMb_ligntning_title() {
 		return mb_ligntning_title;
 	}

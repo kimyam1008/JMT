@@ -101,6 +101,14 @@ public class DojangController {
 	}
 	
 	
+	//도장깨기 신고 팝업
+	@RequestMapping("/dojangReport.go")
+	public String dojangReportGo(@RequestParam String dojang_no, HttpSession session) {
+		session.setAttribute("dojang_no", dojang_no);
+		logger.info("도장가입신청"+dojang_no+"로그인아이디::"+session.getAttribute("loginId"));
+		return"./Dojang/dojangReport";	
+	}
+	
 	
 	
 	//도장모임 검색

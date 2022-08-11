@@ -78,15 +78,17 @@ public class GroupReviewService {
 		return map;
 	}
 
-	public ModelAndView groupReviewDetail(String groupReview_no, String idx) {
+	public ModelAndView groupReviewDetail(String groupReview_no) {
+		/*(String groupReview_no, String idx)*/
 		ModelAndView mav = new ModelAndView("./GroupReview/groupReviewDetail");
 		GroupReviewDTO dto = dao.groupReviewDetail(groupReview_no);
 		mav.addObject("dto", dto);
-		ArrayList<GroupReviewDTO> grPhotoList = dao.grPhotoList(idx);
-		mav.addObject("grPhotoList",grPhotoList);
+		//ArrayList<GroupReviewDTO> grPhotoList = dao.grPhotoList(idx);
+		//mav.addObject("grPhotoList",grPhotoList);
 		return mav;
 	}
 
+	/*
 	public HashMap<String, Object> groupSearch(String groupSortChange, String loginId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		logger.info("받아온 셀렉트박스 값 : "+groupSortChange);
@@ -98,9 +100,11 @@ public class GroupReviewService {
 		map.put("groupSearchList", groupSearchList);
 		return map;
 	}
-
+	*/
+	
 	public ModelAndView fileUpload(MultipartFile file, HttpSession session) {
-		ModelAndView mav = new ModelAndView("grFileUploadForm");
+		ModelAndView mav = new ModelAndView("./GroupReview/grFileUploadForm");
+		logger.info("파일 업로드 팝업 도착");
 		
 		//1. 파일명 추출
 		String fileName = file.getOriginalFilename();
@@ -168,9 +172,9 @@ public class GroupReviewService {
 		
 		//1. 글 저장 작업
 		GroupReviewDTO dto = new GroupReviewDTO();
-		dto.setReview_title(params.get("subject"));
-		dto.setMember_id(params.get("user_id"));
-		dto.setReview_content(params.get("content"));
+		dto.setReview_title(params.get("review_title"));
+		dto.setMember_id(params.get("member_id"));
+		dto.setReview_content(params.get("review_content"));
 		//dao.groupReviewRegister(dto,loginId);
 		dao.groupReviewRegister(dto);
 		
@@ -192,5 +196,27 @@ public class GroupReviewService {
 		return new ModelAndView(page);
 	}
 
+	public ModelAndView lightningCall(String loginId) {
+		ModelAndView mav = new ModelAndView("./GroupReview/groupSearchPop");
+		ArrayList<GroupReviewDTO> dto = dao.lightningCall(loginId);
+		mav.addObject("dto", dto);
+		return mav;
+	}
+
+	public ModelAndView dojangCall(String loginId) {
+		ModelAndView mav = new ModelAndView("./GroupReview/groupSearchPop");
+		ArrayList<GroupReviewDTO> dto = dao.dojangCall(loginId);
+		mav.addObject("dto", dto);
+		return mav;
+	}
+	/*
+	public GroupReviewDTO joinGroup(String loginId) {
+		return dao.joinGroup(loginId);
+	}
+	
+	public int groupSearchEnd(HashMap<String, Object> map) {
+		return dao.groupSearchEnd(map);
+	}
+	*/
 	
 }

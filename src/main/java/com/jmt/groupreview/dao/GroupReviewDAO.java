@@ -29,4 +29,12 @@ public interface GroupReviewDAO {
 
 	ArrayList<GroupReviewDTO> grPhotoList(String idx);
 
+	ArrayList<GroupReviewDTO> lightningCall(String loginId);
+
+	ArrayList<GroupReviewDTO> dojangCall(String loginId);
+
+	GroupReviewDTO joinGroup(String loginId);
+
+	int groupSearchEnd(HashMap<String, Object> map);
+
 }
