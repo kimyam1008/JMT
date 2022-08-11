@@ -18,10 +18,11 @@ th,td {
 </style>
 </head>
 <body>
-	<h3>모임 후기 상세보기</h3>
 	<div>
 	 ${sessionScope.loginId} 님 환영합니다, <a href="logout.do">로그아웃</a>
 	</div>
+	<h3>모임 후기 상세보기</h3>
+	<input type="hidden" id="member_id" value="${dto.member_id}"/>
 	<table>
 		<tr>
 			<th>글 제목</th>
@@ -40,13 +41,37 @@ th,td {
 			<td>${dto.class_name}</td>
 		</tr>
 		<tr>
-			<td colspan="4">${dto.review_content}</td>
+			<td colspan="4">
+				${dto.review_content}
+				<button>삭제</button>
+				<button onclick="grReviewReport_pop()">신고하기</button>
+			</td>
+		</tr>
+		<tr>
+			<th colspan="4">
+				<input type="button" value="수정" onclick="groupReviewUpdateForm()"/>
+				<input type="button" value="목록" onclick="location.href='groupReviewList.go'"/>
+			</th>
 		</tr>
 	</table>
-	<input type="button" value="수정" onclick="groupReviewUpdateForm()"/>
-	<input type="button" value="목록" onclick="location.href='groupReviewList.go'"/>
 </body>
 <script>
+//신고창 팝업
+function grReviewReport_pop(){
+	window.open("/grReviewReport.go?groupReview_no="+${dto.groupReview_no},"new","width=400, height=200, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+}
 
+//업데이트폼 이동
+function groupReviewUpdateForm(){
+	var member_id = $("#member_id").val();
+	
+	if (member_id == "${sessionScope.loginId}") {
+		location.href="/groupReviewUpdate.go?groupReview_no="+${dto.groupReview_no};
+	} else if(member_id == '') {
+		alert("작성자만 수정할 수 있습니다.");
+	} else {
+		alert("작성자만 수정할 수 있습니다.");
+	}
+}
 </script>
 </html>

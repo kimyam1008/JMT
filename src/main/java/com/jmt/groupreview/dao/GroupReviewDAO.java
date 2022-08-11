@@ -39,4 +39,8 @@ public interface GroupReviewDAO {
 
 	ArrayList<GroupReviewDTO> groupSearchList(String loginId);
 
+	ArrayList<GroupReviewDTO> groupList(String loginId);
+
+	int grReviewReport(HashMap<String, String> params);
+
 }
