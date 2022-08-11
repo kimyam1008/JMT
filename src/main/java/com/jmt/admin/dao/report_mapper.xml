@@ -6,8 +6,13 @@
 	
 	
 	<select id="reportList" parameterType="hashmap" resultType="com.jmt.admin.dto.ReportDTO">
-	SELECT c.class_name ,c.class_no,r.reporter ,r.reported ,r.report_date ,r.report_proc_status ,r.report_proc_date ,r.idx ,r.class_no,r.report_reason,r.report_no ,r.report_title  FROM report r 
-	JOIN codetable c on c.class_no = r.class_no  
+		SELECT c.class_name ,c.class_no,r.reporter ,r.reported ,r.report_date ,r.report_proc_status ,r.report_proc_date ,r.idx ,r.class_no,r.report_reason,r.report_no   
+		,(select l.lightning_title from lightninglist l  where l.lightning_no =r.idx and r.class_no =l.class_no  )as mb_ligntning_title 
+		,(select c.comment_content  from comment c  where c.comment_no  =r.idx  and r.class_no =c.class_no  )as mb_comment
+		,(select d.dojang_title  from  dojanglist d  where d.dojang_no  =r.idx and r.class_no  =d.class_no   )as mb_dojang_title
+		,(select d2.dojangPost_subject  from  dojangpost d2  where d2.dojangPost_no  =r.idx and r.class_no = d2.class_no  )as mb_dojang_post
+		,(select g.review_title  from groupreview g where g.groupReview_no = r.idx and r.class_no = g.class_no  )as mb_group_review
+		FROM report r JOIN codetable c on c.class_no = r.class_no 
 	
 		<where>
 			
@@ -24,11 +29,11 @@
 			</if>
 			
 			<if test="report_sort !='' and report_sort!= null and keyword !=''  and keyword !=null ">
-				<if test ="report_sort.equals('allList')">
+				<!-- <if test ="report_sort.equals('allList')">
 					
-				</if>
-				<if test ="report_sort.equals('post')">
-					 
+				</if> -->
+				<if test ="report_sort.equals('idx')">
+					AND r.idx  LIKE concat('%',#{keyword},'%') 
 				</if>
 				<if test ="report_sort.equals('sort')">
 					AND c.class_name  LIKE concat('%',#{keyword},'%') 
@@ -36,50 +41,64 @@
 				<if test ="report_sort.equals('reporter')">
 					AND r.reporter LIKE concat('%',#{keyword},'%') 
 				</if>
-				<if test ="report_sort.equals('title')">
-					AND r.report_title LIKE concat('%',#{keyword},'%') 
-				</if>
 			</if>
 			
+			
 		</where>
+				<!-- <if test ="report_sort !='' and report_sort!= null  ">
+					<if test="report_sort.equals('title')">
+					having 1=1
+					or mb_ligntning_title LIKE concat('%',#{keyword},'%') 
+					or mb_comment LIKE concat('%',#{keyword},'%') 
+					or mb_dojang_title LIKE concat('%',#{keyword},'%') 
+					or mb_dojang_post LIKE concat('%',#{keyword},'%') 
+					or mb_group_review LIKE concat('%',#{keyword},'%') 
+					</if>
+				</if> -->
 	ORDER BY r.report_date DESC limit #{cnt} offset #{offset}
 	</select>
 	
 	
 	
 	<select id="allCount" parameterType="hashmap" resultType="Integer">
-		SELECT COUNT(r.report_no) FROM report r 	
-		join codetable c on c.class_no = r.class_no  
+		select count (dd.report_no) from	(select r.report_no ,r.report_proc_status  ,c.class_name,r.reporter,r.idx
+		,(select l.lightning_title from lightninglist l  where l.lightning_no =r.idx and r.class_no =l.class_no  )as mb_ligntning_title 
+		,(select c.comment_content  from comment c  where c.comment_no  =r.idx  and r.class_no =c.class_no  )as mb_comment
+		,(select d.dojang_title  from  dojanglist d  where d.dojang_no  =r.idx and r.class_no  =d.class_no   )as mb_dojang_title
+		,(select d2.dojangPost_subject  from  dojangpost d2  where d2.dojangPost_no  =r.idx and r.class_no = d2.class_no  )as mb_dojang_post
+		,(select g.review_title  from groupreview g where g.groupReview_no = r.idx and r.class_no = g.class_no  )as mb_group_review
+		FROM report r JOIN codetable c on c.class_no = r.class_no) as dd
 		<where>
 			
 			<if test = "report_status != '' and report_status != null">
 				<if test='report_status.equals("wait")'>
-					AND r.report_proc_status = '처리대기'
+					AND dd.report_proc_status = '처리대기'
 				</if>
 				<if test="report_status.equals('blind')">
-					AND r.report_proc_status = "블라인드"
+					AND dd.report_proc_status = "블라인드"
 				</if>
 				<if test="report_status.equals('end')">
-					AND r.report_proc_status = '처리완료'
+					AND dd.report_proc_status = '처리완료'
 				</if>
 			</if>
 			
 			<if test="report_sort !='' and report_sort!= null and keyword !=''  and keyword !=null ">
-				<if test ="report_sort.equals('allList')">
-					
-				</if>
-				<if test ="report_sort.equals('post')">
-					 
+				<if test ="report_sort.equals('idx')">
+					AND dd.idx  LIKE concat('%',#{keyword},'%') 
 				</if>
 				<if test ="report_sort.equals('sort')">
-					AND c.class_name  LIKE concat('%',#{keyword},'%') 
+					AND dd.class_name  LIKE concat('%',#{keyword},'%') 
 				</if>
 				<if test ="report_sort.equals('reporter')">
-					AND r.reporter LIKE concat('%',#{keyword},'%') 
+					AND dd.reporter LIKE concat('%',#{keyword},'%') 
 				</if>
-				<if test ="report_sort.equals('title')">
-					AND r.report_title LIKE concat('%',#{keyword},'%') 
-				</if>
+				<!-- <if test ="report_sort.equals('title')">
+					AND dd.mb_ligntning_title LIKE concat('%',#{keyword},'%')  
+					AND dd.mb_comment LIKE concat('%',#{keyword},'%')  
+					AND dd.mb_dojang_title LIKE concat('%',#{keyword},'%')  
+					AND dd.mb_dojang_post LIKE concat('%',#{keyword},'%')  
+					AND dd.mb_group_review LIKE concat('%',#{keyword},'%')  
+				</if> -->
 			</if>
 			
 		</where>
@@ -89,7 +108,7 @@
 	
 	<!-- 신고 상세보기 -->
 	<select id="reportDetail" parameterType="int" resultType="com.jmt.admin.dto.ReportDTO">
-		select c.class_name,r.result_reason, r.report_no , r.report_date ,r.report_reason ,r.report_proc_status ,r.report_proc_date ,r.reported ,r.reporter ,r.report_title ,r.idx ,r.class_no from report r 
+		select c.class_name,r.result_reason, r.report_no , r.report_date ,r.report_reason ,r.report_proc_status ,r.report_proc_date ,r.reported ,r.reporter  ,r.idx ,r.class_no from report r 
 		JOIN codetable c on r.class_no =c.class_no 
 		where r.report_no =#{param1}
 	</select> 
@@ -126,10 +145,10 @@
 	
 	<!-- 블라인드 리스트 -->
 	<select id="blindList" parameterType="map" resultType="com.jmt.admin.dto.ReportDTO">
-	select b.blind_no ,r.class_no ,r.idx,r.reporter ,r.reported ,r.report_proc_status ,r.report_proc_date  ,(select l.lightning_title from lightninglist l  where l.lightning_no =r.idx and r.class_no =l.class_no  )as mb_ligntning_title 
+	select b.blind_no ,r.class_no ,r.report_no,r.idx,r.reporter ,r.reported ,r.report_proc_status ,r.report_proc_date  ,(select l.lightning_title from lightninglist l  where l.lightning_no =r.idx and r.class_no =l.class_no  )as mb_ligntning_title 
 		,(select c.comment_content  from comment c  where c.comment_no  =r.idx  and r.class_no =c.class_no  )as mb_comment
 		,(select d.dojang_title  from  dojanglist d  where d.dojang_no  =r.idx and r.class_no  =d.class_no   )as mb_dojang_title
-		,(select d2.dojangPost_content  from  dojangpost d2  where d2.dojangPost_no  =r.idx and r.class_no = d2.class_no  )as mb_dojang_post
+		,(select d2.dojangPost_subject  from  dojangpost d2  where d2.dojangPost_no  =r.idx and r.class_no = d2.class_no  )as mb_dojang_post
 		,(select g.review_title  from groupreview g where g.groupReview_no = r.idx and r.class_no = g.class_no  )as mb_groupreview
 		from blind b  left outer join report r on r.report_no = b.report_no  group by r.class_no , r.idx
 		ORDER BY r.report_date DESC limit #{cnt} offset #{offset}
@@ -146,4 +165,7 @@
 		select count(dd.blind_no) from (select b.blind_no from blind b  left outer join report r ON r.report_no = b.report_no  group by r.class_no , r.idx) as dd
 	</select>
 	
+	<select id="blindHistory" resultType="com.jmt.admin.dto.ReportDTO" parameterType="int" >
+		select b.admin_id , b.blind_reason ,b.blind_proc_date,b.blind_status  from report r  join blind b ON b.report_no =r.report_no where r.report_no =#{report_no} order by  b.blind_proc_date desc;
+	</select>
 </mapper>

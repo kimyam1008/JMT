@@ -42,6 +42,10 @@ public interface ReportDAO {
 
 	int blindCount(Map<String, Object> data);
 
+	ReportDTO reportDetail1(Integer report_no);
+
+	ArrayList<ReportDTO> blindHistory(Integer report_no);
+
 
 
 }
