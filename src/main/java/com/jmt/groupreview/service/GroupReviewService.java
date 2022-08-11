@@ -88,19 +88,19 @@ public class GroupReviewService {
 		return mav;
 	}
 
-	/*
-	public HashMap<String, Object> groupSearch(String groupSortChange, String loginId) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		logger.info("받아온 셀렉트박스 값 : "+groupSortChange);
+	
+	public ArrayList<GroupReviewDTO> groupSearch(String loginId) {
+		//HashMap<String, Object> map = new HashMap<String, Object>();
+		//logger.info("받아온 셀렉트박스 값 : "+groupSortChange);
 		
 		//HashMap<String, Object> groupSearchResult = new HashMap<String, Object>();		
 		//groupSearchResult.put("groupSortChange", groupSortChange);
 		
-		ArrayList<GroupReviewDTO> groupSearchList = dao.groupSearchList(groupSortChange,loginId);
-		map.put("groupSearchList", groupSearchList);
-		return map;
+		//ArrayList<GroupReviewDTO> groupSearchList = dao.groupSearchList(groupSortChange,loginId);
+		//map.put("groupSearchList", groupSearchList);
+		return dao.groupSearchList(loginId);
 	}
-	*/
+	
 	
 	public ModelAndView fileUpload(MultipartFile file, HttpSession session) {
 		ModelAndView mav = new ModelAndView("./GroupReview/grFileUploadForm");
@@ -213,10 +213,10 @@ public class GroupReviewService {
 	public GroupReviewDTO joinGroup(String loginId) {
 		return dao.joinGroup(loginId);
 	}
-	
+	*/
 	public int groupSearchEnd(HashMap<String, Object> map) {
 		return dao.groupSearchEnd(map);
 	}
-	*/
+	
 	
 }

@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jmt.member.dto.MemberDTO;
@@ -175,9 +176,10 @@ public class MemberController {
 		}
 		
 		
+		
 		//프로필 등록
 		@RequestMapping(value = "profileRegister.do")
-		public String profileRegister(Model model, HttpSession session, @RequestParam HashMap<String, Object> params) {
+		public String profileRegister(Model model, MultipartFile[] photos, HttpSession session, @RequestParam HashMap<String, Object> params) {
 			logger.info("프로필 요청 값 {}: ",params);
 			String loginId = (String) session.getAttribute("loginId"); //세션에 저장된 아이디 꺼내오기
 			params.put("loginId", loginId); //hashmap 타입으로 한번에 보내기 위해 params 에 넣기
@@ -187,20 +189,17 @@ public class MemberController {
 				model.addAttribute("msg", "입력되지 않은 값이 있다면 이용에 제한될 수 있습니다.");
 			}else if(params.get("speed") == null) {
 				model.addAttribute("msg", "입력되지 않은 값이 있다면 이용에 제한될 수 있습니다.");
-			}else if(params.get("fileUpload") == null) {
-				model.addAttribute("msg", "입력되지 않은 값이 있다면 이용에 제한될 수 있습니다.");
+			}else {
+				model.addAttribute("msg", "등록이 완료되었습니다.");
 			}
-			service.profileRegister(params);
+			service.profileRegister(photos, params);
 				
 			return "/Main/main"; 
 		}
 		
 		
 		
-		
-		
-		
-		
+
 		
 		
 		
