@@ -53,11 +53,8 @@ public class LightningController {
 	@ResponseBody
 	public HashMap<String, Object> list(Model model,
 			@RequestParam HashMap<String, String>params, HttpSession session) {
-		
 		logger.info("리스트 불러오기");
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		
 		
 		//params 확인
 		logger.info("모임 : "+params.get("lightning_title"));
@@ -74,7 +71,6 @@ public class LightningController {
 		selectedparams.put("gender", params.get("gender"));
 		selectedparams.put("loginId", session.getAttribute("loginId"));
 		 
-	
 		//페이징- 현재페이지
 		int page = Integer.parseInt(params.get("page"));
 		//int page = params.get("page");
@@ -132,8 +128,6 @@ public class LightningController {
 	@RequestMapping("/lightRegister.do") 
 	public String lightRegister(HttpSession session
 			,RedirectAttributes rAttr, @RequestParam String lightning_no) {
-		
-		
 		logger.info("번개 모임 신청 : " + lightning_no);
 		String loginId = (String) session.getAttribute("loginId");
 		
@@ -155,15 +149,11 @@ public class LightningController {
 	@RequestMapping("/lightDropOut.do") 
 	public String lightStatusUpdate(Model model,HttpSession session
 			,@RequestParam String lightning_no) {
-		
-		
 		logger.info("번개 모임 탈퇴 : " + lightning_no);
 		String loginId = (String) session.getAttribute("loginId");
 		
 		//탈퇴- apply 테이블 update
 		service.dropout(loginId,lightning_no);
-		
-	
 		
 		return "redirect:/lightList.go";
 	}
@@ -178,6 +168,7 @@ public class LightningController {
 	}
 	
 	
+	//번개모임 신고 팝업
 	@RequestMapping("/lightReport.ajax")
 	@ResponseBody
 	public HashMap<String, Object> lightReport(@RequestParam HashMap<String, String> params, HttpSession session) {

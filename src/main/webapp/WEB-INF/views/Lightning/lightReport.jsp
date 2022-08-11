@@ -7,17 +7,17 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 	table {
-    width:70%; 
-    margin-left:auto; 
-    margin-right:auto;
-    position: static;
-}
+	    width:70%; 
+	    margin-left:auto; 
+	    margin-right:auto;
+	    position: static;
+	}
 </style>
 </head>
 <body>
 		<table>
 			<tr>
-				<th>사유 입력</th>
+				<th>사유 선택</th>
 			</tr>
 			<tr>
 				<td>	
@@ -35,17 +35,16 @@
 			<tr>
 				<td>
 					<input type="radio" name ="report_reason"  value="기타"/>
-					<textarea id="report_reason_text" placeholder="기타(직접작성)" style = "width:200px; height:30px; resize:none;"  disabled></textarea>
+					<textarea placeholder="기타(직접작성)" style = "width:200px; height:30px; resize:none;"  disabled></textarea>
 				</td>
 			</tr>
 			<tr>
 				<th>
 					<input type="button" value="취소" onclick="lightReportclose()"/>
 					<input type="button" value="신고" onclick="checkReport()"/>
-			</th>
+				</th>
 			</tr>
 		</table>
-	</form>
 </body>
 <script>
 	
@@ -100,7 +99,7 @@
 						opener.parent.location.reload();
 						window.close();
 					}else{
-						alert("신고가 접수되지 않았습니다");
+						alert("신고가 접수되지 않았습니다.");
 					}
 				},
 				error:function(e){
