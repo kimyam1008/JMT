@@ -31,7 +31,22 @@
 	
 		<table>
 			<tr>
-				<th>글 제목</th><td>${detailDto.report_title}</td>
+				<th>신고된 글/댓글</th>
+				<td >
+					<%-- <c:if test="${not empty reportPost.lightning_title}"><input name="reporter" class="onlyread" type="text" value='${reportPost.lightning_title}' readonly/></c:if>
+					 <c:if test="${not empty reportPost.dojang_title}"><input name="reporter" class="onlyread" type="text" value='${reportPost.dojang_title}' readonly/></c:if>
+					 <c:if test="${not empty reportPost.comment_content}"><input name="reporter" class="onlyread" type="text" value='${reportPost.comment_content}' readonly/></c:if>
+					 <c:if test="${not empty reportPost.dojangPost_subject}"><input name="reporter" class="onlyread" type="text" value='${reportPost.dojangPost_subject}' readonly/></c:if>
+					 <c:if test="${not empty reportPost.review_title}"><input name="reporter" class="onlyread" type="text" value='${reportPost.review_title}' readonly/></c:if> --%>
+					 
+					 <c:if test="${not empty reportPost.lightning_title}">${reportPost.lightning_title}</c:if>
+					 <c:if test="${not empty reportPost.dojang_title}">${reportPost.dojang_title}</c:if>
+					 <c:if test="${not empty reportPost.comment_content}">${reportPost.comment_content}</c:if>
+					 <c:if test="${not empty reportPost.dojangPost_subject}">${reportPost.dojangPost_subject}</c:if>
+					 <c:if test="${not empty reportPost.review_title}">${reportPost.review_title}</c:if> 
+					 
+					 </td>
+
 				<th>신고사유</th><td>${detailDto.report_reason}</td>
 			</tr>
 			<tr>
@@ -92,13 +107,13 @@
 <script>
 var msg="${msg}"; 
 if(msg!= null && msg!=""){
-	console.log(msg); 
 	alert('처리상태 변경이 완료되었습니다.');
-	
+	location.reload();
 }
 
 function returnList(){ 
-	location.href="/report/";
+	/* location.href="/report/"; */
+	history.go(-1);
 }
 
 </script>
