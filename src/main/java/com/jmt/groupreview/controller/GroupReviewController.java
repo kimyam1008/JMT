@@ -65,16 +65,17 @@ public class GroupReviewController {
 	}
 	
 	//모임 검색 팝업 ajax
-	/*
+	
 	@RequestMapping("/groupSearch.ajax")
 	@ResponseBody
-	public HashMap<String, Object> groupSearch(@RequestParam String groupSortChange,HttpSession session){
+	public ArrayList<GroupReviewDTO> groupSearch(HttpSession session){
 		String loginId = (String) session.getAttribute("loginId");
-		logger.info(loginId+" 가 가입한 모임 리스트 요청 : "+groupSortChange);
-		return service.groupSearch(groupSortChange,loginId);
+		ArrayList<GroupReviewDTO> list = new ArrayList<GroupReviewDTO>();
+		logger.info(loginId+" 가 가입한 모임 리스트 요청");
+		return service.groupSearch(loginId);
 	}
-	*/
-	/*
+	
+	
 	@RequestMapping("/groupSearchEnd.ajax")
 	@ResponseBody
 	public int groupSearchEnd(String lightning_title, String dojang_title, 
@@ -87,7 +88,7 @@ public class GroupReviewController {
 		map.put("dojang_no", dojang_no);
 		return service.groupSearchEnd(map);
 	}
-	*/
+	
 	//가입한 번개 목록 가져오기
 	@RequestMapping(value = "/lightningCall")
 	public ModelAndView lightningCall(HttpSession session){
