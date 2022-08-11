@@ -165,6 +165,10 @@ public class LightningController {
 		
 		rAttr.addFlashAttribute("msg", msg);
 		
+		
+		//프로필 (식사속도, 직업, 성별) 
+		
+		
 		return "redirect:/lightDetail.go?lightning_no="+lightning_no;
 	}
 	
