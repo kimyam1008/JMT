@@ -11,6 +11,7 @@
 			, d.dojang_title
 			, d.dojang_create
 			,(select count(member_id)+1 from apply a where class_no = 3 and status = '승인' and a.idx = d.dojang_no) as member_count
+			,(select status from apply a where class_no = 3 and a.idx = d.dojang_no and member_id=#{loginId}) as test
 			, d.dojang_status
 			, d.people_num
 			, d.gender
@@ -63,11 +64,58 @@
 		SELECT food_no, food_name FROM food
 	</select>
 	
-	<!-- 
-	<select id="memberCOUNT" parameterType="String" resultType="String">
-	UPDATE dojanglist SET member_count = (SELECT COUNT(member_id)+1 FROM apply a WHERE class_no = 3 and status = '승인' and idx = #{dojangNo}
-	WHERE dojang_no IN (#{dojangNo});
+	
+	<select id="dojangDetail" parameterType="String" resultType="dojang">
+		SELECT 
+			d.dojang_no
+			,d.dojang_title
+			,d.leader_id
+			,d.people_num
+			,d.gender
+			,d.eat_speed
+			,d.job
+			,(select count(member_id)+1 from apply a where class_no = 3 and status = '승인' and a.idx = d.dojang_no) as member_count
+			,d.dojang_create
+			,f.food_name
+			,d.dojang_content
+			FROM dojanglist d
+			JOIN food f ON d.food_no = f.food_no
+			WHERE d.dojang_no = #{dojang_no}	
 	</select>
-	 -->
+	
+	<select id="dojangGreview" parameterType="String" resultType="dojang">
+			SELECT
+				g.groupReview_no
+				,g.member_id
+				,g.review_title
+				,review_date 
+				FROM groupreview g
+				JOIN dojanglist d ON d.dojang_no = idx AND g.class_no = 3
+				WHERE d.dojang_no = #{dojang_no}
+	</select>
+	
+	<insert id="dojangApply">
+		INSERT INTO apply(idx,class_no,status,member_id)
+			VALUES(#{param1},3,'대기',#{param2});
+	</insert>
+	
+	<select id="applyStatus" resultType="dojang">
+		SELECT status 
+			FROM apply a 
+		WHERE class_no = 3 AND member_id = #{param1} AND idx = #{param2};
+	</select>
+	
+	<select id="profileStatus" resultType="dojang">
+		SELECT 
+			eat_speed
+			,profile_gender
+			,profile_job
+			FROM profile WHERE member_id = #{param1}
+	</select>
+	
+	<insert id="dojangReg" parameterType="hashmap">
+		INSERT INTO dojanglist(dojang_title,food_no,people_num,eat_speed,gender,job,dojang_content,leader_id,dojang_status,class_no)
+			VALUES (#{dojang_title},#{food_name},#{points},#{eat_speed},#{gender},#{job},#{dojang_content},#{loginId},'모집중',3)
+	</insert>
 	
 </mapper>

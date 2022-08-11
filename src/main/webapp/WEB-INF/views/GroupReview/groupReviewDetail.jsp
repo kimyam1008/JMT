@@ -19,6 +19,9 @@ th,td {
 </head>
 <body>
 	<h3>모임 후기 상세보기</h3>
+	<div>
+	 ${sessionScope.loginId} 님 환영합니다, <a href="logout.do">로그아웃</a>
+	</div>
 	<table>
 		<tr>
 			<th>글 제목</th>
@@ -32,10 +35,7 @@ th,td {
 		</tr>
 		<tr>
 			<th>모임 이름</th>
-			<% if(${dto.class_name} == "도장깨기"){
-				<td>${dto.dojang_title}</td>
-			}%>
-			<td>${dto.title}</td>
+			<td>${dto.dojang_title} ${dto.lightning_title}</td>
 			<th>모임 종류</th>
 			<td>${dto.class_name}</td>
 		</tr>
@@ -47,5 +47,6 @@ th,td {
 	<input type="button" value="목록" onclick="location.href='groupReviewList.go'"/>
 </body>
 <script>
+
 </script>
 </html>

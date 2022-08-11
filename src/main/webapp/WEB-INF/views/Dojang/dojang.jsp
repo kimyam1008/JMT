@@ -19,6 +19,15 @@ th, td {
 </style>
 </head>
 <body>
+<input type="hidden" id="loginId" value="${sessionScope.loginId}"/>
+<div>
+	 ${sessionScope.loginId} 님 환영합니다, <a href="logout.do">로그아웃</a>
+</div>
+<br/>
+<div  style="width:80px;">
+<input type="button" value="도장깨기 생성" onclick="location.href='dojangReg.go'"/>
+</div >
+<br/>
 	<div style="float: left;">
 		<input type="text" id="search" placeholder="모임이름을 검색해주세요">
 		<button id="moimSearch">검색</button>
@@ -54,12 +63,13 @@ th, td {
 			<th>모임 생성일</th>
 			<th>인원</th>
 			<th>상태</th>
+			<th>참여여부</th>
 		</tr>
 	</thead>
 	<tbody id="list">
 	</tbody>
 	<tr>
-		<td colspan="6" id="paging">
+		<td colspan="7" id="paging">
 			<!-- plugin 사용법 (twbsPagination)-->
 			<div class="container">
 				<nav arial-label="Page navigation" style="text-align:center">
@@ -212,25 +222,31 @@ function dojangSearch(page){
 */
 
 
+
 function drawList(list){
 	var content = '';
 	console.log("data::",list);
+	var loginId = $("#loginId").val();
+	console.log("로그인보자", loginId);
+	
 	if(list.length == 0){
 		content += '<tr>';
-		content += '<td colspan="6">'+"조회된 데이터가 없습니다."+'</td>';
+		content += '<td colspan="7">'+"조회된 데이터가 없습니다."+'</td>';
 		content += '</tr>';
 	}
-	list.forEach(function(item,dojang_no){
+	list.forEach(function(item){
 		var date = new Date(item.dojang_create);
 		var create = date.toLocaleDateString("ko-KR");
-		console.log("조회::",item.dojang_no);
+		console.log("조회::",item.member_count);
+		console.log("왜안됨?",item.leader_id)
 		content += '<tr>';
 		content += '<td>'+item.food_name+'</td>';
 		content += '<td>'+item.leader_id+'</td>';
-		content += '<td>'+item.dojang_title+'</td>';
+		content += '<td><a href="dojangDetail.do?dojang_no='+item.dojang_no+'">'+item.dojang_title+'</td>';
 		content += '<td>'+create+'</td>';
 		content += '<td>'+item.member_count+'/'+item.people_num+'</td>';
 		content += '<td>'+item.dojang_status+'</td>';
+		content += item.test=="승인" || item.leader_id==loginId? '<td>참여</td>' : '<td>미참여</td>' ; 
 		content += '</tr>';
 	});
 	$('#list').empty();

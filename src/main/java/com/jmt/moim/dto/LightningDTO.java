@@ -2,6 +2,10 @@ package com.jmt.moim.dto;
 
 import java.sql.Date;
 
+import lombok.Getter;
+import lombok.Setter;
+
+
 public class LightningDTO {
 
 	private int food_no;
@@ -10,6 +14,7 @@ public class LightningDTO {
 	
 	private String restaurant_name;
 	
+	
 	private int lightning_no;
 	private String leader_id;
 	private String lightning_title;
@@ -17,20 +22,32 @@ public class LightningDTO {
 	private int member_num;
 	private int member_count;
 	private String lightning_status;
+	private String participate;
 	
 	
-	
-	public int getLightning_no() {
-		return lightning_no;
+	public int getFood_no() {
+		return food_no;
 	}
-	public void setLightning_no(int lightning_no) {
-		this.lightning_no = lightning_no;
+	public void setFood_no(int food_no) {
+		this.food_no = food_no;
+	}
+	public String getFood_name() {
+		return food_name;
+	}
+	public void setFood_name(String food_name) {
+		this.food_name = food_name;
 	}
 	public String getRestaurant_name() {
 		return restaurant_name;
 	}
 	public void setRestaurant_name(String restaurant_name) {
 		this.restaurant_name = restaurant_name;
+	}
+	public int getLightning_no() {
+		return lightning_no;
+	}
+	public void setLightning_no(int lightning_no) {
+		this.lightning_no = lightning_no;
 	}
 	public String getLeader_id() {
 		return leader_id;
@@ -68,22 +85,14 @@ public class LightningDTO {
 	public void setLightning_status(String lightning_status) {
 		this.lightning_status = lightning_status;
 	}
+	public String getParticipate() {
+		return participate;
+	}
+	public void setParticipate(String participate) {
+		this.participate = participate;
+	}
 	
 	
-	
-	
-	public int getFood_no() {
-		return food_no;
-	}
-	public void setFood_no(int food_no) {
-		this.food_no = food_no;
-	}
-	public String getFood_name() {
-		return food_name;
-	}
-	public void setFood_name(String food_name) {
-		this.food_name = food_name;
-	}
 	
 	
 }

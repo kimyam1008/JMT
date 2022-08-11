@@ -3,10 +3,13 @@ package com.jmt.moim.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.jmt.moim.dao.DojangDAO;
 import com.jmt.moim.dto.DojangDTO;
@@ -18,7 +21,7 @@ public class DojangService {
 
 	@Autowired  DojangDAO dao;
 
-	public HashMap<String, Object> dojangList(HashMap<String, String> params) {
+	public HashMap<String, Object> dojangList(HashMap<String, String> params, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int cnt = Integer.parseInt(params.get("cnt"));
 		int page = Integer.parseInt(params.get("page"));
@@ -40,6 +43,9 @@ public class DojangService {
 		searchResult.put("eat_speed", eat_speed);
 		searchResult.put("job", job);
 		searchResult.put("gender", gender);
+		searchResult.put("loginId", session.getAttribute("loginId"));
+		
+		logger.info("확인:::"+session.getAttribute("loginId"));
 		
 
 		int allCnt = dao.allCount(searchResult);
@@ -67,8 +73,9 @@ public class DojangService {
 		
 		ArrayList<DojangDTO> list = dao.dojangList(searchResult);
 
-		//dao.memberCOUNT(dojangNo);
 		map.put("dojangList", list);
+		
+		
 
 		return map;
 	}
@@ -77,6 +84,61 @@ public class DojangService {
 		return dao.foodname();
 	}
 
+	public ModelAndView dojangDetail(String dojang_no, String loginId) {
+		logger.info("도장 상세보기");
+		DojangDTO dojangDetail = dao.dojangDetail(dojang_no);
+		ArrayList<DojangDTO> dojangGreview = dao.dojangGreview(dojang_no);
+		
+		//가입신청 관리
+		DojangDTO applyStatus = dao.applyStatus(loginId,dojang_no);
+		logger.info("data:::"+loginId+","+dojang_no);
+		
+		//가입신청 프로필조건
+		DojangDTO profileStatus = dao.profileStatus(loginId);
+		
+		ModelAndView mav = new ModelAndView("./Dojang/dojangDetail");
+		mav.addObject("dojangDetail",dojangDetail);
+		mav.addObject("dojangGreview",dojangGreview);
+		mav.addObject("applyStatus",applyStatus);
+		mav.addObject("profileStatus",profileStatus);
+		return mav;
+	}
+
+	public boolean dojangApply(String dojang_no, String loginId) {
+		
+		HashMap<String, Object> result=new HashMap<String, Object>();
+		logger.info("확인:::"+dojang_no);
+		
+		int row = dao.dojangApply(dojang_no,loginId);
+		
+		boolean success = false;
+		
+		if(row >0) {
+			success = true;
+		}
+		
+		result.put("success", success);
+		return success;
+		
+		
+		
+	}
+
+
+	public boolean dojangReg(HashMap<String, String> params) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		boolean success = false;
+		
+		if(dao.dojangReg(params)>0) {
+			success = true;
+		}
+		
+		result.put("success", success);
+		return success;
+	}
+	
+
+	
 
 
 }
