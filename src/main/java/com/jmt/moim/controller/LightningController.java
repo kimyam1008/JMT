@@ -182,6 +182,13 @@ public class LightningController {
 		return map;	
 	}
 	
+	@RequestMapping("/lightDelete.do")
+	public String lightDelete(Model model,@RequestParam String lightning_no) {
+		logger.info("번개 모임 게시글 삭제   : "+lightning_no);
+		service.delete(lightning_no);
+		return "redirect:/lightList.go";	
+	}
+	
 	
 	//매일 밤 12시 모임날짜가 지난 게시글 모집마감으로 변경 
 	@Scheduled(cron="0 0 0 * * *")

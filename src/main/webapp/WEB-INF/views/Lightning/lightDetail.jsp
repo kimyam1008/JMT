@@ -14,6 +14,9 @@
 	th, td{
 		padding: 10px 20px 10px 20px;
 	}
+ 	a{
+ 	text-decoration : none;
+ 	}
 </style>
 </head>
 
@@ -52,15 +55,14 @@
 		</tr>
 		<tr>
 			<td colspan="4">
-				${dto.lightning_content} 
-				<p>삭제</p>
-				<button onclick="lightReport_pop()">신고하기</button>
+				${dto.lightning_content} <br/>
+				<button id="button" onclick="lightReport_pop()" style="float:right">신고하기</button>
 			</td>
 		</tr>
 		<tr>
 			<th colspan ="4">
 				<button id="application" onclick="application()">신청</button>
-				<button onclick="location.href='/lightList.go'">목록</button>			
+				<button onclick="location.href='javascript:history.back()'">목록</button>
 			</th>
 		</tr>
 	</table>
@@ -76,8 +78,17 @@
 	var loginId = "${loginId}";
 	//사용자 프로필
 	var eat_speed = "${profileInfo.eat_speed}";
-	var profile_gender = "${profileInfo.profile_gender}";
+	var profile_gender = "${dto.profile_gender}";
 	var profile_job = "${profileInfo.profile_job}";
+	
+	//방장이 본인 방 상세페이지를 볼 때 
+	if(leader_id == loginId){
+		$("a").css("display","inline");
+		$("#button").text("삭제");
+		$("#button").attr("onclick","chkDel()");
+	}else{
+		$("a").css("display","none");
+	}
 	
 	if(status=="승인"){
 		$("#application").text("탈퇴");
@@ -93,12 +104,8 @@
 		//아직 가입신청을 안한 경우
 		}else if (status == ""){
 			//프로필 상태 기반
-			if("${dto.eat_speed}" !="상관없음" && "${dto.eat_speed}" != eat_speed){
-				alert("식사속도 조건이 맞지않습니다.");
-			}else if("${dto.gender}" !="상관없음" && "${dto.gender}" != profile_gender){
+			if("${dto.gender}" !="상관없음" && "${dto.gender}" != profile_gender){
 				alert("성별 조건이 맞지않습니다.");
-			}else if("${dto.job}" !="상관없음" && "${dto.job}" != profile_job){
-				alert("직업 조건이 맞지않습니다.");
 			}else{
 				if(confirm("가입 신청하시겠습니까?")){
 					alert("신청완료 되었습니다.");
@@ -130,6 +137,12 @@
 	//신고 팝업
 	function lightReport_pop(){
 		window.open("/lightReport.go?lightning_no="+${dto.lightning_no},"new","width=400, height=200, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	}
+	
+	function chkDel(){
+		if(confirm("방을 삭제하시겠습니까?")){
+			location.href="/lightDelete.do?lightning_no=${dto.lightning_no}";
+		}
 	}
 </script>
 </html>
