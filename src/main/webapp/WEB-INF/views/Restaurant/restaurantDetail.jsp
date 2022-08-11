@@ -10,6 +10,9 @@
 </head>
 <body>
 	<h3>맛집 상세보기</h3>
+	 <c:forEach items="${photoList}" var="path">
+      	<img src="/image/${path.photo_newFileName}" height="400"/>
+     </c:forEach>
 	<table>
 		<thead>
 	         <tr>
@@ -36,24 +39,41 @@
 	</table>
 		<h3>리뷰</h3>
 	<table>
-		<tr>
-			<td>
-				좋아요 순
-			</td>
-			<td>
-				|
-			</td>
-			<td>
-				최신순
-			</td>
-		</tr>
-		<tr>	
-			<td>
-				<a href="./reviewWrite?restaurant_no=${resDetail.restaurant_no}">리뷰</a>			
-			</td>
-		</tr>
+		<thead>
+			<tr>
+				<td>
+					좋아요 순
+				</td>
+				<td>
+					|
+				</td>
+				<td>
+					최신순
+				</td>
+				<td>
+					<a href="./reviewWrite?restaurant_no=${resDetail.restaurant_no}">리뷰 쓰기</a>			
+				</td>
+			</tr>
+		</thead>
 	</table>
-	
+	<br/>
+	 <c:forEach items="${lightninglist}" var="liList">
+	 	번개 모임!!
+	 	<br/>
+      	<td>${liList.lightning_title}</td>
+      	<br/>
+      	<br/>
+     </c:forEach>
+     
+	 <c:forEach items="${resCommet}" var="comment">
+      	<td>${comment.member_id}</td>
+      	<td>${comment.comment_content}</td>
+      	<td>${comment.comment_date}</td>
+      	<td>${comment.comment_status}</td>
+      	<br/>
+     </c:forEach>
+     
+     
 </body>
 
 <script>
@@ -62,7 +82,33 @@
 		window.open('restaurantUpdate.go?restaurant_no=${resDetail.restaurant_no}','','width=400, height=300');
 	}
 	
+	
+	
+	
 </script>
 
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

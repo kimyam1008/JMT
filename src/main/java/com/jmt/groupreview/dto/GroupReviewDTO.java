@@ -24,7 +24,21 @@ public class GroupReviewDTO {
 	private int photo_no;
 	private String photo_oriFileName;
 	private String photo_newFileName;
+	private int groupNumber;
+	private String leader_id;
 	
+	public String getLeader_id() {
+		return leader_id;
+	}
+	public void setLeader_id(String leader_id) {
+		this.leader_id = leader_id;
+	}
+	public int getGroupNumber() {
+		return groupNumber;
+	}
+	public void setGroupNumber(int groupNumber) {
+		this.groupNumber = groupNumber;
+	}
 	public int getPhoto_no() {
 		return photo_no;
 	}

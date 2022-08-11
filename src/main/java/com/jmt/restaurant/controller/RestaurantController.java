@@ -71,8 +71,12 @@ public class RestaurantController {
 		
 		logger.info("맛집 상세보기 : "+ restaurant_no); 
 		service.resDetail(model, restaurant_no);
-		service.photoList(model, restaurant_no);
-		service.lightninglist(model, restaurant_no);
+		ArrayList<RestaurantDTO> lightninglist = service.lightninglist(model, restaurant_no);
+		model.addAttribute("lightninglist", lightninglist);
+		ArrayList<RestaurantDTO> photoList = service.photoList(model, restaurant_no);
+		model.addAttribute("photoList", photoList);
+		ArrayList<RestaurantDTO> resCommet = service.resCommet(model, restaurant_no);
+		model.addAttribute("resCommet", resCommet);
 				
 		return "Restaurant/restaurantDetail";
 				

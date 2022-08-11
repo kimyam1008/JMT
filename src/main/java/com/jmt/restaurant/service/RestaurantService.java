@@ -101,13 +101,6 @@ public class RestaurantService {
 		//logger.info("photo:" + list);
 		
 	}
-	
-	
-	public void lightninglist(Model model, String restaurant_no) {
-		RestaurantDTO lightninglist = dao.lightninglist(restaurant_no);
-		model.addAttribute("lightninglist",lightninglist);
-		
-	}
 
 	
 	// 음식점 수정요청
@@ -200,11 +193,28 @@ public class RestaurantService {
 	}
 
 
-	public void photoList(Model model, String restaurant_no) {
-		dao.photoList(restaurant_no);
-		
+	public ArrayList<RestaurantDTO> photoList(Model model, String restaurant_no) {
+		return dao.photoList(restaurant_no);
 	}
 
+
+	public ArrayList<RestaurantDTO> resCommet(Model model, String restaurant_no) {
+		return dao.resCommet(restaurant_no);
+	}
+
+
+	public ArrayList<RestaurantDTO> lightninglist(Model model, String restaurant_no) {
+		return dao.lightninglist(restaurant_no);
+	}
+
+
+	
+
+
+	
+
+	
+	
 
 //	public void detail(Model model, HashMap<String, String> params) {
 //		

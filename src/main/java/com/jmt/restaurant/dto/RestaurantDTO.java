@@ -33,8 +33,15 @@ public class RestaurantDTO {
 	private String photo_oriFileName;
 	private String photo_newFileName;
 	
+	// 번개모임
+	private String lightning_title;
 	
-	
+	public String getLightning_title() {
+		return lightning_title;
+	}
+	public void setLightning_title(String lightning_title) {
+		this.lightning_title = lightning_title;
+	}
 	public String getPhoto_oriFileName() {
 		return photo_oriFileName;
 	}

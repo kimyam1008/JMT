@@ -54,14 +54,14 @@
 	</select>
 	
 	<select id="lightninglist" resultType="res" parameterType="String" >
-		SELECT 
-			restaurant_no,
-			restaurant_name,
-			food_no,
-			restaurant_address,
-			restaurant_call
-		 FROM restaurant r
-		 WHERE restaurant_no = #{restaurant_no}
+		select
+			l.lightning_title 
+		from 
+			lightninglist l
+		inner join restaurant r on 
+			l.restaurant_no = r.restaurant_no
+		where
+			l.restaurant_no = #{restaurant_no}
 	</select>
 	
 	<insert id="reviewWrite" 
@@ -84,7 +84,7 @@
 			VALUES(#{restaurantUpdate_reason},#{restaurant_no},#{member_id})
 	</insert>
 	
-	<select id="photoList" resultType="res" parameterType="String" >
+	<select id="photoList" resultType="res" parameterType="hashmap" >
 		select
 			c.idx
 			, p.photo_newFileName
@@ -95,6 +95,10 @@
 			c.class_no = p.class_no
 		where
 			c.idx = #{restaurant_no};
+	</select>
+	
+	<select id="resCommet" resultType="res" parameterType="hashmap" >
+		select * from comment c where idx = #{restaurant_no}
 	</select>
 	
 

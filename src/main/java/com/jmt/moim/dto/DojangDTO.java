@@ -19,6 +19,7 @@ public class DojangDTO {
 	private int people_num;
 	private int food_no;
 	private int member_count;
+	private String test;
 	private Date dojang_create;
 	
 	
@@ -51,9 +52,30 @@ public class DojangDTO {
 	private String groupReview_status;
 	
 	
+	private String profile_gender;
+	private String profile_job;
 	
 	
 	
+	
+	public String getProfile_gender() {
+		return profile_gender;
+	}
+	public void setProfile_gender(String profile_gender) {
+		this.profile_gender = profile_gender;
+	}
+	public String getProfile_job() {
+		return profile_job;
+	}
+	public void setProfile_job(String profile_job) {
+		this.profile_job = profile_job;
+	}
+	public String getTest() {
+		return test;
+	}
+	public void setTest(String test) {
+		this.test = test;
+	}
 	public int getGroupReview_no() {
 		return groupReview_no;
 	}

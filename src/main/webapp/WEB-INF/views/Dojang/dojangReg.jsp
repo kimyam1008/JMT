@@ -92,9 +92,33 @@ function dojangReg() {
 	var dojang_content = $('#dojang_content').val();
 	var loginId = $('#loginId').val();
 	
-	
-	
+	//유효성 체크
+	if(food_name == ""){
+		alert("음식 카테고리를 선택해주세요");
 		
+	}else if(dojang_content ==""){
+		alert("소개글을 작성해주세요");
+		dojang_content.focus();
+		
+	}else if(dojang_title == ""){
+		alert("제목을 입력해주세요.");
+		dojang_title.focus();
+		
+	}else if(eat_speed == ""){
+		alert("식사속도를 선택해주세요.");
+		
+	}else if(gender == ""){
+		alert("성별을 선택해주세요.");
+		
+	}else if(job == ""){
+		alert("직업을 입력해주세요.");
+		
+	}else if(points == 0){
+		alert("인원을 선택해주세요.");
+	
+	}else{
+		
+
 		$.ajax({
 			type:'get',
 			url:'dojangReg.ajax',
@@ -122,7 +146,7 @@ function dojangReg() {
 				console.log(e);
 			}
 		});
-	
+	}
 }
 
 

@@ -33,25 +33,6 @@ table, th, td{
 	<select id="food_name"></select>
 	<br/>
 		
-	<!-- 수정 전
-	<form class="search" action="resSearch.go" method="get">
-             <select id="pagePerNum"> pagePerNum 을 ajax로 controller로 보내서 이에 따라 게시물 수 바꿔줄 것임
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15" selected="selected">15</option>
-                <option value="20">20</option>
-             </select>
-            <select name="option">
-                <option value="1">한식</option>
-                <option value="2">중식</option>
-                <option value="3">일식</option>
-                <option value="4">양식</option>
-                <option value="5">기타외국음식</option>
-                <option value="6">디저트/카페</option>
-            </select>
-            <input class="searchBlock" type="text" name="word" placeholder="맛집 검색"/>
-            <input type="submit" class="btn_search" value=" "/>
-        </form> -->
         
    <table>
       <thead>
