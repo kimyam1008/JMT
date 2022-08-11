@@ -150,6 +150,10 @@ public class DojangService {
 		return success;
 	
 	}
+
+	public String reported(String dojang_no) {
+		return dao.reported(dojang_no);
+	}
 	
 
 	

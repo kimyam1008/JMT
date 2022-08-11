@@ -119,10 +119,17 @@
 	</insert>
 	
 	
-	<!--  
+	<select id="reported" resultType="String">
+		SELECT leader_id FROM dojanglist where dojang_no =#{param1}
+	</select>
+	
+	
 	<insert id="dojangReport" parameterType="hashmap">
 		INSERT INTO report (report_reason,class_no,idx,reporter,reported)
-			VALUES("광고",3,24,"hi5","hi2");
+			VALUES(
+			<if test="!report_reason.equals('기타')">#{report_reason}</if>
+			<if test="report_reason.equals('기타')">#{report_text}</if>
+			,3,#{dojang_no},#{reporter},#{reported});
 	</insert>
-	-->
+	
 </mapper>
