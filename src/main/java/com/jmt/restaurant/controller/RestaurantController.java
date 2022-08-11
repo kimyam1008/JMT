@@ -101,7 +101,7 @@ public class RestaurantController {
 	
 	@RequestMapping(value = "/reviewWrite")
 	public ModelAndView reviewWrite(Model model, @RequestParam String restaurant_no) {
-		logger.info("맛집 페이지 이동");
+		logger.info("리뷰 작성 페이지 이동");
 		model.addAttribute("restaurant_no",restaurant_no);
 		service.resDetail(model, restaurant_no);
 		ModelAndView mav = new ModelAndView("Restaurant/reviewWrite");
@@ -120,6 +120,39 @@ public class RestaurantController {
 	
 	
 	
+	@RequestMapping(value = "/commentDel.ajax")
+	@ResponseBody
+	public HashMap<String, String> commentDel(HttpSession session, Model model, 
+			@RequestParam HashMap<String, String> params) {
+		
+		logger.info(":"+params);
+		return service.commentDel(params);
+	}
+	
+	@RequestMapping(value = "/reviewUpdate")
+	public ModelAndView reviewUpdate(Model model, @RequestParam String comment_no) {
+		logger.info(comment_no);
+		logger.info("리뷰 수정 페이지 이동");
+		ArrayList<RestaurantDTO> reviewPhoto = service.reviewPhoto(model, comment_no);
+		model.addAttribute("reviewPhoto", reviewPhoto);
+		model.addAttribute("comment_no",comment_no);
+		RestaurantDTO dto = service.reviewUpdate(model, comment_no);
+		model.addAttribute("comment", dto);
+		ModelAndView mav = new ModelAndView("Restaurant/reviewUpdate");
+		return mav;
+	}
+	
+	
+	@RequestMapping(value = "/commentUpdate.ajax")
+	@ResponseBody
+	public HashMap<String, String> commentUpdate(HttpSession session, Model model, 
+			@RequestParam HashMap<String, String> params) {
+		
+		logger.info(":"+params);
+		ArrayList<RestaurantDTO> photoDel = service.photoDel(params);
+		model.addAttribute("photoDel", photoDel);
+		return null;
+	}
 	
 	
 	

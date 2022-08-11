@@ -65,12 +65,27 @@
       	<br/>
      </c:forEach>
      
-	 <c:forEach items="${resCommet}" var="comment">
-      	<td>${comment.member_id}</td>
-      	<td>${comment.comment_content}</td>
-      	<td>${comment.comment_date}</td>
-      	<td>${comment.comment_status}</td>
-      	<br/>
+	 <c:forEach items="${resCommet}" var="comment" >
+		 <c:if test="${comment.comment_status eq '공개'}">
+			 <c:if test="${comment.comment_no eq comment.comment_no}">
+			 	<td>
+        		<input type="hidden" name="idx" value="${comment.comment_no}" />
+			    </td>
+		      	<td>${comment.member_id}</td>
+		      	<td>${comment.comment_content}</td>
+		      	<td>${comment.comment_date}</td>
+		      </c:if>
+		      	<c:if test="${comment.comment_no eq comment.comment_no}">
+		      		<img src="/image/${comment.photo_newFileName}" height="400"/>
+		      	</c:if>
+		      	<br/> 
+		      	<c:if test="${comment.member_id eq comment.member_id}">
+		        	<button class="delBtn" onclick="commentDel(this)" commentID="${comment.comment_no}">삭제</button>
+		        	<a href="./reviewUpdate?comment_no=${comment.comment_no}">수정</a>
+		      	</c:if>
+		      	
+		    </c:if>  	
+	      	<br/>
      </c:forEach>
      
      
@@ -81,6 +96,33 @@
 	function resUp(){
 		window.open('restaurantUpdate.go?restaurant_no=${resDetail.restaurant_no}','','width=400, height=300');
 	}
+	
+	
+	function commentDel(comment_no) { 
+	      var commentID = $(comment_no).attr("commentID");
+	      console.log(commentID);
+	      
+	         $.ajax({
+	               type:'get',
+	               url:'commentDel.ajax',
+	               data:{
+					 comment_no : commentID
+	               },
+	               dataType:'JSON',
+	               success:function(data) {
+	                  alert(data.msg);
+	                  location.href="resDetail.do?restaurant_no="+commentID;
+	               },
+	               error:function(e) {
+	                  console.log(e);
+	     
+	                  //location.reload(true);
+	               }
+	            });
+	      
+	      
+	} 
+	
 	
 	
 	

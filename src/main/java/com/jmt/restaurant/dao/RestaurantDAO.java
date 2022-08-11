@@ -31,17 +31,14 @@ public interface RestaurantDAO {
 
 	ArrayList<RestaurantDTO> lightninglist(String restaurant_no);
 
+	HashMap<String, String> commentDel(HashMap<String, String> params);
 
+	ArrayList<RestaurantDTO> photoDel(HashMap<String, String> params);
 
+	RestaurantDTO reviewUpdate(String comment_no);
 
-
-
-
-	//ArrayList<RestaurantDTO> photoList();
-
-
+	ArrayList<RestaurantDTO> reviewPhoto(String comment_no);
 
 	
-
 
 }

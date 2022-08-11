@@ -97,9 +97,46 @@
 			c.idx = #{restaurant_no};
 	</select>
 	
-	<select id="resCommet" resultType="res" parameterType="hashmap" >
-		select * from comment c where idx = #{restaurant_no}
+	<select id="resCommet" resultType="res" parameterType="hashmap" >	
+		select
+			c.comment_no
+			, c.comment_content 
+			, c.comment_date 
+			, c.comment_status 
+			, c.member_id 
+			, p.idx
+			, p.photo_newFileName 
+		from 
+			comment c
+		inner join photo p on 
+			c.class_no = p.class_no
+		where
+			c.idx = #{restaurant_no}
+		and c.comment_no = p.idx
 	</select>
+	
+	<update id="commentDel" parameterType="hashmap">
+		update comment set comment_status = "삭제" where comment_no = #{comment_no}		
+	</update>
+	
+	<select id="reviewUpdate" resultType="res" parameterType="hashmap" >	
+		select c2.comment_no , c2.comment_content from comment c2 where comment_no = #{comment_no}
+	</select>
+	
+	<select id="reviewPhoto" resultType="res" parameterType="hashmap" >	
+		select photo_no, photo_newFileName from photo p where idx = #{comment_no}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 </mapper>

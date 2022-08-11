@@ -94,19 +94,15 @@ public class RestaurantService {
 		
 		logger.info("맛집 상세보기 서비스 요청 : " + restaurant_no);
 		RestaurantDTO resDetail = dao.resDetail(restaurant_no);
-	
-		//ArrayList<RestaurantDTO> list = dao.photoList(restaurant_no); //photo 정보 가져옴
 		model.addAttribute("resDetail",resDetail);
-		//model.addAttribute("list",list);
-		//logger.info("photo:" + list);
 		
 	}
 
 	
 	// 음식점 수정요청
 	public ModelAndView restaurantWrite(HashMap<String, String> params, HttpSession session) {
-		String page = "redirect:/resDetail.do?restaurant_no=restaurant_no";
-		
+		String idx = params.get("idx");
+		String page = "redirect:/resDetail.do?restaurant_no="+idx;		
 		
 		RestaurantDTO dto = new RestaurantDTO();
 		logger.info(params.get("restaurant_no"));
@@ -124,7 +120,8 @@ public class RestaurantService {
 	
 	public String reviewWrite(MultipartFile[] photos, HashMap<String, String> params) {
 		
-		String page = "redirect:/resDetail.do?restaurant_no=restaurant_no";
+		String idx = params.get("idx");
+		String page = "redirect:/resDetail.do?restaurant_no="+idx;
 
 		RestaurantDTO dto = new RestaurantDTO(); 
 		
@@ -135,8 +132,7 @@ public class RestaurantService {
 		dto.setMember_id(params.get("loginId"));
 		dto.setComment_content(params.get("Comment_content"));
 		dto.setIdx(Integer.parseInt(params.get("idx")));
-		//dto.setIdx(Integer.parseInt(params.get(idx)));
-		//dto.setIdx(params.get(idx));
+		
 		
 		// 리뷰 성공여부 확인
 		int row = dao.reviewWrite(dto);
@@ -208,6 +204,29 @@ public class RestaurantService {
 	}
 
 
+	public HashMap<String, String> commentDel(HashMap<String, String> params) {
+		return dao.commentDel(params);
+	}
+
+
+	public ArrayList<RestaurantDTO> photoDel(HashMap<String, String> params) {
+		return dao.photoDel(params);
+	}
+
+
+	public RestaurantDTO reviewUpdate(Model model, String comment_no) {
+		return dao.reviewUpdate(comment_no);
+	}
+
+
+	public ArrayList<RestaurantDTO> reviewPhoto(Model model, String comment_no) {
+		return dao.reviewPhoto(comment_no);
+	}
+
+
+	
+
+
 	
 
 
@@ -215,13 +234,6 @@ public class RestaurantService {
 
 	
 	
-
-//	public void detail(Model model, HashMap<String, String> params) {
-//		
-//		ArrayList<RestaurantDTO> list = dao.photoList(params); //photo 정보 가져옴
-//		model.addAttribute("res", list);
-//		logger.info("photo:"+list);		
-//	}
 
 
 

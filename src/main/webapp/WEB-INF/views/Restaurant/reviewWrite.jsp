@@ -17,9 +17,9 @@
         	</td>
         	</tr>
             <tr>
-                <th>내용</th>
+                <th>리뷰 쓰기</th>
                 <td>
-                	<textarea class="claimWriteInput" id="claimWriteTextarea" name="Comment_content"></textarea>
+                	<textarea name="Comment_content"></textarea>
                 </td>
             </tr>
             <tr>
@@ -28,16 +28,16 @@
                 <td><input type="file" name="photos" multiple="multiple"/></td>
                 <td><input type="file" name="photos" multiple="multiple"/></td>
             </tr>
-        </table>
-        <div>
-	        <input type="submit" value="작성"/>
-			<input type="button" value="취소" onclick="location.href='/claimList'"/>					
-		</div>
+        </table> 
+	        <input type="submit" value="리뷰 작성"/>
+			<input class="backBtn" type="button" value="돌아가기" onclick="back()"/>
 	</form>
 </body>
 
 <script>
-
+	function back() {
+	  history.go(-1); 
+	 }
 </script>
 
 </html>

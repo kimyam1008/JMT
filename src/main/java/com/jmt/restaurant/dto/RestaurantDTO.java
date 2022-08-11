@@ -36,6 +36,15 @@ public class RestaurantDTO {
 	// 번개모임
 	private String lightning_title;
 	
+	// 댓글 종합 
+	private int comment_no;
+	private int class_no;
+	private String comment_content;
+	private Date comment_date;
+	private String comment_status;
+	private int idx;
+		
+	
 	public String getLightning_title() {
 		return lightning_title;
 	}
@@ -54,13 +63,6 @@ public class RestaurantDTO {
 	public void setPhoto_newFileName(String photo_newFileName) {
 		this.photo_newFileName = photo_newFileName;
 	}
-	// 댓글 종합 
-	private int comment_no;
-	private int class_no;
-	private String comment_content;
-	private Date comment_date;
-	private String comment_status;
-	private int idx;
 	
 	
 	
