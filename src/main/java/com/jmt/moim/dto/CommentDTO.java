@@ -15,10 +15,35 @@ public class CommentDTO {
 	private String comment_status;
 	private int idx;
 
+	//사진& 등급 
+	private int photo_no;
+	private int grade_no;
+	private String grade_name;
 	
 	
 	
 	
+	
+	
+	
+	public int getGrade_no() {
+		return grade_no;
+	}
+	public void setGrade_no(int grade_no) {
+		this.grade_no = grade_no;
+	}
+	public int getPhoto_no() {
+		return photo_no;
+	}
+	public void setPhoto_no(int photo_no) {
+		this.photo_no = photo_no;
+	}
+	public String getGrade_name() {
+		return grade_name;
+	}
+	public void setGrade_name(String grade_name) {
+		this.grade_name = grade_name;
+	}
 	public int getComment_no() {
 		return comment_no;
 	}

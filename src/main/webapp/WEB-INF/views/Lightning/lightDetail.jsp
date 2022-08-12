@@ -23,6 +23,9 @@
 	 .comment-form {
 	  display: flex;
 	  flex-direction: column;
+	  width : 515px;
+	  height : 80px;
+	  margin : 10px 0px;
 	}
 	.comment-form textarea {
 	  resize: none;
@@ -44,10 +47,11 @@
  	/* 레이아웃 - 댓글 */
 	.comments {
 	  border: 1px solid #dbdbdb;
+	  width : 510px;
 	}
 	.comments .comment {
 	  border-bottom: 1px solid #dbdbdb;
-	  padding: 20px;
+	  padding: 15px;
 	}
 	.comments .comment:last-child {
 	  border-bottom: none;
@@ -61,13 +65,49 @@
 	}
 	.top .member_id {
 	  font-weight: bold;
+	  font-size : 13px;
 	}
+	
+	.top .grade_name{
+		font-size : 12px;
+		padding : 5px;
+	}
+	
+	.content {
+		padding : 5px;
+	}
+	
+	/*등급색상*/
+	.g1{
+		color :green;
+	}
+	
+	.g2{
+		color :brown;
+	}
+	
+	.g3{
+		color :lightblue;
+	}
+	
+	.g4{
+		color :gold;
+	}
+	
+	.g5{
+		color :purple;
+	}
+	
 	.top .utility {
 	  display: flex;
 	  flex-direction: row;
 	  margin-left: auto;
 	}
 
+	p {
+		font-size : 13px;
+	}
+	
 	/* 하단 메뉴 */
 	.bottom {
 	  display: flex;
@@ -95,6 +135,12 @@
 	.bottom .menu.report {
 	  color: #333;
 	}
+ 	
+ 	/*수정*/
+ 	textarea #upt{
+ 		width : 380px;
+ 		height : 40px;
+ 	}
  	
 </style>
 </head>
@@ -200,7 +246,7 @@
 	var class_no = 2;
 	cmtList(class_no,lightning_no);
 
-
+	
 	var msg = "${msg}";
 	if (msg != ""){
 		alert(msg);
@@ -222,6 +268,7 @@
 	}else{
 		$("a").css("display","none");
 	}
+	
 	
 	if(status=="승인"){
 		$("#application").text("탈퇴");
@@ -280,7 +327,7 @@
 	
 	
 	
-	/*댓글*/ 
+	/*********댓글*********/ 
 	
 	//로그인 아이디 위에 변수 설정 되어있음 loginId 
 	//var lightning_no , var class_no 위에 변수 설정 
@@ -303,12 +350,13 @@
 			success : function(data){
 				if(data.writeSuccess){
 					cmtList(class_no,lightning_no);
+					$("#cmtInput").val("");
 				}
 			},
 			error : function(e){
 				console.log(e);
 			}
-		})
+		});
 	  
 	  }
 	});
@@ -341,19 +389,21 @@
 		if(list.length>0){					
 			list.forEach(function(item,idx){
 				//console.log(item);
-				var date = new Date(item.lightning_date);
+				console.log(loginId);
+				var date = new Date(item.comment_date);
 				
-				content += '<div class ="comments">';
+				content += '<div class ="comments c'+item.comment_no+'">';
 				content += '<div class ="comment">';
 				content += '<div class ="content">';
 				content += '<header class="top">';
 				content += '<div class="member_id">'+item.member_id+'</div>';
+				content += '<div class="grade_name g'+item.grade_no+'">'+item.grade_name+'</div>';
 				content += '<div class="utility">';
-				content += '<button class="update">수정</button>';
-				content += '<button class="delete">삭제</button>';
+				content += '<button id="updBtn'+item.comment_no+'" onclick="updBtn('+item.comment_no+   ","     +  "\'" +  item.comment_content   +"\'"  + ')">수정</button>';
+				content += '<button id="delBtn'+item.comment_no+'" onclick="cmtDel('+item.comment_no+')">삭제</button>';
 				content += '</div>';
 				content += '</header>';
-				content += '<p>'+item.comment_content+'</p>';
+				content += '<p id="p'+item.comment_no+'">'+item.comment_content+'</p>';
 				content += '<ul class="bottom">';
 				content += '<li class="menu comment_date">'+date.toLocaleDateString("ko-KR")+'</li>';
 				content += '<li class="divider"></li>';
@@ -363,16 +413,83 @@
 				content += '</div>';
 				content += '</div>';
 				
-			});
-		//데이터가 없을 경우	
-		}else{
-			content += "데이터 없음";
-		}
-		
+			});	
 		$('#cmtList').empty();
-		$('#cmtList').append(content); 
+		$('#cmtList').append(content); 	
+		}
+	}	
+	
+
+	//삭제 
+	function cmtDel(cno){
+		
+		$.ajax({
+			url:"comment/cmtDel",
+			type:'post',
+			data : {
+				'comment_no' : cno
+			},
+			dataType:'json',
+			success : function(data){
+				console.log(data.delSuccess);
+				if(data.delSuccess){
+					cmtList(class_no,lightning_no);
+				}
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
 	}
 	
 	
+	
+	
+	
+	
+	
+	//수정버튼 눌렀을 때 
+	function updBtn(cno,content){
+		//console.log("수정하고싶다");
+		console.log(cno,content);
+		//수정 버튼 누른 댓글의 태그 변경 
+		$('#p'+cno).replaceWith('<textarea id="updtextarea">'+content+'</textarea>');
+		//$('#updBtn'+cno).prop("onclick","updCmt("+cno+")");
+		$('#updBtn'+cno).attr("onclick","updCmt("+cno+")");
+		
+	}
+	
+	
+	
+	
+	//수정하기 요청 
+	function updCmt(cno){
+		console.log("수정하기!!!!!" + cno);
+		var updcontent = $("#updtextarea").val();
+		console.log("바뀐 내용" + updcontent);
+		
+		
+		$.ajax({
+			url:"comment/cmtUpd",
+			type:'post',
+			data : {
+				'comment_no' : cno,
+				'comment_content' : updcontent
+			},
+			dataType:'json',
+			success : function(data){
+				console.log(data);
+				if(data.updSuccess){
+					cmtList(class_no,lightning_no);
+				}
+				
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
+		
+		
+	}
 </script>
 </html>

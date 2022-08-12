@@ -66,7 +66,6 @@ td a {
 	cursor:pointer;
 	color: black; 
 }
-
 </style>
 </head>
 <body>
@@ -134,8 +133,8 @@ function listCall(page){
 		},
 		dataType:'JSON',
 		success:function(data){
-				drawList(data.dojangHome);
-				console.log("데이터",data.dojangHome);
+				drawList(data.dojangHomeL);
+				console.log("데이터",data.dojangHomeL);
 				$('#leader').html(data.dojangHomeLeader);
 				drawMember(data.dojangHomeMember);
 		},
@@ -165,7 +164,7 @@ function drawMember(member){
 
 function drawList(list){
 	var content = '';
-	content += '<h1>'+"전체 게시판"+'</h1>';
+	content += '<h1>'+"공지 게시판"+'</h1>';
 	list.forEach(function(item){
 		var date = new Date(item.dojangPost_date);
 		var create = date.toLocaleDateString("ko-KR");

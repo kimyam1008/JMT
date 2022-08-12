@@ -97,6 +97,22 @@ td a {
 
 
 <div id="list">
+<h1>게시글 상세</h1>
+<table>
+	<tr>
+		<th>제목</th>
+		<td colspan="3" id="dojangPost_subject"></td>
+	</tr>
+	<tr>
+		<th>작성자</th>
+		<td id="member_id"></td>
+		<th>작성일</th>
+		<td id="dojangPost_date"></td>
+	</tr>
+	<tr>
+		<td height=350 colspan="4" id="dojangPost_content"></td>
+	</tr>
+</table>
 </div>
 
 
@@ -106,24 +122,7 @@ td a {
 
 listCall();
 
-
-
-<!--
-var post = $(document).on("click",".post",function(){
-	var postType = $(this).text();
 	
-	
-});
-
-$(".post_type li").click(function(){
-    console.log($(this).text());
-});
-
-
-var postType = $('.post:click this').text();
-
-console.log(postType);
--->
 
 function listCall(page){
 	
@@ -134,8 +133,6 @@ function listCall(page){
 		},
 		dataType:'JSON',
 		success:function(data){
-				drawList(data.dojangHome);
-				console.log("데이터",data.dojangHome);
 				$('#leader').html(data.dojangHomeLeader);
 				drawMember(data.dojangHomeMember);
 		},
@@ -160,36 +157,6 @@ function drawMember(member){
 	$('#member').append(content);
 }
 
-
-
-
-function drawList(list){
-	var content = '';
-	content += '<h1>'+"전체 게시판"+'</h1>';
-	list.forEach(function(item){
-		var date = new Date(item.dojangPost_date);
-		var create = date.toLocaleDateString("ko-KR");
-
-		content += '<br/>';
-		content += '<table>';
-		content += '<tr>';
-		content += '<th>'+"제목"+'</th>';
-		content += '<td colspan="3">'+item.dojangPost_subject+'</td>';
-		content += '</tr>';
-		content += '<tr>';
-		content += '<th>'+"작성자"+'</th>';
-		content += '<td>'+item.member_id+'</td>';
-		content += '<th>'+"작성일"+'</th>';
-		content += '<td>'+create+'</td>';
-		content += '</tr>';
-		content += '<tr>';
-		content += '<td  height=350 colspan="4"><a href="dojangHomeDetail.go?dojangPost_no='+item.dojangPost_no+'">'+item.dojangPost_content+'</td>';
-		content += '</tr>';
-		content += '</table>';
-	});
-	$('#list').empty();
-	$('#list').append(content);
-}
 
 
 

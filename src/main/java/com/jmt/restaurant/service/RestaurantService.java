@@ -90,29 +90,26 @@ public class RestaurantService {
 	
 	
 	// 음식점 상세보기
-	public void resDetail(Model model, String restaurant_no) {
+	public void resDetail(Model model, int restaurant_no) {
 		
 		logger.info("맛집 상세보기 서비스 요청 : " + restaurant_no);
 		RestaurantDTO resDetail = dao.resDetail(restaurant_no);
-	
-		//ArrayList<RestaurantDTO> list = dao.photoList(restaurant_no); //photo 정보 가져옴
 		model.addAttribute("resDetail",resDetail);
-		//model.addAttribute("list",list);
-		//logger.info("photo:" + list);
 		
 	}
 
 	
 	// 음식점 수정요청
 	public ModelAndView restaurantWrite(HashMap<String, String> params, HttpSession session) {
-		String page = "redirect:/resDetail.do?restaurant_no=restaurant_no";
-		
+		String idx = params.get("idx");
+		String page = "redirect:/resDetail.do?restaurant_no="+idx;		
 		
 		RestaurantDTO dto = new RestaurantDTO();
 		logger.info(params.get("restaurant_no"));
 		//dto.getIdx(params.get(idx));
-		dto.setMember_id(params.get("loginId"));
-		dto.setRestaurantUpdate_reason(params.get("setRestaurantUpdate_reason"));
+		dto.setRestaurant_no(Integer.parseInt(params.get("restaurant_no")));
+		dto.setMember_id(params.get("member_id"));
+		dto.setRestaurantUpdate_reason(params.get("restaurantUpdate_reason"));
 		dao.restaurantWrite(dto);
 		
 
@@ -124,7 +121,8 @@ public class RestaurantService {
 	
 	public String reviewWrite(MultipartFile[] photos, HashMap<String, String> params) {
 		
-		String page = "redirect:/resDetail.do?restaurant_no=restaurant_no";
+		String idx = params.get("idx");
+		String page = "redirect:/resDetail.do?restaurant_no="+idx;
 
 		RestaurantDTO dto = new RestaurantDTO(); 
 		
@@ -135,14 +133,13 @@ public class RestaurantService {
 		dto.setMember_id(params.get("loginId"));
 		dto.setComment_content(params.get("Comment_content"));
 		dto.setIdx(Integer.parseInt(params.get("idx")));
-		//dto.setIdx(Integer.parseInt(params.get(idx)));
-		//dto.setIdx(params.get(idx));
+		
 		
 		// 리뷰 성공여부 확인
 		int row = dao.reviewWrite(dto);
 		logger.info(row + "개의 리뷰 작성 성공");
 		
-		// 실행 후 Parameter 에 담긴 claim_id 추출
+		// 실행 후 Parameter 에 담긴 review_id 추출
 		int getComment_no = dto.getComment_no();
 		logger.info("방금 넣은 글 번호 : " + getComment_no);
 		logger.info("photos : " + photos);
@@ -191,37 +188,169 @@ public class RestaurantService {
 		}
 		
 	}
+	
+	public String reviewReLoad(MultipartFile[] photos, HashMap<String, String> params) {
+		String idx = params.get("restaurant_no");
+		String page = "redirect:/resDetail.do?restaurant_no="+idx;
+
+		RestaurantDTO dto = new RestaurantDTO(); 
+		
+		
+		logger.info("서비스 확인 : " + params);
+		
+		
+		dto.setMember_id(params.get("loginId"));
+		dto.setComment_content(params.get("comment_content"));
+		dto.setIdx(Integer.parseInt(params.get("idx")));
+		
+		
+		// 리뷰 수정 성공여부 확인
+		int row = dao.reviewReLoad(dto);
+		logger.info(row + "리뷰 수정 성공여부");
+		
+		// 실행 후 Parameter 에 담긴 review_id 추출
+		int getComment_no = Integer.parseInt(params.get("idx"));
+		logger.info("수정 글 번호 : " + getComment_no);
+		logger.info("photos : " + photos);
+		
+		// 파일을 올리지 않아도 fileSave 가 진행되는 것을 방지하는 조건문
+		
+		if(row > 0) {
+			reviewFileSave(photos, getComment_no, 8);
+		}
+		
+		return page;
+	}
 
 
-	public ArrayList<RestaurantDTO> photoList(Model model, String restaurant_no) {
+	public ArrayList<RestaurantDTO> photoList(Model model, int restaurant_no) {
 		return dao.photoList(restaurant_no);
 	}
 
 
-	public ArrayList<RestaurantDTO> resCommet(Model model, String restaurant_no) {
+	public ArrayList<RestaurantDTO> resCommet(Model model, int restaurant_no) {
 		return dao.resCommet(restaurant_no);
 	}
 
 
-	public ArrayList<RestaurantDTO> lightninglist(Model model, String restaurant_no) {
+	public ArrayList<RestaurantDTO> lightninglist(Model model, int restaurant_no) {
 		return dao.lightninglist(restaurant_no);
 	}
 
 
-	
+	public HashMap<String, String> commentDel(HashMap<String, String> params) {
+		return dao.commentDel(params);
+	}
 
 
-	
+	public ArrayList<RestaurantDTO> photoDel(HashMap<String, String> params) {
+		return dao.photoDel(params);
+	}
 
-	
-	
 
-//	public void detail(Model model, HashMap<String, String> params) {
-//		
-//		ArrayList<RestaurantDTO> list = dao.photoList(params); //photo 정보 가져옴
-//		model.addAttribute("res", list);
-//		logger.info("photo:"+list);		
+	public RestaurantDTO reviewUpdate(Model model, String comment_no) {
+		return dao.reviewUpdate(comment_no);
+	}
+
+
+	public ArrayList<RestaurantDTO> reviewPhoto(Model model, String comment_no) {
+		return dao.reviewPhoto(comment_no);
+	}
+
+
+	public HashMap<String, String> reviewDel(HashMap<String, String> params) {
+		return dao.reviewDel(params);
+	}
+
+
+	public HashMap<String, String> like(HashMap<String, String> params) {
+		
+		RestaurantDTO dto = new RestaurantDTO();
+		
+		dto.setMember_id(params.get("loginId"));
+		
+		return dao.like(params);
+	}
+
+
+	public HashMap<String, String> likeDel(HashMap<String, String> params) {	
+		return dao.likeDel(params);
+	}
+
+
+	public HashMap<String, Object> resUpdateList(HashMap<String, String> params) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int cnt = Integer.parseInt(params.get("cnt"));
+		int page = Integer.parseInt(params.get("page"));
+		logger.info("보여줄 페이지 :" + page);
+		
+		//검색조건
+		String search = params.get("search");
+		String foodname = params.get("foodname");
+		String gender = params.get("gender");
+		
+		
+		
+		HashMap<String, Object> searchResult = new HashMap<String, Object>();
+		
+		searchResult.put("search", search);
+		searchResult.put("foodname", foodname);
+		searchResult.put("gender", gender);
+		
+
+		int allCnt = dao.allCount(searchResult);
+		logger.info("allCnt : " + allCnt);
+		
+		int pages = allCnt % cnt > 0 ? (allCnt / cnt)+1 : (allCnt / cnt);
+		logger.info("pages : " + pages);
+		
+		if(pages==0) {pages=1;}
+		
+		if(page>pages) {
+			page = pages;
+		}
+		
+		logger.info("pages : " + pages);
+		map.put("pages", pages); //만들 수 있는 최대 페이지 수
+		map.put("currPage", page); // 현재 페이지
+		
+		int offset = (page-1)*cnt; 
+		logger.info("offset: " + offset);
+		
+		
+		searchResult.put("cnt", cnt);
+		searchResult.put("offset", offset);
+		
+		ArrayList<RestaurantDTO> list = dao.resUpdateList(searchResult);
+
+		//dao.memberCOUNT(dojangNo);
+		map.put("resUpdateList", list);
+
+		return map;
+	}
+
+
+
+
+//	public Object findLike(HashMap<String, String> params) {
+//		return null;
+//		//return dao.findLike(params);
 //	}
+
+
+	
+
+
+	
+
+
+	
+
+
+	
+
+	
+	
 
 
 

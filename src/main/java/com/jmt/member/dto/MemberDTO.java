@@ -16,6 +16,7 @@ public class MemberDTO {
 	private int food_no;
 	private String food_name;
 	private int grade_no;
+	private String grade_name;
 	private String eat_speed;
 	private String profile_gender;
 	private String profile_job;
@@ -98,6 +99,12 @@ public class MemberDTO {
 	}
 	public void setProfile_job(String profile_job) {
 		this.profile_job = profile_job;
+	}
+	public String getGrade_name() {
+		return grade_name;
+	}
+	public void setGrade_name(String grade_name) {
+		this.grade_name = grade_name;
 	}
 	
 	

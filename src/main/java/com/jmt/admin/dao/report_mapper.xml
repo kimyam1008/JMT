@@ -153,7 +153,7 @@
 	</select>
 	
 	<select id="select_no2" parameterType="integer" resultType="com.jmt.admin.dto.ReportPostDto">
-		SELECT c.comment_content , c.comment_status FROM comment c WHERE c.comment_no =#{idx}
+		SELECT  c.comment_content  , c.comment_status  FROM   comment c WHERE c.comment_no  =#{idx} 
 	</select>
 	
 	<select id="select_no3" parameterType="integer" resultType="com.jmt.admin.dto.ReportPostDto">
@@ -186,14 +186,38 @@
 		SELECT report_proc_status  from report WHERE report_no=#{report_no}
 	</select>
 	<!-- 블라인드 insert -->
-	<insert id="insertBlind" parameterType="map">
+	<insert id="insertBlind" parameterType="map" >
 		INSERT INTO blind (member_id, report_no, admin_id, blind_reason, blind_status) VALUES(#{reported}, #{report_no}, 'admin1', #{reason}, #{report_status})
 	</insert>
 	<select id="blindCount" parameterType="map" resultType="int">
 		select count(dd.blind_no) from (select b.blind_no from blind b  left outer join report r ON r.report_no = b.report_no  group by r.class_no , r.idx) as dd
 	</select>
 	
-	<select id="blindHistory" resultType="com.jmt.admin.dto.ReportDTO" parameterType="int" >
-		select b.admin_id , b.blind_reason ,b.blind_proc_date,b.blind_status  from report r  join blind b ON b.report_no =r.report_no where r.report_no =#{report_no} order by  b.blind_proc_date desc;
+<!-- 	<select id="blindHistory" resultType="com.jmt.admin.dto.ReportDTO" parameterType="int" >
+		
+	</select> -->
+	
+	<!-- 블라인드 히스토리 , 게시판 별로 ...  -->
+	<select id="blindHistory1" resultType="com.jmt.admin.dto.ReportDTO" parameterType="int">
+		SELECT  b.admin_id ,b.blind_proc_date ,b.blind_reason ,b.blind_status ,r.report_no  FROM  lightninglist l  join report r on r.idx = l.lightning_no   join blind b on r.report_no =b.report_no  WHERE r.idx =#{idx} order by b.blind_proc_date desc
 	</select>
+	
+	<select id="blindHistory2" resultType="com.jmt.admin.dto.ReportDTO" parameterType="int">
+	SELECT  b.admin_id ,b.blind_proc_date ,b.blind_reason ,b.blind_status ,r.report_no  FROM  comment c   join report r on r.idx = c.comment_no  join blind b on r.report_no =b.report_no  WHERE r.idx =#{idx} order by b.blind_proc_date desc
+	</select>
+	<select id="blindHistory3" resultType="com.jmt.admin.dto.ReportDTO" parameterType="int">
+		SELECT  b.admin_id ,b.blind_proc_date ,b.blind_reason ,b.blind_status ,r.report_no  FROM dojanglist d  join report r on r.idx = d.dojang_no   join blind b on r.report_no =b.report_no  WHERE r.idx =#{idx} order by b.blind_proc_date desc
+	</select>
+	<select id="blindHistory4" resultType="com.jmt.admin.dto.ReportDTO" parameterType="int">
+		SELECT  b.admin_id ,b.blind_proc_date ,b.blind_reason ,b.blind_status ,r.report_no  FROM  dojangpost d  join report r on r.idx = d.dojangPost_no  join blind b on r.report_no =b.report_no  WHERE r.idx =#{idx} order by b.blind_proc_date desc
+	</select>
+	<select id="blindHistory6" resultType="com.jmt.admin.dto.ReportDTO" parameterType="int">
+		SELECT  b.admin_id ,b.blind_proc_date ,b.blind_reason ,b.blind_status ,r.report_no  FROM  groupreview g  join report r on r.idx = g.groupReview_no  join blind b on r.report_no =b.report_no  WHERE r.idx =#{idx} order by b.blind_proc_date desc
+	</select>
+	
+	
+	<!-- 신고 게시글 상태 바뀔 때 동일한 게시글을 신고한 글들의 상태 변경 -->
+	<update id="changeStatus" parameterType="map">
+		update report r set r.report_proc_status =#{report_status},r.report_proc_date=now() where r.class_no =#{class_no} and r.idx=#{idx} 
+	</update>
 </mapper>
