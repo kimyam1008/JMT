@@ -58,41 +58,22 @@
 			,lightning_title
 			,dojang_title
 			,class_name
+			,lightningList.class_no as class_no
+			,dojangList.class_no as dojang_class_no
 			,review_content
 			,groupReview_no
 			,groupReview.idx
 			,groupReview.groupReview_status
+			,lightning_no
+			,dojang_no
 		FROM groupReview
 		LEFT OUTER JOIN lightningList ON lightning_no = idx and groupReview.class_no = 1
 		LEFT OUTER JOIN dojangList ON dojang_no = idx AND groupReview.class_no = 3
 		LEFT OUTER JOIN member ON member.member_id = groupReview.member_id
 		JOIN codeTable ON groupReview.class_no = codeTable.class_no
-		WHERE groupReview_no = #{param1}
+		WHERE groupReview_no = #{param1};
 	</select>
-	
-	<!-- 모임검색 팝업 -->
-	<!-- <select id="groupSearchList" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
-		SELECT lightning_title AS title
-			,dojang_title AS title
-			,d.leader_id
-			,l.leader_id
-			,d.class_no
-			,l.class_no
-			,d.dojang_no AS group_no
-			,l.lightning_no AS group_no
-		FROM member m
-		LEFT OUTER JOIN dojangList d ON d.leader_id = m.member_id 
-		LEFT OUTER JOIN lightningList l ON l.leader_id = m.member_id
-		LEFT OUTER JOIN apply a ON a.member_id = m.member_id
-		<where>
-			<if test="groupSortChange != null and groupSortChange !=''">
-				<if test="groupSortChange.equals('lightning')">
-					AND 
-				</if>
-			</if>
-		</where>
-		WHERE m.member_id = #{param1} AND a.status = "승인"
-	</select> -->
+
 	
 	<!-- 글쓰기 -->
 	<insert id="groupReviewRegister" parameterType="com.jmt.groupreview.dto.GroupReviewDTO"
@@ -118,38 +99,41 @@
 		WHERE idx = #{idx}
 	</select>
 	
-<!-- 	<update id="groupSearchEnd" parameterType="hashmap">
-		UPDATE groupReview SET idx=#{idx}
-		<if test="'lightning_no' != null">
-			UPDATE groupReview SET idx=#{idx} WHERE lightning_no=#{idx}
-		</if>
-		<if test="'dojang_no' != null">
-			UPDATE groupReview SET idx=#{dojang_no} WHERE lightning_no=#{dojang_no}
-		</if>
-	</update> -->
-	
+	<!-- 도장리스트 -->
 	<select id="groupList" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
-		SELECT d.leader_id
-			,l.leader_id
-			,dojang_title as title
-			,dojang_no as group_no
+		SELECT dojang_title
+			,dojang_no
 			,c.class_name
-			,l.lightning_title as title
-			,l.lightning_no as group_no
 			,c.class_no
-		FROM apply a 
+			,m.member_id	 
+		FROM apply a
 		LEFT OUTER JOIN dojangList d ON d.leader_id = a.member_id
-		LEFT OUTER JOIN lightningList l ON l.leader_id = a.member_id
-		JOIN `member` m ON m.member_id = a.member_id
+		<!-- LEFT OUTER JOIN lightningList l ON l.leader_id = a.member_id -->
+		JOIN member m ON m.member_id = a.member_id
 		JOIN codeTable c ON a.class_no = c.class_no
 		WHERE d.class_no = 3 AND m.member_id = #{param1} AND status="승인"
-		GROUP BY lightning_title
-		,dojang_title
-		,d.leader_id
-		,l.leader_id
-		,d.dojang_no
-		,l.lightning_no
+			GROUP BY dojang_title
+			,d.dojang_no
 	</select>
+	
+	<!-- 번개리스트 -->
+	<select id="lightGroupList" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
+		SELECT 
+			l.lightning_title
+			,l.lightning_no
+			,c.class_name
+			,c.class_no
+			,m.member_id	 
+		FROM apply a
+		<!-- LEFT OUTER JOIN dojangList d ON d.leader_id = a.member_id -->
+		LEFT OUTER JOIN lightningList l ON l.leader_id = a.member_id
+		JOIN member m ON m.member_id = a.member_id
+		JOIN codeTable c ON a.class_no = c.class_no
+		WHERE l.class_no = 1 AND m.member_id = #{param1} AND status="승인"
+			GROUP BY lightning_title
+			,l.lightning_no
+	</select>
+	
 	
 	<!-- 게시글 신고 -->
 	<insert id="grReviewReport" parameterType="hashmap">

@@ -51,10 +51,20 @@
 			<tr>
 				<th>나의 모임</th>
 				<td>
-					<c:forEach items="${groupList}" var="groupList">
-						<input type="radio" name="idx" value="${groupList.group_no}"/>${groupList.title} (${groupList.class_name}) 
-						<input type="hidden" name="class_no" value="${groupList.class_no}"><br/>
+				<fieldset style="width:40%; float:left;">
+					<legend>번개모임</legend>
+					<c:forEach items="${lightGroupList}" var="lightGroupList">
+							<input type="radio" name="idx" value="${lightGroupList.lightning_no}"/>${lightGroupList.lightning_title} (${lightGroupList.class_name}) 
+							<input type="hidden" name="class_no" value="${lightGroupList.class_no}"><br/>
 					</c:forEach>
+				</fieldset>
+				<fieldset style="width:40%; float:left;">
+					<legend>도장깨기</legend>
+					<c:forEach items="${groupList}" var="groupList">
+							<input type="radio" name="idx" value="${groupList.dojang_no}"/>${groupList.dojang_title} (${groupList.class_name}) 
+							<input type="hidden" name="class_no" value="${groupList.class_no}"><br/>
+					</c:forEach>
+				</fieldset>
 	
 					<%-- <input type="text" id="title" style="width:30%" placeholder="검색버튼을 눌러주세요" readonly/>
 					<!-- <p id="groupName"></p> -->
@@ -76,7 +86,7 @@
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td id="revewContents">
+				<td id="reviewContents">
 					<!-- html 태그를 인식하기 위해 div 사용(type="text"나 textarea는 html을 그냥 글자취급) -->
 					<div id="editable" contenteditable="true"></div>
 					<!-- 하지만 div 는 서버에 값을 전송할 수가 없다. -->
@@ -111,18 +121,21 @@
 function save(){
 	
 	var review_title = $('#review_title').val();
-	var review_content = $('#editable').text();
+	var review_content = $('#review_content').val($('#editable').html());
 	
 	if($('input[type="radio"]:checked').is(":checked") == false){
 		alert("모임을 선택해 주세요");
 	} else if(review_title == "") {
 		alert("제목을 입력해주세요");
 		review_title.focus();
-	} /* else if(review_content == "") { //여기 아직 안됨...
+	} /* else if($('#editable').html() == null) { //여기 아직 안됨...
 		alert("내용을 입력해주세요.");
 		//review_content.focus();
-	} */ else if($('img').length > 3) {
+	}*/  else if($('img').length > 3) {
 		alert('이미지 업로드 제한 갯수를 초과했습니다.');
+	} else if($('img').length == 0) {
+		$('#review_content').val($('#editable').html());
+		$('form').submit();
 	} else {
 		$('#review_content a').removeAttr('onclick');
 		//id가 content인 태그의 자식태그 a 태그에서 onclick 속성 삭제
@@ -135,11 +148,7 @@ function save(){
 
 //파일업로드 팝업
 function fileUp(){
-	if ($('img').length < 4) {
-		window.open('grFileUploadForm.go','','width=400, height=100');
-	} else {
-		alert('이미지 업로드 제한 갯수를 초과했습니다.');
-	}
+	window.open('grFileUploadForm.go','','width=400, height=100');
 }
 
 //사진 삭제

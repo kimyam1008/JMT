@@ -9,6 +9,7 @@ public class GroupReviewDTO {
 	private int groupReview_no;
 	private String member_id;
 	private int class_no;
+	private int dojang_class_no;
 	private String review_title;
 	private String review_content;
 	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
@@ -16,6 +17,7 @@ public class GroupReviewDTO {
 	private String groupReview_status;
 	private int idx;
 	private String login_id;
+	
 	
 	//dojang & lightning
 	private String title;
@@ -36,6 +38,12 @@ public class GroupReviewDTO {
 	//private int groupNumber;
 	
 	
+	public int getDojang_class_no() {
+		return dojang_class_no;
+	}
+	public void setDojang_class_no(int dojang_class_no) {
+		this.dojang_class_no = dojang_class_no;
+	}
 	public String getLogin_id() {
 		return login_id;
 	}

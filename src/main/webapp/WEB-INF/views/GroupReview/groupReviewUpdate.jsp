@@ -46,15 +46,34 @@
 </head>
 <body>
 	<h3>모임 후기 작성</h3>
-	<form action="groupReviewRegister" method="POST">
+	<form action="groupReviewUpdate" method="POST">
 		<table>
 			<tr>
 				<th>나의 모임</th>
 				<td>
-					<c:forEach items="${groupList}" var="groupList">
-						<input type="radio" name="idx" value="${groupList.group_no}"/>${groupList.title} (${groupList.class_name}) 
-						<input type="hidden" name="class_no" value="${groupList.class_no}"><br/>
+					<fieldset style="width:40%; float:left;">
+					<legend>번개모임</legend>
+					<c:forEach items="${lightGroupList}" var="lightGroupList">
+							<input type="radio" name="idx" value="${lightGroupList.lightning_no}" <c:if test="${dto.lightning_no eq lightGroupList.lightning_no}">checked</c:if>/>
+							${lightGroupList.lightning_title} (${lightGroupList.class_name}) 
+							<input type="hidden" name="class_no" value="${lightGroupList.class_no}"><br/>
 					</c:forEach>
+					</fieldset>
+					<fieldset style="width:40%; float:left;">
+						<legend>도장깨기</legend>
+						<c:forEach items="${groupList}" var="groupList">
+								<input type="radio" name="idx" value="${groupList.dojang_no}" <c:if test="${dto.dojang_no eq groupList.dojang_no}">checked</c:if>/>
+								${groupList.dojang_title} (${groupList.class_name}) 
+								<input type="hidden" name="class_no" value="${groupList.class_no}"><br/>
+						</c:forEach>
+					</fieldset>
+				
+
+					<%-- <c:forEach items="${groupList}" var="groupList">
+						<input type="radio" name="idx" value="${groupList.group_no}" <c:if test="${dto.group_no eq groupList.group_no}">checked</c:if>/>
+							${groupList.title} (${groupList.class_name}) 
+						<input type="hidden" name="class_no" value="${groupList.class_no}"><br/>
+					</c:forEach> --%>
 	
 					<%-- <input type="text" id="title" style="width:30%" placeholder="검색버튼을 눌러주세요" readonly/>
 					<!-- <p id="groupName"></p> -->
@@ -72,13 +91,13 @@
 			</tr>
 			<tr>
 				<th>글 제목</th>
-				<td><input type="text" name="review_title" id="review_title"/></td>
+				<td><input type="text" name="review_title" id="review_title" value="${dto.review_title}"/></td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td id="revewContents">
+				<td id="reviewContents">
 					<!-- html 태그를 인식하기 위해 div 사용(type="text"나 textarea는 html을 그냥 글자취급) -->
-					<div id="editable" contenteditable="true"></div>
+					<div id="editable" contenteditable="true" value="${dto.review_content}">${dto.review_content}</div>
 					<!-- 하지만 div 는 서버에 값을 전송할 수가 없다. -->
 					<!-- 결국엔 div의 내용을 input에 담아 서버에 전송할 예정 -->
 					<input type="hidden" name="review_content" id="review_content"/>
@@ -91,8 +110,8 @@
 			</tr>
 			<tr>
 				<th colspan="2">
-					<button type="button" onclick="location.href='groupReviewList.go'">취소</button>
-					<button type="button" onclick="save()">글쓰기</button>
+					<button type="button" onclick="location.href='groupReviewDetail.do?groupReview_no=${dto.groupReview_no}'">취소</button>
+					<button type="button" onclick="save()">저장</button>
 				</th>
 			</tr>
 		</table>
@@ -105,6 +124,9 @@
 /* function groupSearchPop(){
 	window.open("/groupSearchPop.go","new","width=500, height=400, left=400 ,top=200, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 } */
+var radioChk = $('input[type="radio"]').val();
+var groupNum = "${dto.group_no}";
+
 
 
 //글 업로드
@@ -135,11 +157,7 @@ function save(){
 
 //파일업로드 팝업
 function fileUp(){
-	if ($('img').length < 4) {
-		window.open('grFileUploadForm.go','','width=400, height=100');
-	} else {
-		alert('이미지 업로드 제한 갯수를 초과했습니다.');
-	}
+	window.open('grFileUploadForm.go','','width=400, height=100');
 }
 
 //사진 삭제
