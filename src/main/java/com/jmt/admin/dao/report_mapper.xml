@@ -203,7 +203,7 @@
 	</select>
 	
 	<select id="blindHistory2" resultType="com.jmt.admin.dto.ReportDTO" parameterType="int">
-	SELECT  b.admin_id ,b.blind_proc_date ,b.blind_reason ,b.blind_status ,r.report_no  FROM  comment c  c  join report r on r.idx = c.comment_no  join blind b on r.report_no =b.report_no  WHERE r.idx =#{idx}order by b.blind_proc_date desc
+	SELECT  b.admin_id ,b.blind_proc_date ,b.blind_reason ,b.blind_status ,r.report_no  FROM  comment c   join report r on r.idx = c.comment_no  join blind b on r.report_no =b.report_no  WHERE r.idx =#{idx} order by b.blind_proc_date desc
 	</select>
 	<select id="blindHistory3" resultType="com.jmt.admin.dto.ReportDTO" parameterType="int">
 		SELECT  b.admin_id ,b.blind_proc_date ,b.blind_reason ,b.blind_status ,r.report_no  FROM dojanglist d  join report r on r.idx = d.dojang_no   join blind b on r.report_no =b.report_no  WHERE r.idx =#{idx} order by b.blind_proc_date desc
