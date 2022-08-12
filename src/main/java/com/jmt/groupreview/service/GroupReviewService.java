@@ -212,6 +212,11 @@ public class GroupReviewService {
 		int row = dao.groupReviewDelete(params);
 	}
 
+	public ModelAndView groupReviewUpdate(HashMap<String, String> params, HttpSession session, String loginId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 	
