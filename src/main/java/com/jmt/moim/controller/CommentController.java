@@ -24,25 +24,27 @@ public class CommentController {
 	
 	
 	//댓글 작성 
-	@RequestMapping(value="/lightWrite")
+	//필요한 파라미터 : member_id, comment_content, class_no, (댓글이 작성되는 글의)글번호
+	@RequestMapping(value="/cmtWrite")
 	public HashMap<String, Object> write(@RequestBody CommentDTO dto) {
 		logger.info("댓글 작성 : " + dto.getComment_content());
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		boolean lightSuccess = service.lightWrite(dto);
-		map.put("lightSuccess", lightSuccess);
+		boolean writeSuccess = service.cmtWrite(dto);
+		map.put("writeSuccess", writeSuccess);
 		return map; 
 	}
 	
-	//댓글 리스트 
+	//댓글 리스트 불러오기
 	//@PathVariable : 경로 변수  
-	@RequestMapping(value = "/lightList/{idx}")
-	public HashMap<String, Object> lightList(@PathVariable String idx) {
-			logger.info("번개모임 댓글 리스트: " + idx);
+	//필요한 파라미터 : class_no, (댓글이 작성되는 글의)글번호
+	@RequestMapping(value = "/cmtList/{class_no}/{idx}")
+	public HashMap<String, Object> list(@PathVariable String class_no,@PathVariable String idx) {
+			logger.info(" 댓글 리스트: " + idx);
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			ArrayList<CommentDTO> lightList = service.lightList(idx);
-			logger.info("번개 모임 댓글 수 : " + lightList.size());
-			map.put("lightList", lightList);
+			ArrayList<CommentDTO> cmtList = service.cmtList(class_no,idx);
+			logger.info(" 댓글 수 : " + cmtList.size());
+			map.put("cmtList", cmtList);
 			return map;
 		}
 	

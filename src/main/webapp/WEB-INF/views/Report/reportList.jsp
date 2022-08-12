@@ -78,7 +78,7 @@
 
 listCall(currPage);
 
-$('#pagePerNum').on('change',function(){	
+/* $('#pagePerNum').on('change',function(){	
 	console.log('currPage : '+currPage);
 	
 	//페이지당 보여줄 수 변경시 계산된 페이지 적용이 안된다.(플러그인의 문제)
@@ -86,7 +86,7 @@ $('#pagePerNum').on('change',function(){
 	$("#pagination").twbsPagination('destroy');
 	listCall(currPage);
 	
-}); 
+});  */
 
  function listCall(page){
 	 var pagePerNum=5;
@@ -101,9 +101,10 @@ $('#pagePerNum').on('change',function(){
 		},
 		dataType:'JSON',
 		success:function(data){
-			console.log("dd");
+			
 			console.log(data);
 			console.log(data.list);
+			currPage = data.currPage;
 			drawList(data.list);
 			//currPage = data.currPage;
 			//불러오기가 성공되면 플러그인 을 이용해 페이징 처리

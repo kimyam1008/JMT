@@ -197,7 +197,8 @@
 <script>
 	//상세보기 눌렀을 때 댓글리스트 보여주기 
 	var lightning_no =  ${dto.lightning_no};
-	lightList(lightning_no);
+	var class_no = 2;
+	cmtList(class_no,lightning_no);
 
 
 	var msg = "${msg}";
@@ -279,10 +280,11 @@
 	
 	
 	
-	//댓글 
+	/*댓글*/ 
+	
 	//로그인 아이디 위에 변수 설정 되어있음 loginId 
-	//var lightning_no =  ${dto.lightning_no};
-	//작성 시 
+	//var lightning_no , var class_no 위에 변수 설정 
+	//댓글 작성 시 : 작성하기 버튼 누를 시 
 	$("#cmtWrite").on("click",function(){
 	console.log(loginId, lightning_no);
 	  var comment_content = $("#cmtInput").val();
@@ -291,16 +293,16 @@
 	    $("#cmtInput").focus();
 		return false;
 	  }else{
-	    var cmtData = {'idx':lightning_no,'member_id':loginId,'comment_content':comment_content};
+	    var cmtData = {'idx':lightning_no,'member_id':loginId,'comment_content':comment_content,'class_no':class_no};
 	    
 		$.ajax({
 			type:"post",
-			url:"comment/lightWrite",
+			url:"comment/cmtWrite",
 			data:JSON.stringify(cmtData),
 			contentType:"application/json; charset=utf-8",
 			success : function(data){
-				if(data.lightSuccess){
-					lightList(lightning_no);
+				if(data.writeSuccess){
+					cmtList(class_no,lightning_no);
 				}
 			},
 			error : function(e){
@@ -313,8 +315,8 @@
 	
 	//06_TeamProject 참고 
 	//댓글 리스트 가져오기 
-	function lightList(idx){
-		var url ='comment'+ "/" + 'lightList'+"/" +idx;
+	function cmtList(class_no,idx){
+		var url ='comment'+ "/" + 'cmtList'+"/" +class_no+"/" +idx;
 		
 		$.ajax({
 			url:url,
@@ -322,7 +324,7 @@
 			dataType:'json',
 			success : function(data){
 				console.log(data);
-				drawCmt(data.lightList);
+				drawCmt(data.cmtList);
 				
 			},
 			error : function(e){
@@ -339,6 +341,8 @@
 		if(list.length>0){					
 			list.forEach(function(item,idx){
 				//console.log(item);
+				var date = new Date(item.lightning_date);
+				
 				content += '<div class ="comments">';
 				content += '<div class ="comment">';
 				content += '<div class ="content">';
@@ -351,7 +355,7 @@
 				content += '</header>';
 				content += '<p>'+item.comment_content+'</p>';
 				content += '<ul class="bottom">';
-				content += '<li class="menu comment_date">'+item.comment_date+'</li>';
+				content += '<li class="menu comment_date">'+date.toLocaleDateString("ko-KR")+'</li>';
 				content += '<li class="divider"></li>';
 				content += '<li class="menu report">신고하기</li>';
 				content += '</ul>';

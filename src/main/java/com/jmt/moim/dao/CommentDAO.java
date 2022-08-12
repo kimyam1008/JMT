@@ -6,8 +6,8 @@ import com.jmt.moim.dto.CommentDTO;
 
 public interface CommentDAO {
 
-	int lightWrite(CommentDTO dto);
+	int cmtWrite(CommentDTO dto);
 
-	ArrayList<CommentDTO> lightList(String idx);
+	ArrayList<CommentDTO> cmtList(String class_no, String idx);
 
 }
