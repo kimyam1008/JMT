@@ -186,6 +186,18 @@ public class DojangService {
 		return dao.dojangHomeMember(dojang_no);
 	}
 
+	public ArrayList<DojangDTO> dojangHomeL(HashMap<String, Object> post) {
+		return dao.dojangHomeL(post);
+	}
+
+	public ArrayList<DojangDTO> dojangHomeM(HashMap<String, Object> post) {
+		return dao.dojangHomeM(post);
+	}
+
+	public DojangDTO dojangHomeDetail(String dojangPost_no) {
+		return dao.dojangHomeDetail(dojangPost_no);
+	}
+
 	
 
 	

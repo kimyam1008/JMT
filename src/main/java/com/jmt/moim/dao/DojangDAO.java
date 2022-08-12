@@ -35,6 +35,12 @@ public interface DojangDAO {
 
 	ArrayList<DojangDTO> dojangHomeMember(String dojang_no);
 
+	ArrayList<DojangDTO> dojangHomeL(HashMap<String, Object> post);
+
+	ArrayList<DojangDTO> dojangHomeM(HashMap<String, Object> post);
+
+	DojangDTO dojangHomeDetail(String dojangPost_no);
+
 
 
 }
