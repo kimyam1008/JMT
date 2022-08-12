@@ -11,9 +11,6 @@
 	    <property name="maxInMemorySize" value="10000000"/>
 	</bean>
 		
-<<<<<<< HEAD
 
-
-=======
 >>>>>>> origin/master
 </beans>

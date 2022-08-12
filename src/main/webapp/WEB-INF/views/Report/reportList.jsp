@@ -137,6 +137,8 @@ function drawList(list){
 		var mb_dojang_title  =item.mb_dojang_title; 
 		var mb_dojang_post = item.mb_dojang_post; 
 		var mb_group_review = item.mb_group_review;
+		var report_proc_date= item.report_proc_date;
+		
 		if(mb_ligntning_title== null){
 			mb_ligntning_title= ''; 
 		} 
@@ -153,6 +155,9 @@ function drawList(list){
 			mb_group_review= ''; 
 		} 
 		
+		if(report_proc_date == null){
+			report_proc_date='처리 전';
+		}
 		
 		//console.log(item);
 		content += '<tr>';
@@ -166,7 +171,7 @@ function drawList(list){
 		content += '<td>'+item.reported+'</td>';
 		content += '<td>'+item.report_proc_status+'</td>';
 		content += '<td>'+item.report_date+'</td>';
-		content += '<td>'+item.report_proc_date+'</td>';
+		content += '<td>'+report_proc_date+'</td>';
 		
 		content += '</tr>';
 	});

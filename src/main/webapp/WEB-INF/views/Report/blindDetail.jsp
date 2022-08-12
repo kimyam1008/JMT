@@ -9,7 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <style>
-table{height:400px;}
+
 
 	table,th,td	{
 		border: 1px solid black;
@@ -19,17 +19,27 @@ table{height:400px;}
 	textarea{
 		resize:none;width:95%;height:150px;
 	}
-	.Detail{float:left;}
+	.Detail{float:left;
+	height:400px;}
 	.history{
 		float:left;
+		height:400px;
+		border: 1px solid black ;
+		overflow:auto;
+	}
+	.history_li td {
+		height:50px;
 	}
 </style>
 <body>
 <h1>블라인드 상세보기</h1>
 
-<div class="Detail">	
-	<table>
-	
+<form action="blindUpdate.do" method="post" id="blindUpdate">	
+	<input type="hidden" name="idx" value="${idx}" />
+	<input type="hidden" name="class_no" value="${class_no}"/>
+	<input type="hidden" name="reported" value="${detailDto.reported}"/>
+	<input type="hidden" name="report_no" value="${report_no}"/>
+	<table class="Detail">
 	<!-- 게시글인 경우    -->
 	<c:if test="${empty reportPost.comment_content}">
 			<tr>
@@ -54,6 +64,8 @@ table{height:400px;}
 	</c:if>
 	
 	
+	
+	
 	<!-- 댓글인 경우   -->
 	<c:if test="${not empty reportPost.comment_content}">
 			<tr>
@@ -65,10 +77,12 @@ table{height:400px;}
 			</tr>
 	</c:if>		
 	
+	
+	
 			
 			<tr>
-				<th>게시판</th><td>${detailDto.class_name}</td>
-				<th>처리상태</th>
+				<th>게시판</th><td colspan="3">${detailDto.class_name}</td>
+				<%-- <th>처리상태</th>
 				<td>
 					<select name="report_status">
 						<option selected  hidden value="${detailDto.report_proc_status}">${detailDto.report_proc_status}</option>
@@ -76,7 +90,7 @@ table{height:400px;}
 						<option value="처리완료">처리완료</option>
 						<option value="블라인드">블라인드</option>
 					</select>
-				</td>
+				</td> --%>
 			</tr>
 			<tr>
 				<th>신고자 ID</th><td>${detailDto.reporter} </td>
@@ -92,26 +106,42 @@ table{height:400px;}
 				<th>처리사유</th><td colspan="3"><textarea name="reason">${detailDto.result_reason}</textarea></td>
 			</tr>
 			<tr>
+				<td colspan="4">
+				<c:if test="${detailDto.report_proc_status eq '블라인드' }">
+					<input name="blichk" value="블라인드" type="checkbox" id="checkForBlind" checked/>
+					<label for="checkForBlind">블라인드</label >
+				</c:if>
+				<c:if test="${detailDto.report_proc_status ne '블라인드' }">
+					<input name="blichk" value="블라인드" type="checkbox" id="checkForBlind"/>
+					<label for="checkForBlind">블라인드</label >
+				</c:if>
+				</td>
+			</tr>
+			<tr>
 			<td colspan="4">
-				<input type="submit" value="등록">  
+				<button type="button" onclick="updateBlind()">등록</button> 
 				<button type="button" onclick="returnList()">목록</button>
 			</td>
 			</tr>	
 		</table>
-	</div>
+</form>	
+	
+	<!-- 블라인드 히스토리 -->
 		<div class="history">
 			<table>
 				<thead>
 					<tr>
 						<th>관리자 ID</th>
+						<th>신고 번호</th>
 						<th>처리날짜</th>
 						<th>처리상태</th>
 						<th>처리사유</th>
 					</tr>
 			<c:forEach items="${blindHistory}" var="history">
 				</thead>
-				<tbody>
+				<tbody class="history_li">
 					<td>${history.admin_id}</td>
+					<td>${history.report_no}</td>
 					<td><fmt:formatDate pattern="yyyy년MM월dd일 HH시mm분" value="${history.blind_proc_date}" /></td>
 					<td>${history.blind_status}</td>
 					<td>${history.blind_reason}</td>
@@ -121,8 +151,36 @@ table{height:400px;}
 		</div>
 </body>
 <script>
+var msg="${msg}"; 
+if(msg!= null && msg!=""){
+	alert('처리상태 변경이 완료되었습니다.');
+	location.reload();
+}
+
 function returnList(){ 
 	location.href="/report/blind.go";
 }
+var blichk = $('input[name=blichk]').is(':checked');
+console.log(blichk);
+
+
+
+function updateBlind(){
+	var blichk = $('input[name=blichk]:checked').val();
+	var s= "${detailDto.report_proc_status}";
+	var z =  $('input[name=blichk]').is(':checked');
+	
+	if(z && s=='블라인드'){
+		alert('이미 블라인드된 상태입니다.');
+		return false; 
+	} else if (!z & s=='해제'){
+		alert('이미 블라인드 해제상태입니다.');
+		return false; 
+	}
+	
+	$('#blindUpdate').submit();
+	
+}
+
 </script>
 </html>
