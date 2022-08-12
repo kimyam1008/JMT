@@ -133,10 +133,9 @@
 			,3,#{dojang_no},#{reporter},#{reported})
 	</insert>
 	
-	<select id="dojangHome" resultType="dojang">
+	<select id="dojangHome" resultType="dojang" parameterType="hashmap">
 		SELECT dojang_no,dojangPost_subject,dojangPost_content,member_id,dojangPost_date  
-			FROM dojangpost where dojang_no = #{param1}
-			ORDER BY dojangPost_no DESC limit 0, 20
+			FROM dojangpost where dojang_no = #{dojang_no}
 	</select>
 	
 	<select id="dojangHomeMember" resultType="dojang">

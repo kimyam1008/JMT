@@ -139,11 +139,20 @@ public class DojangController {
 		//도장깨기 ajax
 		@RequestMapping("/dojangHome.ajax")
 		@ResponseBody
-		public HashMap<String, Object> dojangHome(HttpSession session) {
+		public HashMap<String, Object> dojangHome(HashMap<String, String> params, HttpSession session) {
 			String dojang_no = (String) session.getAttribute("dojang_no");
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			
-			ArrayList<DojangDTO> dojangHome = service.dojangHome(dojang_no);
+			String postType = params.get("postType");
+			
+			HashMap<String, Object> post = new HashMap<String, Object>();
+			
+			post.put("postType", postType);
+			post.put("dojang_no", dojang_no);
+			logger.info("도장번호 없나"+dojang_no);
+			
+			ArrayList<DojangDTO> dojangHome = service.dojangHome(post);
+			
 			String dojangHomeLeader = service.reported(dojang_no);
 			ArrayList<DojangDTO> dojangHomeMember = service.dojangHomeMember(dojang_no);
 			map.put("dojangHome", dojangHome);

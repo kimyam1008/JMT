@@ -62,7 +62,6 @@ table, th, td{
 </head>
 <body>
  ${sessionScope.loginId} 님 환영합니다, <a href="logout.do">로그아웃</a>
-
 <div id="test">
 <h3>도장 격파원</h3>
 <div id="test2">
@@ -75,10 +74,10 @@ table, th, td{
 </div>
 <br/>
 <h3>게시판</h3>
-<ul>
-  <li><a href="#">전체게시판</a></li>
-  <li><a href="#">공지게시판</a></li>
-  <li><a href="#">일반게시판</a></li>
+<ul id="post_type">
+  <li class="post"><a href="dojangHome.go?dojang_no=${sessionScope.dojang_no}">전체게시판</a></li>
+  <li class="post"><a href="#">공지게시판</a></li>
+  <li class="post"><a href="#">일반게시판</a></li>
   <li><a href="#">방장페이지</a></li>
 </ul>
 
@@ -92,33 +91,39 @@ table, th, td{
 <div id="list">
 </div>
 
-<div id="enters">
-</div>
-
 
 </body>
 <script>
 
+
 listCall();
 
-var leader = $("#leader").val();
 
 
-console.log(leader);
+<!--
+var post = $(document).on("click",".post",function(){
+	var postType = $(this).text();
+	
+	
+});
+
+$(".post_type li").click(function(){
+    console.log($(this).text());
+});
 
 
+var postType = $('.post:click this').text();
+
+console.log(postType);
+-->
 
 function listCall(page){
-	
-	var dojang_no = $("#dojang_no").val();
-	
-	
-	
 	
 	$.ajax({
 		type:'get',
 		url:'dojangHome.ajax',
-		data:{},
+		data:{
+		},
 		dataType:'JSON',
 		success:function(data){
 				drawList(data.dojangHome);
