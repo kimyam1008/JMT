@@ -18,17 +18,17 @@ public class CommentService {
 	
 	@Autowired CommentDAO dao;
 
-	public boolean lightWrite(CommentDTO dto) {
+	public boolean cmtWrite(CommentDTO dto) {
 		boolean success = false;
-		int row = dao.lightWrite(dto);
+		int row = dao.cmtWrite(dto);
 		if(row>0) {
 			success = true;
 		}
 		return success;
 	}
 
-	public ArrayList<CommentDTO> lightList(String idx) {
+	public ArrayList<CommentDTO> cmtList(String class_no, String idx) {
 		logger.info("번개 모임 댓글 리스트");
-		return dao.lightList(idx);
+		return dao.cmtList(class_no,idx);
 	}
 }

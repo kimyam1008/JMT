@@ -130,12 +130,38 @@ public class DojangController {
 		
 		
 		//도장깨기 방
-		@RequestMapping("/dojangHome.do")
-		public String dojangHome(@RequestParam String dojang_no, HttpSession session) {
-
+		@RequestMapping("/dojangHome.go")
+		public String dojangHomeGo(@RequestParam String dojang_no, HttpSession session) {
+			session.setAttribute("dojang_no", dojang_no);
 			return "./Dojang/dojangHome";
 		}
-	
+		
+		//도장깨기 ajax
+		@RequestMapping("/dojangHome.ajax")
+		@ResponseBody
+		public HashMap<String, Object> dojangHome(HashMap<String, String> params, HttpSession session) {
+			String dojang_no = (String) session.getAttribute("dojang_no");
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			
+			String postType = params.get("postType");
+			
+			HashMap<String, Object> post = new HashMap<String, Object>();
+			
+			post.put("postType", postType);
+			post.put("dojang_no", dojang_no);
+			logger.info("도장번호 없나"+dojang_no);
+			
+			ArrayList<DojangDTO> dojangHome = service.dojangHome(post);
+			
+			String dojangHomeLeader = service.reported(dojang_no);
+			ArrayList<DojangDTO> dojangHomeMember = service.dojangHomeMember(dojang_no);
+			map.put("dojangHome", dojangHome);
+			map.put("dojangHomeLeader", dojangHomeLeader);
+			map.put("dojangHomeMember", dojangHomeMember);
+			logger.info("방장 아이디"+dojangHomeLeader);
+			
+			return map;
+		}
 	
 	
 	//도장모임 검색

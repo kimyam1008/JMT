@@ -101,10 +101,16 @@
 	 ${sessionScope.loginId} 님 환영합니다, <a href="logout.do">로그아웃</a>
 	</div>
 	<h3>모임 후기 상세보기</h3>
-	<input type="hidden" id="member_id" value="${dto.member_id}"/>
 	<input type="hidden" id="groupReview_no" value="${dto.groupReview_no}"/>
-	<input type="hidden" id="login_id" value="${dto.login_id}"/>
+	<input type="hidden" id="groupReview_status" value="${dto.groupReview_status}"/>
 	<input type="hidden" id="member_id" value="${dto.member_id}"/>
+	<input type="hidden" id="login_id" value="${dto.login_id}"/>
+	<input type="hidden" id="lightning_title" value="${dto.lightning_title}"/>
+	<input type="hidden" id="dojang_title" value="${dto.dojang_title}"/>
+	<input type="hidden" id="lightning_no" value="${dto.lightning_no}"/>
+	<input type="hidden" id="dojang_no" value="${dto.dojang_no}"/>
+	<input type="hidden" id="class_no" value="${dto.class_no}"/>
+	<input type="hidden" id="dojang_class_no" value="${dto.dojang_class_no}"/>
 	<table>
 		<tr>
 			<th>글 제목</th>
@@ -118,15 +124,15 @@
 		</tr>
 		<tr>
 			<th>모임 이름</th>
-			<td>${dto.dojang_title} ${dto.lightning_title}</td>
+			<td>${dto.lightning_title} ${dto.dojang_title}</td>
 			<th>모임 종류</th>
 			<td>${dto.class_name}</td>
 		</tr>
 		<tr>
 			<td colspan="4">
 				${dto.review_content}
-				<button>삭제</button>
-				<button onclick="grReviewReport_pop()">신고하기</button>
+					<button onclick="groupReviewDel()">삭제</button>
+					<button onclick="grReviewReport_pop()">신고하기</button>
 			</td>
 		</tr>
 		<tr>
@@ -179,9 +185,12 @@
 <script>
 //상세보기 눌렀을 때 댓글리스트 보여주기 
 var groupReview_no =  ${dto.groupReview_no};
-groupReviewList(groupReview_no);
+var class_no = 7;
+cmtList(class_no,groupReview_no);
 
-var login_id = "${dto.login_id}";
+var login_id = "${dto.login_id}"; //업데이트폼 이동, 삭제 처리할 때 쓸거 
+
+var loginId = "${loginId}"; //댓글에서 쓸거
 
 //신고창 팝업
 function grReviewReport_pop(){
@@ -193,6 +202,7 @@ function groupReviewUpdateForm(){
 	var member_id = $("#member_id").val();
 	
 	if (member_id == login_id) {
+		
 		location.href="/groupReviewUpdate.go?groupReview_no="+${dto.groupReview_no};
 	} else if(member_id != login_id) {
 		alert("작성자만 수정할 수 있습니다.");
@@ -201,6 +211,23 @@ function groupReviewUpdateForm(){
 	}
 }
 
+
+//삭제(숨김처리)
+function groupReviewDel(){
+	var member_id = $("#member_id").val();
+	
+	if (member_id == login_id) {
+		if (!confirm("정말로 삭제하시겠습니까?")) {
+			alert("삭제가 취소되었습니다.");
+			window.location.reload();
+		} else {
+			location.href="/groupReviewDelete.do";
+			alert("삭제되었습니다.");
+		}
+	} else {
+		alert("작성자만 수정할 수 있습니다.");
+	}
+}
 
 
 //댓글 
@@ -215,16 +242,16 @@ console.log(loginId, groupReview_no);
     $("#cmtInput").focus();
 	return false;
   }else{
-    var cmtData = {'idx':groupReview_no,'member_id':loginId,'comment_content':comment_content};
+    var cmtData = {'idx':groupReview_no,'member_id':loginId,'comment_content':comment_content,'class_no':class_no};
     
 	$.ajax({
 		type:"post",
-		url:"grComment/groupReviewWrite",
+		url:"comment/cmtWrite",
 		data:JSON.stringify(cmtData),
 		contentType:"application/json; charset=utf-8",
 		success : function(data){
-			if(data.lightSuccess){
-				lightList(lightning_no);
+			if(data.writeSuccess){
+				cmtList(class_no,groupReview_no);
 			}
 		},
 		error : function(e){
@@ -237,8 +264,8 @@ console.log(loginId, groupReview_no);
 
 //06_TeamProject 참고 
 //댓글 리스트 가져오기 
-function groupReviewList(idx){
-	var url ='grComment'+ "/" + 'groupReviewList'+"/" +idx;
+function cmtList(class_no,idx){
+	var url ='comment'+ "/" + 'cmtList'+"/" +class_no+"/"+idx;
 	
 	$.ajax({
 		url:url,
@@ -246,7 +273,7 @@ function groupReviewList(idx){
 		dataType:'json',
 		success : function(data){
 			console.log(data);
-			drawCmt(data.groupReviewList);
+			drawCmt(data.cmtList);
 			
 		},
 		error : function(e){
@@ -263,6 +290,8 @@ function drawCmt(list){
 	if(list.length>0){					
 		list.forEach(function(item,idx){
 			//console.log(item);
+			var date = new Date(item.lightning_date);
+			
 			content += '<div class ="comments">';
 			content += '<div class ="comment">';
 			content += '<div class ="content">';
@@ -275,7 +304,7 @@ function drawCmt(list){
 			content += '</header>';
 			content += '<p>'+item.comment_content+'</p>';
 			content += '<ul class="bottom">';
-			content += '<li class="menu comment_date">'+item.comment_date+'</li>';
+			content += '<li class="menu comment_date">'+date.toLocaleDateString("ko-KR")+'</li>';
 			content += '<li class="divider"></li>';
 			content += '<li class="menu report">신고하기</li>';
 			content += '</ul>';
