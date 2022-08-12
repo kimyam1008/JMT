@@ -51,7 +51,7 @@
 	}
 	.comments .comment {
 	  border-bottom: 1px solid #dbdbdb;
-	  padding: 20px;
+	  padding: 15px;
 	}
 	.comments .comment:last-child {
 	  border-bottom: none;
@@ -65,11 +65,15 @@
 	}
 	.top .member_id {
 	  font-weight: bold;
-	  font-size : 15px;
+	  font-size : 13px;
 	}
 	
 	.top .grade_name{
 		font-size : 12px;
+		padding : 5px;
+	}
+	
+	.content {
 		padding : 5px;
 	}
 	
@@ -101,7 +105,7 @@
 	}
 
 	p {
-		font-size : 15px;
+		font-size : 13px;
 	}
 	
 	/* 하단 메뉴 */
@@ -259,6 +263,7 @@
 		$("a").css("display","none");
 	}
 	
+	
 	if(status=="승인"){
 		$("#application").text("탈퇴");
 		$("#application").attr("onclick","dropout()");
@@ -345,7 +350,7 @@
 			error : function(e){
 				console.log(e);
 			}
-		})
+		});
 	  
 	  }
 	});
@@ -380,18 +385,18 @@
 				//console.log(item);
 				var date = new Date(item.comment_date);
 				
-				content += '<div class ="comments">';
+				content += '<div class ="comments c'+item.comment_no+'">';
 				content += '<div class ="comment">';
 				content += '<div class ="content">';
 				content += '<header class="top">';
 				content += '<div class="member_id">'+item.member_id+'</div>';
 				content += '<div class="grade_name g'+item.grade_no+'">'+item.grade_name+'</div>';
 				content += '<div class="utility">';
-				content += '<button class="update">수정</button>';
+				content += '<button class="updBtn" onclick="updBtn('+item.comment_no+   ","     +  "\'" +  item.comment_content   +"\'"  + ')">수정</button>';
 				content += '<button class="delBtn" onclick="cmtDel('+item.comment_no+')">삭제</button>';
 				content += '</div>';
 				content += '</header>';
-				content += '<p>'+item.comment_content+'</p>';
+				content += '<p id="p'+item.comment_no+'">'+item.comment_content+'</p>';
 				content += '<ul class="bottom">';
 				content += '<li class="menu comment_date">'+date.toLocaleDateString("ko-KR")+'</li>';
 				content += '<li class="divider"></li>';
@@ -410,12 +415,8 @@
 		$('#cmtList').append(content); 	
 	}
 	
-	/*
-	$(document).on("click",".delBtn", function(){ 
-		  let cno = $(this).data("cno");
-		  removeComment(cno,cmt_pno);
-		});
-	*/
+
+	//삭제 
 	function cmtDel(cno){
 		
 		$.ajax({
@@ -436,5 +437,57 @@
 			}
 		});
 	}
+	
+	//수정
+	function updBtn(cno,content){
+		//console.log("수정하고싶다");
+		console.log(cno,content);
+		
+		var updcontent = "";
+		
+		/*updcontent += '<div class ="ucomments c'+cno+'">';
+		updcontent += '<div id ="ucomments"'+cno+'>';
+		updcontent += '<div class ="ucomment">';
+		updcontent += '<div class ="ucontent">';
+		updcontent += '<header class="utop">';
+		updcontent += '<div class="uutility">';
+		updcontent += '<button class="updBtn" onclick="cmtUpd('+cno+','+content+')">수정하기</button>';
+		updcontent += '<button class="delBtn" onclick="cmtDel('+cno+')">취소</button>';
+		updcontent += '</div>';
+		updcontent += '</header>';
+		updcontent += '<textarea id="updcontent">';
+		updcontent += content;
+		updcontent += '</textarea>';
+		updcontent += '</div>';
+		updcontent += '</div>';
+		updcontent += '</div>';
+		*/ 
+		
+		//$('#cmtList').empty();
+		$('#p'+cno).replaceWith('<textarea>'+content+'</textarea>');
+		//$("#ucomments").replaceWith(updcontent);
+		//$("div .ucomments .c"+cno).replaceWith(updcontent);
+		/*
+		$("div .comments .c"+cno).empty();
+		$("div .comments .c"+cno).append(updcontent);
+		$.ajax({
+			url:"comment/cmtUpd",
+			type:'post',
+			data : {
+				'comment_no' : cno,
+				'comment_content' : content
+			},
+			dataType:'json',
+			success : function(data){
+				console.log(data);
+				
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
+		*/
+	}
+	
 </script>
 </html>
