@@ -29,18 +29,20 @@ public interface GroupReviewDAO {
 
 	ArrayList<GroupReviewDTO> grPhotoList(String idx);
 
-	ArrayList<GroupReviewDTO> lightningCall(String loginId);
+	//ArrayList<GroupReviewDTO> lightningCall(String loginId);
 
-	ArrayList<GroupReviewDTO> dojangCall(String loginId);
+	//ArrayList<GroupReviewDTO> dojangCall(String loginId);
 
-	GroupReviewDTO joinGroup(String loginId);
+	//GroupReviewDTO joinGroup(String loginId);
 
-	int groupSearchEnd(HashMap<String, Object> map);
+	//int groupSearchEnd(HashMap<String, Object> map);
 
-	ArrayList<GroupReviewDTO> groupSearchList(String loginId);
+	//ArrayList<GroupReviewDTO> groupSearchList(String loginId);
 
 	ArrayList<GroupReviewDTO> groupList(String loginId);
 
 	int grReviewReport(HashMap<String, String> params);
+
+	int groupReviewDelete(HashMap<String, String> params);
 
 }

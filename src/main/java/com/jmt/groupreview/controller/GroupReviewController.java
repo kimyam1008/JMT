@@ -179,10 +179,28 @@ public class GroupReviewController {
 		return map;	
 	}
 	
-	@RequestMapping(value = "/groupReviewUpdate.go")
-	public String groupReviewUpdateGo(@RequestParam String groupReview_no, Model model,HttpSession session){
-		logger.info("모임 후기 수정 페이지 이동 : "+groupReview_no);
-		session.setAttribute("groupReview_no", groupReview_no);
-		return "./GroupReview/groupReviewUpdate";
+	//삭제(숨김)
+	@RequestMapping(value = "/groupReviewDelete.do")
+	public String groupReviewDelete(@RequestParam HashMap<String, String> params, Model model,HttpSession session){
+		String page ="redirect:/groupReviewList.go";
+		logger.info("삭제(숨김)요청 : "+params.get("groupReview_no"));
+		service.groupReviewDelete(params);
+		return "page";
 	}
+	
+	//모임후기 수정
+	@RequestMapping(value = "/groupReviewUpdate.do")
+	public String groupReviewUpdateGo(@RequestParam String groupReview_no, Model model,HttpSession session){
+		String loginId = (String) session.getAttribute("loginId");
+		String page = "redirect:/groupReviewList.do";
+		logger.info("모임 후기 수정 페이지 요청 : "+groupReview_no);
+		GroupReviewDTO dto = service.groupReviewDetail(groupReview_no,loginId);
+		if (dto != null) {
+			model.addAttribute("dto", dto);
+			page="./GroupReview/groupReviewUpdate";
+		}
+		
+		return page;
+	}
+	
 }

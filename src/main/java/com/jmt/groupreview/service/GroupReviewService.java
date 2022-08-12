@@ -213,6 +213,11 @@ public class GroupReviewService {
 		}
 		return success;
 	}
+
+	public void groupReviewDelete(HashMap<String, String> params) {
+		logger.info("삭제(숨김) 서비스 도착");
+		int row = dao.groupReviewDelete(params);
+	}
 	
 	
 }

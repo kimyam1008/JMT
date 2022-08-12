@@ -16,6 +16,7 @@
 		 LEFT OUTER join dojangList ON dojang_no = idx AND g.class_no = 3
 		 JOIN codetable c on g.class_no = c.class_no
 		<where>
+			g.groupReview_status = "노출"
 			<if test="searchCate != null and searchCate !=''">
 				<if test="searchCate.equals('lightning')">
 					AND lightning_title LIKE CONCAT('%',#{keyword},'%')
@@ -35,6 +36,7 @@
 		LEFT OUTER join dojangList ON dojang_no = idx AND g.class_no = 3
 		JOIN codetable c on g.class_no = c.class_no
 		<where>
+			g.groupReview_status = "노출"
 			<if test="searchCate != null and searchCate !=''">
 				<if test="searchCate.equals('lightning')">
 					AND lightning_title LIKE CONCAT('%',#{keyword},'%')
@@ -59,6 +61,7 @@
 			,review_content
 			,groupReview_no
 			,groupReview.idx
+			,groupReview.groupReview_status
 		FROM groupReview
 		LEFT OUTER JOIN lightningList ON lightning_no = idx and groupReview.class_no = 1
 		LEFT OUTER JOIN dojangList ON dojang_no = idx AND groupReview.class_no = 3
@@ -159,4 +162,10 @@
 			<if test="report_reason.equals('기타')">#{report_reason_text}</if>
 			,#{groupReview_no})
 	</insert>
+	
+	<!-- 게시글 삭제(숨김) -->
+	<update id="groupReviewDelete" parameterType="hashmap">
+		UPDATE groupReview SET groupReview_status = "숨김"
+		WHERE groupReview_no = #{groupReview_no}
+	</update>
 </mapper>

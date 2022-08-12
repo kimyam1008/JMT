@@ -101,10 +101,10 @@
 	 ${sessionScope.loginId} 님 환영합니다, <a href="logout.do">로그아웃</a>
 	</div>
 	<h3>모임 후기 상세보기</h3>
-	<input type="hidden" id="member_id" value="${dto.member_id}"/>
 	<input type="hidden" id="groupReview_no" value="${dto.groupReview_no}"/>
-	<input type="hidden" id="login_id" value="${dto.login_id}"/>
+	<input type="hidden" id="groupReview_status" value="${dto.groupReview_status}"/>
 	<input type="hidden" id="member_id" value="${dto.member_id}"/>
+	<input type="hidden" id="login_id" value="${dto.login_id}"/>
 	<table>
 		<tr>
 			<th>글 제목</th>
@@ -125,7 +125,7 @@
 		<tr>
 			<td colspan="4">
 				${dto.review_content}
-				<button>삭제</button>
+				<button onclick="groupReviewDel()">삭제</button>
 				<button onclick="grReviewReport_pop()">신고하기</button>
 			</td>
 		</tr>
@@ -181,7 +181,8 @@
 var groupReview_no =  ${dto.groupReview_no};
 groupReviewList(groupReview_no);
 
-var login_id = "${dto.login_id}";
+var login_id = "${dto.login_id}"; //업데이트폼 이동, 삭제 처리할 때 쓸거
+var loginId = "${loginId}"; //댓글에서 쓸거
 
 //신고창 팝업
 function grReviewReport_pop(){
@@ -202,6 +203,17 @@ function groupReviewUpdateForm(){
 }
 
 
+//삭제(숨김처리)
+function groupReviewDel(){
+	var member_id = $("#member_id").val();
+	
+	if (member_id == login_id) {
+		location.href="/groupReviewDelete.go?groupReview_no="+${dto.groupReview_no};
+	} else {
+		alert("작성자만 수정할 수 있습니다.");
+	}
+}
+
 
 //댓글 
 //로그인 아이디 위에 변수 설정 되어있음 loginId 
@@ -219,12 +231,12 @@ console.log(loginId, groupReview_no);
     
 	$.ajax({
 		type:"post",
-		url:"grComment/groupReviewWrite",
+		url:"comment/lightWrite",
 		data:JSON.stringify(cmtData),
 		contentType:"application/json; charset=utf-8",
 		success : function(data){
-			if(data.lightSuccess){
-				lightList(lightning_no);
+			if(data.success){
+				groupReviewList(groupReview_no);
 			}
 		},
 		error : function(e){
@@ -238,7 +250,7 @@ console.log(loginId, groupReview_no);
 //06_TeamProject 참고 
 //댓글 리스트 가져오기 
 function groupReviewList(idx){
-	var url ='grComment'+ "/" + 'groupReviewList'+"/" +idx;
+	var url ='comment'+ "/" + 'groupReviewList'+"/" +idx;
 	
 	$.ajax({
 		url:url,
