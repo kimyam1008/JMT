@@ -4,14 +4,14 @@
 
 <mapper namespace="com.jmt.moim.dao.CommentDAO">
 	
-	<insert id="lightWrite" parameterType="comment">
+	<insert id="cmtWrite" parameterType="comment">
 	   insert into comment(member_id,comment_content,idx,class_no)
-	   values(#{member_id},#{comment_content},#{idx},2)
+	   values(#{member_id},#{comment_content},#{idx},#{class_no})
   </insert>
   
-  <select id="lightList"  resultType="comment">
+  <select id="cmtList"  resultType="comment">
 	    select comment_no,idx,comment_content,member_id,comment_date
-	    from comment where class_no=2 and idx=#{param1} and comment_status="공개"
+	    from comment where class_no=#{param1} and idx=#{param2} and comment_status="공개"
   </select>
 <!-- 
   
