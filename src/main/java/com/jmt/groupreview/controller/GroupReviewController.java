@@ -177,4 +177,10 @@ public class GroupReviewController {
 		return page;
 	}
 	
+	@RequestMapping(value="/groupReviewUpdate.do")
+	public ModelAndView groupReviewUpdate(@RequestParam HashMap<String, String> params, HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("수정 요청"+params,loginId);
+		return service.groupReviewUpdate(params,session,loginId);
+	}
 }
