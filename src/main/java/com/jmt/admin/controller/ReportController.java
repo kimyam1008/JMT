@@ -70,10 +70,11 @@ public class ReportController {
 	@PostMapping("/reportUpdate.do")
 	public String reportUpdate(int report_no, String report_status , String reason, RedirectAttributes ra, Integer class_no , Integer idx,String reported) {
 		Map<String, Object> data  = new HashMap<String, Object>();
-
+		data.put("idx", idx);
 		data.put("report_no",report_no);
 		data.put("report_status",report_status);
 		data.put("reason",reason);
+		data.put("class_no", class_no);
 		int result= service.reportUpdate(data);
 		ra.addAttribute("report_no",report_no);
 		ra.addAttribute("class_no",class_no);
@@ -83,12 +84,16 @@ public class ReportController {
 		
 		String msg = null;
 		if(result>0) {
-			//변경된 status 가 블라인드인 경우 블라인드 리스트 생성해야 함. 
+			//수정에 성공하는 경우 동일한 게시글을 신고한 글의 status를 수정해 준다. 
+			// idx, class_no를 활용하여 report_status 변경 . 
+			service.changeStatus(data);
+			//변경된 status 가 블라인드인 경우 블라인드(테이블 insert) 생성해야 함. 
 			String updateCheck= service.updateCheck(report_no); 
 			if(updateCheck.equals("블라인드")) { 
 				data.put("reported", reported);
 				service.insertBlind(data);
 			}
+	
 	
 			msg = "상태변경을 완료했습니다.";
 			ra.addFlashAttribute("msg",msg); 
@@ -129,6 +134,9 @@ public class ReportController {
 	
 		data.put("class_no", class_no);
 		data.put("idx", idx);
+		model.addAttribute("report_no",report_no);
+		model.addAttribute("idx",idx);
+		model.addAttribute("class_no",class_no);
 		
 		ReportDTO dto= service.reportDetail(report_no);
 		model.addAttribute("detailDto",dto);
@@ -136,11 +144,49 @@ public class ReportController {
 		ReportPostDto reportPost= service.reportPost(data);
 		model.addAttribute("reportPost",reportPost);
 		
-		ArrayList<ReportDTO> blindHistory= service.blindHistory(report_no);
+		ArrayList<ReportDTO> blindHistory= service.blindHistory(data);
 		 model.addAttribute("blindHistory",blindHistory);
 		 
 		return "Report/blindDetail";
 	}
 	
+	@RequestMapping("/blindUpdate.do")
+	public String blindUpdate(@RequestParam HashMap<String, String> params , @RequestParam(defaultValue = "해제") String blichk , RedirectAttributes ra) { 
+		Map<String, Object> data  = new HashMap<String, Object>();
+		
+		
+		logger.info("파라미터 체크:{}",params);
+		logger.info("체크박스 여부 {}",blichk );
+		String class_no = params.get("class_no");
+		String idx =params.get("idx");
+		String reason =params.get("reason");
+		String reported =params.get("reported");
+		int report_no = Integer.parseInt(params.get("report_no")) ;
+		
+		
+		data.put("reported", reported);
+		data.put("class_no", class_no);
+		data.put("idx", idx);
+		data.put("reason", reason);
+		data.put("report_status", blichk);
+		data.put("report_no", report_no);
+		
+		
+		// 블라인드 생성하면서 해당 게시글의 상태도 변경시켜줘야 함... 
+		int result= service.changeBlind(data);
+		// -> 실제 데이터 status 변경  
+		String msg = null;
+		if(result>0) {
+			msg = "수정이 완료되었습니다.";
+		}
+		
+		ra.addFlashAttribute("msg",msg);
+		ra.addAttribute("report_no",report_no);
+		ra.addAttribute("class_no",class_no);
+		ra.addAttribute("idx",idx);
+		
+		
+		return "redirect:/report/blindDetail.go";
+	}
 	
 }

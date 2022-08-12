@@ -5,40 +5,71 @@ import java.sql.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class GroupReviewDTO {
+	//groupReview
 	private int groupReview_no;
 	private String member_id;
 	private int class_no;
+	private int dojang_class_no;
 	private String review_title;
 	private String review_content;
 	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date review_date;
 	private String groupReview_status;
 	private int idx;
+	private String login_id;
+	
+	
+	//dojang & lightning
 	private String title;
 	private String dojang_title;
 	private String lightning_title;
 	private String class_name;
 	private int dojang_no;
 	private int lightning_no;
+	private int group_no;
+	private String leader_id;
+	
 	private String member_name;
+	
+	//photo
 	private int photo_no;
 	private String photo_oriFileName;
 	private String photo_newFileName;
-	private int groupNumber;
-	private String leader_id;
+	//private int groupNumber;
 	
+	
+	public int getDojang_class_no() {
+		return dojang_class_no;
+	}
+	public void setDojang_class_no(int dojang_class_no) {
+		this.dojang_class_no = dojang_class_no;
+	}
+	public String getLogin_id() {
+		return login_id;
+	}
+	public void setLogin_id(String login_id) {
+		this.login_id = login_id;
+	}
+	public int getGroup_no() {
+		return group_no;
+	}
+	public void setGroup_no(int group_no) {
+		this.group_no = group_no;
+	}
 	public String getLeader_id() {
 		return leader_id;
 	}
 	public void setLeader_id(String leader_id) {
 		this.leader_id = leader_id;
 	}
+	/*
 	public int getGroupNumber() {
 		return groupNumber;
 	}
 	public void setGroupNumber(int groupNumber) {
 		this.groupNumber = groupNumber;
 	}
+	*/
 	public int getPhoto_no() {
 		return photo_no;
 	}

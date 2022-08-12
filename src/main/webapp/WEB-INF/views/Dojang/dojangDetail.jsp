@@ -28,7 +28,7 @@ table, th, td{
 <input type="hidden" id="eat_speed" value="${dojangDetail.eat_speed}"/>
 <input type="hidden" id="gender" value="${dojangDetail.gender}"/>
 <input type="hidden" id="job" value="${dojangDetail.job}"/>
-<input type="button" name='report' style="position: absolute; left: 340px; top: 250px" value="신고하기" onclick="report()"/>	
+<input type="button" name='report' style="position: absolute; left: 370px; top: 250px" value="신고하기" onclick="report()"/>	
 	<table>
 	<tr>
 		<th>모임 이름</th>

@@ -20,7 +20,7 @@
 		
 		<include refid="selectedListSql"></include>
 		
-		ORDER BY d.dojang_no DESC limit #{cnt} OFFSET #{offset};
+		ORDER BY d.dojang_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
 	<sql id="selectedListSql">
@@ -97,13 +97,13 @@
 	
 	<insert id="dojangApply">
 		INSERT INTO apply(idx,class_no,status,member_id)
-			VALUES(#{param1},3,'대기',#{param2});
+			VALUES(#{param1},3,'대기',#{param2})
 	</insert>
 	
 	<select id="applyStatus" resultType="dojang">
 		SELECT status 
 			FROM apply a 
-		WHERE class_no = 3 AND member_id = #{param1} AND idx = #{param2};
+		WHERE class_no = 3 AND member_id = #{param1} AND idx = #{param2}
 	</select>
 	
 	<select id="profileStatus" resultType="dojang">
@@ -130,7 +130,16 @@
 			VALUES(
 			<if test="!report_reason.equals('기타')">#{report_reason}</if>
 			<if test="report_reason.equals('기타')">#{report_text}</if>
-			,3,#{dojang_no},#{reporter},#{reported});
+			,3,#{dojang_no},#{reporter},#{reported})
 	</insert>
+	
+	<select id="dojangHome" resultType="dojang" parameterType="hashmap">
+		SELECT dojang_no,dojangPost_subject,dojangPost_content,member_id,dojangPost_date  
+			FROM dojangpost where dojang_no = #{dojang_no}
+	</select>
+	
+	<select id="dojangHomeMember" resultType="dojang">
+		SELECT member_id FROM apply WHERE class_no = 3 AND status = '승인' AND idx = #{param1};
+	</select>
 	
 </mapper>
