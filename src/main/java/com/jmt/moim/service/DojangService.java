@@ -174,6 +174,18 @@ public class DojangService {
 	public String reported(String dojang_no) {
 		return dao.reported(dojang_no);
 	}
+
+
+
+	public ArrayList<DojangDTO> dojangHome(String dojang_no) {
+		return dao.dojangHome(dojang_no);
+	}
+
+	public ArrayList<DojangDTO> dojangHomeMember(String dojang_no) {
+		
+		return dao.dojangHomeMember(dojang_no);
+	}
+
 	
 
 	
