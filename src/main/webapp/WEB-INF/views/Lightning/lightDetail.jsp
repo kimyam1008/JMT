@@ -62,6 +62,33 @@
 	.top .member_id {
 	  font-weight: bold;
 	}
+	
+	.top .grade_name{
+		font-size : 13px;
+		padding : 5px;
+	}
+	
+	/*등급색상*/
+	.g1{
+		color :green;
+	}
+	
+	.g2{
+		color :brown;
+	}
+	
+	.g3{
+		color :silver;
+	}
+	
+	.g4{
+		color :gold;
+	}
+	
+	.g5{
+		color :purple;
+	}
+	
 	.top .utility {
 	  display: flex;
 	  flex-direction: row;
@@ -200,7 +227,7 @@
 	var class_no = 2;
 	cmtList(class_no,lightning_no);
 
-
+	
 	var msg = "${msg}";
 	if (msg != ""){
 		alert(msg);
@@ -280,7 +307,7 @@
 	
 	
 	
-	/*댓글*/ 
+	/*********댓글*********/ 
 	
 	//로그인 아이디 위에 변수 설정 되어있음 loginId 
 	//var lightning_no , var class_no 위에 변수 설정 
@@ -341,12 +368,13 @@
 		if(list.length>0){					
 			list.forEach(function(item,idx){
 				//console.log(item);
-				var date = new Date(item.lightning_date);
+				var date = new Date(item.comment_date);
 				
 				content += '<div class ="comments">';
 				content += '<div class ="comment">';
 				content += '<div class ="content">';
 				content += '<header class="top">';
+				content += '<div class="grade_name g'+item.grade_no+'">'+item.grade_name+'</div>';
 				content += '<div class="member_id">'+item.member_id+'</div>';
 				content += '<div class="utility">';
 				content += '<button class="update">수정</button>';
@@ -362,7 +390,6 @@
 				content += '</div>';
 				content += '</div>';
 				content += '</div>';
-				
 			});
 		//데이터가 없을 경우	
 		}else{
@@ -370,7 +397,7 @@
 		}
 		
 		$('#cmtList').empty();
-		$('#cmtList').append(content); 
+		$('#cmtList').append(content); 	
 	}
 	
 	
