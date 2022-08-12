@@ -41,13 +41,13 @@ public class CommentController {
 	//필요한 파라미터 : class_no, (댓글이 작성되는 글의)글번호
 	@RequestMapping(value = "/cmtList/{class_no}/{idx}")
 	public HashMap<String, Object> list(@PathVariable String class_no,@PathVariable String idx) {
-			logger.info(" 댓글 리스트: " + idx);
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			ArrayList<CommentDTO> cmtList = service.cmtList(class_no,idx);
-			logger.info(" 댓글 수 : " + cmtList.size());
-			map.put("cmtList", cmtList);
-			return map;
-		}
+		logger.info(" 댓글 리스트: " + idx);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<CommentDTO> cmtList = service.cmtList(class_no,idx);
+		logger.info(" 댓글 수 : " + cmtList.size());
+		map.put("cmtList", cmtList);
+		return map;
+	}
 	
 	
 	//댓글 삭제 
