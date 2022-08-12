@@ -389,6 +389,7 @@
 		if(list.length>0){					
 			list.forEach(function(item,idx){
 				//console.log(item);
+				console.log(loginId);
 				var date = new Date(item.comment_date);
 				
 				content += '<div class ="comments c'+item.comment_no+'">';
@@ -411,15 +412,12 @@
 				content += '</div>';
 				content += '</div>';
 				content += '</div>';
-			});
-		//데이터가 없을 경우	
-		}else{
-			content += "데이터 없음";
-		}
-		
+				
+			});	
 		$('#cmtList').empty();
 		$('#cmtList').append(content); 	
-	}
+		}
+	}	
 	
 
 	//삭제 
@@ -444,7 +442,13 @@
 		});
 	}
 	
-	//수정
+	
+	
+	
+	
+	
+	
+	//수정버튼 눌렀을 때 
 	function updBtn(cno,content){
 		//console.log("수정하고싶다");
 		console.log(cno,content);
