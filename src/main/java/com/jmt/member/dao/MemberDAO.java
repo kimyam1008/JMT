@@ -33,4 +33,10 @@ public interface MemberDAO {
 
 	void fileWrite(String oriFileName, String newFileName, int profile_no);
 
+	//String photoIdx(int profile_no);
+
+	//void photoRegist(int profile_no);
+
+
+
 }

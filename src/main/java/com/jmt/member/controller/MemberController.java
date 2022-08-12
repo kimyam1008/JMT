@@ -181,6 +181,7 @@ public class MemberController {
 		@RequestMapping(value = "profileRegister.do")
 		public String profileRegister(Model model, MultipartFile[] photos, HttpSession session, @RequestParam HashMap<String, Object> params) {
 			logger.info("프로필 요청 값 {}: ",params);
+			logger.info("사진 : ",photos);
 			String loginId = (String) session.getAttribute("loginId"); //세션에 저장된 아이디 꺼내오기
 			params.put("loginId", loginId); //hashmap 타입으로 한번에 보내기 위해 params 에 넣기
 			if(params.get("gender") == null) { //입력되지 않은 값이 하나라도 있다면 경고창 띄우기
@@ -192,8 +193,8 @@ public class MemberController {
 			}else {
 				model.addAttribute("msg", "등록이 완료되었습니다.");
 			}
-			service.profileRegister(photos, params);
-				
+			service.profileRegister(photos, params); //프로필 등록하기
+			
 			return "/Main/main"; 
 		}
 		

@@ -92,15 +92,35 @@ public class DojangService {
 		//가입신청 관리
 		DojangDTO applyStatus = dao.applyStatus(loginId,dojang_no);
 		logger.info("data:::"+loginId+","+dojang_no);
+		//logger.info("상태"+applyStatus.getStatus());
+		
+		
+		
+		String leader = dao.reported(dojang_no);
+		logger.info("리더"+leader);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		
+		//"redirect:/detail.do?idx="+params.get("idx");
+		
+		/*
+		if(leader == null || status.equals("승인")) {
+			mav.setViewName("redirect:/dojangHome.do?dojang_no="+dojang_no);
+		}else {
+		*/
 		
 		//가입신청 프로필조건
 		DojangDTO profileStatus = dao.profileStatus(loginId);
 		
-		ModelAndView mav = new ModelAndView("./Dojang/dojangDetail");
+		mav.setViewName("./Dojang/dojangDetail");
 		mav.addObject("dojangDetail",dojangDetail);
 		mav.addObject("dojangGreview",dojangGreview);
 		mav.addObject("applyStatus",applyStatus);
 		mav.addObject("profileStatus",profileStatus);
+		
+		//}
+		
 		return mav;
 	}
 
@@ -154,6 +174,30 @@ public class DojangService {
 	public String reported(String dojang_no) {
 		return dao.reported(dojang_no);
 	}
+
+
+
+	public ArrayList<DojangDTO> dojangHome(HashMap<String, Object> post) {
+		return dao.dojangHome(post);
+	}
+
+	public ArrayList<DojangDTO> dojangHomeMember(String dojang_no) {
+		
+		return dao.dojangHomeMember(dojang_no);
+	}
+
+	public ArrayList<DojangDTO> dojangHomeL(HashMap<String, Object> post) {
+		return dao.dojangHomeL(post);
+	}
+
+	public ArrayList<DojangDTO> dojangHomeM(HashMap<String, Object> post) {
+		return dao.dojangHomeM(post);
+	}
+
+	public DojangDTO dojangHomeDetail(String dojangPost_no) {
+		return dao.dojangHomeDetail(dojangPost_no);
+	}
+
 	
 
 	

@@ -46,9 +46,9 @@
 			<tr>
 				<th>선호음식 : 
 					<select name="food_no">
-		                	<c:forEach items="${foodList}" var="foodList">
-		                		<option value="${foodList.food_no}">${foodList.food_name}</option>
-		                	</c:forEach>
+	                	<c:forEach items="${foodList}" var="foodList">
+	                		<option value="${foodList.food_no}">${foodList.food_name}</option>
+	                	</c:forEach>
 	           		</select>
             	</th>
 			</tr>

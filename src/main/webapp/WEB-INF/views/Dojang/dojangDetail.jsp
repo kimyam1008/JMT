@@ -28,7 +28,7 @@ table, th, td{
 <input type="hidden" id="eat_speed" value="${dojangDetail.eat_speed}"/>
 <input type="hidden" id="gender" value="${dojangDetail.gender}"/>
 <input type="hidden" id="job" value="${dojangDetail.job}"/>
-<input type="button" name='report' style="position: absolute; left: 340px; top: 250px" value="신고하기" onclick="report()"/>	
+<input type="button" name='report' style="position: absolute; left: 370px; top: 250px" value="신고하기" onclick="report()"/>	
 	<table>
 	<tr>
 		<th>모임 이름</th>
@@ -103,12 +103,8 @@ $("input:button[name='Apply']").on('click',function(){
 	}else{
 		
 		//프로필 상태 기반
-		if($("#eat_speed").val() !="상관없음" && $("#eat_speed").val() != $("#profile_eat_speed").val()){
-			alert("식사속도 조건이 맞지않습니다.");
-		}else if($("#gender").val() !="상관없음" && $("#gender").val() != $("#profile_gender").val()){
+		if($("#gender").val() !="상관없음" && $("#gender").val() != $("#profile_gender").val()){
 			alert("성별 조건이 맞지않습니다.");
-		}else if($("#job").val() !="상관없음" && $("#job").val() != $("#profile_job").val()){
-			alert("직업 조건이 맞지않습니다.");
 		}else{
 			dojangApply_pop();
 		}

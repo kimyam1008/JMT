@@ -78,7 +78,7 @@
 
 listCall(currPage);
 
-$('#pagePerNum').on('change',function(){	
+/* $('#pagePerNum').on('change',function(){	
 	console.log('currPage : '+currPage);
 	
 	//페이지당 보여줄 수 변경시 계산된 페이지 적용이 안된다.(플러그인의 문제)
@@ -86,7 +86,7 @@ $('#pagePerNum').on('change',function(){
 	$("#pagination").twbsPagination('destroy');
 	listCall(currPage);
 	
-}); 
+});  */
 
  function listCall(page){
 	 var pagePerNum=5;
@@ -101,9 +101,10 @@ $('#pagePerNum').on('change',function(){
 		},
 		dataType:'JSON',
 		success:function(data){
-			console.log("dd");
+			
 			console.log(data);
 			console.log(data.list);
+			currPage = data.currPage;
 			drawList(data.list);
 			//currPage = data.currPage;
 			//불러오기가 성공되면 플러그인 을 이용해 페이징 처리
@@ -136,6 +137,8 @@ function drawList(list){
 		var mb_dojang_title  =item.mb_dojang_title; 
 		var mb_dojang_post = item.mb_dojang_post; 
 		var mb_group_review = item.mb_group_review;
+		var report_proc_date= item.report_proc_date;
+		
 		if(mb_ligntning_title== null){
 			mb_ligntning_title= ''; 
 		} 
@@ -152,6 +155,9 @@ function drawList(list){
 			mb_group_review= ''; 
 		} 
 		
+		if(report_proc_date == null){
+			report_proc_date='처리 전';
+		}
 		
 		//console.log(item);
 		content += '<tr>';
@@ -165,7 +171,7 @@ function drawList(list){
 		content += '<td>'+item.reported+'</td>';
 		content += '<td>'+item.report_proc_status+'</td>';
 		content += '<td>'+item.report_date+'</td>';
-		content += '<td>'+item.report_proc_date+'</td>';
+		content += '<td>'+report_proc_date+'</td>';
 		
 		content += '</tr>';
 	});

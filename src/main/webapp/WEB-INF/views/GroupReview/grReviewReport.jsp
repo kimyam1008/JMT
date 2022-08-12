@@ -3,25 +3,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>번개 모임 게시글 신고</title>
+<title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 	table {
-	    width:70%; 
-	    margin-left:auto; 
-	    margin-right:auto;
-	    position: static;
-	}
+    width:70%; 
+    margin-left:auto; 
+    margin-right:auto;
+    position: static;
+}
 </style>
 </head>
 <body>
 		<table>
 			<tr>
-				<th>사유 선택</th>
+				<th>사유 입력</th>
 			</tr>
 			<tr>
 				<td>	
-					<input type="hidden" id ="lightning_no" value="${lightning_no}"/>
+					<input type="hidden" id ="groupReview_no" value="${groupReview_no}"/>
 					<input type="radio" name ="report_reason" value="욕설 및 비방"/>욕설 및 비방
 				</td>
 			</tr>
@@ -34,17 +34,18 @@
 			</tr>
 			<tr>
 				<td>
-					<input type="radio" name ="report_reason"  value="기타"/>
-					<textarea placeholder="기타(직접작성)" style = "width:200px; height:30px; resize:none;"  disabled></textarea>
+					<input type="radio" name ="report_reason" id="etc" value="기타"/>
+					<textarea id="report_reason_text" placeholder="기타(직접작성)" style = "width:200px; height:30px; resize:none;"  disabled></textarea>
 				</td>
 			</tr>
 			<tr>
 				<th>
-					<input type="button" value="취소" onclick="lightReportclose()"/>
+					<input type="button" value="취소" onclick="grReviewReportclose()"/>
 					<input type="button" value="신고" onclick="checkReport()"/>
-				</th>
+			</th>
 			</tr>
 		</table>
+	<!-- </form> -->
 </body>
 <script>
 	
@@ -71,7 +72,7 @@
 	//유효성 검사
 	function checkReport(){
 		
-		var lightning_no = $("#lightning_no").val();
+		var groupReview_no = $("#groupReview_no").val();
 		var report_reason = $('input[name="report_reason"]:checked').val();
 		var report_reason_text = $('textarea').val();
 		
@@ -87,9 +88,9 @@
 			//console.log(lightning_no,report_reason,report_reason_text);
 			$.ajax({
 				type:'get',
-				url:'lightReport.ajax',
+				url:'grReviewReport.ajax',
 				data:{
-					'lightning_no' : lightning_no,
+					'groupReview_no' : groupReview_no,
 					'report_reason' : report_reason,
 					'report_reason_text' : report_reason_text
 				},
@@ -99,7 +100,7 @@
 						opener.parent.location.reload();
 						window.close();
 					}else{
-						alert("신고가 접수되지 않았습니다.");
+						alert("신고가 접수되지 않았습니다");
 					}
 				},
 				error:function(e){
@@ -111,7 +112,7 @@
 	}
 	
 
-	function lightReportclose() {
+	function grReviewReportclose() {
 		opener.parent.location.reload();
 		window.close();
 	}

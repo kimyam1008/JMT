@@ -90,6 +90,7 @@
 			,member_num
 			,(select count(apply_no)+1 from apply a where status="승인" and class_no = 1 and l.lightning_no = #{param1}) as member_count
 			,(select status from apply a where  class_no = 1 and idx= #{param1} and member_id=#{param2}) as status
+			,(select profile_gender FROM profile p WHERE member_id = #{param2}) as profile_gender
 			,eat_speed
 			,lightning_create
 			,lightning_date
@@ -118,11 +119,19 @@
 	<insert id="report" parameterType="hashmap">
 		INSERT INTO report(reporter,reported,class_no,report_reason,idx)
 			VALUES(
-			#{loginId}
-			,(select leader_id from lightninglist where lightning_no = #{lightning_no})
-			,1,
-			<if test="!report_reason.equals('기타')">#{report_reason}</if>
-			<if test="report_reason.equals('기타')">#{report_reason_text}</if>
-			,#{lightning_no})
+				#{loginId}
+				,(select leader_id from lightninglist where lightning_no = #{lightning_no})
+				,1,
+				<if test="!report_reason.equals('기타')">#{report_reason}</if>
+				<if test="report_reason.equals('기타')">#{report_reason_text}</if>
+				,#{lightning_no})
 	</insert>
+	
+	
+	
+	<update id="delete" parameterType="String">
+		UPDATE lightninglist SET lightning_status = "삭제" WHERE lightning_no = #{lightning_no}
+	</update>
+	
+	
 </mapper>

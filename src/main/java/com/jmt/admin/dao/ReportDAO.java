@@ -1,7 +1,6 @@
 package com.jmt.admin.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import com.jmt.admin.dto.ReportDTO;
@@ -17,7 +16,7 @@ public interface ReportDAO {
 
 	ArrayList<ReportDTO> reportList(Map<String, Object> data);
 
-	int reportUpdate(Map<String, Object> data);
+	//int reportUpdate(Map<String, Object> data);
 
 	
 //	각각 정보 찾기 
@@ -38,13 +37,37 @@ public interface ReportDAO {
 
 	String updateCheck(int report_no);
 
-	void insertBlind(Map<String, Object> data);
+	int insertBlind(Map<String, Object> data);
 
 	int blindCount(Map<String, Object> data);
 
 	ReportDTO reportDetail1(Integer report_no);
 
 	ArrayList<ReportDTO> blindHistory(Integer report_no);
+
+	int reportUpdate1(Map<String, Object> data);
+
+	int reportUpdate2(Map<String, Object> data);
+
+	int reportUpdate3(Map<String, Object> data);
+
+	int reportUpdate4(Map<String, Object> data);
+
+	int reportUpdate6(Map<String, Object> data);
+
+	void changeStatus(Map<String, Object> data);
+
+	/* ArrayList<ReportDTO> blindHistory(Map<String, Object> data); */
+
+	ArrayList<ReportDTO> blindHistory1(int idx);
+
+	ArrayList<ReportDTO> blindHistory2(int idx);
+
+	ArrayList<ReportDTO> blindHistory3(int idx);
+
+	ArrayList<ReportDTO> blindHistory4(int idx);
+
+	ArrayList<ReportDTO> blindHistory6(int idx);
 
 
 

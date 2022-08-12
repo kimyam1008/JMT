@@ -132,8 +132,7 @@ function listCall(page){
 			console.log(e);
 		}
 			
-	});
-	
+	});	
 }
 
 
@@ -238,11 +237,11 @@ function drawList(list){
 		var date = new Date(item.dojang_create);
 		var create = date.toLocaleDateString("ko-KR");
 		console.log("조회::",item.member_count);
-		console.log("왜안됨?",item.leader_id)
+		console.log("왜안됨?",item.leader_id,loginId);
 		content += '<tr>';
 		content += '<td>'+item.food_name+'</td>';
 		content += '<td>'+item.leader_id+'</td>';
-		content += '<td><a href="dojangDetail.do?dojang_no='+item.dojang_no+'">'+item.dojang_title+'</td>';
+		content += item.test=="승인" || item.leader_id==loginId? '<td><a href="dojangHome.go?dojang_no='+item.dojang_no+'">'+item.dojang_title+'</td>' : '<td><a href="dojangDetail.do?dojang_no='+item.dojang_no+'">'+item.dojang_title+'</td>';
 		content += '<td>'+create+'</td>';
 		content += '<td>'+item.member_count+'/'+item.people_num+'</td>';
 		content += '<td>'+item.dojang_status+'</td>';

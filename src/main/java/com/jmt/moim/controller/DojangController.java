@@ -126,7 +126,85 @@ public class DojangController {
 
 			return map;
 		}
-	
+		
+		
+		
+		//도장깨기 방(전체)
+		@RequestMapping("/dojangHome.go")
+		public String dojangHomeGo(@RequestParam String dojang_no, HttpSession session) {
+			session.setAttribute("dojang_no", dojang_no);
+			return "./Dojang/dojangHome";
+		}
+		
+		//도장깨기 방(공지)
+		@RequestMapping("/dojangHomeL.go")
+		public String dojangHomeGoL(@RequestParam String dojang_no, HttpSession session) {
+			session.setAttribute("dojang_no", dojang_no);
+			return "./Dojang/dojangHomeL";
+		}
+				
+		//도장깨기 방(일반)
+		@RequestMapping("/dojangHomeM.go")
+		public String dojangHomeGoM(@RequestParam String dojang_no, HttpSession session) {
+			session.setAttribute("dojang_no", dojang_no);
+			return "./Dojang/dojangHomeM";
+		}		
+		
+		//도장깨기 ajax
+		@RequestMapping("/dojangHome.ajax")
+		@ResponseBody
+		public HashMap<String, Object> dojangHome(HashMap<String, String> params, HttpSession session) {
+			String dojang_no = (String) session.getAttribute("dojang_no");
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			
+			String postType = params.get("postType");
+			
+			HashMap<String, Object> post = new HashMap<String, Object>();
+			
+			post.put("postType", postType);
+			post.put("dojang_no", dojang_no);
+			logger.info("도장번호 없나"+dojang_no);
+			
+			ArrayList<DojangDTO> dojangHome = service.dojangHome(post);
+			ArrayList<DojangDTO> dojangHomeL = service.dojangHomeL(post);
+			ArrayList<DojangDTO> dojangHomeM = service.dojangHomeM(post);
+			
+			String dojangHomeLeader = service.reported(dojang_no);
+			ArrayList<DojangDTO> dojangHomeMember = service.dojangHomeMember(dojang_no);
+			map.put("dojangHome", dojangHome);
+			map.put("dojangHomeL", dojangHomeL);
+			map.put("dojangHomeM", dojangHomeM);
+			map.put("dojangHomeLeader", dojangHomeLeader);
+			map.put("dojangHomeMember", dojangHomeMember);
+			logger.info("방장 아이디"+dojangHomeLeader);
+			
+			return map;
+		}
+		
+		
+		//도장깨기 방 게시글 상세보기 이동
+		@RequestMapping("/dojangHomeDetail.go")
+		public String dojangHomeDetailGo(@RequestParam String dojangPost_no, HttpSession session) {
+			session.setAttribute("dojangPost_no", dojangPost_no);
+			return "./Dojang/dojangHomeDetail";
+		}	
+		
+		//도장깨기 방 게시글 상세보기
+		@RequestMapping("/dojangHomeDetail.ajax")
+		@ResponseBody
+		public HashMap<String, Object> dojangHomeDetail(HttpSession session) {
+
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			
+				String dojangPost_no = (String) session.getAttribute("dojangPost_no");
+
+				session.removeAttribute("dojangPost_no");
+
+				DojangDTO dojangHomeDetail = service.dojangHomeDetail(dojangPost_no);
+				map.put("dojangHomeDetail", dojangHomeDetail);
+				
+			return map;
+		}
 	
 	
 	//도장모임 검색
