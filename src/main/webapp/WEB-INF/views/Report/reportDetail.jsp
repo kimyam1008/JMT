@@ -123,6 +123,11 @@ function returnList(){
 	location.href="/report/"; 
 /* 	history.go(-1); */
 }
+ 
+var report_status = $('select[name=report_status]').val();
+if(report_status=='블라인드'){
+	$('select[name=report_status]').attr("disabled","disabled");
+}
 
 </script>
 </html>

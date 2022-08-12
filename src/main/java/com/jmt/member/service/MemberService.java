@@ -132,14 +132,20 @@ public class MemberService {
 		dto.setProfile_gender((String) params.get("gender"));
 		dto.setProfile_job((String) params.get("job"));
 		
-		int row = dao.profileRegister(dto);
+		int row = dao.profileRegister(dto); //프로필 등록하기
 		
 		int profile_no = dto.getProfile_no();
 		logger.info("방금 넣은 프로필 번호 : "+profile_no);
 		
-		if (row > 0) {
-			fileSave(photos, profile_no);
+		if (row > 0) { //프로필 등록이 완료되면
+			fileSave(photos, profile_no); //회원이 등록한 사진 넣기
 		}
+		
+		//String photoIdx = dao.photoIdx(profile_no); //회원이 등록한 사진이 있는지 조회해보기
+		//logger.info("photoIdx : "+photoIdx);
+		//if(photoIdx == null) { // 회원이 등록한 사진이 없다면 기본이미지 등록하기 (근데 잘 안됨,, 뷰에서 따로 이미지 보여주던 해야할듯)
+		//	dao.photoRegist(profile_no);
+		//}
 		
 	}
 	
@@ -187,6 +193,7 @@ public class MemberService {
 		
 		return dao.con(id);
 	}
+
 	
 	
 
