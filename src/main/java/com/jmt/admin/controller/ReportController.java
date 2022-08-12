@@ -74,6 +74,7 @@ public class ReportController {
 		data.put("report_no",report_no);
 		data.put("report_status",report_status);
 		data.put("reason",reason);
+		data.put("class_no", class_no);
 		int result= service.reportUpdate(data);
 		ra.addAttribute("report_no",report_no);
 		ra.addAttribute("class_no",class_no);
