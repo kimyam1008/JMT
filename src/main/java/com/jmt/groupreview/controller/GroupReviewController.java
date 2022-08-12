@@ -52,58 +52,19 @@ public class GroupReviewController {
 	@RequestMapping(value = "/grRegisterForm.go")
 	public String grRegisterForm(HttpSession session,Model model){
 		String loginId = (String) session.getAttribute("loginId");
-		//GroupReviewDTO joinGroup = service.joinGroup(loginId);
 		model.addAttribute("loginId", loginId);
-		//model.addAttribute("joinGroup", joinGroup);
+		
+		//도장리스트
 		ArrayList<GroupReviewDTO> groupList = service.groupList(loginId);
-		logger.info("list size : "+groupList.size());
+		logger.info("도장리스트 size : "+groupList.size());
+		//번개리스트
+		ArrayList<GroupReviewDTO> lightGroupList = service.lightGroupList(loginId);
+		logger.info("번개리스트 size : "+lightGroupList.size());
+		
 		model.addAttribute("groupList",groupList);
+		model.addAttribute("lightGroupList",lightGroupList);
 		return "./GroupReview/grRegisterForm";
 	}
-	/*
-	//모임 후기 작성 > 모임 검색 팝업
-	@RequestMapping(value = "/groupSearchPop.go")
-	public String groupSearchPopGo(){
-		return "./GroupReview/groupSearchPop";
-	}
-	
-	@RequestMapping(value = "/groupSearchPop.do")
-	public String groupSearchPop(Model model, HttpSession session){
-		String loginId = (String) session.getAttribute("loginId");
-		ArrayList<GroupReviewDTO> groupList = service.groupList(loginId);
-		logger.info("list size : "+groupList.size());
-		model.addAttribute("groupList",groupList);
-		return "./GroupReview/groupSearchPop";
-	}
-	*/
-	//모임 검색 팝업 ajax
-	/*
-	@RequestMapping("/groupSearch.ajax")
-	@ResponseBody
-	public ArrayList<GroupReviewDTO> groupSearch(HttpSession session){
-		String loginId = (String) session.getAttribute("loginId");
-		ArrayList<GroupReviewDTO> list = new ArrayList<GroupReviewDTO>();
-		logger.info(loginId+" 가 가입한 모임 리스트 요청");
-		return service.groupSearch(loginId);
-	}
-	
-	
-	@RequestMapping("/groupSearchEnd.ajax")
-	@ResponseBody
-	public int groupSearchEnd(String title, String idx
-	/* String dojang_title, int lightning_no, int dojang_no *) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-
-		map.put("title", title);
-		map.put("idx", idx);
-		logger.info("title : "+title+"/"+"idx : "+idx);
-		//map.put("lightning_title", lightning_title);
-		//map.put("dojang_title", dojang_title);
-		//map.put("lightning_no", lightning_no);
-		//map.put("dojang_no", dojang_no);
-		return service.groupSearchEnd(map);
-	}
-	*/
 	
 	//파일 업로드 팝업
 	@RequestMapping(value = "/grFileUploadForm.go")
@@ -127,7 +88,7 @@ public class GroupReviewController {
 		return service.grFileDelete(fileName,session);
 	}
 	
-	//모임 후기글 작성
+	//모임 후기글 작성(저장)
 	@RequestMapping(value = "/groupReviewRegister")
 	public ModelAndView groupReviewRegister(@RequestParam HashMap<String, String> params, HttpSession session) {
 		String loginId = (String) session.getAttribute("loginId");
@@ -182,18 +143,31 @@ public class GroupReviewController {
 	//삭제(숨김)
 	@RequestMapping(value = "/groupReviewDelete.do")
 	public String groupReviewDelete(@RequestParam HashMap<String, String> params, Model model,HttpSession session){
-		String page ="redirect:/groupReviewList.go";
+		//String page ="redirect:/groupReviewList.go";
 		logger.info("삭제(숨김)요청 : "+params.get("groupReview_no"));
 		service.groupReviewDelete(params);
-		return "page";
+		return "./GroupReview/groupReviewList";
 	}
 	
 	//모임후기 수정
-	@RequestMapping(value = "/groupReviewUpdate.do")
+	@RequestMapping(value = "/groupReviewUpdate.go")
 	public String groupReviewUpdateGo(@RequestParam String groupReview_no, Model model,HttpSession session){
 		String loginId = (String) session.getAttribute("loginId");
 		String page = "redirect:/groupReviewList.do";
 		logger.info("모임 후기 수정 페이지 요청 : "+groupReview_no);
+		model.addAttribute("loginId", loginId);
+		
+		//도장리스트
+		ArrayList<GroupReviewDTO> groupList = service.groupList(loginId);
+		logger.info("도장리스트 size : "+groupList.size());
+		model.addAttribute("groupList",groupList);
+		
+		//번개리스트
+		ArrayList<GroupReviewDTO> lightGroupList = service.lightGroupList(loginId);
+		logger.info("번개리스트 size : "+lightGroupList.size());
+		model.addAttribute("lightGroupList",lightGroupList);
+		
+		//작성 내용
 		GroupReviewDTO dto = service.groupReviewDetail(groupReview_no,loginId);
 		if (dto != null) {
 			model.addAttribute("dto", dto);
