@@ -414,9 +414,9 @@
 				content += '</div>';
 				
 			});	
+		}
 		$('#cmtList').empty();
 		$('#cmtList').append(content); 	
-		}
 	}	
 	
 
