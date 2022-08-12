@@ -152,4 +152,15 @@
 		UPDATE groupReview SET groupReview_status = "숨김"
 		WHERE groupReview_no = #{groupReview_no}
 	</update>
+	
+	<!-- 수정 -->
+	<update id="groupReviewUpdate" parameterType="hashmap">
+		UPDATE groupReview SET review_title = #{review_title}
+			,review_content = #{review_content}
+			,class_no = #{class_no}
+			<!-- <if test="class_no != 3">class_no = 1</if>
+			<if test="class_no == 3">class_no = 3</if> -->
+			,idx = #{idx}
+			WHERE groupReview_no = #{groupReview_no}
+	</update>
 </mapper>
