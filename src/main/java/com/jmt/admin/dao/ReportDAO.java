@@ -17,7 +17,7 @@ public interface ReportDAO {
 
 	ArrayList<ReportDTO> reportList(Map<String, Object> data);
 
-	int reportUpdate(Map<String, Object> data);
+	//int reportUpdate(Map<String, Object> data);
 
 	
 //	각각 정보 찾기 
@@ -45,6 +45,16 @@ public interface ReportDAO {
 	ReportDTO reportDetail1(Integer report_no);
 
 	ArrayList<ReportDTO> blindHistory(Integer report_no);
+
+	int reportUpdate1(Map<String, Object> data);
+
+	int reportUpdate2(Map<String, Object> data);
+
+	int reportUpdate3(Map<String, Object> data);
+
+	int reportUpdate4(Map<String, Object> data);
+
+	int reportUpdate6(Map<String, Object> data);
 
 
 

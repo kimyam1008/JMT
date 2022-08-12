@@ -75,7 +75,15 @@
 				<th>처리상태</th>
 				<td>
 					<select name="report_status">
-						<option selected  hidden value="${detailDto.report_proc_status}">${detailDto.report_proc_status}</option>
+<%-- 						<option selected  hidden value="${detailDto.report_proc_status}">${detailDto.report_proc_status}</option> --%>
+						<c:if test="${not empty reportPost.lightning_status}"><option selected  hidden value="${reportPost.lightning_status}">${reportPost.lightning_status}</option> </c:if>
+						<c:if test="${not empty reportPost.comment_status}"><option selected  hidden value="${reportPost.comment_status}">${reportPost.comment_status}</option> </c:if>
+						<c:if test="${not empty reportPost.dojang_status}"><option selected  hidden value="${reportPost.dojang_status}">${reportPost.dojang_status}</option> </c:if>
+						<c:if test="${not empty reportPost.dojangPost_status}"><option selected  hidden value="${reportPost.dojangPost_status}">${reportPost.dojangPost_status}</option> </c:if>
+						<c:if test="${not empty reportPost.groupReview_status}"><option selected  hidden value="${reportPost.groupReview_status}">${reportPost.groupReview_status}</option> </c:if>
+						
+						
+						<%-- <option selected  hidden value="${detailDto.report_proc_status}">${detailDto.report_proc_status}</option> --%>
 						<option value="처리대기">처리대기</option>
 						<option value="처리완료">처리완료</option>
 						<option value="블라인드">블라인드</option>
@@ -102,7 +110,7 @@
 			</td>
 			</tr>	
 		</table>
-	</form>
+	</form> 
 </body>
 <script>
 var msg="${msg}"; 
@@ -112,8 +120,8 @@ if(msg!= null && msg!=""){
 }
 
 function returnList(){ 
-	/* location.href="/report/"; */
-	history.go(-1);
+	location.href="/report/"; 
+/* 	history.go(-1); */
 }
 
 </script>

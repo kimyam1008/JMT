@@ -74,7 +74,43 @@ public class ReportService {
 	// 이슈 : 수정버튼 누를때 블라인드로 상태 변경 되면서 insert 	블라인드 되야함. 
 	// 그리고 아마 같은 게시글들이 블라인드 되는 경우. 그 신고 게시판에서 동일 게시글 신고한 경우 그것들도 다 블라인드로 바껴야 한다.. ? 
 	public int reportUpdate(Map<String, Object> data) {
-		return dao.reportUpdate(data);
+		int result = 0; 
+		int class_no=(int) data.get("class_no"); 
+		System.out.println("클래스 넘버 확인 :"+ class_no);
+		if(class_no==1) {
+			result= dao.reportUpdate1(data);
+		}
+		
+		else if(class_no==2) {
+			result= dao.reportUpdate2(data);
+		}
+		
+		else if(class_no==3) {
+			result= dao.reportUpdate3(data);
+		}
+		
+		else if(class_no==4) {
+			result= dao.reportUpdate4(data);
+		}
+		
+		else if(class_no==5) { // 도장깨기 댓글
+			result= dao.reportUpdate2(data);
+		}
+		
+		else if(class_no==6) {// 모임 후기 
+			result= dao.reportUpdate6(data);
+		}
+		
+		else if(class_no==7) { // 모임후기 댓글 
+			result= dao.reportUpdate2(data);
+		}
+		
+		else if(class_no==8) { // 맛집리뷰 댓글 
+			result= dao.reportUpdate2(data);
+		}
+		
+		
+		return result;
 	}
 	
 	
