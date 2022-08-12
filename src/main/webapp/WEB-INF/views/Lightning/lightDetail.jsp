@@ -23,6 +23,9 @@
 	 .comment-form {
 	  display: flex;
 	  flex-direction: column;
+	  width : 515px;
+	  height : 80px;
+	  margin : 10px 0px;
 	}
 	.comment-form textarea {
 	  resize: none;
@@ -44,6 +47,7 @@
  	/* 레이아웃 - 댓글 */
 	.comments {
 	  border: 1px solid #dbdbdb;
+	  width : 510px;
 	}
 	.comments .comment {
 	  border-bottom: 1px solid #dbdbdb;
@@ -61,10 +65,11 @@
 	}
 	.top .member_id {
 	  font-weight: bold;
+	  font-size : 15px;
 	}
 	
 	.top .grade_name{
-		font-size : 13px;
+		font-size : 12px;
 		padding : 5px;
 	}
 	
@@ -78,7 +83,7 @@
 	}
 	
 	.g3{
-		color :silver;
+		color :lightblue;
 	}
 	
 	.g4{
@@ -95,6 +100,10 @@
 	  margin-left: auto;
 	}
 
+	p {
+		font-size : 15px;
+	}
+	
 	/* 하단 메뉴 */
 	.bottom {
 	  display: flex;
@@ -375,8 +384,8 @@
 				content += '<div class ="comment">';
 				content += '<div class ="content">';
 				content += '<header class="top">';
-				content += '<div class="grade_name g'+item.grade_no+'">'+item.grade_name+'</div>';
 				content += '<div class="member_id">'+item.member_id+'</div>';
+				content += '<div class="grade_name g'+item.grade_no+'">'+item.grade_name+'</div>';
 				content += '<div class="utility">';
 				content += '<button class="update">수정</button>';
 				content += '<button class="delBtn" onclick="cmtDel('+item.comment_no+')">삭제</button>';
