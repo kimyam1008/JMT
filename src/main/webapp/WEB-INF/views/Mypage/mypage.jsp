@@ -18,22 +18,18 @@
 	<h3>마이페이지</h3>
 	<div class="top">
 		<span class="wel">
-			<tr>
-				<td><img src="/photo/${photo.photo_newFileName}" width="150" height="100"/></td>
-				<td>${list.member_id }님 반갑습니다.</td>
-				<td>등급 : ${list.grade_name }</td>
-				<td>팔로워 : ${follower }   팔로잉 : ${following } </td>
-			</tr>
+			<img src="/photo/${photo.photo_newFileName}" width="150" height="100"/>
+			${list.member_id }님 반갑습니다.
+			등급 : ${list.grade_name }
+			팔로워 : ${follower }   팔로잉 : ${following }
 		</span>
 		<span class="profile">
-			<tr>
-				<td>성별 : ${list.profile_gender }</td>
-				<td>직업 : ${list.profile_job }</td>
-				<td>선호 음식 : ${list.food_name }</td>
-				<td>식사 속도 : ${list.eat_speed }</td>
-				<td>블라인드 수 : ${blind }</td>
-				<td><a href='./profileUpdate.go'>개인정보수정</a></td>
-			</tr>
+			성별 : ${list.profile_gender }
+			직업 : ${list.profile_job }
+			선호 음식 : ${list.food_name }
+			식사 속도 : ${list.eat_speed }
+			블라인드 수 : ${blind }
+			<a href='./profileUpdate.go'>개인정보수정</a>
 		</span>
 	</div>
 	<p><a href='./myBoardList.go'>나의 활동</a></p>
@@ -45,5 +41,9 @@
 	</div>
 </body>
 <script>
+	var msg = "${msg}";
+	if (msg != "") {
+		alert(msg);
+	}
 </script>
 </html>

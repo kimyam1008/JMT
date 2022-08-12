@@ -65,5 +65,14 @@
 		SELECT * FROM food
 	</select>
 	
+	<!-- <select id="photoIdx" resultType="int">
+		SELECT idx FROM photo WHERE idx = #{param1}
+	</select>
+	
+	<insert id="photoRegist">
+		INSERT INTO photo(class_no, photo_oriFileName, photo_newFileName, idx)
+			VALUES('9', 'Rectangle 1.png', '00.png', #{param1})
+	</insert> -->
+	
 	
 </mapper>

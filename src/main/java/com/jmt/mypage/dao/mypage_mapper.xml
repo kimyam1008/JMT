@@ -24,11 +24,43 @@
 	</select>
 	
 	<select id="photoList" resultType="photo">
-		SELECT * FROM profile p INNER JOIN photo p2 ON p.profile_no = #{param1} AND p2.idx = #{param1} ;
+		SELECT * FROM profile p INNER JOIN photo p2 ON p.profile_no = #{param1} AND p2.idx = #{param1}
 	</select>
 	
 	<select id="foodList" resultType="member">
 		SELECT * FROM food
 	</select>
+	
+	<select id="oriPass" parameterType="hashmap" resultType="String">
+		SELECT member_pw FROM member WHERE member_id = #{loginId}
+	</select>
+	
+	<update id="passUpdate" parameterType="hashmap">
+		UPDATE member SET member_pw = #{changePass} WHERE member_id = #{loginId}
+	</update>
+	
+	<update id="profileUpdate" parameterType="member">
+		UPDATE profile SET profile_job = #{profile_job}, eat_speed = #{eat_speed}, food_no = #{food_no} WHERE member_id = #{member_id}
+	</update>
+	
+	<update id="memberUpdate" parameterType="member">
+		UPDATE member SET member_name = #{member_name} WHERE member_id = #{member_id}
+	</update>
+	
+	<delete id="photoDel" parameterType="int">
+		DELETE FROM photo WHERE idx = #{profile_no}
+	</delete>
+	
+	<insert id="fileWrite">
+		INSERT INTO photo(class_no, photo_oriFileName, photo_newFileName, idx)
+			VALUES('9', #{param1}, #{param2}, #{param3})
+	</insert>
+	
+	<select id="profile_num" resultType="int" parameterType="member">
+		SELECT profile_no FROM profile WHERE member_id = #{member_id}
+	</select>
+	
+	
+	
 	
 </mapper>
