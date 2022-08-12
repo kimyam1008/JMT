@@ -113,30 +113,58 @@
 		where r.report_no =#{param1}
 	</select> 
 	
-	<!-- 신고 상세 수정하기   , insert로 바꾸기 -->
+	<!-- 신고 상세 수정하기   , insert로 바꾸기   수정중 수정중 수정중 수정중 수정중.....
 	<update id="reportUpdate" parameterType="hashmap">
 		UPDATE report r SET r.result_reason =#{reason} , r.report_proc_status=#{report_status},r.report_proc_date = now() WHERE r.report_no = #{report_no}
 	</update>
+	 -->
+	<!-- 신고 상세 수정하기   , insert로 바꾸기 -->
+	<update id="reportUpdate1" parameterType="hashmap">
+		UPDATE report r inner join  lightninglist l on r.idx = l.lightning_no  
+ 		SET r.result_reason =#{reason} , r.report_proc_status=#{report_status}, l.lightning_status  =#{report_status}, r.report_proc_date = now() WHERE r.report_no =#{report_no}
+	</update>
+	<!-- 신고 상세 수정하기   , insert로 바꾸기 -->
+	<update id="reportUpdate2" parameterType="hashmap">
+		UPDATE report r inner join  comment c on r.idx = c.comment_no  and r.class_no =c.class_no  
+		 SET r.result_reason =#{reason} , r.report_proc_status=#{report_status}, c.comment_status =#{report_status}, r.report_proc_date = now() WHERE r.report_no  =#{report_no}
+	</update>
+	<!-- 신고 상세 수정하기   , insert로 바꾸기 -->
+	<update id="reportUpdate3" parameterType="hashmap">
+		UPDATE report r inner join  dojanglist d on r.idx = d.dojang_no  and r.class_no =d.class_no 
+ 		SET r.result_reason =#{reason} , r.report_proc_status=#{report_status},d.dojang_status   =#{report_status}, r.report_proc_date = now() WHERE r.report_no  =#{report_no}
+	</update>
+	<!-- 신고 상세 수정하기   , insert로 바꾸기 -->
+	<update id="reportUpdate4" parameterType="hashmap">
+		UPDATE report r inner join  dojangpost d on r.idx = d.dojangPost_no  and r.class_no = d.class_no 
+ 		SET r.result_reason =#{reason} , r.report_proc_status=#{report_status}, d.dojangPost_status  =#{report_status}, r.report_proc_date = now() WHERE r.report_no  =#{report_no}
+	</update>
+	<!-- 신고 상세 수정하기   , insert로 바꾸기 -->
+	<update id="reportUpdate6" parameterType="hashmap">
+		UPDATE report r inner join  groupreview g on r.idx = g.groupReview_no 
+ 		SET r.result_reason =#{reason} , r.report_proc_status=#{report_status}, g.groupReview_status  =#{report_status}, r.report_proc_date = now() WHERE r.report_no =#{report_no}
+	</update>
 	
 	
-	<!-- 신고 게시물...  -->
+	
+	
+	<!-- 신고 게시물 카테고리별로 처리.  -->
 	<select id="select_no1" parameterType="integer" resultType="com.jmt.admin.dto.ReportPostDto">
-		SELECT l.lightning_title, l.lightning_content FROM  lightninglist l WHERE lightning_no  =#{idx} 
+		SELECT l.lightning_title, l.lightning_content , l.lightning_status FROM  lightninglist l WHERE lightning_no  =#{idx} 
 	</select>
 	
 	<select id="select_no2" parameterType="integer" resultType="com.jmt.admin.dto.ReportPostDto">
-		SELECT c.comment_content  FROM comment c WHERE c.comment_no =#{idx}
+		SELECT c.comment_content , c.comment_status FROM comment c WHERE c.comment_no =#{idx}
 	</select>
 	
 	<select id="select_no3" parameterType="integer" resultType="com.jmt.admin.dto.ReportPostDto">
-		SELECT d.dojang_title,d.dojang_content FROM dojanglist d WHERE dojang_no =#{idx}
+		SELECT d.dojang_title,d.dojang_content ,d.dojang_status FROM dojanglist d WHERE dojang_no =#{idx}
 	</select>
 	
 	<select id="select_no4" parameterType="integer" resultType="com.jmt.admin.dto.ReportPostDto">
-		SELECT d.dojangPost_subject ,d.dojangPost_content  FROM dojangpost d  WHERE dojangPost_no =#{idx}
+		SELECT d.dojangPost_subject ,d.dojangPost_content ,d.dojangPost_status  FROM dojangpost d  WHERE dojangPost_no =#{idx}
 	</select>
 	<select id="select_no6" parameterType="integer" resultType="com.jmt.admin.dto.ReportPostDto">
-		SELECT g.review_title, g.review_content FROM groupreview g WHERE g.groupReview_no =#{idx}
+		SELECT g.review_title, g.review_content ,g.groupReview_status FROM groupreview g WHERE g.groupReview_no =#{idx}
 	</select>
 	
 	<update id="blind" parameterType="String">

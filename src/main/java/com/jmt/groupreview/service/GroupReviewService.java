@@ -78,14 +78,12 @@ public class GroupReviewService {
 		return map;
 	}
 
-	public ModelAndView groupReviewDetail(String groupReview_no) {
+	public GroupReviewDTO groupReviewDetail(String groupReview_no, String loginId) {
 		/*(String groupReview_no, String idx)*/
-		ModelAndView mav = new ModelAndView("./GroupReview/groupReviewDetail");
-		GroupReviewDTO dto = dao.groupReviewDetail(groupReview_no);
-		mav.addObject("dto", dto);
+		logger.info("상세보기 서비스 도착");
 		//ArrayList<GroupReviewDTO> grPhotoList = dao.grPhotoList(idx);
 		//mav.addObject("grPhotoList",grPhotoList);
-		return mav;
+		return dao.groupReviewDetail(groupReview_no,loginId);
 	}
 	/*
 	public ArrayList<GroupReviewDTO> groupSearch(String loginId) {

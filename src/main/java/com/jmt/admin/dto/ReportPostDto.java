@@ -43,6 +43,12 @@ public class ReportPostDto {
 	private String review_title;
 	private String review_content;
 	
+	// status 
+
+	private String comment_status;
+	private String dojang_status;
+	private String dojangPost_status;
+	private String groupReview_status;
 	
 	
 	
@@ -51,7 +57,30 @@ public class ReportPostDto {
 	
 	
 	
-	
+	public String getComment_status() {
+		return comment_status;
+	}
+	public void setComment_status(String comment_status) {
+		this.comment_status = comment_status;
+	}
+	public String getDojang_status() {
+		return dojang_status;
+	}
+	public void setDojang_status(String dojang_status) {
+		this.dojang_status = dojang_status;
+	}
+	public String getDojangPost_status() {
+		return dojangPost_status;
+	}
+	public void setDojangPost_status(String dojangPost_status) {
+		this.dojangPost_status = dojangPost_status;
+	}
+	public String getGroupReview_status() {
+		return groupReview_status;
+	}
+	public void setGroupReview_status(String groupReview_status) {
+		this.groupReview_status = groupReview_status;
+	}
 	public int getLightning_no() {
 		return lightning_no;
 	}
