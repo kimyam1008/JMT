@@ -241,7 +241,7 @@ function drawList(list){
 		content += '<tr>';
 		content += '<td>'+item.food_name+'</td>';
 		content += '<td>'+item.leader_id+'</td>';
-		content += item.test=="승인" || item.leader_id==loginId? '<td><a href="dojangHome.do?dojang_no='+item.dojang_no+'">'+item.dojang_title+'</td>' : '<td><a href="dojangDetail.do?dojang_no='+item.dojang_no+'">'+item.dojang_title+'</td>';
+		content += item.test=="승인" || item.leader_id==loginId? '<td><a href="dojangHome.go?dojang_no='+item.dojang_no+'">'+item.dojang_title+'</td>' : '<td><a href="dojangDetail.do?dojang_no='+item.dojang_no+'">'+item.dojang_title+'</td>';
 		content += '<td>'+create+'</td>';
 		content += '<td>'+item.member_count+'/'+item.people_num+'</td>';
 		content += '<td>'+item.dojang_status+'</td>';

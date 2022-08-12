@@ -31,5 +31,10 @@ public interface DojangDAO {
 
 	String reported(String dojang_no);
 
+	ArrayList<DojangDTO> dojangHome(String dojang_no);
+
+	ArrayList<DojangDTO> dojangHomeMember(String dojang_no);
+
+
 
 }
