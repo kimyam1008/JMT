@@ -25,8 +25,6 @@
             <tr>
                 <th>이미지</th>
                 <td><input type="file" name="photos" multiple="multiple"/></td>
-                <td><input type="file" name="photos" multiple="multiple"/></td>
-                <td><input type="file" name="photos" multiple="multiple"/></td>
             </tr>
         </table> 
 	        <input type="submit" value="리뷰 작성"/>
@@ -35,6 +33,22 @@
 </body>
 
 <script>
+
+
+	function fileUpload(){
+		$("form").submit();
+	}
+	
+	var path = "${path}";
+	
+	if(path != ""){
+		var content = '<a href="#" id="${path}" onclick="del(this)">';
+		content += '<img src="'+path+'" height="150"/>';
+		content += '</a>';
+		opener.document.getElementById("editable").innerHTML += content;		
+		self.close();
+	}
+
 	function back() {
 	  history.go(-1); 
 	 }

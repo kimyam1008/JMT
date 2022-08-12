@@ -9,14 +9,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="reviewUpdate.do" method="post">
+	<form action="reviewUpdate.do" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
+				<th>리뷰 수정</th>
+				<td>
+					<textarea name="comment_content">${comment.comment_content}</textarea>
+				</td>
 				<td>
         		<input type="hidden" name="idx" value="${comment.comment_no}" />
+        		<input type="hidden" name="restaurant_no" value="${comment.idx}" />
 			    </td>
-				<th>리뷰 수정</th>
-				<td><textarea name="comment_content">${comment.comment_content}</textarea> </td>
+				<td><input type="file" name="photos" multiple="multiple"/></td>
 			</tr>
 			<tr>
 				<th colspan="2">

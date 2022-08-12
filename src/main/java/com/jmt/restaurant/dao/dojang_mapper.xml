@@ -41,7 +41,7 @@
 	</select>
 	
 	
-	<select id="resDetail" resultType="res" parameterType="String" >
+	<select id="resDetail" resultType="res" parameterType="int" >
 		SELECT 
 			r.restaurant_no
 			, f.food_name
@@ -53,7 +53,7 @@
 		 WHERE restaurant_no = #{restaurant_no}
 	</select>
 	
-	<select id="lightninglist" resultType="res" parameterType="String" >
+	<select id="lightninglist" resultType="res" parameterType="int" >
 		select
 			l.lightning_title 
 		from 
@@ -97,7 +97,7 @@
 			c.idx = #{restaurant_no};
 	</select>
 	
-	<select id="resCommet" resultType="res" parameterType="hashmap" >	
+	<!-- <select id="resCommet" resultType="res" parameterType="hashmap" >	
 		select
 			c.comment_no
 			, c.comment_content 
@@ -113,14 +113,41 @@
 		where
 			c.idx = #{restaurant_no}
 		and c.comment_no = p.idx
+	</select> -->
+	
+	<select id="resCommet" resultType="res" parameterType="hashmap" >	
+		select c.comment_no
+			, c.comment_content 
+			, c.comment_date 
+			, c.comment_status 
+			, c.member_id
+			, (select count(like_no) from likes l where c.comment_no = l.comment_no) as likeNo
+			from comment c where idx=#{restaurant_no};
 	</select>
+	
+	<!-- <select id="resCommet" resultType="res" parameterType="hashmap" >	
+		select
+			c.comment_no
+			, c.comment_content 
+			, c.comment_date 
+			, c.comment_status 
+			, c.member_id 
+			, l.like_count 
+		from 
+			comment c
+		inner join likes l on 
+			c.member_id = l.member_id 
+		where
+			c.comment_no = #{restaurant_no}
+	</select>  -->
+	
 	
 	<update id="commentDel" parameterType="hashmap">
 		update comment set comment_status = "삭제" where comment_no = #{comment_no}		
 	</update>
 	
 	<select id="reviewUpdate" resultType="res" parameterType="hashmap" >	
-		select c2.comment_no , c2.comment_content from comment c2 where comment_no = #{comment_no}
+		select c2.comment_no , c2.comment_content, c2.idx from comment c2 where comment_no = #{comment_no}
 	</select>
 	
 	<select id="reviewPhoto" resultType="res" parameterType="hashmap" >	
@@ -131,10 +158,36 @@
 		DELETE FROM photo WHERE photo_no = #{photo_no}
 	</delete>
 	
+	<update id="reviewReLoad" parameterType="Hashmap">
+		UPDATE comment SET
+			comment_content = #{comment_content}
+		WHERE comment_no = #{idx}
+				
+	</update>
 	
+	<insert id="like">
+		insert into likes (member_id, comment_no, like_count)
+		values(#{loginId}, #{comment_no}, +1);
+	</insert>
 	
+	<select id="findLike" resultType="res" parameterType="hashmap">
+		select distinct (select count(like_no) from likes l where c.comment_no = l.comment_no) from likes l, comment c where c.comment_no = l.comment_no and idx = 319;
+	</select>
 	
+	<delete id="likeDel">
+		DELETE FROM likes WHERE comment_no = #{comment_no} AND member_id = #{loginId}
+	</delete>
 	
+	<select id="resUpdateList" resultType="res" parameterType="hashmap">
+		select 
+			restuarantUpdate_no
+			,restaurantUpdate_reason
+			,restaurant_no
+			,member_id
+			,restaurantUpdate_proc_status 
+			,restaurantUpdate_date 
+		from restaurantupdate r 
+	</select>
 	
 	
 	

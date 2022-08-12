@@ -45,6 +45,27 @@ public class RestaurantDTO {
 	private Date comment_date;
 	private String comment_status;
 	private int idx;
+	
+	
+	//좋아요
+	private int like_no;
+	private int like_count;
+	
+	
+	public int getLike_no() {
+		return like_no;
+	}
+	public void setLike_no(int like_no) {
+		this.like_no = like_no;
+	}
+	public int getLike_count() {
+		return like_count;
+	}
+	public void setLike_count(int like_count) {
+		this.like_count = like_count;
+	}
+	
+	
 		
 	public int getPhoto_no() {
 		return photo_no;
@@ -194,6 +215,18 @@ public class RestaurantDTO {
 	public void setFood_no(int food_no) {
 		this.food_no = food_no;
 	}
+	
+	private String likeNo;
+
+
+	public String getLikeNo() {
+		return likeNo;
+	}
+	public void setLikeNo(String likeNo) {
+		this.likeNo = likeNo;
+	}
+
+
 	
 	
 	
