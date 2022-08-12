@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jmt.moim.dao.CommentDAO">
+	
+	<insert id="lightWrite" parameterType="comment">
+	   insert into comment(member_id,comment_content,idx,class_no)
+	   values(#{member_id},#{comment_content},#{idx},2)
+  </insert>
+  
+  <select id="lightList"  resultType="comment">
+	    select comment_no,idx,comment_content,member_id,comment_date
+	    from comment where class_no=2 and idx=#{param1} and comment_status="공개"
+  </select>
+<!-- 
+  
+  <update id="modify" parameterType="CommentVO">
+	   update tbl_comment set content = #{content}, modd8 = sysdate
+	   where cno = #{cno}
+  </update>
+  
+  <delete id="remove">
+    	delete tbl_comment where cno = #{cno}
+  </delete>
+ -->
+
+</mapper>

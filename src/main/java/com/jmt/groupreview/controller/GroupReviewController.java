@@ -55,17 +55,29 @@ public class GroupReviewController {
 		//GroupReviewDTO joinGroup = service.joinGroup(loginId);
 		model.addAttribute("loginId", loginId);
 		//model.addAttribute("joinGroup", joinGroup);
+		ArrayList<GroupReviewDTO> groupList = service.groupList(loginId);
+		logger.info("list size : "+groupList.size());
+		model.addAttribute("groupList",groupList);
 		return "./GroupReview/grRegisterForm";
 	}
-	
+	/*
 	//모임 후기 작성 > 모임 검색 팝업
 	@RequestMapping(value = "/groupSearchPop.go")
-	public String groupSearchPop(){
+	public String groupSearchPopGo(){
 		return "./GroupReview/groupSearchPop";
 	}
 	
+	@RequestMapping(value = "/groupSearchPop.do")
+	public String groupSearchPop(Model model, HttpSession session){
+		String loginId = (String) session.getAttribute("loginId");
+		ArrayList<GroupReviewDTO> groupList = service.groupList(loginId);
+		logger.info("list size : "+groupList.size());
+		model.addAttribute("groupList",groupList);
+		return "./GroupReview/groupSearchPop";
+	}
+	*/
 	//모임 검색 팝업 ajax
-	
+	/*
 	@RequestMapping("/groupSearch.ajax")
 	@ResponseBody
 	public ArrayList<GroupReviewDTO> groupSearch(HttpSession session){
@@ -79,7 +91,7 @@ public class GroupReviewController {
 	@RequestMapping("/groupSearchEnd.ajax")
 	@ResponseBody
 	public int groupSearchEnd(String title, String idx
-	/* String dojang_title, int lightning_no, int dojang_no */) {
+	/* String dojang_title, int lightning_no, int dojang_no *) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		map.put("title", title);
@@ -91,24 +103,7 @@ public class GroupReviewController {
 		//map.put("dojang_no", dojang_no);
 		return service.groupSearchEnd(map);
 	}
-	
-	//가입한 번개 목록 가져오기
-	@RequestMapping(value = "/lightningCall")
-	public ModelAndView lightningCall(HttpSession session){
-		String loginId = (String) session.getAttribute("loginId");
-		//GroupReviewDTO dto = service.groupReviewDetail(groupReview_no,idx);
-		logger.info(loginId+" 가 가입한 번개 목록 요청");
-		return service.lightningCall(loginId);
-	}
-	
-	//가입한 도장깨기 목록 가져오기
-	@RequestMapping(value = "/dojangCall")
-	public ModelAndView dojangCall(HttpSession session){
-		String loginId = (String) session.getAttribute("loginId");
-		//GroupReviewDTO dto = service.groupReviewDetail(groupReview_no,idx);
-		logger.info(loginId+" 가 가입한 도장깨기 목록 요청");
-		return service.dojangCall(loginId);
-	}
+	*/
 	
 	//파일 업로드 팝업
 	@RequestMapping(value = "/grFileUploadForm.go")
@@ -142,13 +137,18 @@ public class GroupReviewController {
 	
 	//모임 후기 상세보기
 	@RequestMapping(value = "/groupReviewDetail.do")
-	public ModelAndView groupReviewDet(@RequestParam String groupReview_no,
-			HttpSession session){
+	public String groupReviewDet(@RequestParam String groupReview_no,
+			HttpSession session, Model model){
 		/*,@RequestParam String idx*/
+		logger.info("모임 후기 상세 페이지 요청");
 		String loginId = (String) session.getAttribute("loginId");
+		model.addAttribute("loginId", loginId);
 		//GroupReviewDTO dto = service.groupReviewDetail(groupReview_no,idx);
-		logger.info("모임 후기 상세 페이지 이동 요청");
-		return service.groupReviewDetail(groupReview_no);
+		GroupReviewDTO dto = service.groupReviewDetail(groupReview_no,loginId);
+		if (dto != null) {
+			model.addAttribute("dto", dto);
+		}
+		return "./GroupReview/groupReviewDetail";
 	}
 	
 	@RequestMapping(value = "/groupReviewDetail.go")
@@ -158,5 +158,31 @@ public class GroupReviewController {
 		return "./GroupReview/groupReviewDetail";
 	}
 	
-
+	//모임 상세보기 신고 팝업
+	@RequestMapping("/grReviewReport.go")
+	public String grReviewReportPopup(Model model,@RequestParam String groupReview_no) {
+		logger.info("번개 모임 신고 팝업 이동  : "+groupReview_no);
+		model.addAttribute("lightning_no", groupReview_no);
+		return"./Lightning/lightReport";	
+	}
+	
+	@RequestMapping("/grReviewReport.ajax")
+	@ResponseBody
+	public HashMap<String, Object> grReviewReport(@RequestParam HashMap<String, String> params, HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+		params.put("loginId", loginId);
+		
+		logger.info("모임후기글 신고  : "+ params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		boolean report = service.grReviewReport(params);
+		map.put("grReviewReport", report);
+		return map;	
+	}
+	
+	@RequestMapping(value = "/groupReviewUpdate.go")
+	public String groupReviewUpdateGo(@RequestParam String groupReview_no, Model model,HttpSession session){
+		logger.info("모임 후기 수정 페이지 이동 : "+groupReview_no);
+		session.setAttribute("groupReview_no", groupReview_no);
+		return "./GroupReview/groupReviewUpdate";
+	}
 }

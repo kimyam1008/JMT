@@ -78,17 +78,14 @@ public class GroupReviewService {
 		return map;
 	}
 
-	public ModelAndView groupReviewDetail(String groupReview_no) {
+	public GroupReviewDTO groupReviewDetail(String groupReview_no, String loginId) {
 		/*(String groupReview_no, String idx)*/
-		ModelAndView mav = new ModelAndView("./GroupReview/groupReviewDetail");
-		GroupReviewDTO dto = dao.groupReviewDetail(groupReview_no);
-		mav.addObject("dto", dto);
+		logger.info("상세보기 서비스 도착");
 		//ArrayList<GroupReviewDTO> grPhotoList = dao.grPhotoList(idx);
 		//mav.addObject("grPhotoList",grPhotoList);
-		return mav;
+		return dao.groupReviewDetail(groupReview_no,loginId);
 	}
-
-	
+	/*
 	public ArrayList<GroupReviewDTO> groupSearch(String loginId) {
 		//HashMap<String, Object> map = new HashMap<String, Object>();
 		//logger.info("받아온 셀렉트박스 값 : "+groupSortChange);
@@ -100,8 +97,7 @@ public class GroupReviewService {
 		//map.put("groupSearchList", groupSearchList);
 		return dao.groupSearchList(loginId);
 	}
-	
-	
+	*/
 	public ModelAndView fileUpload(MultipartFile file, HttpSession session) {
 		ModelAndView mav = new ModelAndView("./GroupReview/grFileUploadForm");
 		logger.info("파일 업로드 팝업 도착");
@@ -173,8 +169,10 @@ public class GroupReviewService {
 		//1. 글 저장 작업
 		GroupReviewDTO dto = new GroupReviewDTO();
 		dto.setReview_title(params.get("review_title"));
+		dto.setIdx(Integer.parseInt(params.get("idx")));
 		dto.setMember_id(params.get("member_id"));
 		dto.setReview_content(params.get("review_content"));
+		dto.setClass_no(Integer.parseInt(params.get("class_no")));
 		//dao.groupReviewRegister(dto,loginId);
 		dao.groupReviewRegister(dto);
 		
@@ -195,27 +193,25 @@ public class GroupReviewService {
 		
 		return new ModelAndView(page);
 	}
-
-	public ModelAndView lightningCall(String loginId) {
-		ModelAndView mav = new ModelAndView("./GroupReview/groupSearchPop");
-		ArrayList<GroupReviewDTO> dto = dao.lightningCall(loginId);
-		mav.addObject("dto", dto);
-		return mav;
-	}
-
-	public ModelAndView dojangCall(String loginId) {
-		ModelAndView mav = new ModelAndView("./GroupReview/groupSearchPop");
-		ArrayList<GroupReviewDTO> dto = dao.dojangCall(loginId);
-		mav.addObject("dto", dto);
-		return mav;
-	}
 	/*
-	public GroupReviewDTO joinGroup(String loginId) {
-		return dao.joinGroup(loginId);
-	}
-	*/
 	public int groupSearchEnd(HashMap<String, Object> map) {
 		return dao.groupSearchEnd(map);
+	}
+	*/
+	public ArrayList<GroupReviewDTO> groupList(String loginId) {
+		logger.info("모임선택 팝업 서비스 도착");
+		return dao.groupList(loginId);
+	}
+
+	public boolean grReviewReport(HashMap<String, String> params) {
+		logger.info("모임후기 신고하기 서비스 도착 : " + params);
+		
+		boolean success = false;
+		int row = dao.grReviewReport(params);
+		if(row>0) {
+			success = true;
+		}
+		return success;
 	}
 	
 	

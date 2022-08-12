@@ -126,6 +126,15 @@ public class DojangController {
 
 			return map;
 		}
+		
+		
+		
+		//도장깨기 방
+		@RequestMapping("/dojangHome.do")
+		public String dojangHome(@RequestParam String dojang_no, HttpSession session) {
+
+			return "./Dojang/dojangHome";
+		}
 	
 	
 	

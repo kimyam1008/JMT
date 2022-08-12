@@ -78,5 +78,10 @@ public class LightningService {
 		}
 		return success;
 	}
+
+	public void delete(String lightning_no) {
+		logger.info("번개 모임 게시글 삭제 서비스");
+		dao.delete(lightning_no);
+	}
 	
 }

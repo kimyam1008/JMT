@@ -34,32 +34,74 @@ th,td {
 	<table>
 		<thead>
 			<tr>
-				<th>선택</th>
+				<th></th>
 				<th>모임 분류</th>
 				<th>제목</th>
 				<th>방장 ID</th>
 			</tr>
 		</thead>
-		<tbody id="list">
-				<c:forEach items="${dto}" var="dto">
-				<tr>
-					<td><input type="radio" name="groupRadio"/></td>
-					<%-- <td id="${dto.groupNumber}">${dto.class_name}</td> --%>
-					<td id="${dto.class_name}">${dto.class_name}</td>
-					<td>
-						<%-- <input type="hidden" id="groupNumber" value="${dto.groupNumber}"/> --%>
-						<%-- <input type="radio" id="group_name" name="group_name" value="${dto.title}"/>${dto.title} --%>
-						${dto.title}
-					</td>
-					<td>${dto.leader_id}</td>
-				</tr>
+		<tbody id="groupList">
+				<c:forEach items="${groupList}" var="groupList">
+					<tr id="groupSearch">
+						<td><input type="radio" name="groupList" value="${groupList.dojang_no}"/></td>
+						<%-- <td id="${dto.groupNumber}">${dto.class_name}</td> --%>
+						<td id="class_name">${groupList.class_name}</td>
+						<td id="title">
+							<%-- <input type="hidden" id="groupNumber" value="${dto.groupNumber}"/> --%>
+							<%-- <input type="radio" id="group_name" name="group_name" value="${dto.title}"/>${dto.title} --%>
+							${groupList.title}
+						</td>
+						<td id="leader_id">${groupList.leader_id}</td>
+						<td id="groupNumber" class="hidden">${groupList.lightning_no}</td>
+						<td id="groupNumber" class="hidden">${groupList.dojang_no}</td>
+					</tr>
+					<tr id="groupSearch">
+						<td><input type="radio" name="groupList" value="${groupList.dojang_no}"/></td>
+						<td id="class_name">${groupList.class_name}</td>
+						<td id="title">${groupList.title}</td>
+						<td id="leader_id">${groupList.leader_id}</td>
+						<%-- <td id="groupNumber" class="hidden">${groupList.lightning_no}</td>
+						<td id="groupNumber" class="hidden">${groupList.dojang_no}</td> --%>
+					</tr>
 				</c:forEach>
 		</tbody>
 	</table><br/>
 	<button id="groupSearchEnd" onclick="groupSearchEnd()">확인</button>
+	<button onclick="window.close()">취소</button>
 	<!-- <button id="groupSearchEnd" onclick="groupSearchEnd()">확인</button> -->
 </body>
 <script>
+noHidden();
+
+function noHidden(){
+	$(".hidden").css("display", "none");
+}
+
+function groupSearchEnd(){
+	var groupArr = new Array();
+	console.log("그룹 리스트 호출 되나요?");
+	
+	if($('#groupList input[type="radio"]:checked').is(":checked") == false){
+		alert("모임을 선택해 주세요");
+	}
+	
+	$('#groupList input[type="radio"]:checked').each(function(idx){
+		console.log("선택됐나요?");
+		var groupChoice = $(this).val();
+		console.log(groupChoice);
+		
+		$tr = $("#groupSearch"+groupChoice);
+		console.log($tr.text());
+		
+		window.opener.document.getElementById("title").value = $tr.find('#title').text();
+		//window.opener.document.getElementById("groupNumber").value = $tr.find('#groupNumber').text();
+		window.opener.document.getElementById("lightning_no").value = $tr.find('#lightning_no').text();
+		window.opener.document.getElementById("dojang_no").value = $tr.find('#dojang_no').text();
+        window.close();
+		
+	});
+}
+
 //drawList(list);
 /*
  window.onload = function(event){
@@ -165,13 +207,13 @@ function drawList(list){
 
 //모임 선택 완료
 
-console.log($('input[type=radio]:checked').parents('td').next().next().text());
-console.log($('input[type=radio]:checked').parents('td').next().text());
-
+//console.log($('input[type=radio]:checked').parents('td').next().next().text());
+//console.log($('input[type=radio]:checked').parents('td').next().text());
+/*
 function groupSearchEnd() {
 	let title = $('input[type=radio]:checked').parents('td').next().next().text();
 	
-	/* if(groupSelect != ""){ */
+
 		let idx = $('input[type=radio]:checked').parents('td').next().html();
 		let idx = '${dto.groupNumber}';
 		
@@ -198,14 +240,13 @@ function groupSearchEnd() {
 		});
 		
 		//var content = '<input type="text" name="title" value="'+groupSelect+'" readonly/>';
-		/* content += groupSelect **/
 		//content += '<input type="hidden" id="groupNumber" value="'+idx+'/>';
 		//opener.document.getElementById("group_name").innerHTML += content;
 		window.opener.document.getElementById("group_name").value = title;
 		window.opener.document.getElementById("groupNumber").value = idx;
 		self.close();
-	/* } */
+
 	
-}
+}*/
 </script>
 </html>
