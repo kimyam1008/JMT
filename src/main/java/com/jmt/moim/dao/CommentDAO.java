@@ -10,4 +10,8 @@ public interface CommentDAO {
 
 	ArrayList<CommentDTO> cmtList(String class_no, String idx);
 
+	int cmtDel(String comment_no);
+
+	int cmtUpd(String comment_no, String comment_content);
+
 }
