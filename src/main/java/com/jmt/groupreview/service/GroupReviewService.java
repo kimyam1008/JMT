@@ -85,19 +85,7 @@ public class GroupReviewService {
 		//mav.addObject("grPhotoList",grPhotoList);
 		return dao.groupReviewDetail(groupReview_no,loginId);
 	}
-	/*
-	public ArrayList<GroupReviewDTO> groupSearch(String loginId) {
-		//HashMap<String, Object> map = new HashMap<String, Object>();
-		//logger.info("받아온 셀렉트박스 값 : "+groupSortChange);
-		
-		//HashMap<String, Object> groupSearchResult = new HashMap<String, Object>();		
-		//groupSearchResult.put("groupSortChange", groupSortChange);
-		
-		//ArrayList<GroupReviewDTO> groupSearchList = dao.groupSearchList(groupSortChange,loginId);
-		//map.put("groupSearchList", groupSearchList);
-		return dao.groupSearchList(loginId);
-	}
-	*/
+
 	public ModelAndView fileUpload(MultipartFile file, HttpSession session) {
 		ModelAndView mav = new ModelAndView("./GroupReview/grFileUploadForm");
 		logger.info("파일 업로드 팝업 도착");
@@ -184,25 +172,30 @@ public class GroupReviewService {
 			page = "redirect:/groupReviewDetail.do?groupReview_no="+groupReview_no;
 			//3.class_no로 파일 DB에 저장
 			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
-			for (String newFileName : fileList.keySet()) {
-				dao.grFileWrite(newFileName, fileList.get(newFileName), class_no, idx);
+			if (fileList != null) { //사진이 있을 경우 아래 코드 실행
+				
+				for (String newFileName : fileList.keySet()) {
+					dao.grFileWrite(newFileName, fileList.get(newFileName), class_no, idx);
+				}
+				//4. session 에서 fileList 삭제
+				session.removeAttribute("fileList");
+				
 			}
 		}
-		//4. session 에서 fileList 삭제
-		session.removeAttribute("fileList");
 		
 		return new ModelAndView(page);
 	}
-	/*
-	public int groupSearchEnd(HashMap<String, Object> map) {
-		return dao.groupSearchEnd(map);
-	}
-	*/
+
 	public ArrayList<GroupReviewDTO> groupList(String loginId) {
-		logger.info("모임선택 팝업 서비스 도착");
+		logger.info("도장리스트 호출 서비스 도착");
 		return dao.groupList(loginId);
 	}
 
+	public ArrayList<GroupReviewDTO> lightGroupList(String loginId) {
+		logger.info("번개리스트 호출 서비스 도착");
+		return dao.lightGroupList(loginId);
+	}
+	
 	public boolean grReviewReport(HashMap<String, String> params) {
 		logger.info("모임후기 신고하기 서비스 도착 : " + params);
 		
@@ -218,6 +211,13 @@ public class GroupReviewService {
 		logger.info("삭제(숨김) 서비스 도착");
 		int row = dao.groupReviewDelete(params);
 	}
+
+	public ModelAndView groupReviewUpdate(HashMap<String, String> params, HttpSession session, String loginId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 	
 	
 }

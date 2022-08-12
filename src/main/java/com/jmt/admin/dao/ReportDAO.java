@@ -1,7 +1,6 @@
 package com.jmt.admin.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import com.jmt.admin.dto.ReportDTO;
@@ -38,7 +37,7 @@ public interface ReportDAO {
 
 	String updateCheck(int report_no);
 
-	void insertBlind(Map<String, Object> data);
+	int insertBlind(Map<String, Object> data);
 
 	int blindCount(Map<String, Object> data);
 
@@ -55,6 +54,20 @@ public interface ReportDAO {
 	int reportUpdate4(Map<String, Object> data);
 
 	int reportUpdate6(Map<String, Object> data);
+
+	void changeStatus(Map<String, Object> data);
+
+	/* ArrayList<ReportDTO> blindHistory(Map<String, Object> data); */
+
+	ArrayList<ReportDTO> blindHistory1(int idx);
+
+	ArrayList<ReportDTO> blindHistory2(int idx);
+
+	ArrayList<ReportDTO> blindHistory3(int idx);
+
+	ArrayList<ReportDTO> blindHistory4(int idx);
+
+	ArrayList<ReportDTO> blindHistory6(int idx);
 
 
 

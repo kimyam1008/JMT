@@ -134,8 +134,8 @@ function listCall(page){
 		},
 		dataType:'JSON',
 		success:function(data){
-				drawList(data.dojangHome);
-				console.log("데이터",data.dojangHome);
+				drawList(data.dojangHomeM);
+				console.log("데이터",data.dojangHomeM);
 				$('#leader').html(data.dojangHomeLeader);
 				drawMember(data.dojangHomeMember);
 		},
@@ -165,7 +165,7 @@ function drawMember(member){
 
 function drawList(list){
 	var content = '';
-	content += '<h1>'+"전체 게시판"+'</h1>';
+	content += '<h1>'+"일반 게시판"+'</h1>';
 	list.forEach(function(item){
 		var date = new Date(item.dojangPost_date);
 		var create = date.toLocaleDateString("ko-KR");
