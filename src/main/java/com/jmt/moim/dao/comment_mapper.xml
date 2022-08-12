@@ -17,6 +17,11 @@
 			 ,(select grade_name from profile p join grade using(grade_no) where p.member_id = c.member_id) as grade_name
 	   	 FROM comment c WHERE class_no=#{param1} and idx=#{param2} and comment_status="공개"
   </select>
+  
+  
+  <update id="cmtDel" parameterType="String">
+    	update comment set comment_status = "삭제" where comment_no = #{comment_no}
+  </update>
 <!-- 
    SELECT comment_no,idx,comment_content,member_id,comment_date
 	   	 FROM comment WHERE class_no=#{param1} and idx=#{param2} and comment_status="공개"
@@ -27,9 +32,6 @@
 	   where cno = #{cno}
   </update>
   
-  <delete id="remove">
-    	delete tbl_comment where cno = #{cno}
-  </delete>
  -->
 
 </mapper>

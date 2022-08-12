@@ -330,6 +330,7 @@
 			success : function(data){
 				if(data.writeSuccess){
 					cmtList(class_no,lightning_no);
+					$("#cmtInput").val("");
 				}
 			},
 			error : function(e){
@@ -378,7 +379,7 @@
 				content += '<div class="member_id">'+item.member_id+'</div>';
 				content += '<div class="utility">';
 				content += '<button class="update">수정</button>';
-				content += '<button class="delete">삭제</button>';
+				content += '<button class="delBtn" onclick="cmtDel('+item.comment_no+')">삭제</button>';
 				content += '</div>';
 				content += '</header>';
 				content += '<p>'+item.comment_content+'</p>';
@@ -400,6 +401,31 @@
 		$('#cmtList').append(content); 	
 	}
 	
-	
+	/*
+	$(document).on("click",".delBtn", function(){ 
+		  let cno = $(this).data("cno");
+		  removeComment(cno,cmt_pno);
+		});
+	*/
+	function cmtDel(cno){
+		
+		$.ajax({
+			url:"comment/cmtDel",
+			type:'post',
+			data : {
+				'comment_no' : cno
+			},
+			dataType:'json',
+			success : function(data){
+				console.log(data.delSuccess);
+				if(data.delSuccess){
+					cmtList(class_no,lightning_no);
+				}
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
+	}
 </script>
 </html>

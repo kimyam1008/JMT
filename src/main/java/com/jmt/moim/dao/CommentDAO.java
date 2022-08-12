@@ -10,4 +10,6 @@ public interface CommentDAO {
 
 	ArrayList<CommentDTO> cmtList(String class_no, String idx);
 
+	int cmtDel(String comment_no);
+
 }

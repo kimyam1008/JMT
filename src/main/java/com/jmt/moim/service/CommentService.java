@@ -19,6 +19,7 @@ public class CommentService {
 	@Autowired CommentDAO dao;
 
 	public boolean cmtWrite(CommentDTO dto) {
+		logger.info("댓글 작성 서비스");
 		boolean success = false;
 		int row = dao.cmtWrite(dto);
 		if(row>0) {
@@ -30,5 +31,15 @@ public class CommentService {
 	public ArrayList<CommentDTO> cmtList(String class_no, String idx) {
 		logger.info("번개 모임 댓글 리스트");
 		return dao.cmtList(class_no,idx);
+	}
+
+	public boolean cmtDel(String comment_no) {
+		logger.info("댓글 삭제 서비스");
+		boolean success = false;
+		int row = dao.cmtDel(comment_no);
+		if(row>0) {
+			success = true;
+		}
+		return success;
 	}
 }
