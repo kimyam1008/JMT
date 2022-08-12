@@ -11,7 +11,7 @@ import com.jmt.restaurant.dto.RestaurantDTO;
 public interface RestaurantDAO {
 
 
-	RestaurantDTO resDetail(String restaurant_no);
+	RestaurantDTO resDetail(int restaurant_no);
 	
 	ArrayList<RestaurantDTO> foodname();
 
@@ -25,23 +25,35 @@ public interface RestaurantDAO {
 
 	void reviewFileWrite(String oriFileName, String newFileName, int idx, int class_no);
 
-	ArrayList<RestaurantDTO> photoList(String restaurant_no);
+	ArrayList<RestaurantDTO> photoList(int restaurant_no);
 
-	ArrayList<RestaurantDTO> resCommet(String restaurant_no);
+	ArrayList<RestaurantDTO> resCommet(int restaurant_no);
 
-	ArrayList<RestaurantDTO> lightninglist(String restaurant_no);
+	ArrayList<RestaurantDTO> lightninglist(int restaurant_no);
 
+	HashMap<String, String> commentDel(HashMap<String, String> params);
 
+	ArrayList<RestaurantDTO> photoDel(HashMap<String, String> params);
 
+	RestaurantDTO reviewUpdate(String comment_no);
 
+	ArrayList<RestaurantDTO> reviewPhoto(String comment_no);
 
+	HashMap<String, String> reviewDel(HashMap<String, String> params);
 
+	int reviewReLoad(RestaurantDTO dto);
 
-	//ArrayList<RestaurantDTO> photoList();
+	HashMap<String, String> like(HashMap<String, String> params);
 
+	HashMap<String, String> findLike(HashMap<String, String> params);
+
+	HashMap<String, String> likeDel(HashMap<String, String> params);
+
+	ArrayList<RestaurantDTO> resUpdateList(HashMap<String, Object> searchResult);
 
 
 	
 
+	
 
 }

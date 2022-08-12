@@ -8,7 +8,10 @@
 <style></style>
 <title>Insert title here</title>
 </head>
+
+
 <body>
+<input type="hidden" id="loginId" value="${sessionScope.loginId}"/>
 	<form action="restaurantWrite" method="post">
 		<table>		
 			<tr>
@@ -17,7 +20,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td><input type="hidden" name="member_id"/></td>
+				<td><input type="hidden" name="member_id" value="${sessionScope.loginId}"/></td>
 			</tr>
 			<tr>
 				<th>내용</th>
@@ -27,23 +30,30 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<button type="button" onclick="save()">취소</button>
-					<button type="button" onclick="save()">수정요청</button>
+					<button type="button" onclick="cancellation()">취소</button>
+					<button type="button" onclick="save()">요청</button>
 				</td>
 			</tr>
 		</table>
 	</form>
 </body>
 <script>
-
+	console.log($('#loginId').val());
 
 	function save(){
 		/* $('#content a').removeAttr('onclick');
 		$('#content').val($('#editable').html()); */
 		$('form').submit();
-		//self.close();
+		self.close();
 	}
 	
+	function cancellation(){
+		self.close();
+	}
+	
+	function back() {
+		  history.go(-1); 
+		 }
 	
 	
 </script>
