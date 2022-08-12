@@ -42,4 +42,14 @@ public class CommentService {
 		}
 		return success;
 	}
+
+	public boolean cmtUpd(String comment_no, String comment_content) {
+		logger.info("댓글 수정 서비스");
+		boolean success = false;
+		int row = dao.cmtUpd(comment_no,comment_content);
+		if(row>0) {
+			success = true;
+		}
+		return success;
+	}
 }

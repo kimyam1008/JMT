@@ -136,6 +136,12 @@
 	  color: #333;
 	}
  	
+ 	/*수정*/
+ 	textarea #upt{
+ 		width : 380px;
+ 		height : 40px;
+ 	}
+ 	
 </style>
 </head>
 
@@ -392,8 +398,8 @@
 				content += '<div class="member_id">'+item.member_id+'</div>';
 				content += '<div class="grade_name g'+item.grade_no+'">'+item.grade_name+'</div>';
 				content += '<div class="utility">';
-				content += '<button class="updBtn" onclick="updBtn('+item.comment_no+   ","     +  "\'" +  item.comment_content   +"\'"  + ')">수정</button>';
-				content += '<button class="delBtn" onclick="cmtDel('+item.comment_no+')">삭제</button>';
+				content += '<button id="updBtn'+item.comment_no+'" onclick="updBtn('+item.comment_no+   ","     +  "\'" +  item.comment_content   +"\'"  + ')">수정</button>';
+				content += '<button id="delBtn'+item.comment_no+'" onclick="cmtDel('+item.comment_no+')">삭제</button>';
 				content += '</div>';
 				content += '</header>';
 				content += '<p id="p'+item.comment_no+'">'+item.comment_content+'</p>';
@@ -442,52 +448,44 @@
 	function updBtn(cno,content){
 		//console.log("수정하고싶다");
 		console.log(cno,content);
+		//수정 버튼 누른 댓글의 태그 변경 
+		$('#p'+cno).replaceWith('<textarea id="updtextarea">'+content+'</textarea>');
+		//$('#updBtn'+cno).prop("onclick","updCmt("+cno+")");
+		$('#updBtn'+cno).attr("onclick","updCmt("+cno+")");
 		
-		var updcontent = "";
+	}
+	
+	
+	
+	
+	//수정하기 요청 
+	function updCmt(cno){
+		console.log("수정하기!!!!!" + cno);
+		var updcontent = $("#updtextarea").val();
+		console.log("바뀐 내용" + updcontent);
 		
-		/*updcontent += '<div class ="ucomments c'+cno+'">';
-		updcontent += '<div id ="ucomments"'+cno+'>';
-		updcontent += '<div class ="ucomment">';
-		updcontent += '<div class ="ucontent">';
-		updcontent += '<header class="utop">';
-		updcontent += '<div class="uutility">';
-		updcontent += '<button class="updBtn" onclick="cmtUpd('+cno+','+content+')">수정하기</button>';
-		updcontent += '<button class="delBtn" onclick="cmtDel('+cno+')">취소</button>';
-		updcontent += '</div>';
-		updcontent += '</header>';
-		updcontent += '<textarea id="updcontent">';
-		updcontent += content;
-		updcontent += '</textarea>';
-		updcontent += '</div>';
-		updcontent += '</div>';
-		updcontent += '</div>';
-		*/ 
 		
-		//$('#cmtList').empty();
-		$('#p'+cno).replaceWith('<textarea>'+content+'</textarea>');
-		//$("#ucomments").replaceWith(updcontent);
-		//$("div .ucomments .c"+cno).replaceWith(updcontent);
-		/*
-		$("div .comments .c"+cno).empty();
-		$("div .comments .c"+cno).append(updcontent);
 		$.ajax({
 			url:"comment/cmtUpd",
 			type:'post',
 			data : {
 				'comment_no' : cno,
-				'comment_content' : content
+				'comment_content' : updcontent
 			},
 			dataType:'json',
 			success : function(data){
 				console.log(data);
+				if(data.updSuccess){
+					cmtList(class_no,lightning_no);
+				}
 				
 			},
 			error : function(e){
 				console.log(e);
 			}
 		});
-		*/
+		
+		
 	}
-	
 </script>
 </html>

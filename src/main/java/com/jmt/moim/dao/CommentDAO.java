@@ -12,4 +12,6 @@ public interface CommentDAO {
 
 	int cmtDel(String comment_no);
 
+	int cmtUpd(String comment_no, String comment_content);
+
 }

@@ -22,16 +22,10 @@
   <update id="cmtDel" parameterType="String">
     	update comment set comment_status = "삭제" where comment_no = #{comment_no}
   </update>
-<!-- 
-   SELECT comment_no,idx,comment_content,member_id,comment_date
-	   	 FROM comment WHERE class_no=#{param1} and idx=#{param2} and comment_status="공개"
-	   	 
-	   	 
-  <update id="modify" parameterType="CommentVO">
-	   update tbl_comment set content = #{content}, modd8 = sysdate
-	   where cno = #{cno}
+
+  <update id="cmtUpd">
+	   UPDATE comment SET comment_content = #{param2} WHERE comment_no = #{param1}
   </update>
   
- -->
 
 </mapper>

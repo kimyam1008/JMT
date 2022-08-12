@@ -63,4 +63,20 @@ public class CommentController {
 		return map; 
 	}
 	
+	
+	//댓글 수정  
+	//필요한 파라미터 : 내용 ,댓글 코드 
+	@RequestMapping(value="/cmtUpd")
+	public HashMap<String, Object> update(@RequestParam String comment_no,@RequestParam String comment_content) {
+		logger.info("댓글 수정 : " +comment_no + comment_content);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+			
+		boolean updSuccess = service.cmtUpd(comment_no,comment_content);
+		logger.info("수정 여부 : " + updSuccess);
+		map.put("updSuccess", updSuccess);
+		return map; 
+	}
+	
+	
+	
 }
