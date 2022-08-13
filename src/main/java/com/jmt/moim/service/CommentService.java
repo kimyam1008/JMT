@@ -29,7 +29,7 @@ public class CommentService {
 	}
 
 	public ArrayList<CommentDTO> cmtList(String class_no, String idx) {
-		logger.info("번개 모임 댓글 리스트");
+		logger.info("댓글 리스트 서비스");
 		return dao.cmtList(class_no,idx);
 	}
 

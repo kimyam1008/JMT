@@ -46,7 +46,7 @@
 </head>
 <body>
 	<h3>모임 후기 작성</h3>
-	<form action="groupReviewUpdate" method="POST">
+	<form action="groupReviewUpdate.do" method="POST">
 		<table>
 			<tr>
 				<th>나의 모임</th>

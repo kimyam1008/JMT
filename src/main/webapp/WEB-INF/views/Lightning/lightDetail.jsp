@@ -191,60 +191,21 @@
 			</th>
 		</tr>
 	</table>
-	<!--  댓글 영역
-		  <div class="input-group mt-3">
-		    	<input type="text" id="cmtInput" class="form-control" placeholder="댓글">
-		    <div class="input-group-append">
-				<button class="btn btn-primary" type="button" id="cmtWrite">OK</button> 
-				<button class="btn btn-danger" type="button" id="cmtResetBtn">Cancel</button>
-		    </div>	
-		  </div>
-	-->
+
+<!------- 댓글 영역 ---------->
 	<div class="comment-form">
   		<textarea  id="cmtInput" placeholder="댓글을 작성하세요."></textarea>
   		<button type="button" class="submit" id="cmtWrite">댓글 쓰기</button>
 	</div>
 	<div id="cmtList">
 	</div>
-	<!-- 댓글리스트
-	<div id="cmtList">
-	  <ul>
-	    <li>작성자</li>
-	    <li>댓글내용</li>
-	    <li>작성날짜</li>
-	    <li>기능</li>
-	  </ul>
-	<div class="comments">
-	  <div class="comment">
-	    <div class="content">
-	      <header class="top">
-	        <div class="member_id">우연히 들어온 사람</div>
-	        <div class="utility">
-	          <button class="update">수정</button>
-	          <button class="delete">삭제</button>
-	        </div>
-	      </header>
-	      <p>content</p>
-	      <ul class="bottom">
-	        <li class="menu comment_date">날짜</li>
-	         <li class="divider"></li>
-        	<li class="menu report">신고하기</li>
-	      </ul>
-	    </div>
-	  </div>
-</div>
-	</div>-->
-	
-	
 
-
-	
 </body>
 <script>
-	//상세보기 눌렀을 때 댓글리스트 보여주기 
+	/*상세보기 들어왔을 때 댓글리스트 보여주기 */
 	var lightning_no =  ${dto.lightning_no};
 	var class_no = 2;
-	cmtList(class_no,lightning_no);
+	//cmtList(class_no,lightning_no); 방장이랑 승인된 사람만 
 
 	
 	var msg = "${msg}";
@@ -265,14 +226,18 @@
 		$("a").css("display","inline");
 		$("#button").text("삭제");
 		$("#button").attr("onclick","chkDel()");
-	}else{
+		cmtList(class_no,lightning_no);
+	}else if(leader_id != loginId && status !="승인"){
 		$("a").css("display","none");
+		$(".comment-form").css("display","none");
 	}
 	
 	
 	if(status=="승인"){
 		$("#application").text("탈퇴");
 		$("#application").attr("onclick","dropout()");
+		$(".comment-form").css("display","flex");
+		cmtList(class_no,lightning_no);	
 	}
 	
 	
@@ -331,7 +296,8 @@
 	
 	//로그인 아이디 위에 변수 설정 되어있음 loginId 
 	//var lightning_no , var class_no 위에 변수 설정 
-	//댓글 작성 시 : 작성하기 버튼 누를 시 
+	
+	//댓글 작성 시
 	$("#cmtWrite").on("click",function(){
 	console.log(loginId, lightning_no);
 	  var comment_content = $("#cmtInput").val();
@@ -381,17 +347,19 @@
 		});
 	}
 	
-	
+
 	function drawCmt(list){
 		console.log(list);
 		var content = "";
 		//데이터가 있는 경우
 		if(list.length>0){					
 			list.forEach(function(item,idx){
-				//console.log(item);
-				console.log(loginId);
-				var date = new Date(item.comment_date);
+				var date = new Date(item.comment_date);	
 				
+				//댓글 작성 시 엔터누르면 댓글 줄바꿈 되며, 수정버튼 오류 처리 
+				var str = item.comment_content;
+				str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+			
 				content += '<div class ="comments c'+item.comment_no+'">';
 				content += '<div class ="comment">';
 				content += '<div class ="content">';
@@ -399,11 +367,11 @@
 				content += '<div class="member_id">'+item.member_id+'</div>';
 				content += '<div class="grade_name g'+item.grade_no+'">'+item.grade_name+'</div>';
 				content += '<div class="utility">';
-				content += '<button id="updBtn'+item.comment_no+'" onclick="updBtn('+item.comment_no+   ","     +  "\'" +  item.comment_content   +"\'"  + ')">수정</button>';
+				content += '<button id="updBtn'+item.comment_no+'" onclick="updBtn('+item.comment_no+   ","     +  "\'" +  str   +"\'"  + ')">수정</button>';
 				content += '<button id="delBtn'+item.comment_no+'" onclick="cmtDel('+item.comment_no+')">삭제</button>';
 				content += '</div>';
 				content += '</header>';
-				content += '<p id="p'+item.comment_no+'">'+item.comment_content+'</p>';
+				content += '<p id="p'+item.comment_no+'">'+str+'</p>';
 				content += '<ul class="bottom">';
 				content += '<li class="menu comment_date">'+date.toLocaleDateString("ko-KR")+'</li>';
 				content += '<li class="divider"></li>';
@@ -412,11 +380,15 @@
 				content += '</div>';
 				content += '</div>';
 				content += '</div>';
-				
+					
 			});	
+		}else{
+			content += '<div class ="comment">';
+			content = "작성된 댓글이 없습니다.";
+			content += '</div>';
+		}
 		$('#cmtList').empty();
 		$('#cmtList').append(content); 	
-		}
 	}	
 	
 
@@ -445,18 +417,14 @@
 	
 	
 	
-	
-	
-	
 	//수정버튼 눌렀을 때 
 	function updBtn(cno,content){
 		//console.log("수정하고싶다");
 		console.log(cno,content);
+		var updcontent = content.split('<br/>').join("\r\n");
 		//수정 버튼 누른 댓글의 태그 변경 
-		$('#p'+cno).replaceWith('<textarea id="updtextarea">'+content+'</textarea>');
-		//$('#updBtn'+cno).prop("onclick","updCmt("+cno+")");
-		$('#updBtn'+cno).attr("onclick","updCmt("+cno+")");
-		
+		$('#p'+cno).replaceWith('<textarea id="updtextarea">'+updcontent+'</textarea>');
+		$('#updBtn'+cno).attr('onclick','updCmt('+cno+')');
 	}
 	
 	
