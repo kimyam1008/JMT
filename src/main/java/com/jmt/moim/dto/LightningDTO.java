@@ -38,10 +38,20 @@ public class LightningDTO {
 	private String profile_job;
 	
 	
+	//comment
+	private int comment_no;
 	
 	
 	
 	
+	
+	
+	public int getComment_no() {
+		return comment_no;
+	}
+	public void setComment_no(int comment_no) {
+		this.comment_no = comment_no;
+	}
 	public String getProfile_gender() {
 		return profile_gender;
 	}

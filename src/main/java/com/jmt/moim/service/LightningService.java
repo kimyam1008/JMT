@@ -98,4 +98,11 @@ public class LightningService {
 	}
 
 	
+	public void cmtDel(String lightning_no) {
+		logger.info("번개 모임 게시글 삭제시 댓글 삭제 서비스 ");
+		dao.cmtDel(lightning_no);
+		
+	}
+
+	
 }

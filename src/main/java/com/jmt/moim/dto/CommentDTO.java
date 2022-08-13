@@ -17,6 +17,7 @@ public class CommentDTO {
 
 	//사진& 등급 
 	private int photo_no;
+	private String photo_newFileName;
 	private int grade_no;
 	private String grade_name;
 	
@@ -25,6 +26,12 @@ public class CommentDTO {
 	
 	
 	
+	public String getPhoto_newFileName() {
+		return photo_newFileName;
+	}
+	public void setPhoto_newFileName(String photo_newFileName) {
+		this.photo_newFileName = photo_newFileName;
+	}
 	
 	public int getGrade_no() {
 		return grade_no;

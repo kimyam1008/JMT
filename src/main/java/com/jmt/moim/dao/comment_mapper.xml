@@ -12,7 +12,7 @@
   <select id="cmtList"  resultType="comment">
 	     SELECT 
 	     	comment_no,idx,comment_content,member_id,comment_date
-			 ,(select photo_no from photo p where p.class_no=9 and p.idx = (select profile_no from profile f where f.member_id =c.member_id)) as photo_no
+			 ,(select photo_newFileName from photo p where p.class_no=9 and p.idx = (select profile_no from profile f where f.member_id =c.member_id)) as photo_newFileName
 			 ,(select grade_no from profile p join grade using(grade_no) where p.member_id = c.member_id) as grade_no
 			 ,(select grade_name from profile p join grade using(grade_no) where p.member_id = c.member_id) as grade_name
 	   	 FROM comment c WHERE class_no=#{param1} and idx=#{param2} and comment_status="공개"
@@ -20,12 +20,13 @@
   
   
   <update id="cmtDel" parameterType="String">
-    	update comment set comment_status = "삭제" where comment_no = #{comment_no}
+    	UPDATE comment SET comment_status = "삭제" WHERE comment_no = #{comment_no}
   </update>
 
   <update id="cmtUpd">
 	   UPDATE comment SET comment_content = #{param2} WHERE comment_no = #{param1}
   </update>
+  
   
 
 </mapper>

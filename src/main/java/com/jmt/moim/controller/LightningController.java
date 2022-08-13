@@ -187,6 +187,10 @@ public class LightningController {
 	public String lightDelete(Model model,@RequestParam String lightning_no) {
 		logger.info("번개 모임 게시글 삭제   : "+lightning_no);
 		service.delete(lightning_no);
+		
+		//글 삭제시 댓글도 삭제 처리 
+		service.cmtDel(lightning_no);
+		
 		return "redirect:/lightList.go";	
 	}
 	

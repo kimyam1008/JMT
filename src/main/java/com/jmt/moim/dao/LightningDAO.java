@@ -29,4 +29,6 @@ public interface LightningDAO {
 
 	int cmtReport(HashMap<String, String> params);
 
+	void cmtDel(String lightning_no);
+
 }

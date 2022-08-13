@@ -145,5 +145,10 @@
 		UPDATE lightninglist SET lightning_status = "삭제" WHERE lightning_no = #{lightning_no}
 	</update>
 	
+	<update id="cmtDel" parameterType="String">
+		UPDATE comment SET comment_status = "삭제" 
+			WHERE comment_no IN (SELECT comment_no FROM comment WHERE class_no =2 AND idx=#{lightning_no} AND comment_status ="공개")
+	</update>
+	
 	
 </mapper>
