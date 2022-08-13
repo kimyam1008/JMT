@@ -46,7 +46,8 @@
 </head>
 <body>
 	<h3>모임 후기 작성</h3>
-	<form action="groupReviewUpdate.do" method="POST">
+	<form action="groupReviewUpdate" method="POST">
+	<input type="hidden" id="groupReview_no" name="groupReview_no" value="${dto.groupReview_no}"/>
 		<table>
 			<tr>
 				<th>나의 모임</th>
@@ -97,7 +98,7 @@
 				<th>내용</th>
 				<td id="reviewContents">
 					<!-- html 태그를 인식하기 위해 div 사용(type="text"나 textarea는 html을 그냥 글자취급) -->
-					<div id="editable" contenteditable="true" value="${dto.review_content}">${dto.review_content}</div>
+					<div id="editable" contenteditable="true">${dto.review_content}</div>
 					<!-- 하지만 div 는 서버에 값을 전송할 수가 없다. -->
 					<!-- 결국엔 div의 내용을 input에 담아 서버에 전송할 예정 -->
 					<input type="hidden" name="review_content" id="review_content"/>
@@ -119,15 +120,6 @@
 	
 </body>
 <script>
-
-//모임 검색 팝업
-/* function groupSearchPop(){
-	window.open("/groupSearchPop.go","new","width=500, height=400, left=400 ,top=200, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
-} */
-var radioChk = $('input[type="radio"]').val();
-var groupNum = "${dto.group_no}";
-
-
 
 //글 업로드
 function save(){

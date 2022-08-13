@@ -198,6 +198,18 @@ public class DojangService {
 		return dao.dojangHomeDetail(dojangPost_no);
 	}
 
+	public int allCountHome(HashMap<String, String> params) {
+		return dao.allCountHome(params);
+	}
+
+	public int allCountHomeL(HashMap<String, String> params) {
+		return dao.allCountHomeL(params);
+	}
+
+	public int allCountHomeM(HashMap<String, String> params) {
+		return dao.allCountHomeM(params);
+	}
+
 	
 
 	

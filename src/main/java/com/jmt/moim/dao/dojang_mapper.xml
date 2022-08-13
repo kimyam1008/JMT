@@ -133,25 +133,38 @@
 			,3,#{dojang_no},#{reporter},#{reported})
 	</insert>
 	
+	
 	<select id="dojangHome" resultType="dojang" parameterType="hashmap">
 		SELECT dojang_no,dojangPost_subject,dojangPost_content,member_id,dojangPost_date,dojangPost_no
-			FROM dojangpost where dojang_no = #{dojang_no} ORDER BY dojangPost_no DESC
-	</select>
-	
-	<select id="dojangHomeMember" resultType="dojang">
-		SELECT member_id FROM apply WHERE class_no = 3 AND status = '승인' AND idx = #{param1};
+			FROM dojangpost where dojang_no = #{dojang_no} ORDER BY dojangPost_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
 	<select id="dojangHomeL" resultType="dojang" parameterType="hashmap">
 		SELECT dojang_no,dojangPost_subject,dojangPost_content,member_id,dojangPost_date,dojangPost_no
 			FROM dojangpost where dojang_no = #{dojang_no} AND dojangPost_type ="공지게시판"
-			ORDER BY dojangPost_no DESC
+			ORDER BY dojangPost_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
 	<select id="dojangHomeM" resultType="dojang" parameterType="hashmap">
 		SELECT dojang_no,dojangPost_subject,dojangPost_content,member_id,dojangPost_date,dojangPost_no
 			FROM dojangpost where dojang_no = #{dojang_no} AND dojangPost_type ="일반게시판"
-			ORDER BY dojangPost_no DESC
+			ORDER BY dojangPost_no DESC limit #{cnt} OFFSET #{offset}
+	</select>
+	
+	<select id="allCountHome" resultType="int" parameterType="hashmap">
+		SELECT count(dojangPost_no) FROM dojangpost where dojang_no = #{dojang_no}
+	</select>
+	
+	<select id="allCountHomeL" resultType="int" parameterType="hashmap">
+		SELECT count(dojangPost_no) FROM dojangpost where dojang_no = #{dojang_no} AND dojangPost_type ="공지게시판"
+	</select>
+	
+	<select id="allCountHomeM" resultType="int" parameterType="hashmap">
+		SELECT count(dojangPost_no) FROM dojangpost where dojang_no = #{dojang_no} AND dojangPost_type ="일반게시판"
+	</select>
+	
+	<select id="dojangHomeMember" resultType="dojang">
+		SELECT member_id FROM apply WHERE class_no = 3 AND status = '승인' AND idx = #{param1};
 	</select>
 	
 	<select id="dojangHomeDetail" resultType="dojang">
