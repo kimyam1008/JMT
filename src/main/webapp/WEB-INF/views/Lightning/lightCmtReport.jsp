@@ -27,7 +27,6 @@
 			</tr>
 			<tr>
 				<td><input type="radio" name ="report_reason" value="광고 및 홍보"/>광고 및 홍보</td>
-			
 			</tr>
 			<tr>
 				<td><input type="radio" name ="report_reason" value="부적절한 컨텐츠"/>부적절한 컨텐츠</td>

@@ -201,7 +201,7 @@ public class LightningController {
 	}
 	
 	
-	//번개모임 신고 팝업
+	//번개모임 댓글 신고 팝업
 	@RequestMapping("/lightCmtReport.ajax")
 	@ResponseBody
 	public HashMap<String, Object> lightCmtReport(@RequestParam HashMap<String, String> params, HttpSession session) {
