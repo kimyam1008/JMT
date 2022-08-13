@@ -150,29 +150,167 @@ public class DojangController {
 			return "./Dojang/dojangHomeM";
 		}		
 		
-		//도장깨기 ajax
+		//도장깨기 전체 ajax
 		@RequestMapping("/dojangHome.ajax")
 		@ResponseBody
-		public HashMap<String, Object> dojangHome(HashMap<String, String> params, HttpSession session) {
+		public HashMap<String, Object> dojangHome(@RequestParam HashMap<String, String> params, HttpSession session) {
 			String dojang_no = (String) session.getAttribute("dojang_no");
+			int cnt = Integer.parseInt(params.get("cnt")); //현재 페이지에 리스트 갯수
+			int page = Integer.parseInt(params.get("page"));
+			
+			logger.info("보여줄 페이지 :" + page);
+			
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			
-			String postType = params.get("postType");
-			
+		
 			HashMap<String, Object> post = new HashMap<String, Object>();
 			
-			post.put("postType", postType);
 			post.put("dojang_no", dojang_no);
 			logger.info("도장번호 없나"+dojang_no);
 			
+			int allCnt = service.allCountHome(params);
+			logger.info("allCnt : " + allCnt);
+			
+			int pages = allCnt % cnt > 0 ? (allCnt / cnt)+1 : (allCnt / cnt);
+			logger.info("pages : " + pages);
+			
+			if(pages==0) {pages=1;}
+			
+			if(page>pages) {
+				page = pages;
+			}
+			
+			map.put("dojang_no", dojang_no);
+			
+			logger.info("pages : " + pages);
+			map.put("pages", pages); //만들 수 있는 최대 페이지 수
+			map.put("currPage", page); // 현재 페이지
+			
+			
+			int offset = (page-1)*cnt;
+			System.out.println("DATA ::: " + offset);
+			logger.info("offset: " + offset);
+			
+			post.put("cnt", cnt);
+			post.put("offset", offset);
+			
 			ArrayList<DojangDTO> dojangHome = service.dojangHome(post);
-			ArrayList<DojangDTO> dojangHomeL = service.dojangHomeL(post);
 			ArrayList<DojangDTO> dojangHomeM = service.dojangHomeM(post);
 			
 			String dojangHomeLeader = service.reported(dojang_no);
 			ArrayList<DojangDTO> dojangHomeMember = service.dojangHomeMember(dojang_no);
 			map.put("dojangHome", dojangHome);
+			map.put("dojangHomeM", dojangHomeM);
+			map.put("dojangHomeLeader", dojangHomeLeader);
+			map.put("dojangHomeMember", dojangHomeMember);
+			logger.info("방장 아이디"+dojangHomeLeader);
+			
+			return map;
+		}
+		
+		
+		
+		//도장깨기 공지 ajax
+		@RequestMapping("/dojangHomeL.ajax")
+		@ResponseBody
+		public HashMap<String, Object> dojangHomeL(@RequestParam HashMap<String, String> params, HttpSession session) {
+			String dojang_no = (String) session.getAttribute("dojang_no");
+			int cnt = Integer.parseInt(params.get("cnt")); //현재 페이지에 리스트 갯수
+			int page = Integer.parseInt(params.get("page"));
+			System.out.println("DATA:::"+cnt);
+			logger.info("보여줄 페이지 :" + page);
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+		
+			HashMap<String, Object> post = new HashMap<String, Object>();
+			
+			post.put("dojang_no", dojang_no);
+			logger.info("도장번호 없나"+dojang_no);
+			
+			int allCnt = service.allCountHomeL(params);
+			logger.info("allCnt : " + allCnt);
+			
+			int pages = allCnt % cnt > 0 ? (allCnt / cnt)+1 : (allCnt / cnt);
+			logger.info("pages : " + pages);
+			
+			if(pages==0) {pages=1;}
+			
+			if(page>pages) {
+				page = pages;
+			}
+			
+			map.put("dojang_no", dojang_no);
+			
+			logger.info("pages : " + pages);
+			map.put("pages", pages); //만들 수 있는 최대 페이지 수
+			map.put("currPage", page); // 현재 페이지
+			
+			
+			int offset = (page-1)*cnt;
+			System.out.println("DATA ::: " + offset);
+			logger.info("offset: " + offset);
+			
+			post.put("cnt", cnt);
+			post.put("offset", offset);
+			
+			ArrayList<DojangDTO> dojangHomeL = service.dojangHomeL(post);
+			
+			String dojangHomeLeader = service.reported(dojang_no);
+			ArrayList<DojangDTO> dojangHomeMember = service.dojangHomeMember(dojang_no);
 			map.put("dojangHomeL", dojangHomeL);
+			map.put("dojangHomeLeader", dojangHomeLeader);
+			map.put("dojangHomeMember", dojangHomeMember);
+			logger.info("방장 아이디"+dojangHomeLeader);
+			
+			return map;
+		}
+		
+		//도장깨기 일반 ajax
+		@RequestMapping("/dojangHomeM.ajax")
+		@ResponseBody
+		public HashMap<String, Object> dojangHomeM(@RequestParam HashMap<String, String> params, HttpSession session) {
+			String dojang_no = (String) session.getAttribute("dojang_no");
+			int cnt = Integer.parseInt(params.get("cnt")); //현재 페이지에 리스트 갯수
+			int page = Integer.parseInt(params.get("page"));
+			
+			logger.info("보여줄 페이지 :" + page);
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+		
+			HashMap<String, Object> post = new HashMap<String, Object>();
+			
+			post.put("dojang_no", dojang_no);
+			logger.info("도장번호 없나"+dojang_no);
+			
+			int allCnt = service.allCountHomeM(params);
+			logger.info("allCnt : " + allCnt);
+			
+			int pages = allCnt % cnt > 0 ? (allCnt / cnt)+1 : (allCnt / cnt);
+			logger.info("pages : " + pages);
+			
+			if(pages==0) {pages=1;}
+			
+			if(page>pages) {
+				page = pages;
+			}
+			
+			map.put("dojang_no", dojang_no);
+			
+			logger.info("pages : " + pages);
+			map.put("pages", pages); //만들 수 있는 최대 페이지 수
+			map.put("currPage", page); // 현재 페이지
+			
+			
+			int offset = (page-1)*cnt;
+			System.out.println("DATA ::: " + offset);
+			logger.info("offset: " + offset);
+			
+			post.put("cnt", cnt);
+			post.put("offset", offset);
+			
+			ArrayList<DojangDTO> dojangHomeM = service.dojangHomeM(post);
+			
+			String dojangHomeLeader = service.reported(dojang_no);
+			ArrayList<DojangDTO> dojangHomeMember = service.dojangHomeMember(dojang_no);
 			map.put("dojangHomeM", dojangHomeM);
 			map.put("dojangHomeLeader", dojangHomeLeader);
 			map.put("dojangHomeMember", dojangHomeMember);
