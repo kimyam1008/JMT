@@ -202,7 +202,7 @@ function groupReviewUpdateForm(){
 	var member_id = $("#member_id").val();
 	
 	if (member_id == login_id) {
-		
+		//location.href="/groupReviewUpdate.go";
 		location.href="/groupReviewUpdate.go?groupReview_no="+${dto.groupReview_no};
 	} else if(member_id != login_id) {
 		alert("작성자만 수정할 수 있습니다.");
