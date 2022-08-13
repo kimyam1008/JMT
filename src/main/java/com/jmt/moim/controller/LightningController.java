@@ -191,6 +191,33 @@ public class LightningController {
 	}
 	
 	
+	
+	//번개모임 댓글 신고 팝업 페이지 이동
+	@RequestMapping("/lightCmtReport.go")
+	public String lightCmtReport(Model model,@RequestParam String comment_no) {
+		logger.info("번개 모임 신고 팝업 이동  : "+comment_no);
+		model.addAttribute("comment_no", comment_no);
+		return"./Lightning/lightCmtReport";	
+	}
+	
+	
+	//번개모임 신고 팝업
+	@RequestMapping("/lightCmtReport.ajax")
+	@ResponseBody
+	public HashMap<String, Object> lightCmtReport(@RequestParam HashMap<String, String> params, HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+		params.put("loginId", loginId);
+			
+		logger.info("번개 모임 댓글 신고  : "+ params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		boolean report = service.cmtReport(params);
+		map.put("lightCmtReport", report);
+		return map;	
+	}
+	
+	
+	
+	
 	//매일 밤 12시 모임날짜가 지난 게시글 모집마감으로 변경 
 	@Scheduled(cron="0 0 0 * * *")
 	public void changeStatus() {

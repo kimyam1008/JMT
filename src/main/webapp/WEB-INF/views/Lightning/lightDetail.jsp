@@ -131,9 +131,11 @@
 	  margin: 0;
 	  padding: 0;
 	  color: #bebebe;
+	  font-size: 13px;
 	}
-	.bottom .menu.report {
-	  color: #333;
+	.bottom .menu.report:hover {
+		color : #333;
+		cursor : pointer;
 	}
  	
  	/*수정*/
@@ -375,7 +377,7 @@
 				content += '<ul class="bottom">';
 				content += '<li class="menu comment_date">'+date.toLocaleDateString("ko-KR")+'</li>';
 				content += '<li class="divider"></li>';
-				content += '<li class="menu report" onclick="">신고하기</li>';
+				content += '<li class="menu report" onclick="lightCmtReport_pop('+item.comment_no+')">신고하기</li>';
 				content += '</ul>';
 				content += '</div>';
 				content += '</div>';
@@ -436,7 +438,6 @@
 		var updcontent = $("#updtextarea").val();
 		console.log("바뀐 내용" + updcontent);
 		
-		
 		$.ajax({
 			url:"comment/cmtUpd",
 			type:'post',
@@ -450,14 +451,18 @@
 				if(data.updSuccess){
 					cmtList(class_no,lightning_no);
 				}
-				
 			},
 			error : function(e){
 				console.log(e);
 			}
 		});
-		
-		
+	}
+	
+	
+	
+	//댓글 신고 팝업
+	function lightCmtReport_pop(cno){
+		window.open("/lightCmtReport.go?comment_no="+cno,"new","width=400, height=200, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 	}
 </script>
 </html>

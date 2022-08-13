@@ -128,6 +128,18 @@
 	</insert>
 	
 	
+	<insert id="cmtReport" parameterType="hashmap">
+		INSERT INTO report(reporter,reported,class_no,report_reason,idx)
+			VALUES(
+				#{loginId}
+				,(select member_id from comment where comment_no = #{comment_no})
+				,2,
+				<if test="!report_reason.equals('기타')">#{report_reason}</if>
+				<if test="report_reason.equals('기타')">#{report_reason_text}</if>
+				,#{comment_no})
+	</insert>
+	
+	
 	
 	<update id="delete" parameterType="String">
 		UPDATE lightninglist SET lightning_status = "삭제" WHERE lightning_no = #{lightning_no}
