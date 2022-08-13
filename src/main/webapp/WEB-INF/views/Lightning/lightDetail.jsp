@@ -375,7 +375,7 @@
 				content += '<ul class="bottom">';
 				content += '<li class="menu comment_date">'+date.toLocaleDateString("ko-KR")+'</li>';
 				content += '<li class="divider"></li>';
-				content += '<li class="menu report">신고하기</li>';
+				content += '<li class="menu report" onclick="">신고하기</li>';
 				content += '</ul>';
 				content += '</div>';
 				content += '</div>';
