@@ -41,6 +41,12 @@ public interface DojangDAO {
 
 	DojangDTO dojangHomeDetail(String dojangPost_no);
 
+	int allCountHome(HashMap<String, String> params);
+
+	int allCountHomeL(HashMap<String, String> params);
+
+	int allCountHomeM(HashMap<String, String> params);
+
 
 
 }
