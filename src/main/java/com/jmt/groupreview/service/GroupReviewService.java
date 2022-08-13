@@ -215,15 +215,20 @@ public class GroupReviewService {
 		logger.info("params : {}",params);
 		
 		GroupReviewDTO dto = new GroupReviewDTO();
-		int groupReview_no = dto.getGroupReview_no();
-		String page = "redirect:/groupReviewDetail.do?groupReview_no="+groupReview_no;
-		/*
+		//int groupReview_no = dto.getGroupReview_no();
+		
+		dto.setGroupReview_no(Integer.parseInt(params.get("groupReview_no")));
 		dto.setReview_title(params.get("review_title"));
 		dto.setIdx(Integer.parseInt(params.get("idx")));
 		dto.setReview_content(params.get("review_content"));
 		dto.setClass_no(Integer.parseInt(params.get("class_no")));
-		dao.groupReviewUpdate(dto,groupReview_no);
-		*/
+		
+		logger.info("모임후기 글번호 : "+params.get("groupReview_no"));
+		System.out.println("모임후기 글번호 : "+params.get("groupReview_no"));
+		String page = "redirect:/groupReviewDetail.do?groupReview_no="+params.get("groupReview_no");
+		
+		dao.groupReviewUpdate(dto);
+		
 		int row = dao.groupReviewUpdate(params);
 		logger.info("수정된 데이터 수 : "+row);
 		
@@ -232,7 +237,7 @@ public class GroupReviewService {
 		int idx = dto.getIdx();
 		int class_no = dto.getClass_no();
 		if(class_no > 0) {
-			page = "redirect:/groupReviewDetail.do?groupReview_no="+groupReview_no;
+			page = "redirect:/groupReviewDetail.do?groupReview_no="+params.get("groupReview_no");
 			//3.class_no로 파일 DB에 저장
 			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
 			if (fileList != null) { //사진이 있을 경우 아래 코드 실행
