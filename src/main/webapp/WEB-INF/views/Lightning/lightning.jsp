@@ -26,7 +26,7 @@
 
 		<input type="text" id="lightning_title" placeholder="모임 이름을 입력해주세요"
 		 onKeypress="javascript:if(event.keyCode==13) {enterkey()}"/>
-		<button>검색</button><br/>
+		<button id="search">검색</button><br/>
 	
 	
 	<select id="food_no">
@@ -52,7 +52,7 @@
 	<input type="radio" name ="gender" id="gender" value="남자"/>남자
 	<input type="radio" name ="gender" id="gender" value="여자"/>여자
 	<input type="radio" name ="gender" id="gender" value="상관없음"/>상관없음
-
+	<button onclick="location.href='/lightCreate.go'">번개 생성하기</button>
 	
 	<table>
 		<thead>
@@ -102,7 +102,7 @@
 	listCall(currpage);
 
 	//검색버튼 클릭시
-	$("button").on("click",function(){
+	$("#search").on("click",function(){
 		if($("#lightning_title").val() != ""){ //유효성검사
 			// 검색 시 기존 옵션 값 날리기위해
 			$("#food_no").val("");
@@ -241,6 +241,17 @@
 		$('#list').append(content); 
 	}
 	
-
+	/*번개모임 생성시 유효성 체크  onclick="lightCreateChk()"
+	var profileChk = "${profileChk}";
+	function lightCreateChk(){
+		if(profileChk){
+		console.log(profileChk);
+			location.href='/lightCreate.go';
+		}else{
+			console.log(profileChk);
+			alert("프로필 생성 후 이용 가능합니다.");
+		}
+	}
+	*/
 </script>
 </html>

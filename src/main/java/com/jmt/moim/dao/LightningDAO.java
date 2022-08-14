@@ -31,4 +31,6 @@ public interface LightningDAO {
 
 	void cmtDel(String lightning_no);
 
+	int profileChk(String loginId);
+
 }

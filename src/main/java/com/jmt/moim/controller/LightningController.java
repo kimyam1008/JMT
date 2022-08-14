@@ -43,6 +43,10 @@ public class LightningController {
 			//방장아이디와 로그인아이디 비교하기 위해서 
 			String loginId = (String) session.getAttribute("loginId");
 			model.addAttribute("loginId", loginId);
+			//프롤필 있는지 알아보기
+			boolean profileChk = service.profileChk(loginId);
+			logger.info("프로필 유무 : " + profileChk); //true or false
+			model.addAttribute("profileChk", profileChk); 
 			
 		return "./Lightning/lightning";
 	}
@@ -218,6 +222,20 @@ public class LightningController {
 		map.put("lightCmtReport", report);
 		return map;	
 	}
+	
+	
+	//번개모임리스트 lightning.jsp 페이지 이동 
+		@RequestMapping("/lightCreate.go") 
+		public String lightCreatePage(Model model,HttpSession session) {
+			logger.info("리스트 페이지 이동");
+			
+				
+			return "./Lightning/lightCreate";
+		}
+	
+	
+	
+	
 	
 	
 	

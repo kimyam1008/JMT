@@ -104,5 +104,15 @@ public class LightningService {
 		
 	}
 
+	public boolean profileChk(String loginId) {
+		logger.info("번개모임 생성시 프로필 유무 체크 서비스");
+		boolean profileChk = false;
+		int row =dao.profileChk(loginId);
+		if(row>0) {
+			profileChk = true;
+		}
+		return profileChk;
+	}
+
 	
 }
