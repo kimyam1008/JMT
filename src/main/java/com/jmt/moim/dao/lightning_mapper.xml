@@ -155,10 +155,37 @@
 	</select>
 	
 	<select id="resList" resultType="light">
-		SELECT restaurant_no, restaurant_name, restaurant_address FROM restaurant
+		SELECT restaurant_no, restaurant_name, restaurant_address, food_no, food_name FROM restaurant NATURAL JOIN food
 		
 		<if test="restaurant_name != null and !restaurant_name.equals('')">
 			WHERE restaurant_name LIKE CONCAT('%',#{restaurant_name}, '%') 
 		</if>
 	</select>
+	
+	
+	<insert id="lightCreate" parameterType="hashmap">
+		INSERT INTO lightninglist(
+			lightning_title
+			,restaurant_no
+			,lightning_date
+			,food_no
+			,member_num
+			,eat_speed
+			,gender
+			,job
+			,lightning_content
+			,leader_id)
+		VALUES(
+			#{lightning_title}
+			,#{restaurant_no}
+			,#{lightning_date}
+			,#{food_no}
+			,#{member_num}
+			,#{eat_speed}
+			,#{gender}
+			,#{job}
+			,#{lightning_content}
+			,#{loginId}
+		)	
+	</insert>
 </mapper>

@@ -247,15 +247,23 @@ public class LightningController {
 	}
 	
 	
-	//팝업 - 맛집 리스트 가져오기
+	/*팝업 - 맛집 리스트 가져오기
 	@RequestMapping("/lightResList.do") 
 	public String lightResList(Model model ,@RequestParam HashMap<String, String> param) {
 		logger.info("맛집 검색 팝업 이동");
-		
-		//ArrayList<LightningDTO> resList = service.resList(param);
-		//logger.info("레스토랑 리스트 : " + resList.size());
-		//model.addAttribute("resList", resList);
 		return "./Lightning/lightSearch";
+	}
+	*/
+	
+	// 번개 모임 생성 
+	@RequestMapping("/lightCreate.do") 
+	public String lightCreate(Model model,HttpSession session
+			,@RequestParam HashMap<String, String> params) {
+		logger.info("번개 모임 생성 : " + params);
+		String loginId = (String) session.getAttribute("loginId");
+		params.put("loginId", loginId);
+		service.lightCreate(params);
+		return "redirect:/lightList.go";
 	}
 	
 	

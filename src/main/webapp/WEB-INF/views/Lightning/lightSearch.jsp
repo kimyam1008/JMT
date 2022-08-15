@@ -36,7 +36,7 @@
 <body>
 
 	<form action="lightResSearch.go" method="get">
- 		<input type="text" name="restaurant_name"/>
+ 		<input type="text" name="restaurant_name" placeholder="식당 이름을 입력해 주세요."/>
  		<input type="submit" value="검색"/>
 	</form>
 	<div>
@@ -50,9 +50,15 @@
 		 		<c:when test="${resList.size()>0}">
 			 		<c:forEach items="${resList}" var="list">
 			 			<tr>
-			 				<td><input type="radio" name="restaurant_no" value="${list.restaurant_no}"/></td>
-			 				<td>${list.restaurant_name}</td>
-			 				<td>${list.restaurant_address}</td>
+			 				<td>
+			 					<input type="radio" name="restaurant_no" id="restaurant_no" value="${list.restaurant_no}"/>
+			 				</td>
+			 				<td id="restaurant_name">${list.restaurant_name}</td>
+			 				<td>
+			 					${list.restaurant_address}
+			 					<input type="hidden" id="food_no" value="${list.food_no}"/>
+			 					<input type="hidden" id="food_name" value="${list.food_name}"/>
+			 				</td>
 			 			</tr>
 			 		</c:forEach>
 		 		</c:when>
@@ -70,30 +76,24 @@
 <script>
 	//맛집 선택시
 	function resChoice(){
-
 		if(!$('input[name="restaurant_no"]').is(":checked")){
 			alert("맛집을 선택해 주세요");
 		}else{
-			var restaurant_no = $('input[name="restaurant_no"]').val();
-			//console.log(restaurant_no);
-			
-			$.ajax({
-				type:'get',
-				url:'lightCreateRes.ajax',
-				data:{
-					'restaurant_no' : restaurant_no
-				},
-				dataType:'JSON',
-				success:function(data){
-					console.log(data);
-				},
-				error:function(e){
-					console.log(e);
-				}
-			});
+			var restaurant_no = $('input[name="restaurant_no"]:checked').val();
+			var restaurant_name = $('input[name="restaurant_no"]:checked').parent().next().html();
+			var food_no = $('input[name="restaurant_no"]:checked').parent().next().next().find("#food_no").val();
+			var food_name = $('input[name="restaurant_no"]:checked').parent().next().next().find("#food_name").val();
+			//console.log(restaurant_name);
+			//console.log(food_name);
+			$(opener.document).find("#restaurant_no").val(restaurant_no); 
+			$(opener.document).find("#restaurant_name").text(restaurant_name);
+			$(opener.document).find("#food_no").val(food_no); 
+			$(opener.document).find("#food_name").text(food_name); 
+			window.close();
 		}	
 	}
-
+	
+	
 
 
 	function lightSearchclose() {

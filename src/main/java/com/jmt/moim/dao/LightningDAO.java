@@ -35,4 +35,6 @@ public interface LightningDAO {
 
 	ArrayList<LightningDTO> resList(HashMap<String, String> param);
 
+	void lightCreate(HashMap<String, String> params);
+
 }

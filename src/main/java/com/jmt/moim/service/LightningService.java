@@ -119,5 +119,10 @@ public class LightningService {
 		return dao.resList(param);
 	}
 
+	public void lightCreate(HashMap<String, String> params) {
+		logger.info("번개 모임 생성 서비스");
+		dao.lightCreate(params);
+	}
+
 	
 }
