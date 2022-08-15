@@ -42,6 +42,76 @@ public class ReportDTO {
 	private Date blind_proc_date;
 	
 	
+	private String member_id;
+	private String  member_name;
+	private String member_birth;
+	private String  member_status;
+	private String  profile_job;
+	private String  grade_name;
+	
+	
+	
+	
+	public String getMember_id() {
+		return member_id;
+	}
+
+
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
+
+
+	public String getMember_name() {
+		return member_name;
+	}
+
+
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
+
+
+	public String getMember_birth() {
+		return member_birth;
+	}
+
+
+	public void setMember_birth(String member_birth) {
+		this.member_birth = member_birth;
+	}
+
+
+	public String getMember_status() {
+		return member_status;
+	}
+
+
+	public void setMember_status(String member_status) {
+		this.member_status = member_status;
+	}
+
+
+	public String getProfile_job() {
+		return profile_job;
+	}
+
+
+	public void setProfile_job(String profile_job) {
+		this.profile_job = profile_job;
+	}
+
+
+	public String getGrade_name() {
+		return grade_name;
+	}
+
+
+	public void setGrade_name(String grade_name) {
+		this.grade_name = grade_name;
+	}
+
+
 	public String getAdmin_id() {
 		return admin_id;
 	}

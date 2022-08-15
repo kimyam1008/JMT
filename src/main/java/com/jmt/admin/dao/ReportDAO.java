@@ -69,6 +69,10 @@ public interface ReportDAO {
 
 	ArrayList<ReportDTO> blindHistory6(int idx);
 
+	int allMemberListCount(Map<String, Object> data);
+
+	ArrayList<ReportDTO> MemberList(Map<String, Object> data);
+
 
 
 }

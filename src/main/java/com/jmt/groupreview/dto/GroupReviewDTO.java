@@ -2,8 +2,11 @@ package com.jmt.groupreview.dto;
 
 import java.sql.Date;
 
+import org.apache.ibatis.type.Alias;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+@Alias("groupReview")
 public class GroupReviewDTO {
 	//groupReview
 	private int groupReview_no;
