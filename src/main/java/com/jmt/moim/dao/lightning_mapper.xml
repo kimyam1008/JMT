@@ -154,5 +154,11 @@
 		SELECT COUNT(profile_no) FROM profile p NATURAL JOIN member m WHERE member_id = #{loginId}
 	</select>
 	
-	
+	<select id="resList" resultType="light">
+		SELECT restaurant_no, restaurant_name, restaurant_address FROM restaurant
+		
+		<if test="restaurant_name != null and !restaurant_name.equals('')">
+			WHERE restaurant_name LIKE CONCAT('%',#{restaurant_name}, '%') 
+		</if>
+	</select>
 </mapper>

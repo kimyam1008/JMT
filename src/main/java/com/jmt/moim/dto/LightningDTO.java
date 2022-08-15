@@ -11,7 +11,9 @@ public class LightningDTO {
 	private int food_no;
 	private String food_name;
 	
-	
+	//restaurant
+	private int restaurant_no;
+	private String restaurant_address;
 	private String restaurant_name;
 	
 	
@@ -46,6 +48,22 @@ public class LightningDTO {
 	
 	
 	
+	
+	
+	
+	public int getRestaurant_no() {
+		return restaurant_no;
+	}
+	public void setRestaurant_no(int restaurant_no) {
+		this.restaurant_no = restaurant_no;
+	}
+	
+	public String getRestaurant_address() {
+		return restaurant_address;
+	}
+	public void setRestaurant_address(String restaurant_address) {
+		this.restaurant_address = restaurant_address;
+	}
 	public int getComment_no() {
 		return comment_no;
 	}

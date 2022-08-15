@@ -33,4 +33,6 @@ public interface LightningDAO {
 
 	int profileChk(String loginId);
 
+	ArrayList<LightningDTO> resList(HashMap<String, String> param);
+
 }

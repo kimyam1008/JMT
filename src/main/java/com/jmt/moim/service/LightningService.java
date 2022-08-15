@@ -114,5 +114,10 @@ public class LightningService {
 		return profileChk;
 	}
 
+	public ArrayList<LightningDTO> resList(HashMap<String, String> param) {
+		logger.info("레스토랑 리스트 가져오기 서비스");
+		return dao.resList(param);
+	}
+
 	
 }

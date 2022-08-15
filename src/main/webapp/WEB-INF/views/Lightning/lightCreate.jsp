@@ -14,6 +14,7 @@
 	th,td { 
 		padding : 5px 10px;
 	}
+	
 </style>
 </head>
 <body>
@@ -24,7 +25,10 @@
 	    </tr>
 	    <tr>
 	        <th>맛집 이름</th>
-	        <td><span></span><button>검색</button></td>
+	        <td>
+	        	<span></span>
+	        	<button onclick="restaurantSearch_pop()">검색</button>
+	        </td>
 	        <th>모임 날짜</th>
 	        <td><input type="date" name ="lightning_date" ></td>
 	    </tr>
@@ -85,7 +89,7 @@
 	    <tr>
 	        <th colspan ="4">
 	            <button>생성</button>
-	            <button>취소</button>
+	            <button onclick="location.href='/lightList.go'">취소</button>
 	        </th>
 	    </tr>
 	</table>
@@ -94,10 +98,14 @@
 	var i = $('input[type="range"]').val();
 	$("#msg").html(i);
 	
-	$('input[type="range"]').on("change input", function(){ //on으로 왜안했어 //input 이벤트 : 끌고있을 때 
+	$('input[type="range"]').on("change input", function(){ //input 이벤트 : 끌고있을 때 
 	var i = $(this).val(); 
 	$("#msg").html(i); 
 	});
 
+	function restaurantSearch_pop(){
+		window.open("/lightSearch.go","new","width=600, height=400, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	}
+	
 </script>
 </html>

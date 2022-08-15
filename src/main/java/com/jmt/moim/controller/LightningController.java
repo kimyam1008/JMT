@@ -224,18 +224,39 @@ public class LightningController {
 	}
 	
 	
-	//번개모임리스트 lightning.jsp 페이지 이동 
-		@RequestMapping("/lightCreate.go") 
-		public String lightCreatePage(Model model,HttpSession session) {
-			logger.info("리스트 페이지 이동");
+	//번개모임 생성하기 페이지 이동
+	@RequestMapping("/lightCreate.go") 
+	public String lightCreatePage(Model model,HttpSession session) {
+		logger.info("리스트 페이지 이동");
 			
 				
-			return "./Lightning/lightCreate";
-		}
+		return "./Lightning/lightCreate";
+	}
+		
+		
+	//번개모임 생성하기 - 맛집 검색 팝업 이동
+	@RequestMapping("/lightResSearch.go") 
+	public String resSearchPop(Model model,HttpSession session
+			,@RequestParam HashMap<String, String> param) {
+		logger.info("맛집 검색 팝업 이동");
+					
+		ArrayList<LightningDTO> resList = service.resList(param);
+		logger.info("레스토랑 리스트 : " + resList.size());
+		model.addAttribute("resList", resList);
+		return "./Lightning/lightSearch";
+	}
 	
 	
-	
-	
+	//팝업 - 맛집 리스트 가져오기
+	@RequestMapping("/lightResList.do") 
+	public String lightResList(Model model ,@RequestParam HashMap<String, String> param) {
+		logger.info("맛집 검색 팝업 이동");
+		
+		//ArrayList<LightningDTO> resList = service.resList(param);
+		//logger.info("레스토랑 리스트 : " + resList.size());
+		//model.addAttribute("resList", resList);
+		return "./Lightning/lightSearch";
+	}
 	
 	
 	
