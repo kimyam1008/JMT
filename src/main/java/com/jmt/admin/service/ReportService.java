@@ -294,6 +294,44 @@ public class ReportService {
 		return insert;
 	}
 
+	public Map<String, Object> memberList(HashMap<String, String> params) {
+		Map<String, Object> map = new HashMap<String, Object>(); 
+		
+		int cnt =Integer.parseInt(params.get("cnt"));  
+		int page =Integer.parseInt(params.get("page"));
+		String list_option =params.get("list_option");
+		
+		Map<String, Object> data = new HashMap<String, Object>(); 
+		data.put("list_option", list_option);
+		
+		logger.info("보여줄 페이지:"+page);
+		
+		// 총 게시글 갯수 (allCnt)/ 페이지당 보여줄 갯수 (cnt) = 생성 가능한 페이지 (pages).
+		int allCnt = dao.allMemberListCount(data);
+		logger.info("총 allCnt:"+allCnt); // 총 페이지 수 
+		int pages = allCnt%cnt>0 ? (allCnt/cnt)+1 :(allCnt/cnt);  // 현재 만들 수 있는 최대 페이지 수 
+		if(pages==0) {pages=1;}
+		if(page>pages) {  // 페이지 바뀌는 경우 . 현재 페이지 가 
+			page=pages;
+		}
+		logger.info("pages"+pages);
+		
+		map.put("pages", pages);// 만들 수 있는 최대 페이지 수 
+		map.put("currPage",page); // 현재 페이지
+		/* currPage>pages? : page */
+		int offset =(page-1)*cnt;
+		logger.info("offset:"+offset);
+	//	ArrayList<HashMap<String, Object>> list =dao.reportList(cnt,offset);
+		data.put("cnt", cnt);
+		data.put("offset", offset);
+		ArrayList<ReportDTO> memberList =dao.MemberList(data);
+	
+	
+		//ArrayList<HashMap<String, Object>> list = dao.reportList();
+		map.put("list", memberList);
+		return map;
+	}
+
 
 	
 	
