@@ -69,7 +69,7 @@ public class GroupReviewController {
    //파일 업로드 팝업
    @RequestMapping(value = "/grFileUploadForm.go")
    public String grFileUploadForm() {
-      logger.info("열려라 파일 업로드 팝업~");
+      logger.info("파일 업로드 팝업 열기");
       return "./GroupReview/grFileUploadForm";
    }
    
@@ -140,6 +140,29 @@ public class GroupReviewController {
       return map;   
    }
    
+   //모임후기 댓글 신고 팝업 페이지 이동
+   @RequestMapping("/grCmtReport.go")
+	public String grCmtReport(Model model,@RequestParam String comment_no) {
+		logger.info("모임 후기 댓글 신고 팝업 이동  : "+comment_no);
+		model.addAttribute("comment_no", comment_no);
+		return"./GroupReview/grCmtReport";	
+	}
+   
+   //모임후기 댓글 신고 팝업
+   @RequestMapping("/grCmtReport.ajax")
+	@ResponseBody
+	public HashMap<String, Object> grCmtReport(@RequestParam HashMap<String, String> params, HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+		params.put("loginId", loginId);
+			
+		logger.info("번개 모임 댓글 신고  : "+ params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		boolean report = service.grCmtReport(params);
+		map.put("grCmtReport", report);
+		return map;	
+	}
+   
+   
    //삭제(숨김)
    @RequestMapping(value = "/groupReviewDelete.do")
    public String groupReviewDelete(@RequestParam HashMap<String, String> params, Model model,HttpSession session){
@@ -184,4 +207,5 @@ public class GroupReviewController {
       System.out.println("수정 서비스 요청");
       return service.groupReviewUpdate(params,session,loginId);
    }
+   
 }

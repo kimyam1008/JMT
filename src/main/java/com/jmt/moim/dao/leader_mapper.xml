@@ -2,5 +2,75 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jmt.moim.dao.LeaderDAO">
+	<select id="lightDetail" resultType="leader">
+		SELECT (SELECT member_name FROM `member` m WHERE m.member_id = l.leader_id) AS leaderName <!-- leader_id = #{param2} -->
+			,l.lightning_title
+			,lightning_status
+			,(select count(member_id)+1 from apply a where class_no = 1 and status = '승인' and a.idx = l.lightning_no) as member_count
+			,l.member_num 
+			,l.gender
+			,l.food_no
+			,food_name
+			,l.eat_speed
+			,lightning_create
+			,l.job
+		FROM lightningList l 
+		JOIN food f ON l.food_no = f.food_no
+		WHERE l.lightning_no = 13 <!-- #{param1} -->
+	</select>
 	
+	<select id="dojangDetail" resultType="leader">
+		SELECT (SELECT member_name FROM `member` m WHERE m.member_id = d.leader_id) AS leaderName <!-- leader_id = #{param2} -->
+			,d.dojang_title
+			,d.dojang_status  
+			,(select count(member_id)+1 from apply a where class_no = 3 and status = '승인' and a.idx = d.dojang_no) as member_count
+			,d.people_num 
+			,d.gender
+			,d.food_no
+			,food_name
+			,d.eat_speed
+			,d.dojang_create 
+			,d.job
+		FROM dojangList d 
+		JOIN food f ON d.food_no = f.food_no
+		WHERE d.dojang_no = 18 <!-- #{param1} -->
+	</select>
+	
+	<select id="recentPost" parameterType="String" resultType="leader">
+		SELECT g.groupReview_no
+			,g.member_id
+			,g.review_title
+			,review_date
+			,g.class_no
+		FROM groupReview g
+		JOIN dojangList d ON d.dojang_no = idx AND g.class_no = 3
+		JOIN lightningList d ON l.lightning_no = idx AND g.class_no = 1
+		<where>
+			<if test="class_no == 1">
+				l.lightning_no = #{idx}
+			</if>
+			<if test="class_no != 1">
+				d.dojang_no = #{idx} <!-- #{param1} -->
+			</if>
+		</where>
+	</select>
+	
+	<select id="joinWait" parameterType="String" resultType="leader">
+		SELECT a.class_no
+			,a.member_id
+			,a.status
+			,a.idx
+		<!-- (SELECT a.member_id FROM apply a WHERE status = "대기" AND a.idx = d.dojang_no) AS wait -->
+		FROM apply a 
+		JOIN dojangList d ON a.member_id = d.leader_id
+		JOIN lightningList l ON a.member_id = l.leader_id
+		<where>
+			<if test="a.class_no == 1">
+				a.status = "대기" AND l.lightning_no = #{idx}
+			</if>
+			<if test="a.class_no != 1">
+				 a.status = "대기" AND d.dojang_no = #{idx}
+			</if>
+		</where>
+	</select>
 </mapper>

@@ -253,6 +253,17 @@ public class GroupReviewService {
 		
 		return new ModelAndView(page);
 	}
+
+	public boolean grCmtReport(HashMap<String, String> params) {
+		logger.info("모임후기 댓글 신고하기 서비스 : " + params);
+		
+		boolean success = false;
+		int row = dao.grCmtReport(params);
+		if(row>0) {
+			success = true;
+		}
+		return success;
+	}
 	
 	
 	

@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jmt.groupreview.dao.GroupReviewDAO">
 	<!-- 모임후기 리스트 -->
-	<select id="groupReviewList" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
+	<select id="groupReviewList" resultType="groupReview">
 		 SELECT
 			 g.groupReview_no
 			 ,g.review_title
@@ -49,7 +49,7 @@
 	</select>
 	
 	<!-- 모임후기 상세보기 -->
-	<select id="groupReviewDetail" parameterType="String" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
+	<select id="groupReviewDetail" parameterType="String" resultType="groupReview">
 		SELECT review_title
 			,(SELECT member_id FROM member m WHERE member_id=#{param2}) as login_id
 			,groupReview.member_id
@@ -76,7 +76,7 @@
 
 	
 	<!-- 글쓰기 -->
-	<insert id="groupReviewRegister" parameterType="com.jmt.groupreview.dto.GroupReviewDTO"
+	<insert id="groupReviewRegister" parameterType="groupReview"
 	useGeneratedKeys="true" keyColumn="groupReview_no" keyProperty="groupReview_no">
 			INSERT INTO groupReview(review_title,review_content,groupReview_status
 			,member_id,class_no,idx)
@@ -92,7 +92,7 @@
 		VALUES(#{param1},#{param2},6,#{param3})
 	</insert>
 	
-	<select id="grPhotoList" parameterType="String" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
+	<select id="grPhotoList" parameterType="String" resultType="groupReview">
 		SELECT g.idx,p.photo_newFileName FROM photo 
 		JOIN codeTable c ON p.class_no = c.class.no
 		LEFT OUTER JOIN groupReview g ON c.class.no = g.groupReview
@@ -100,7 +100,7 @@
 	</select>
 	
 	<!-- 도장리스트 -->
-	<select id="groupList" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
+	<select id="groupList" resultType="groupReview">
 		SELECT dojang_title
 			,dojang_no
 			,c.class_name
@@ -117,7 +117,7 @@
 	</select>
 	
 	<!-- 번개리스트 -->
-	<select id="lightGroupList" resultType="com.jmt.groupreview.dto.GroupReviewDTO">
+	<select id="lightGroupList" resultType="groupReview">
 		SELECT 
 			l.lightning_title
 			,l.lightning_no
@@ -145,6 +145,18 @@
 			<if test="!report_reason.equals('기타')">#{report_reason}</if>
 			<if test="report_reason.equals('기타')">#{report_reason_text}</if>
 			,#{groupReview_no})
+	</insert>
+	
+	<!-- 모임후기 댓글 신고 -->
+	<insert id="grCmtReport" parameterType="hashmap">
+		INSERT INTO report(reporter,reported,class_no,report_reason,idx)
+			VALUES(
+			#{loginId}
+			,(select member_id from comment where comment_no = #{comment_no})
+			,7,
+			<if test="!report_reason.equals('기타')">#{report_reason}</if>
+			<if test="report_reason.equals('기타')">#{report_reason_text}</if>
+			,#{comment_no})
 	</insert>
 	
 	<!-- 게시글 삭제(숨김) -->

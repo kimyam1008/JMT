@@ -34,5 +34,7 @@ public interface GroupReviewDAO {
 
 	int groupReviewUpdate(HashMap<String, String> params);
 
+	int grCmtReport(HashMap<String, String> params);
+
 
 }
