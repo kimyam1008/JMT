@@ -176,11 +176,9 @@
  		width : 100%;
  		height : 100%;
  		object-fit : cover;
- 	}
- 	
+ 	} 	
 </style>
 </head>
-
 <body>
 	<a href="#">방장페이지</a>
 	<table>
@@ -223,7 +221,7 @@
 		<tr>
 			<th colspan ="4">
 				<button id="application" onclick="application()">신청</button>
-				<button onclick="location.href='javascript:history.back()'">목록</button>
+				<button onclick="location.href='/lightList.go'">목록</button>
 			</th>
 		</tr>
 	</table>
@@ -281,6 +279,9 @@
 	}
 	
 	
+	var member_count = "${dto.member_count}";
+	var member_num = "${dto.member_num}";
+	
 	function application(){
 		console.log(status);
 		//방장아이디랑 로그인아이디 비교해서 같으면 신청불가
@@ -289,7 +290,9 @@
 		//아직 가입신청을 안한 경우
 		}else if (status == ""){
 			//프로필 상태 기반
-			if("${dto.gender}" !="상관없음" && "${dto.gender}" != profile_gender){
+			if(member_count == member_num){
+				alert("모임 정원이 꽉차서 신청이 불가합니다.");
+			}else if("${dto.gender}" !="상관없음" && "${dto.gender}" != profile_gender){
 				alert("성별 조건이 맞지않습니다.");
 			}else{
 				if(confirm("가입 신청하시겠습니까?")){

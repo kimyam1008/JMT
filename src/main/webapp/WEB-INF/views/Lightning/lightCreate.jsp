@@ -18,13 +18,20 @@
 	th,td { 
 		padding : 5px 10px;
 	}
+	
 	#restaurant_name {
 		display : inline-block;
+	}
+	
+	textarea[name="lightning_content"]{
+		width:100%;
+		height : 90px;
+		resize : none;
 	}
 </style>
 </head>
 <body>
-	<form action="lightCreate.do" method="post">
+	<form action="lightCreate.do" method="post" onsubmit="return chkCreate()">
 		<table>
 		    <tr>
 		        <th>모임 이름</th>
@@ -57,6 +64,7 @@
 		                <option value="느림">느림</option>
 		                <option value="보통">보통</option>
 		                <option value="빠름">빠름</option>
+		                <option value="상관없음">상관없음</option>
 		            </select>
 		        </td>
 		        <th>성별</th>
@@ -112,9 +120,59 @@
 	$("#msg").html(i); 
 	});
 
+	//모임날짜 오늘 날짜부터 나오게 
+	var today = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString();
+	var today_Date = today.slice(0, 10);
+	$('input[name="lightning_date"]').attr("min", today_Date);
+	
+	
+	//생성 버튼 눌렀을 시 유효성 검사
+	function chkCreate(){
+		if($('input[name="lightning_title"]').val()==""){
+			alert("모임 이름을 입력해 주세요");
+			return false;
+		}else if($('#restaurant_no').val() == ""){
+			alert("맛집을 검색해 주세요");
+			return false;
+		}else if($('input[name="lightning_date"]').val() == ""){
+			alert("모임 날짜를 지정해 주세요");
+			return false;
+		}else if($('select[name="eat_speed"]').val() == ""){
+			alert("식사 속도를 선택해 주세요");
+			return false;
+		}else if($('select[name="gender"]').val() == ""){
+			alert("성별을 선택해 주세요");
+			return false;
+		}else if($('select[name="job"]').val() == ""){
+			alert("직업을 선택해 주세요");
+			return false;
+		}else if($('textarea[name="lightning_content"]').val() == ""){
+			alert("모임 소개글을 입력해 주세요");
+			return false;
+		}	
+	}
+	
+	//소개글 글자 수 제한
+	$('textarea').keyup(function(){
+		var content = $(this).val();
+			if (content.length > 300){
+				alert("최대 300자까지 입력 가능합니다.");
+				$(this).val(content.substring(0, 300));
+			}
+	});
+	
+	$('input[name="lightning_title"]').keyup(function(){
+		var content = $(this).val();
+			if (content.length > 30){
+				$(this).val(content.substring(0, 30));
+			}
+	});
+	
 	function restaurantSearch_pop(){
 		window.open("/lightResSearch.go","new","width=600, height=400, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 	}
+	
+	
 	
 </script>
 </html>

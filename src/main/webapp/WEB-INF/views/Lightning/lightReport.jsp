@@ -60,11 +60,11 @@
 
 	//글자 수 100자 제한
 	$('textarea').keyup(function(){
-		  var content = $(this).val();
-		  if (content.length > 100){
-		    alert("최대 100자까지 입력 가능합니다.");
-		    $(this).val(content.substring(0, 100));
-		  }
+		 var content = $(this).val();
+		  	if (content.length > 100){
+		    	alert("최대 100자까지 입력 가능합니다.");
+		    	$(this).val(content.substring(0, 100));
+		  	}
 	});
 	
 	

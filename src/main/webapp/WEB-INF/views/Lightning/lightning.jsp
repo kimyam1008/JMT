@@ -40,6 +40,7 @@
 		<option value="느림">느림</option>
 		<option value="보통">보통</option>
 		<option value="빠름">빠름</option>
+		<option value="상관없음">상관없음</option>
 	</select>
 	<select id="job">
 		<option value="">직업</option>
