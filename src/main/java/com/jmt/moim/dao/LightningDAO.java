@@ -27,4 +27,8 @@ public interface LightningDAO {
 
 	void delete(String lightning_no);
 
+	int cmtReport(HashMap<String, String> params);
+
+	void cmtDel(String lightning_no);
+
 }

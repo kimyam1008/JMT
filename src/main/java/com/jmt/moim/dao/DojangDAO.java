@@ -35,6 +35,18 @@ public interface DojangDAO {
 
 	ArrayList<DojangDTO> dojangHomeMember(String dojang_no);
 
+	ArrayList<DojangDTO> dojangHomeL(HashMap<String, Object> post);
+
+	ArrayList<DojangDTO> dojangHomeM(HashMap<String, Object> post);
+
+	DojangDTO dojangHomeDetail(String dojangPost_no);
+
+	int allCountHome(HashMap<String, String> params);
+
+	int allCountHomeL(HashMap<String, String> params);
+
+	int allCountHomeM(HashMap<String, String> params);
+
 
 
 }

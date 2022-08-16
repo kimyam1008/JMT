@@ -203,7 +203,7 @@
 	</select>
 	
 	<select id="blindHistory2" resultType="com.jmt.admin.dto.ReportDTO" parameterType="int">
-	SELECT  b.admin_id ,b.blind_proc_date ,b.blind_reason ,b.blind_status ,r.report_no  FROM  comment c  c  join report r on r.idx = c.comment_no  join blind b on r.report_no =b.report_no  WHERE r.idx =#{idx}order by b.blind_proc_date desc
+	SELECT  b.admin_id ,b.blind_proc_date ,b.blind_reason ,b.blind_status ,r.report_no  FROM  comment c   join report r on r.idx = c.comment_no  join blind b on r.report_no =b.report_no  WHERE r.idx =#{idx} order by b.blind_proc_date desc
 	</select>
 	<select id="blindHistory3" resultType="com.jmt.admin.dto.ReportDTO" parameterType="int">
 		SELECT  b.admin_id ,b.blind_proc_date ,b.blind_reason ,b.blind_status ,r.report_no  FROM dojanglist d  join report r on r.idx = d.dojang_no   join blind b on r.report_no =b.report_no  WHERE r.idx =#{idx} order by b.blind_proc_date desc
@@ -220,4 +220,33 @@
 	<update id="changeStatus" parameterType="map">
 		update report r set r.report_proc_status =#{report_status},r.report_proc_date=now() where r.class_no =#{class_no} and r.idx=#{idx} 
 	</update>
+	
+	<!-- 멤버 리스트  -->
+	
+	<select id="allMemberListCount" resultType="int" parameterType="map">
+		select count(member_id) from `member`
+		<where>
+			<if test="list_option !=null">
+				<if test="list_option.equals('블랙')">
+					member_status ='블랙리스트'
+				</if>
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="MemberList" resultType="com.jmt.admin.dto.ReportDTO"  parameterType="map">
+		select m.member_id  , m.member_name ,m.member_birth , m.member_status ,f.profile_job ,g.grade_name  
+		from member m left outer  join profile f on m.member_id = f.member_id
+		left outer join grade g on f.grade_no  = g.grade_no
+		<where>
+			<if test="list_option !=null">
+				<if test="list_option.equals('블랙')">
+					member_status ='블랙리스트'
+				</if>
+			</if>
+		</where>
+		ORDER BY f.profile_no DESC limit #{cnt} offset #{offset}
+	</select>
+	
 </mapper>

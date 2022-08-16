@@ -79,9 +79,30 @@ public class LightningService {
 		return success;
 	}
 
+	public boolean cmtReport(HashMap<String, String> params) {
+		logger.info("번개모임 댓글 신고하기 서비스 : " + params);
+		
+		boolean success = false;
+		int row = dao.cmtReport(params);
+		if(row>0) {
+			success = true;
+		}
+		return success;
+	}
+	
+	
+	
 	public void delete(String lightning_no) {
 		logger.info("번개 모임 게시글 삭제 서비스");
 		dao.delete(lightning_no);
 	}
+
+	
+	public void cmtDel(String lightning_no) {
+		logger.info("번개 모임 게시글 삭제시 댓글 삭제 서비스 ");
+		dao.cmtDel(lightning_no);
+		
+	}
+
 	
 }

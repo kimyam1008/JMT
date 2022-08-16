@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -72,7 +71,6 @@ td a {
 </head>
 <body>
  ${sessionScope.loginId} 님 환영합니다, <a href="logout.do">로그아웃</a>
-<input type="hidden" id="dojang_no" value="${sessionScope.dojang_no}"/>
 <div id="test">
 <h3>도장 격파원</h3>
 <div id="test2">
@@ -99,45 +97,42 @@ td a {
 
 
 <div id="list">
-	<h1>전체 게시판</h1>
+<h1>게시글 상세</h1>
+<table>
+	<tr>
+		<th>제목</th>
+		<td colspan="3" id="dojangPost_subject"></td>
+	</tr>
+	<tr>
+		<th>작성자</th>
+		<td id="member_id"></td>
+		<th>작성일</th>
+		<td id="dojangPost_date"></td>
+	</tr>
+	<tr>
+		<td height=350 colspan="4" id="dojangPost_content"></td>
+	</tr>
+</table>
 </div>
 
 
 </body>
 <script>
-var page = 1;
-var maxPage = undefined;
 
-listCall(page);
 
-// 무한스크롤
-$(window).scroll(function() {
-	let percent = Math.floor(($(window).scrollTop() / ($(document).height() - $(window).height())) * 100);
+listCall();
+
 	
-	if(percent == 100) {
-		if(page < maxPage)
-			listCall(++page);
-	}
-});
 
 function listCall(page){
-	
-	var pagePerNum = 5;
-	var dojang_no = $('#dojang_no').val();
 	
 	$.ajax({
 		type:'get',
 		url:'dojangHome.ajax',
 		data:{
-			dojang_no:dojang_no,
-			cnt:pagePerNum,
-			page:page
 		},
 		dataType:'JSON',
 		success:function(data){
-				maxPage = data.pages;
-				drawList(data.dojangHome);
-				console.log("데이터",data.dojangHome);
 				$('#leader').html(data.dojangHomeLeader);
 				drawMember(data.dojangHomeMember);
 		},
@@ -162,39 +157,6 @@ function drawMember(member){
 	$('#member').append(content);
 }
 
-
-
-
-function drawList(list){
-	var content = '';
-	
-	if(list.length == 0){
-		content += '<div>'+"등록된 게시글이 없습니다."+'</div>';
-	} else {
-		list.forEach(function(item){
-			var date = new Date(item.dojangPost_date);
-			var create = date.toLocaleDateString("ko-KR");
-	
-			content += '<br/>';
-			content += '<table>';
-			content += '<tr>';
-			content += '<th>'+"제목"+'</th>';
-			content += '<td colspan="3">'+item.dojangPost_subject+'</td>';
-			content += '</tr>';
-			content += '<tr>';
-			content += '<th>'+"작성자"+'</th>';
-			content += '<td>'+item.member_id+'</td>';
-			content += '<th>'+"작성일"+'</th>';
-			content += '<td>'+create+'</td>';
-			content += '</tr>';
-			content += '<tr>';
-			content += '<td  height=350 colspan="4"><a href="dojangHomeDetail.go?dojangPost_no='+item.dojangPost_no+'">'+item.dojangPost_content+'</td>';
-			content += '</tr>';
-			content += '</table>';
-		});
-	}
-	$('#list').append(content);
-}
 
 
 

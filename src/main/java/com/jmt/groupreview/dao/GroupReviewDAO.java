@@ -30,5 +30,11 @@ public interface GroupReviewDAO {
 
 	int groupReviewDelete(HashMap<String, String> params);
 
+	void groupReviewUpdate(GroupReviewDTO dto);
+
+	int groupReviewUpdate(HashMap<String, String> params);
+
+	int grCmtReport(HashMap<String, String> params);
+
 
 }

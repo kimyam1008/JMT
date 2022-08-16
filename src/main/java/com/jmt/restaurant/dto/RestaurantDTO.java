@@ -30,12 +30,49 @@ public class RestaurantDTO {
 	
 	
 	// 사진
+	private int photo_no;
+	
 	private String photo_oriFileName;
 	private String photo_newFileName;
 	
 	// 번개모임
 	private String lightning_title;
 	
+	// 댓글 종합 
+	private int comment_no;
+	private int class_no;
+	private String comment_content;
+	private Date comment_date;
+	private String comment_status;
+	private int idx;
+	
+	
+	//좋아요
+	private int like_no;
+	private int like_count;
+	
+	
+	public int getLike_no() {
+		return like_no;
+	}
+	public void setLike_no(int like_no) {
+		this.like_no = like_no;
+	}
+	public int getLike_count() {
+		return like_count;
+	}
+	public void setLike_count(int like_count) {
+		this.like_count = like_count;
+	}
+	
+	
+		
+	public int getPhoto_no() {
+		return photo_no;
+	}
+	public void setPhoto_no(int photo_no) {
+		this.photo_no = photo_no;
+	}
 	public String getLightning_title() {
 		return lightning_title;
 	}
@@ -54,13 +91,6 @@ public class RestaurantDTO {
 	public void setPhoto_newFileName(String photo_newFileName) {
 		this.photo_newFileName = photo_newFileName;
 	}
-	// 댓글 종합 
-	private int comment_no;
-	private int class_no;
-	private String comment_content;
-	private Date comment_date;
-	private String comment_status;
-	private int idx;
 	
 	
 	
@@ -185,6 +215,18 @@ public class RestaurantDTO {
 	public void setFood_no(int food_no) {
 		this.food_no = food_no;
 	}
+	
+	private String likeNo;
+
+
+	public String getLikeNo() {
+		return likeNo;
+	}
+	public void setLikeNo(String likeNo) {
+		this.likeNo = likeNo;
+	}
+
+
 	
 	
 	

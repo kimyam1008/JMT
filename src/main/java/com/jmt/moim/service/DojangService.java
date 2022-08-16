@@ -186,6 +186,30 @@ public class DojangService {
 		return dao.dojangHomeMember(dojang_no);
 	}
 
+	public ArrayList<DojangDTO> dojangHomeL(HashMap<String, Object> post) {
+		return dao.dojangHomeL(post);
+	}
+
+	public ArrayList<DojangDTO> dojangHomeM(HashMap<String, Object> post) {
+		return dao.dojangHomeM(post);
+	}
+
+	public DojangDTO dojangHomeDetail(String dojangPost_no) {
+		return dao.dojangHomeDetail(dojangPost_no);
+	}
+
+	public int allCountHome(HashMap<String, String> params) {
+		return dao.allCountHome(params);
+	}
+
+	public int allCountHomeL(HashMap<String, String> params) {
+		return dao.allCountHomeL(params);
+	}
+
+	public int allCountHomeM(HashMap<String, String> params) {
+		return dao.allCountHomeM(params);
+	}
+
 	
 
 	

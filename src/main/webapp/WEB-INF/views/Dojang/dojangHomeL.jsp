@@ -99,7 +99,7 @@ td a {
 
 
 <div id="list">
-	<h1>전체 게시판</h1>
+	<h1>공지 게시판</h1>
 </div>
 
 
@@ -127,7 +127,7 @@ function listCall(page){
 	
 	$.ajax({
 		type:'get',
-		url:'dojangHome.ajax',
+		url:'dojangHomeL.ajax',
 		data:{
 			dojang_no:dojang_no,
 			cnt:pagePerNum,
@@ -136,8 +136,8 @@ function listCall(page){
 		dataType:'JSON',
 		success:function(data){
 				maxPage = data.pages;
-				drawList(data.dojangHome);
-				console.log("데이터",data.dojangHome);
+				drawList(data.dojangHomeL);
+				console.log("데이터",data.dojangHomeL);
 				$('#leader').html(data.dojangHomeLeader);
 				drawMember(data.dojangHomeMember);
 		},

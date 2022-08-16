@@ -28,6 +28,7 @@ public class RestaurantController {
 	@Autowired  RestaurantService service;
 	
 	
+	// 맛집 페이지 이동
 	@RequestMapping(value = "/restaurant")
 	public ModelAndView restaurant() {
 		logger.info("맛집 페이지 이동");
@@ -67,7 +68,9 @@ public class RestaurantController {
 	
 	@RequestMapping(value = "/resDetail.do")
 	public String resDetail(Model model, HttpSession session,
-			@RequestParam String restaurant_no) {
+			@RequestParam int restaurant_no, @RequestParam HashMap<String, String> params) {
+		
+		params.put("loginId", (String) session.getAttribute("loginId"));
 		
 		logger.info("맛집 상세보기 : "+ restaurant_no); 
 		service.resDetail(model, restaurant_no);
@@ -77,6 +80,15 @@ public class RestaurantController {
 		model.addAttribute("photoList", photoList);
 		ArrayList<RestaurantDTO> resCommet = service.resCommet(model, restaurant_no);
 		model.addAttribute("resCommet", resCommet);
+		
+		logger.info(" 시"+params);
+		
+//		RestaurantDTO like = new RestaurantDTO();
+//		
+//		like.setComment_no(Integer.parseInt(params.get("comment_no")));
+//		like.setMember_id(params.get("member_id"));
+//		
+//		model.addAttribute("like", service.findLike(params));
 				
 		return "Restaurant/restaurantDetail";
 				
@@ -84,7 +96,9 @@ public class RestaurantController {
 	
 	// 맛집 수정 요청
 	@RequestMapping(value = "/restaurantUpdate.go")
-	public String restaurantUpdate(Model model, @RequestParam String restaurant_no) {
+	public String restaurantUpdate(HttpSession session ,Model model, @RequestParam int restaurant_no,
+			@RequestParam HashMap<String, String> params) {
+		params.put("loginId", (String) session.getAttribute("loginId"));
 		model.addAttribute("restaurant_no",restaurant_no);
 		service.resDetail(model, restaurant_no);
 		return "Restaurant/restaurantUpdate";
@@ -100,23 +114,120 @@ public class RestaurantController {
 	
 	
 	@RequestMapping(value = "/reviewWrite")
-	public ModelAndView reviewWrite(Model model, @RequestParam String restaurant_no) {
-		logger.info("맛집 페이지 이동");
+	public ModelAndView reviewWrite(Model model, @RequestParam int restaurant_no) {
+		logger.info("리뷰 작성 페이지 이동");
 		model.addAttribute("restaurant_no",restaurant_no);
 		service.resDetail(model, restaurant_no);
 		ModelAndView mav = new ModelAndView("Restaurant/reviewWrite");
 		return mav;
 	}
 	
-	
+	// 리뷰 작성
 	@RequestMapping(value = "/reviewWrite.do")
 	   public String reviewWrite(MultipartFile[] photos, @RequestParam HashMap<String, String> params, HttpSession session) {
-	      logger.info("글쓰기 요청 : " + params);
+	      logger.info("리뷰 작성 : " + params);
 	      
 	      params.put("loginId", (String) session.getAttribute("loginId"));
-	      
 	      return service.reviewWrite(photos, params);
 	   }
+	
+	
+	// 리뷰 수정
+	@RequestMapping(value = "/reviewUpdate.do")
+	   public String reviewUpdate(MultipartFile[] photos, @RequestParam HashMap<String, String> params, HttpSession session) {
+	      logger.info("리뷰 수정 : " + params);
+	      
+	      params.put("loginId", (String) session.getAttribute("loginId"));
+	      return service.reviewReLoad(photos, params);
+	   }
+	
+	
+	// 댓글 삭제
+	@RequestMapping(value = "/commentDel.ajax")
+	@ResponseBody
+	public HashMap<String, String> commentDel(HttpSession session, Model model, 
+			@RequestParam HashMap<String, String> params) {
+		
+		logger.info(":"+params);
+		return service.commentDel(params);
+	}
+	
+	
+	
+	@RequestMapping(value = "/reviewUpdate")
+	public ModelAndView reviewUpdate(Model model, @RequestParam String comment_no) {
+		logger.info(comment_no);
+		logger.info("리뷰 수정 페이지 이동");
+		ArrayList<RestaurantDTO> reviewPhoto = service.reviewPhoto(model, comment_no);
+		model.addAttribute("reviewPhoto", reviewPhoto);
+		model.addAttribute("comment_no",comment_no);
+		RestaurantDTO dto = service.reviewUpdate(model, comment_no);
+		model.addAttribute("comment", dto);
+		ModelAndView mav = new ModelAndView("Restaurant/reviewUpdate");
+		return mav;
+	}
+	
+	
+	@RequestMapping(value = "/commentUpdate.ajax")
+	@ResponseBody
+	public HashMap<String, String> commentUpdate(HttpSession session, Model model, 
+			@RequestParam HashMap<String, String> params) {
+		
+		logger.info(":"+params);
+		ArrayList<RestaurantDTO> photoDel = service.photoDel(params);
+		model.addAttribute("photoDel", photoDel);
+		return null;
+	}
+	
+	@RequestMapping(value = "/reviewDel.ajax")
+	@ResponseBody
+	public HashMap<String, String> reviewDel(HttpSession session, Model model, 
+			@RequestParam HashMap<String, String> params) {
+		
+		logger.info(":"+params);
+		return service.reviewDel(params);
+	}
+	
+	// 좋다 아니 안 좋다 아니 하기 싫다
+	@RequestMapping(value = "/like.ajax")
+	@ResponseBody
+	public HashMap<String, String> like(HttpSession session, Model model, 
+			@RequestParam HashMap<String, String> params) {
+		params.put("loginId", (String) session.getAttribute("loginId"));
+		logger.info(":"+params);
+		return service.like(params);
+	}
+	
+	
+	// 좋아요 삭제
+	@RequestMapping(value = "/likeDel.ajax")
+	@ResponseBody
+	public HashMap<String, String> likeDel(HttpSession session, Model model, 
+			@RequestParam HashMap<String, String> params) {
+		params.put("loginId", (String) session.getAttribute("loginId"));
+		logger.info(":"+params);
+		return service.likeDel(params);
+	}
+	
+	
+	// 맛집 수정 요청 리스트(관리자) 페이지 이동
+	@RequestMapping(value = "/resUpdateList.go")
+	public ModelAndView resUpdateList() {
+		logger.info("맛집 수정 요청 리스트(관리자)");
+		ModelAndView mav = new ModelAndView("Restaurant/restaurantUpdateList");
+		return mav;
+	}
+	
+	// 맛집 수정 요청 리스트(관리자) 리스트
+	@RequestMapping(value = "/resUpdateList.ajax")
+	@ResponseBody
+	public HashMap<String, Object> resUpdateList(Model model,@RequestParam HashMap<String, String> params) {
+		logger.info("맛집 리스트 요청");
+		//service.detail(model,params);
+		return service.resUpdateList(params);
+	}
+
+	
 	
 	
 

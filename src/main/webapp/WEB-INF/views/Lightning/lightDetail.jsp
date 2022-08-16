@@ -15,6 +15,8 @@
 		padding: 10px 20px 10px 20px;
 	}
  	a{
+ 	color : black;
+ 	pointer : cursor;
  	text-decoration : none;
  	}
  	
@@ -23,6 +25,9 @@
 	 .comment-form {
 	  display: flex;
 	  flex-direction: column;
+	  width : 515px;
+	  height : 80px;
+	  margin : 10px 0px;
 	}
 	.comment-form textarea {
 	  resize: none;
@@ -43,11 +48,14 @@
  	/*댓글 리스트 */
  	/* 레이아웃 - 댓글 */
 	.comments {
-	  border: 1px solid #dbdbdb;
+	  border: 0.5px solid #dbdbdb;
+	  border-left: none;
+	  border-right: none;
+	  width : 510px;
 	}
 	.comments .comment {
 	  border-bottom: 1px solid #dbdbdb;
-	  padding: 20px;
+	  padding: 15px;
 	}
 	.comments .comment:last-child {
 	  border-bottom: none;
@@ -61,13 +69,49 @@
 	}
 	.top .member_id {
 	  font-weight: bold;
+	  font-size : 13px;
 	}
+	
+	.top .grade_name{
+		font-size : 12px;
+		padding : 5px;
+	}
+	
+	.content {
+		padding : 5px;
+	}
+	
+	/*등급색상*/
+	.g1{
+		color :green;
+	}
+	
+	.g2{
+		color :brown;
+	}
+	
+	.g3{
+		color :lightblue;
+	}
+	
+	.g4{
+		color :gold;
+	}
+	
+	.g5{
+		color :purple;
+	}
+	
 	.top .utility {
 	  display: flex;
 	  flex-direction: row;
 	  margin-left: auto;
 	}
 
+	p {
+		font-size : 13px;
+	}
+	
 	/* 하단 메뉴 */
 	.bottom {
 	  display: flex;
@@ -83,7 +127,7 @@
 	}
 	.bottom .divider {
 	  width: 1px;
-	  height: 20px;
+	  height: 15px;
 	  background-color: #dbdbdb;
 	  margin: 0 20px;
 	}
@@ -91,10 +135,48 @@
 	  margin: 0;
 	  padding: 0;
 	  color: #bebebe;
+	  font-size: 13px;
 	}
-	.bottom .menu.report {
-	  color: #333;
+	.bottom .menu.report:hover {
+		color : #333;
+		cursor : pointer;
 	}
+ 	
+ 	/*수정*/
+ 	#updtextarea{
+ 		width : 380px;
+ 		height : 40px;
+ 		resize : none;
+ 	}
+ 	
+ 	
+ 	/*버튼*/
+ 	.btn{
+ 		margin : 3px;
+ 		padding : 5px;
+ 		border-radius : 5px;
+ 		border : 1px black;
+ 		background-color: #lightgrey;
+ 	}
+ 	
+ 	.btn:hover{
+ 		background-color: #bebebe;
+ 	}
+ 	
+ 	/*프로필 사진*/
+ 	.img{
+ 		width : 35px;
+ 		height : 35px;
+ 		margin : 0 7 5 0px;
+ 		border-radius : 70%;
+ 		overflow : hidden;
+ 	}
+ 	
+ 	.profileImg {
+ 		width : 100%;
+ 		height : 100%;
+ 		object-fit : cover;
+ 	}
  	
 </style>
 </head>
@@ -145,62 +227,23 @@
 			</th>
 		</tr>
 	</table>
-	<!--  댓글 영역
-		  <div class="input-group mt-3">
-		    	<input type="text" id="cmtInput" class="form-control" placeholder="댓글">
-		    <div class="input-group-append">
-				<button class="btn btn-primary" type="button" id="cmtWrite">OK</button> 
-				<button class="btn btn-danger" type="button" id="cmtResetBtn">Cancel</button>
-		    </div>	
-		  </div>
-	-->
+
+<!--------- 댓글 영역 ---------->
 	<div class="comment-form">
   		<textarea  id="cmtInput" placeholder="댓글을 작성하세요."></textarea>
   		<button type="button" class="submit" id="cmtWrite">댓글 쓰기</button>
 	</div>
 	<div id="cmtList">
 	</div>
-	<!-- 댓글리스트
-	<div id="cmtList">
-	  <ul>
-	    <li>작성자</li>
-	    <li>댓글내용</li>
-	    <li>작성날짜</li>
-	    <li>기능</li>
-	  </ul>
-	<div class="comments">
-	  <div class="comment">
-	    <div class="content">
-	      <header class="top">
-	        <div class="member_id">우연히 들어온 사람</div>
-	        <div class="utility">
-	          <button class="update">수정</button>
-	          <button class="delete">삭제</button>
-	        </div>
-	      </header>
-	      <p>content</p>
-	      <ul class="bottom">
-	        <li class="menu comment_date">날짜</li>
-	         <li class="divider"></li>
-        	<li class="menu report">신고하기</li>
-	      </ul>
-	    </div>
-	  </div>
-</div>
-	</div>-->
-	
-	
-
-
 	
 </body>
 <script>
-	//상세보기 눌렀을 때 댓글리스트 보여주기 
+	/*상세보기 들어왔을 때 댓글리스트 보여주기 */
 	var lightning_no =  ${dto.lightning_no};
 	var class_no = 2;
-	cmtList(class_no,lightning_no);
+	//cmtList(class_no,lightning_no); 방장이랑 승인된 사람만 
 
-
+	
 	var msg = "${msg}";
 	if (msg != ""){
 		alert(msg);
@@ -219,13 +262,22 @@
 		$("a").css("display","inline");
 		$("#button").text("삭제");
 		$("#button").attr("onclick","chkDel()");
-	}else{
+		/*댓글*/
+		cmtList(class_no,lightning_no);
+	}else if(leader_id != loginId && status !="승인"){
 		$("a").css("display","none");
+		/*댓글*/
+		$(".comment-form").css("display","none");
 	}
 	
+	//승인인 사람
 	if(status=="승인"){
 		$("#application").text("탈퇴");
 		$("#application").attr("onclick","dropout()");
+		$("a").css("display","none");
+		/*댓글*/
+		$(".comment-form").css("display","flex");
+		cmtList(class_no,lightning_no);	
 	}
 	
 	
@@ -280,18 +332,22 @@
 	
 	
 	
-	/*댓글*/ 
+	/*********댓글*********/ 
 	
 	//로그인 아이디 위에 변수 설정 되어있음 loginId 
 	//var lightning_no , var class_no 위에 변수 설정 
-	//댓글 작성 시 : 작성하기 버튼 누를 시 
+	
+
+	//댓글 작성 시
 	$("#cmtWrite").on("click",function(){
 	console.log(loginId, lightning_no);
 	  var comment_content = $("#cmtInput").val();
 	  if(comment_content == null ||comment_content ==''){
 	    alert("댓글을 입력해 주세요.");
 	    $("#cmtInput").focus();
-		return false;
+	  }else if(comment_content.length>300){
+		  alert("최대 300자까지 입력 가능합니다.");
+		    $("#cmtInput").val(comment_content.substring(0, 300));
 	  }else{
 	    var cmtData = {'idx':lightning_no,'member_id':loginId,'comment_content':comment_content,'class_no':class_no};
 	    
@@ -303,12 +359,13 @@
 			success : function(data){
 				if(data.writeSuccess){
 					cmtList(class_no,lightning_no);
+					$("#cmtInput").val("");
 				}
 			},
 			error : function(e){
 				console.log(e);
 			}
-		})
+		});
 	  
 	  }
 	});
@@ -333,46 +390,146 @@
 		});
 	}
 	
-	
+
 	function drawCmt(list){
 		console.log(list);
 		var content = "";
 		//데이터가 있는 경우
 		if(list.length>0){					
 			list.forEach(function(item,idx){
-				//console.log(item);
-				var date = new Date(item.lightning_date);
-				
-				content += '<div class ="comments">';
+				var date = new Date(item.comment_date);	
+				console.log(item);
+				//댓글 작성 시 엔터누르면 댓글 줄바꿈 되며, 수정버튼 오류 처리 
+				var str = item.comment_content;
+				str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+			
+				content += '<div class ="comments c'+item.comment_no+'">';
 				content += '<div class ="comment">';
 				content += '<div class ="content">';
 				content += '<header class="top">';
-				content += '<div class="member_id">'+item.member_id+'</div>';
+				content += '<div class ="img">';
+				
+				if (item.photo_newFileName!= null){
+				content += '<a href="#"><img src ="/photo/'+item.photo_newFileName+'" class="profileImg"></a>';
+				}else{ //프로필 등록을 안했을 시
+					content += '<a href="#"><img src ="/photo/profile.jpeg" class="profileImg"></a>';
+				}
+				
+				content += '</div>';
+				content += '<div class="member_id"><a href="#">'+item.member_id+'</a></div>';
+				content += '<div class="grade_name g'+item.grade_no+'">'+item.grade_name+'</div>';
 				content += '<div class="utility">';
-				content += '<button class="update">수정</button>';
-				content += '<button class="delete">삭제</button>';
+				
+				if(loginId == item.member_id){ //본인 댓글만 수정,삭제 보이게 
+				content += '<button class="btn" id="updBtn'+item.comment_no+'" onclick="updBtn('+item.comment_no+   ","     +  "\'" +  str   +"\'"  + ')">수정</button>';
+				content += '<button class="btn" id="delBtn'+item.comment_no+'" onclick="cmtDel('+item.comment_no+')">삭제</button>';
+				}
+				
 				content += '</div>';
 				content += '</header>';
-				content += '<p>'+item.comment_content+'</p>';
+				content += '<p id="p'+item.comment_no+'">'+str+'</p>';
 				content += '<ul class="bottom">';
 				content += '<li class="menu comment_date">'+date.toLocaleDateString("ko-KR")+'</li>';
+				
+				if(loginId != item.member_id){ //본인 댓글은 '신고하기' 안보이게
 				content += '<li class="divider"></li>';
-				content += '<li class="menu report">신고하기</li>';
+				content += '<li class="menu report" onclick="lightCmtReport_pop('+item.comment_no+')">신고하기</li>';
+				}
+				
 				content += '</ul>';
 				content += '</div>';
 				content += '</div>';
 				content += '</div>';
-				
-			});
-		//데이터가 없을 경우	
+					
+			});	
 		}else{
-			content += "데이터 없음";
+			content += '<div class ="comment">';
+			content = "작성된 댓글이 없습니다.";
+			content += '</div>';
 		}
-		
 		$('#cmtList').empty();
-		$('#cmtList').append(content); 
+		$('#cmtList').append(content); 	
+	}	
+	
+
+	//삭제 
+	function cmtDel(cno){
+		
+		$.ajax({
+			url:"comment/cmtDel",
+			type:'post',
+			data : {
+				'comment_no' : cno
+			},
+			dataType:'json',
+			success : function(data){
+				console.log(data.delSuccess);
+				if(data.delSuccess){
+					cmtList(class_no,lightning_no);
+				}
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
 	}
 	
 	
+	
+	
+	//수정버튼 눌렀을 때 
+	function updBtn(cno,content){
+		//console.log("수정하고싶다");
+		console.log(cno,content);
+		var updcontent = content.split('<br/>').join("\r\n");
+		//수정 버튼 누른 댓글의 태그 변경 
+		$('#p'+cno).replaceWith('<textarea id="updtextarea">'+updcontent+'</textarea>');
+		$('#updBtn'+cno).attr('onclick','updCmt('+cno+')');
+		
+		
+		//글자 수 500자 제한
+		$('#updtextarea').keyup(function(){
+			  var content = $(this).val();
+			  if (content.length > 500){
+			    alert("최대 500자까지 입력 가능합니다.");
+			    $(this).val(content.substring(0, 500));
+			  }
+		});
+	}
+	
+	
+	
+	//수정하기 요청 
+	function updCmt(cno){
+		console.log("수정하기!!!!!" + cno);
+		var updcontent = $("#updtextarea").val();
+		console.log("바뀐 내용" + updcontent);
+		
+		$.ajax({
+			url:"comment/cmtUpd",
+			type:'post',
+			data : {
+				'comment_no' : cno,
+				'comment_content' : updcontent
+			},
+			dataType:'json',
+			success : function(data){
+				console.log(data);
+				if(data.updSuccess){
+					cmtList(class_no,lightning_no);
+				}
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
+	}
+	
+	
+	
+	//댓글 신고 팝업
+	function lightCmtReport_pop(cno){
+		window.open("/lightCmtReport.go?comment_no="+cno,"new","width=400, height=200, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	}
 </script>
 </html>

@@ -272,7 +272,7 @@ function blind(){
 	
 
  	$.ajax({
-		url:'report/blind.ajax',
+		url:'/report/blind.ajax',
 		type:'post',
 		dataType:'json',
 		data:{blindPost:blindPost},
