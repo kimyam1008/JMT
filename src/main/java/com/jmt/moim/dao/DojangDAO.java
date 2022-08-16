@@ -47,6 +47,13 @@ public interface DojangDAO {
 
 	int allCountHomeM(HashMap<String, String> params);
 
+	int dojangPostReg(DojangDTO dto);
+
+	void filewrite(String newFileName, String string, int dojangPost_no);
+
+
+
+
 
 
 }
