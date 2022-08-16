@@ -12,9 +12,9 @@
 </head>
 <style>
 <style>
-body{
-width: 100%;	
-}
+	body{
+	width: 100%;	
+	}
 	#memberTable{
 		width: 100%;		
 	}
@@ -43,9 +43,9 @@ width: 100%;
 
 <!-- 클릭 옵션 -->
 <div id="option_list" >
-	<span class="active" onclick="listCall(1)">전체</span>
-	<span onclick="listCall(1 ,'블랙')">블랙리스트</span>
-	<span onclick="listCall(1 ,'탈퇴')">탈퇴</span>
+	<span class="active"  onclick="listCall(1)">전체</span>
+	<span onclick="listCall(1 ,'블랙')" data-value="블랙">블랙리스트</span>
+	<span onclick="listCall(1 ,'탈퇴')" data-value="탈퇴">탈퇴</span>
 </div>
 
 <!-- 검색 옵션  -->
@@ -65,9 +65,9 @@ width: 100%;
 				<th>ID</th>
 				<th>이름</th>
 				<th>생년월일</th>
-				<th>회원 상태</th>
 				<th>등급</th>
 				<th>직업</th>
+				<th>회원 상태</th>
 			</tr>
 		</thead>
 		<tbody id="list">
@@ -98,15 +98,20 @@ $('span').click(
 		console.log('부심');
 });
 
- function listCall(page,list_option){
+ function listCall(page,list_option,memberSearch,keyword){
 	 var pagePerNum=5;
 	 var option1 = list_option;
 
-		
+	 console.log(memberSearch);
+	 
 	$.ajax({
 		type:'GET',
 		url:'/report/memberList.ajax',
 		data:{
+			
+			memberSearch:memberSearch,
+			keyword:keyword,
+			
 			list_option:list_option,
 			cnt:pagePerNum,
 			page:page
@@ -150,12 +155,12 @@ function drawList(list){
 
 		//console.log(item);
 		content += '<tr>';	
-		content += '<td>'+item.member_id+'</td>';
+		content += '<td><a href="/report/memberDetail.go?member_id='+item.member_id+'">'+item.member_id+'</a></td>';
 		content += '<td>'+item.member_name+'</td>';
 		content += '<td>'+item.member_birth+'</td>';
-		content += '<td>'+item.member_status+'</td>';
 		content += '<td>'+item.grade_name+'</td>';
 		content += '<td>'+item.profile_job+'</td>';
+		content += '<td>'+item.member_status+'</td>';
 		content += '</tr>';
 	});
 	
@@ -175,11 +180,12 @@ $('span').click(function(){
 	});
 	
 function searchClick(){
-	var search =$('select[name=memberSearch]').val();
-	var keyword = $('keyword').val();
-	console.log(search);
-	console.log(keyword);
-
+	var memberSearch =$('select[name=memberSearch]').val();
+	var keyword = $('input[name=keyword').val();
+	var option = $('.active').attr('data-value');
+	
+	listCall(1,option,memberSearch,keyword);
+	$("#pagination").twbsPagination('destroy'); 
 }
 </script>
 </html>

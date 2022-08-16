@@ -224,16 +224,27 @@
 	<!-- 멤버 리스트  -->
 	
 	<select id="allMemberListCount" resultType="int" parameterType="map">
-		select count(member_id) from `member`
+		select count(m.member_id) from `member` m left outer join profile f on m.member_id = f.member_id
+		left outer join grade g on f.grade_no  = g.grade_no
 		<where>
 			<if test="list_option !=null">
 				<if test="list_option.equals('블랙')">
-					member_status ='블랙리스트'
+					m.member_status ='블랙리스트'
 				</if>
 				<if test="list_option.equals('탈퇴')">
-					member_status ='탈퇴'
+					m.member_status ='탈퇴'
 				</if>
 			</if>
+			
+			<if test = "memberSearch != '' and memberSearch != null">
+				<if test='memberSearch.equals("memberID")'>
+					AND m.member_id  LIKE concat('%',#{keyword},'%') 
+				</if>
+				<if test="memberSearch.equals('grade')">
+					AND g.grade_name LIKE concat('%',#{keyword},'%')
+				</if>
+			</if>
+			
 		</where>
 	</select>
 	
@@ -251,8 +262,47 @@
 					member_status ='탈퇴'
 				</if>
 			</if>
+			
+			<if test = "memberSearch != '' and memberSearch != null">
+				<if test='memberSearch.equals("memberID")'>
+					AND m.member_id  LIKE concat('%',#{keyword},'%') 
+				</if>
+				<if test="memberSearch.equals('grade')">
+					AND g.grade_name LIKE concat('%',#{keyword},'%')
+				</if>
+			</if>
 		</where>
 		ORDER BY f.profile_no DESC limit #{cnt} offset #{offset}
 	</select>
 	
+	<select id="memberDetail" parameterType="String" resultType="com.jmt.admin.dto.ReportDTO">
+			SELECT m.member_id  , m.member_name ,m.member_birth , m.member_status ,f.profile_job ,f.profile_gender,g.grade_name  ,m.member_email
+			FROM member m left outer  join profile f on m.member_id = f.member_id
+			LEFT OUTER JOIN grade g on f.grade_no  = g.grade_no
+			WHERE m.member_id = #{member_id}
+	</select>
+	
+	<select id="blindMemberList" parameterType="map" resultType="com.jmt.admin.dto.ReportDTO">
+			select b.blind_no, b.admin_id ,c2.class_name,b.blind_proc_date  ,r.report_no,r.idx,r.reporter ,r.reported ,b.blind_status  ,r.report_proc_date  ,(select l.lightning_title from lightninglist l  where l.lightning_no =r.idx and r.class_no =l.class_no  )as mb_ligntning_title 
+		,(select c.comment_content  from comment c  where c.comment_no  =r.idx  and r.class_no =c.class_no  )as mb_comment
+		,(select d.dojang_title  from  dojanglist d  where d.dojang_no  =r.idx and r.class_no  =d.class_no   )as mb_dojang_title
+		,(select d2.dojangPost_subject  from  dojangpost d2  where d2.dojangPost_no  =r.idx and r.class_no = d2.class_no  )as mb_dojang_post
+		,(select g.review_title  from groupreview g where g.groupReview_no = r.idx and r.class_no = g.class_no  )as mb_groupreview
+		from blind b  left outer join report r  on r.report_no = b.report_no 
+		left outer join codetable c2 ON c2.class_no =r.class_no 
+		left outer join `member` m on m.member_id =b.member_id  where m.member_id =#{member_id}
+		order by b.blind_proc_date desc  limit #{cnt} offset #{offset}
+	</select>
+	
+	
+	<select id="blindMemberCount" parameterType="map" resultType="int">
+		select count(aa.blind_no) from(select b.blind_no, b.admin_id ,b.blind_proc_date ,c2.class_name  ,r.report_no,r.idx,r.reporter ,r.reported ,b.blind_status  ,r.report_proc_date  ,(select l.lightning_title from lightninglist l  where l.lightning_no =r.idx and r.class_no =l.class_no  )as mb_ligntning_title 
+		,(select c.comment_content  from comment c  where c.comment_no  =r.idx  and r.class_no =c.class_no  )as mb_comment
+		,(select d.dojang_title  from  dojanglist d  where d.dojang_no  =r.idx and r.class_no  =d.class_no   )as mb_dojang_title
+		,(select d2.dojangPost_subject  from  dojangpost d2  where d2.dojangPost_no  =r.idx and r.class_no = d2.class_no  )as mb_dojang_post
+		,(select g.review_title  from groupreview g where g.groupReview_no = r.idx and r.class_no = g.class_no  )as mb_groupreview
+		from blind b  left outer join report r  on r.report_no = b.report_no 
+		left outer join codetable c2 ON c2.class_no =r.class_no 
+		left outer join `member` m on m.member_id =b.member_id  where m.member_id ="hello_02")  aa
+	</select>
 </mapper>
