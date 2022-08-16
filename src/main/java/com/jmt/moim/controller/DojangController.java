@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jmt.moim.dto.DojangDTO;
@@ -335,15 +336,65 @@ public class DojangController {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			
 				String dojangPost_no = (String) session.getAttribute("dojangPost_no");
-
+				String dojang_no = (String) session.getAttribute("dojang_no");
 				session.removeAttribute("dojangPost_no");
 
+				ArrayList<DojangDTO> dojangHomeMember = service.dojangHomeMember(dojang_no);
 				DojangDTO dojangHomeDetail = service.dojangHomeDetail(dojangPost_no);
+				String dojangHomeLeader = service.reported(dojang_no);
 				map.put("dojangHomeDetail", dojangHomeDetail);
+				map.put("dojangHomeMember", dojangHomeMember);
+				map.put("dojangHomeLeader", dojangHomeLeader);
 				
 			return map;
 		}
 	
+		
+		
+		//도장깨기방 글쓰기 페이지
+		@RequestMapping("/dojangPostReg.go")
+		public String dojangPostRegGo(HttpSession session) {
+			String dojang_no = (String) session.getAttribute("dojang_no");
+			String loginId = (String) session.getAttribute("loginId");
+			logger.info("도장깨기 방번호 확인 ::"+ dojang_no+"도장깨기 방 게시글 작성자 ::"+ loginId);
+			return "./Dojang/dojangPostReg";
+		}
+		
+		//도장깨기방 글쓰기
+		@RequestMapping("/dojangPostReg.ajax")
+		@ResponseBody
+		public HashMap<String, Object> dojangPostReg(@RequestParam HashMap<String, String> params, HttpSession session) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			System.out.println("도장번호 확인..."+params.get("dojang_no"));
+			System.out.println("작성자 확인..."+params.get("member_id"));
+			System.out.println("도장제목 확인..."+params.get("dojangPost_subject"));
+			System.out.println("도장내용 확인..."+params.get("dojangPost_content"));
+			
+			boolean dojangPostReg = service.dojangPostReg(params,session);
+			map.put("dojangPostReg", dojangPostReg);
+			
+			return map;
+		}
+		
+		
+		//도장깨기 방 파일 업로드 팝업
+		   @RequestMapping(value = "/gpFileUploadForm.go")
+		   public String gpFileUploadForm() {
+		      logger.info("파일 업로드 팝업 열기");
+		      return "./Dojang/gpFileUploadForm";
+		   }
+		   
+		   //도장깨기 방 파일 업로드
+		   @RequestMapping(value = "/gpFileUpload")
+		   public ModelAndView gpFileUpload(MultipartFile file, HttpSession session) {
+		      logger.info("upload 요청");
+		      return service.fileUpload(file,session);
+		   }
+		
+		
+		
+		
+		
 	
 	//도장모임 검색
 	/*

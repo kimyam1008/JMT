@@ -100,6 +100,7 @@ td a {
 
 <div id="list">
 	<h1>전체 게시판</h1>
+	<input type="button" value="글쓰기" onclick="location.href='dojangPostReg.go'"/>
 </div>
 
 
@@ -179,7 +180,8 @@ function drawList(list){
 			content += '<table>';
 			content += '<tr>';
 			content += '<th>'+"제목"+'</th>';
-			content += '<td colspan="3">'+item.dojangPost_subject+'</td>';
+			content += '<td colspan="2">'+item.dojangPost_subject+'</td>';
+			content += '<td>'+item.dojangPost_type+'</td>';
 			content += '</tr>';
 			content += '<tr>';
 			content += '<th>'+"작성자"+'</th>';

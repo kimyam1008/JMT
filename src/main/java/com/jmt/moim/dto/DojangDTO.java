@@ -61,12 +61,28 @@ public class DojangDTO {
 	private String reporter;
 	
 	
+	private String photo_oriFileName;
+	private String photo_newFileName;
 	
 	
 	
 	
 	
 	
+	
+	
+	public String getPhoto_oriFileName() {
+		return photo_oriFileName;
+	}
+	public void setPhoto_oriFileName(String photo_oriFileName) {
+		this.photo_oriFileName = photo_oriFileName;
+	}
+	public String getPhoto_newFileName() {
+		return photo_newFileName;
+	}
+	public void setPhoto_newFileName(String photo_newFileName) {
+		this.photo_newFileName = photo_newFileName;
+	}
 	public String getReport_reason() {
 		return report_reason;
 	}
