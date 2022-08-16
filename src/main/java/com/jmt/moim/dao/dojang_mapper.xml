@@ -18,6 +18,8 @@
 		FROM dojanglist d
 		JOIN food f ON d.food_no = f.food_no
 		
+		WHERE d.dojang_status IN ("모집중","모집마감")
+		
 		<include refid="selectedListSql"></include>
 		
 		ORDER BY d.dojang_no DESC limit #{cnt} OFFSET #{offset}
