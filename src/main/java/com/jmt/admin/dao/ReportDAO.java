@@ -1,6 +1,7 @@
 package com.jmt.admin.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.jmt.admin.dto.ReportDTO;
@@ -72,6 +73,13 @@ public interface ReportDAO {
 	int allMemberListCount(Map<String, Object> data);
 
 	ArrayList<ReportDTO> MemberList(Map<String, Object> data);
+
+	ReportDTO memberDetail(String member_id);
+
+
+	int blindMemberCount(Map<String, Object> data);
+
+	ArrayList<ReportDTO> blindMemberList(Map<String, Object> data);
 
 
 
