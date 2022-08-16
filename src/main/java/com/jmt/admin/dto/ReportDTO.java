@@ -48,10 +48,30 @@ public class ReportDTO {
 	private String  member_status;
 	private String  profile_job;
 	private String  grade_name;
+	private String profile_gender; 
+	private String member_email;
 	
 	
-	
-	
+	public String getMember_email() {
+		return member_email;
+	}
+
+
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
+	}
+
+
+	public String getProfile_gender() {
+		return profile_gender;
+	}
+
+
+	public void setProfile_gender(String profile_gender) {
+		this.profile_gender = profile_gender;
+	}
+
+
 	public String getMember_id() {
 		return member_id;
 	}

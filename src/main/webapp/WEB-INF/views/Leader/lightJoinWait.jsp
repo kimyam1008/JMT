@@ -18,12 +18,10 @@
 </style>
 </head>
 <body>
-	<form action="joinWaitUpdate" method="post">
-		<input type="hidden" name="member_id" value="${joinWait.member_id}"/>
-		<input type="hidden" name="class_no" value="${joinWait.class_no}"/>
-		<input type="hidden" name="lightning_no" value="${joinWait.lightning_no}"/>
-		<input type="hidden" name="dojang_no" value="${joinWait.dojang_no}"/>
-		<input type="hidden" name="idx" value="${joinWait.idx}"/>
+	<form action="lightJoinWaitUpdate" method="post">
+		<input type="hidden" name="class_no" value="${lightJoinWait.class_no}"/>
+		<input type="hidden" name="lightning_no" value="${lightJoinWait.lightning_no}"/>
+		<input type="hidden" name="idx" value="${lightJoinWait.idx}"/>
 		<table>
 			<thead>
 				<tr>
@@ -33,16 +31,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="joinWait" var="joinWait">
+				<c:forEach items="${lightJoinWait}" var="lightJoinWait">
 					<tr>
 						<td>
-							<input type="checkbox" name="" value="${joinWait.member_id}"/>
+							<input type="checkbox" name="member_id" value="${lightJoinWait.member_id}"/>
 						</td>
 						<td>회원 아이디
-							${joinWait.member_id}
+							${lightJoinWait.member_id}
 						</td>
 						<td>
-							<select name="${joinWait.status}">
+							<select name="lightning_status">
 								<option value="대기중" selected>대기중</option>
 								<option value="승인">승인</option>
 								<option value="거절">거절</option>

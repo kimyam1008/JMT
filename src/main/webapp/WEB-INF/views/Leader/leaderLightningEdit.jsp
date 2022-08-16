@@ -19,7 +19,7 @@
 </head>
 <body>
 	<h3>번개 모임 수정</h3>
-	<form action="leaderGroupEdit" method="post">
+	<form action="lightEdit" method="post">
 		<input type="hidden" name="class_no" value="${lightDto.class_no}"/>
 		<input type="hidden" name="lightning_no" value="${lightDto.lightning_no}"/>
 		<table>
@@ -50,8 +50,8 @@
 			</tr>
 			<tr>
 				<th colspan="2">
-					<input type="button" value="수정 완료" onclick="leaderGroupUpd()"/>
-					<input type="button" value="취소" onclick="leaderGroupEditClose()"/>
+					<input type="button" value="수정 완료" onclick="lightGroupUpd()"/>
+					<input type="button" value="취소" onclick="lightGroupEditClose()"/>
 				</th>
 			</tr>
 		</table>
@@ -59,7 +59,7 @@
 </body>
 <script>
 //수정 완료
-function leaderGroupUpd(){
+function lightGroupUpd(){
 	var result confirm("번개 모임의 내용을 수정하시겠습니까?");
 	if(result == true){
 		alert("수정이 완료되었습니다.");
@@ -72,7 +72,7 @@ function leaderGroupUpd(){
 }
 
 //취소
-function leaderGroupEditClose(){
+function lightGroupEditClose(){
 	opener.parent.location.reload();
 	window.close();
 }
