@@ -39,8 +39,6 @@ public interface RestaurantDAO {
 
 	ArrayList<RestaurantDTO> reviewPhoto(String comment_no);
 
-	HashMap<String, String> reviewDel(HashMap<String, String> params);
-
 	int reviewReLoad(RestaurantDTO dto);
 
 	HashMap<String, String> like(HashMap<String, String> params);
@@ -50,6 +48,22 @@ public interface RestaurantDAO {
 	HashMap<String, String> likeDel(HashMap<String, String> params);
 
 	ArrayList<RestaurantDTO> resUpdateList(HashMap<String, Object> searchResult);
+
+	RestaurantDTO requestNO(int restaurant_no);
+
+	RestaurantDTO restuarantUpdateNo(int restuarantUpdate_no);
+
+	void resAdminUpdate(RestaurantDTO dto);
+
+	int reviewDel(HashMap<String, String> params);
+
+	ArrayList<RestaurantDTO> photoDelList(HashMap<String, String> params);
+
+	void Reporthandling(RestaurantDTO dto);
+
+	int allCount2(HashMap<String, Object> searchResult);
+
+
 
 
 	

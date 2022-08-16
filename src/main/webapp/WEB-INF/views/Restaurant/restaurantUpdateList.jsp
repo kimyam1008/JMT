@@ -101,7 +101,7 @@ function listCall(page){
 			content += '<tr>';
 			content += '<td>'+item.restuarantUpdate_no+'</td>';
 			content += '<td>'+item.restaurantUpdate_reason+'</td>';
-			content += '<td>'+item.restaurant_no+'</td>';
+			content += '<td><a href=/resAdminUpdate.go?restaurant_no='+item.restaurant_no+'&restuarantUpdate_no='+item.restuarantUpdate_no+'>'+item.restaurant_name +'</a>' +'</td>';
 			content += '<td>'+item.member_id+'</td>';
 			content += '<td>'+item.restaurantUpdate_proc_status+'</td>';
 			content += '<td>'+item.restaurantUpdate_date+'</td>';

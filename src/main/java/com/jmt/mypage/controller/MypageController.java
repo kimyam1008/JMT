@@ -112,6 +112,18 @@ public class MypageController {
 			return "redirect:/mypage.go";
 		}
 		
+		//회원 탈퇴
+		@RequestMapping(value = "/memberDrop.go")
+		public String memberDrop(Model model, HttpSession session, MultipartFile[] photos,
+				@RequestParam HashMap<String, Object> params) {
+			String loginId = (String) session.getAttribute("loginId");
+			params.put("loginId", loginId);
+			logger.info("params :{}",params);
+			service.profileUpdate(model, photos, params);
+			
+			return "redirect:/mypage.go";
+		}
+		
 		// 나의활동 첫 페이지 이동
 		@RequestMapping(value = "/myBoardList.go")
 		public String myBoardList() {

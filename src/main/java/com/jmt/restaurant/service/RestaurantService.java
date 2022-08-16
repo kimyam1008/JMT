@@ -1,5 +1,6 @@
 package com.jmt.restaurant.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -245,6 +246,8 @@ public class RestaurantService {
 
 	public ArrayList<RestaurantDTO> photoDel(HashMap<String, String> params) {
 		return dao.photoDel(params);
+		
+		
 	}
 
 
@@ -259,7 +262,27 @@ public class RestaurantService {
 
 
 	public HashMap<String, String> reviewDel(HashMap<String, String> params) {
-		return dao.reviewDel(params);
+		 
+		
+		ArrayList<RestaurantDTO> photoDelList = dao.photoDelList(params);
+		logger.info(photoDelList+" 번 게시물에 업로드된 사진 수 "+photoDelList.size());
+		
+		//bbs 테이블의 데이터 삭제(이때 photo 도 자동으로 지워진다.)
+		if(dao.reviewDel(params)>0) {
+			//성공하면 사진도 삭제
+			for (RestaurantDTO photo : photoDelList) {
+				File f = new File("/Users/moon/Documents/SPRING_ADVANCE/JMT4/src/main/webapp/resources/photo/review/"+photo.getPhoto_newFileName());
+				if(f.exists()) {
+					boolean success = f.delete();
+					logger.info(photo.getPhoto_newFileName()+"삭제 여부 : "+success);
+				}
+				
+			}
+		}
+		return null;
+		
+		
+		
 	}
 
 
@@ -298,7 +321,7 @@ public class RestaurantService {
 		searchResult.put("gender", gender);
 		
 
-		int allCnt = dao.allCount(searchResult);
+		int allCnt = dao.allCount2(searchResult);
 		logger.info("allCnt : " + allCnt);
 		
 		int pages = allCnt % cnt > 0 ? (allCnt / cnt)+1 : (allCnt / cnt);
@@ -330,12 +353,53 @@ public class RestaurantService {
 	}
 
 
+	public RestaurantDTO requestNO(int restaurant_no) {
+		return dao.requestNO(restaurant_no);
+	}
 
 
-//	public Object findLike(HashMap<String, String> params) {
-//		return null;
-//		//return dao.findLike(params);
-//	}
+	public RestaurantDTO restuarantUpdateNo(int restuarantUpdate_no) {
+		return dao.restuarantUpdateNo(restuarantUpdate_no);
+	}
+
+
+	public String resAdminUpdate(HashMap<String, String> params) {
+		String idx = params.get("restaurant_no");
+		String idx2 = params.get("restuarantUpdate_no");
+		
+		String page = "redirect:/resAdminUpdate.go?restaurant_no="+idx+"&restuarantUpdate_no="+idx2;
+		RestaurantDTO dto = new RestaurantDTO();
+		
+		logger.info("보자보자 : "+params);
+		dto.setRestaurant_name(params.get("restaurant_name"));
+		dto.setRestaurant_address(params.get("restaurant_address"));
+		dto.setRestaurant_info(params.get("restaurant_info"));
+		dto.setRestaurant_call(params.get("restaurant_call"));
+		dto.setRestaurant_no(Integer.parseInt(params.get("restaurant_no")));
+		dao.resAdminUpdate(dto);
+		
+		return page;
+	}
+
+
+	public String Reporthandling(HashMap<String, String> params) {
+		
+		String idx = params.get("restaurant_no");
+		String idx2 = params.get("restuarantUpdate_no");
+		
+		String page = "redirect:/resAdminUpdate.go?restaurant_no="+idx+"&restuarantUpdate_no="+idx2;
+		
+		RestaurantDTO dto = new RestaurantDTO();
+		dto.setRestaurantUpdate_proc_status(params.get("restaurantUpdate_proc_status"));
+		dto.setRestuarantUpdate_no(Integer.parseInt(params.get("restuarantUpdate_no")));
+		dao.Reporthandling(dto);
+		return page;
+	}
+
+
+	
+
+
 
 
 	

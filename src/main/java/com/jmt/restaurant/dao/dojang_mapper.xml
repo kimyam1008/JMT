@@ -8,13 +8,35 @@
 	</select>
 	
 	<select id="resList" parameterType="hashmap" resultType="res">
-		SELECT 
-			r.restaurant_no
-			, f.food_name
-			, r.restaurant_name
-			, r.restaurant_address
-		FROM restaurant r
-		JOIN food f ON r.food_no = f.food_no
+		select
+			*
+		from (
+			SELECT
+				  r.restaurant_no
+				, f.food_name
+				, r.restaurant_name
+				, r.restaurant_address
+				, r.restaurant_X 
+				, r.restaurant_Y
+			from
+				restaurant r
+			join
+				food f on
+			r.food_no = f.food_no
+		) as r
+		left join (
+			select
+				  photo_no
+				, photo_newFileName
+				, idx
+			from
+				photo
+			where
+				class_no = 8
+		) as p on
+		r.restaurant_no = p.idx
+		group by
+			restaurant_no
 		<where>
 			<if test="search != null and search != ''">
 				AND r.restaurant_name LIKE CONCAT('%', #{search}, '%')
@@ -26,6 +48,7 @@
 		ORDER BY r.restaurant_no DESC limit #{cnt} OFFSET #{offset};
 	</select>
 	
+	<!-- 음식점 검색 페이징 -->
 	<select id="allCount" parameterType="hashmap" resultType="int">
 		SELECT
 			COUNT(restaurant_no)
@@ -40,6 +63,12 @@
 		</where>
 	</select>
 	
+	<!-- 맛집수정요청 페이징 -->
+	<select id="allCount2" parameterType="hashmap" resultType="int">
+		select
+			count(restuarantUpdate_no)
+	 	from restaurantupdate r
+	</select>	
 	
 	<select id="resDetail" resultType="res" parameterType="int" >
 		SELECT 
@@ -48,6 +77,8 @@
 			, r.restaurant_name
 			, r.restaurant_address
 			, r.restaurant_call
+			, r.restaurant_X 
+			, r.restaurant_Y
 		 FROM restaurant r
 		 JOIN food f ON r.food_no = f.food_no
 		 WHERE restaurant_no = #{restaurant_no}
@@ -97,49 +128,42 @@
 			c.idx = #{restaurant_no};
 	</select>
 	
+	<select id="photoDelList" resultType="res" parameterType="hashmap" >
+		select * from photo p where photo_no = #{photo_no}
+	</select>
+	
+	
+	
+	
+	
 	<!-- <select id="resCommet" resultType="res" parameterType="hashmap" >	
 		select
-			c.comment_no
+			c.comment_no 
 			, c.comment_content 
 			, c.comment_date 
-			, c.comment_status 
-			, c.member_id 
-			, p.idx
+			, c.comment_no 
 			, p.photo_newFileName 
-		from 
-			comment c
-		inner join photo p on 
-			c.class_no = p.class_no
-		where
-			c.idx = #{restaurant_no}
-		and c.comment_no = p.idx
+			, c.idx 
+			, c.class_no 
+			, c.member_id 
+			, c.comment_status 
+			,(select count(like_no) from likes l where c.comment_no = l.comment_no) as likeNo
+		from comment c
+		join photo p
+		where c.idx = #{restaurant_no}
+		and c.class_no = 8
 	</select> -->
 	
 	<select id="resCommet" resultType="res" parameterType="hashmap" >	
 		select c.comment_no
-			, c.comment_content 
-			, c.comment_date 
-			, c.comment_status 
-			, c.member_id
-			, (select count(like_no) from likes l where c.comment_no = l.comment_no) as likeNo
-			from comment c where idx=#{restaurant_no};
+				, c.comment_content 
+				, c.comment_date 
+				, c.comment_status 
+				, c.member_id
+				, (select count(like_no) from likes l where c.comment_no = l.comment_no) as likeNo
+			from comment c
+			where idx = #{restaurant_no}
 	</select>
-	
-	<!-- <select id="resCommet" resultType="res" parameterType="hashmap" >	
-		select
-			c.comment_no
-			, c.comment_content 
-			, c.comment_date 
-			, c.comment_status 
-			, c.member_id 
-			, l.like_count 
-		from 
-			comment c
-		inner join likes l on 
-			c.member_id = l.member_id 
-		where
-			c.comment_no = #{restaurant_no}
-	</select>  -->
 	
 	
 	<update id="commentDel" parameterType="hashmap">
@@ -167,7 +191,7 @@
 	
 	<insert id="like">
 		insert into likes (member_id, comment_no, like_count)
-		values(#{loginId}, #{comment_no}, +1);
+		values(#{loginId}, #{comment_no}, +1)
 	</insert>
 	
 	<select id="findLike" resultType="res" parameterType="hashmap">
@@ -179,15 +203,67 @@
 	</delete>
 	
 	<select id="resUpdateList" resultType="res" parameterType="hashmap">
-		select 
-			restuarantUpdate_no
-			,restaurantUpdate_reason
-			,restaurant_no
-			,member_id
-			,restaurantUpdate_proc_status 
-			,restaurantUpdate_date 
+		select
+			r2.restaurant_name 
+			, r.restuarantUpdate_no 
+			, r.restaurantUpdate_reason 
+			, r.restaurant_no 
+			, r.member_id 
+			, r.restaurantUpdate_date 
+			, r.restaurantUpdate_date 
+			, r.restaurantUpdate_proc_status 
 		from restaurantupdate r 
+		inner join restaurant r2 on
+		r.restaurant_no = r2.restaurant_no
 	</select>
+	
+	<!-- 맛집 수정요청 음식점 -->
+	<select id="requestNO" parameterType="int" resultType="res">
+		SELECT 
+			r.restaurant_no
+			, f.food_name
+			, r.restaurant_name
+			, r.restaurant_address
+			, r.restaurant_X 
+			, r.restaurant_Y
+			, r.restaurant_info 
+			, r.restaurant_call 
+		FROM restaurant r
+		JOIN food f ON r.food_no = f.food_no
+		where restaurant_no = #{restaurant_no}
+	</select>
+	
+	<!-- 맛집 수정요청 번호 -->
+	<select id="restuarantUpdateNo" resultType="res" parameterType="int">
+		select
+			r2.restaurant_name 
+			, r.restuarantUpdate_no 
+			, r.restaurantUpdate_reason 
+			, r.restaurant_no 
+			, r.member_id 
+			, r.restaurantUpdate_date 
+			, r.restaurantUpdate_proc_status 
+		from restaurantupdate r 
+		inner join restaurant r2 on
+		r.restaurant_no = r2.restaurant_no 
+		where restuarantUpdate_no = #{restuarantUpdate_no}
+	</select>
+	
+	<update id="resAdminUpdate" parameterType="Hashmap">
+		update restaurant set
+			restaurant_name = #{restaurant_name}
+			, restaurant_address = #{restaurant_address}
+			, restaurant_info = #{restaurant_info}
+			, restaurant_call = #{restaurant_call}
+		where restaurant_no = #{restaurant_no}		
+	</update>
+	
+	<update id="Reporthandling" parameterType="Hashmap">
+		update restaurantupdate set
+			restaurantUpdate_proc_status = #{restaurantUpdate_proc_status}
+		where restuarantUpdate_no = #{restuarantUpdate_no}
+	</update>
+	
 	
 	
 	
