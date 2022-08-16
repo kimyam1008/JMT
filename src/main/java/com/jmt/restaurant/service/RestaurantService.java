@@ -149,6 +149,7 @@ public class RestaurantService {
 		
 		if(row > 0) {
 			reviewFileSave(photos, getComment_no, 8);
+			
 		}
 		
 		return page;
@@ -156,7 +157,10 @@ public class RestaurantService {
 	
 	public void reviewFileSave(MultipartFile[] photos, int idx, int class_noID) {
 		
+		RestaurantDTO dto = new RestaurantDTO();
 		
+		int comment_no = dto.getComment_no();
+		logger.info(" : " +comment_no);
 		int class_no = class_noID;
 		
 		// 이미지 파일 업로드
@@ -180,8 +184,7 @@ public class RestaurantService {
 					Files.write(path, arr);
 					logger.info(photo_newFileName + " SAVE OK");
 					// 4. 업로드 후 photo 테이블에 데이터 입력
-					dao.reviewFileWrite(photo_oriFileName,photo_newFileName,idx,class_no);
-					
+					dao.reviewFileWrite(photo_oriFileName,photo_newFileName,idx,class_no);					
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -203,6 +206,7 @@ public class RestaurantService {
 		dto.setMember_id(params.get("loginId"));
 		dto.setComment_content(params.get("comment_content"));
 		dto.setIdx(Integer.parseInt(params.get("idx")));
+		//dto.setComment_no(Integer.parseInt(params.get("comment_no")));
 		
 		
 		// 리뷰 수정 성공여부 확인
@@ -311,10 +315,11 @@ public class RestaurantService {
 		String search = params.get("search");
 		String foodname = params.get("foodname");
 		String gender = params.get("gender");
-		
+		String list_option =params.get("list_option");
 		
 		
 		HashMap<String, Object> searchResult = new HashMap<String, Object>();
+		searchResult.put("list_option", list_option);
 		
 		searchResult.put("search", search);
 		searchResult.put("foodname", foodname);
@@ -397,6 +402,23 @@ public class RestaurantService {
 	}
 
 
+	public ArrayList<HashMap<String, String>> CommentPhoto(int comment_no) {
+		
+		return dao.CommentPhoto(comment_no);
+	}
+	
+	public HashMap<String, String> commentPhotoDel(HashMap<String, String> params) {
+		return dao.commentPhotoDel(params);
+	}
+
+
+	public ArrayList<HashMap<String, String>> CommentLike(int comment_no) {
+		return dao.CommentLike(comment_no);
+	}
+
+
+
+	
 	
 
 

@@ -33,9 +33,14 @@
 <body>
 	<h3>${sessionScope.loginId}</h3>
 	<h3>맛집 상세보기</h3>
-	 <c:forEach items="${photoList}" var="path">
-      	<img src="/image/${path.photo_newFileName}" height="100"/>
-     </c:forEach>
+	<c:forEach items="${CommentPhoto}" var="p">
+	
+		<img src="/photo/${p.photo_newFileName}" height="100"/>
+	
+	</c:forEach>
+	 <%-- <c:forEach items="${photoList}" var="path">
+      	<img src="/photo/${path.photo_newFileName}" height="100"/>
+     </c:forEach> --%>
 	<table>
 		<thead>
 	         <tr>
@@ -81,24 +86,16 @@
 	<c:forEach items="${lightninglist}" var="liList">
 	 	번개 모임!!
 	 	<br/>
-      	<td>${liList.lightning_title}</td>
-      	<br/>
-      	<br/>
+	 	<c:if test="${liList.lightning_status eq '모집중'}">
+      		<td>${liList.lightning_title}</td>
+    	</c:if>
      </c:forEach>
 	
 		<h3>리뷰</h3>
 	<table>
 		<thead>
 			<tr>
-				<td>
-					좋아요 순
-				</td>
-				<td>
-					|
-				</td>
-				<td>
-					최신순
-				</td>
+				
 				<td>
 					<a href="./reviewWrite?restaurant_no=${resDetail.restaurant_no}">리뷰 쓰기</a>			
 				</td>
@@ -119,41 +116,52 @@
 			<td>${comment.comment_date}</td>
 			
 			
-			<td>
-			<button class="likeDelBtn" onclick="likeDel(this)"
-			commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-			♥</button>
-			
-			<button class="likeBtn" onclick="like(this)"
-			commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-			♡</button>
-			</td>
-	
-			<%-- <td>
-			<c:choose>
-				<c:when test="${comment.member_id eq sessionScope.loginId}">
-					<button class="likeDelBtn" onclick="likeDel(this)"
-					commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-					♥</button>
-				</c:when>
-				<c:when test="${comment.member_id eq sessionScope.loginId}">
-					<button class="likeBtn" onclick="like(this)"
-					commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-					♡</button>
+			<%-- <c:forEach items="${CommentLike}" var="like">
+				<c:choose>
+					<c:when test="${like.member_id eq sessionScope.loginId}">
+						
 					</c:when>
-			</c:choose>
-			</td> --%>
-			
-			<%-- 포토도 해야함..
-			<c:forEach items="${photoList}" var="p">
-				<c:if test="${comment.comment_no eq comment.comment_no}">
-				<td>
-					<input type="hidden" name="idx" value="${comment.comment_no}" />
-				</td>
-				<img src="/image/${p.photo_newFileName}" height="400"/>
-				</c:if>
+					<c:when test="${like.member_id eq null}">
+						
+					</c:when>
+				</c:choose>
 			</c:forEach> --%>
+			
+			
+			<c:choose>
+				<c:when test="${comment.comment_no ne null}">
+					<td>
+						<button class="likeDelBtn" onclick="likeDel(this)"
+						commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
+						♥</button>
+					</td>	
+				</c:when>
+				<c:otherwise>
+					<td>
+						<button class="likeBtn" onclick="like(this)"
+						commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
+						♡</button>
+					</td>
+				</c:otherwise>
+			</c:choose>
+			
+			<c:choose>
+				<c:when test="${comment.comment_no ne null}">
+					<td>
+						<button class="likeBtn" onclick="like(this)"
+						commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
+						♡</button>
+					</td>
+				</c:when>
+				<c:otherwise>
+					
+				</c:otherwise>
+			</c:choose>
+			
+					
 			 
+			
+			
 			<td>
 			<c:if test="${comment.member_id eq sessionScope.loginId}">
 			<input type="hidden" name="ID" value="${comment.member_id}" />
@@ -164,6 +172,19 @@
 			<td>
 			${comment.likeNo}
 			</td>
+			
+				<td>
+					<button type="button" resID="${comment.comment_no}" memberID="${sessionScope.loginId}" onclick="report()">신고하기</button>
+				</td>
+			
+			<td>
+			<c:forEach items="${CommentPhoto}" var="p">
+				<c:if test="${comment.comment_no eq p.idx}">
+				<img src="/photo/${p.photo_newFileName}" height="100"/>
+				</c:if>
+			</c:forEach>
+			</td> 
+			 
 		</c:if>	
 		</tr>
      </c:forEach>
@@ -172,7 +193,7 @@
    
     
     
-    <!-- 페이지 번호 -->	
+    <%-- <!-- 페이지 번호 -->	
 	<div>
 		<ul>	
 			<!-- 맨처음 버튼 -->
@@ -206,7 +227,7 @@
 			</li>
 			
 		</ul>
-	</div>
+	</div> --%>
 </body>
 
 <script>
@@ -214,6 +235,10 @@
 
 	function resUp(){
 		window.open('restaurantUpdate.go?restaurant_no=${resDetail.restaurant_no}','','width=400, height=300');
+	}
+	
+	function report(){
+		window.open('resReport.go?comment_no=${comment.comment_no}','','width=400, height=300');
 	}
 	
 	
@@ -359,6 +384,7 @@
 	        container.className = "view_roadview"   
 	    }
 	}
+	
 	
 </script>
 

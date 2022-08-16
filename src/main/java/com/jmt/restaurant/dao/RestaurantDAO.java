@@ -63,6 +63,12 @@ public interface RestaurantDAO {
 
 	int allCount2(HashMap<String, Object> searchResult);
 
+	ArrayList<HashMap<String, String>> CommentPhoto(int comment_no);
+
+	HashMap<String, String> commentPhotoDel(HashMap<String, String> params);
+
+	ArrayList<HashMap<String, String>> CommentLike(int comment_no);
+
 
 
 

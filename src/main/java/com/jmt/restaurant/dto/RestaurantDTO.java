@@ -40,6 +40,7 @@ public class RestaurantDTO {
 	
 	// 번개모임
 	private String lightning_title;
+	private String lightning_status;
 	
 	// 댓글 종합 
 	private int comment_no;
@@ -227,6 +228,13 @@ public class RestaurantDTO {
 	}
 	public void setLikeNo(String likeNo) {
 		this.likeNo = likeNo;
+	}
+	public String getLightning_status() {
+		return lightning_status;
+	}
+	
+	public void setLightning_status(String lightning_status) {
+		this.lightning_status = lightning_status;
 	}
 
 

@@ -27,6 +27,11 @@ table, th, td{
 </head>
 
 <body>
+
+	<c:forEach items="">
+	
+	</c:forEach>
+	
 	<input type="text" id="search" placeholder="맛집 검색해주세요">
 	<button id="moimSearch">검색</button>
 	<br/>
@@ -36,8 +41,7 @@ table, th, td{
         
    <table>
       <thead>
-      <tr>
-      </tr>      
+
       </thead>
       <tbody id="list">
       </tbody>
@@ -188,7 +192,7 @@ function drawList(list){
 	list.forEach(function(item,restaurant_no){
 		
 		content += '<tr>';
-		content += '<td><img src="/image/'+item.photo_newFileName+'" height="100"/></td>';
+		content += '<td><img src="/photo/'+item.photo_newFileName+'" height="100"/></td>';
 		content += '<td class="resDetailTitle"><a href="resDetail.do?restaurant_no='+item.restaurant_no+'">'+item.restaurant_name+'</a></td>';
 		content += '<td>'+item.food_name+'</td>';
 		content += '<td>'+item.restaurant_address+'</td>';
