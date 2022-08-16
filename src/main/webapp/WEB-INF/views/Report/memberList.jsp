@@ -21,13 +21,21 @@
 		border-collapse: collapse;
 		padding: 5px;
 	}
+	
+	.active{
+		color:pink;
+		font: bold;
+		text-decoration: underline;
+	}
+	#option_list{ text-align:center;  margin:20px 0px;}
+	#option_list span{font-size: 20px; margin:20px 20px;}
 </style>
 <body>
 
-<div>
-	<h3 onclick="listCall(1)">전체</h3>
-	<h3 onclick="listCall(1 ,'블랙')">블랙리스트</h3>
-	<h3>탈퇴</h3>
+<div id="option_list" >
+	<span class="active" onclick="listCall(1)">전체</span>
+	<span onclick="listCall(1 ,'블랙')">블랙리스트</span>
+	<span onclick="listCall(1 ,'탈퇴')">탈퇴</span>
 </div>
 
 	<table>
@@ -64,11 +72,12 @@
 var currPage = 1;
 
 listCall(currPage);
-
+$('h3').click(  function(){$("#pagination").twbsPagination('destroy');});
 
  function listCall(page,list_option){
 	 var pagePerNum=5;
-	 $("#pagination").twbsPagination('destroy');
+	 var option1 = list_option;
+
 		
 	$.ajax({
 		type:'GET',
@@ -130,5 +139,15 @@ function drawList(list){
 	$('#list').append(content);
 }
 
+
+$('span').click(function(){
+	  if($('span').hasClass("active")){
+	    $('span').removeClass("active");
+	    $(this).addClass("active"); 
+	    
+	  }else{
+	    $(this).addClass("active");  
+	  }
+	});
 </script>
 </html>
