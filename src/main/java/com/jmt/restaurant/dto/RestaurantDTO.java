@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import org.apache.ibatis.type.Alias;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Alias("res")
 public class RestaurantDTO {
 
@@ -25,6 +27,7 @@ public class RestaurantDTO {
 	private int restuarantUpdate_no;
 	private String member_id;
 	private String restaurantUpdate_reason;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd",timezone = "Asia/Seoul")
 	private Date restaurantUpdate_date;
 	private String restaurantUpdate_proc_status;
 	
