@@ -2,6 +2,7 @@ package com.jmt.restaurant.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -81,14 +82,6 @@ public class RestaurantController {
 		ArrayList<RestaurantDTO> resCommet = service.resCommet(model, restaurant_no);
 		model.addAttribute("resCommet", resCommet);
 		
-		logger.info(" 시"+params);
-		
-//		RestaurantDTO like = new RestaurantDTO();
-//		
-//		like.setComment_no(Integer.parseInt(params.get("comment_no")));
-//		like.setMember_id(params.get("member_id"));
-//		
-//		model.addAttribute("like", service.findLike(params));
 				
 		return "Restaurant/restaurantDetail";
 				
@@ -228,7 +221,38 @@ public class RestaurantController {
 	}
 
 	
+	// 맛집 수정 (관리자) 페이지 이동
+	@RequestMapping(value = "/resAdminUpdate.go")
+	public String resAdminUpdate(Model model,@RequestParam int restaurant_no, int restuarantUpdate_no) {
+		logger.info("맛집 수정 요청 페이지(관리자)");
+		
+		RestaurantDTO requestNO = service.requestNO(restaurant_no);
+		model.addAttribute("requestNO", requestNO);
+		
+		RestaurantDTO restuarantUpdateNo = service.restuarantUpdateNo(restuarantUpdate_no);
+		model.addAttribute("resUpdateNo", restuarantUpdateNo);
 	
+		return "Restaurant/resAdminUpdate";
+	}
+	
+	
+	// 맛집 수정 (관리자) 정보 수정
+	@RequestMapping(value = "/resAdminUpdate.do")
+	   public String resAdminUpdate(@RequestParam HashMap<String, String> params, HttpSession session) {
+		
+	      logger.info("맛집 정보 수정 : " + params);
+	      
+	      return service.resAdminUpdate(params);
+	   }
+	
+	// 맛집 수정 요청 (관리자) 요청 처리
+	@RequestMapping(value = "/Reporthandling.do")
+	   public String Reporthandling(@RequestParam HashMap<String, String> params, HttpSession session) {
+		
+	      logger.info("맛집 요청 처리 : " + params);
+	      
+	      return service.Reporthandling(params);
+	   }
 	
 
 }

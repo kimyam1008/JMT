@@ -38,13 +38,10 @@
 	</form>
 </body>
 <script>
-	console.log($('#loginId').val());
 
 	function save(){
-		/* $('#content a').removeAttr('onclick');
-		$('#content').val($('#editable').html()); */
 		$('form').submit();
-		self.close();
+		//window.close();
 	}
 	
 	function cancellation(){

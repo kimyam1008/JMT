@@ -34,7 +34,7 @@
 		                	</c:forEach>
 		           		</select>
 	            	</th></tr>
-					<tr><th><a href="#">회원탈퇴</a></th></tr>
+					<tr><th><a href="./memberDrop.go">회원탈퇴</a></th></tr>
 			</table>
 		</form>
 </body>
