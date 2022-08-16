@@ -90,6 +90,8 @@ public interface ReportDAO {
 
 	void levelUp(Map<String, Object> data);
 
+	int chkGrade(String loginId);
+
 
 
 }
