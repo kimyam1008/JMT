@@ -31,6 +31,19 @@
 		height : 280px;
 	 	overflow:auto;
 	}
+	
+	/*검색창 가운데 정렬 */
+	form { 
+		text-align : center;
+	}
+	
+	/*확인 취소 버튼 가운데 정렬*/
+	.btn{
+		text-align : center;
+	}
+	.btn1{
+		display : inline-block;
+	}
 </style>
 </head>
 <body>
@@ -41,6 +54,12 @@
 	</form>
 	<div>
  		<table>
+ 		<colgroup>
+		  		<col width="50"></col>
+				<col width="180"></col>
+				<col width="*"></col>
+				
+			</colgroup>
 	 		<tr>
 	 			<th>선택</th>
 	 			<th>식당 이름</th>
@@ -70,8 +89,10 @@
 	 		</c:choose>
  		</table>
 	</div>
-	<button onclick="resChoice()">확인</button>
-	<button onclick="lightSearchclose()">취소</button>
+	<div class="btn">
+		<button onclick="resChoice()" class="btn1">확인</button>
+		<button onclick="lightSearchclose()" class="btn1">취소</button>
+	</div>
 </body>
 <script>
 	//맛집 선택시

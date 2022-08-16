@@ -279,8 +279,8 @@
 	}
 	
 	
-	var member_count = "${dto.member_count}";
-	var member_num = "${dto.member_num}";
+	//var member_count = "${dto.member_count}";
+	//var member_num = "${dto.member_num}";if(member_count == member_num){alert("모임 정원이 꽉차서 신청이 불가합니다.")}}else
 	
 	function application(){
 		console.log(status);
@@ -290,9 +290,7 @@
 		//아직 가입신청을 안한 경우
 		}else if (status == ""){
 			//프로필 상태 기반
-			if(member_count == member_num){
-				alert("모임 정원이 꽉차서 신청이 불가합니다.");
-			}else if("${dto.gender}" !="상관없음" && "${dto.gender}" != profile_gender){
+			if("${dto.gender}" !="상관없음" && "${dto.gender}" != profile_gender){
 				alert("성별 조건이 맞지않습니다.");
 			}else{
 				if(confirm("가입 신청하시겠습니까?")){
@@ -413,7 +411,7 @@
 				content += '<div class ="img">';
 				
 				if (item.photo_newFileName!= null){
-				content += '<a href="#"><img src ="/photo/'+item.photo_newFileName+'" class="profileImg"></a>';
+					content += '<a href="#"><img src ="/photo/'+item.photo_newFileName+'" class="profileImg"></a>';
 				}else{ //프로필 등록을 안했을 시
 					content += '<a href="#"><img src ="/photo/profile.jpeg" class="profileImg"></a>';
 				}
@@ -424,8 +422,8 @@
 				content += '<div class="utility">';
 				
 				if(loginId == item.member_id){ //본인 댓글만 수정,삭제 보이게 
-				content += '<button class="btn" id="updBtn'+item.comment_no+'" onclick="updBtn('+item.comment_no+   ","     +  "\'" +  str   +"\'"  + ')">수정</button>';
-				content += '<button class="btn" id="delBtn'+item.comment_no+'" onclick="cmtDel('+item.comment_no+')">삭제</button>';
+					content += '<button class="btn" id="updBtn'+item.comment_no+'" onclick="updBtn('+item.comment_no+   ","     +  "\'" +  str   +"\'"  + ')">수정</button>';
+					content += '<button class="btn" id="delBtn'+item.comment_no+'" onclick="cmtDel('+item.comment_no+')">삭제</button>';
 				}
 				
 				content += '</div>';
@@ -435,8 +433,8 @@
 				content += '<li class="menu comment_date">'+date.toLocaleDateString("ko-KR")+'</li>';
 				
 				if(loginId != item.member_id){ //본인 댓글은 '신고하기' 안보이게
-				content += '<li class="divider"></li>';
-				content += '<li class="menu report" onclick="lightCmtReport_pop('+item.comment_no+')">신고하기</li>';
+					content += '<li class="divider"></li>';
+					content += '<li class="menu report" onclick="lightCmtReport_pop('+item.comment_no+')">신고하기</li>';
 				}
 				
 				content += '</ul>';
