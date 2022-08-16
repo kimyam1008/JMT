@@ -108,7 +108,7 @@ public class TestController extends HandlerInterceptorAdapter {
 		}
 		
 		
-		modelAndView.addObject("msg",msg);
+		
 		}
 		
 		
