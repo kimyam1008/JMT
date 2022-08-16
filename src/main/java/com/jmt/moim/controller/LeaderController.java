@@ -1,6 +1,7 @@
 package com.jmt.moim.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,8 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.jmt.groupreview.dto.GroupReviewDTO;
 import com.jmt.moim.dto.LeaderDTO;
 import com.jmt.moim.service.LeaderService;
 
@@ -24,45 +26,132 @@ public class LeaderController {
 	@Autowired  LeaderService service;
 
 	//방장페이지 메인
-   @RequestMapping(value = "/leaderPage.go")
-   public String leaderPage(Model model,HttpSession session,
+	@RequestMapping(value = "/leaderPage.go")
+	public String leaderPage(Model model,HttpSession session,
 		   @RequestParam String idx,@RequestParam String class_no){
-	  logger.info("방장 페이지 진입");
-	  String loginId = (String) session.getAttribute("loginId");
-	  model.addAttribute("loginId", loginId);
+		logger.info("방장 페이지 진입");
+		String loginId = (String) session.getAttribute("loginId");
+		model.addAttribute("loginId", loginId);
 	  
-	  if (class_no == "1") {
-		  //번개모임 고유 데이터 가져오기
-		  LeaderDTO lightDto = service.lightDetail(idx,loginId);
-		  if (lightDto != null) {
-			  model.addAttribute("lightDto", lightDto);
-		  }
-	} else {
-		LeaderDTO dojangDto = service.dojangDetail(idx,loginId);
-		if (dojangDto != null) {
-			  model.addAttribute("dojangDto", dojangDto);
-		  }
-	}
-	  //최근 게시글
-	  ArrayList<LeaderDTO> recentPost = service.recentPost(idx);
-	  model.addAttribute("recentPost", recentPost);
-	  
-	  //가입 대기 회원
-	  ArrayList<LeaderDTO> joinWait = service.joinWait(idx);
-	  model.addAttribute("joinWait", joinWait);
-	  
-      return "./Leader/leaderPage";
+		 if (class_no == "1") {
+			 //번개모임 고유 데이터 가져오기
+			 LeaderDTO lightDto = service.lightDetail(idx,loginId);
+			 if (lightDto != null) {
+				 model.addAttribute("lightDto", lightDto);
+			 }
+		} else {
+			//도장깨기 고유 데이터 가져오기
+			LeaderDTO dojangDto = service.dojangDetail(idx,loginId);
+			if (dojangDto != null) {
+				 model.addAttribute("dojangDto", dojangDto);
+			 }
+		}
+		 //최근 게시글
+		 ArrayList<LeaderDTO> recentPost = service.recentPost(idx);
+		 model.addAttribute("recentPost", recentPost);
+		  
+		 //가입 대기 회원
+		 ArrayList<LeaderDTO> joinWait = service.joinWait(idx);
+		 model.addAttribute("joinWait", joinWait);
+		  
+	     return "./Leader/leaderPage";
    }
    
-   //모임 수정 팝업
-   @RequestMapping(value = "/leaderGroupEdit.go")
-   public String leaderGroupEdit(){
-      return "./Leader/leaderGroupEdit";
+	//모임 수정 팝업
+    @RequestMapping(value = "/leaderGroupEdit.go")
+	public String leaderGroupEditGo(HttpSession session, Model model,
+			@RequestParam String idx,@RequestParam String class_no){
+    	String page = "./Leader/leaderPage";
+    	String loginId = (String) session.getAttribute("loginId");
+    	model.addAttribute("loginId", loginId);
+    	
+    	if (class_no == "1") {
+			  //번개모임 고유 데이터 가져오기
+			  LeaderDTO lightDto = service.lightDetail(idx,loginId);
+			  if (lightDto != null) {
+				  model.addAttribute("lightDto", lightDto);
+				  page="./Leader/leaderLightningEdit";
+			  }
+		} else {
+			//도장깨기 고유 데이터 가져오기
+			LeaderDTO dojangDto = service.dojangDetail(idx,loginId);
+			if (dojangDto != null) {
+				  model.addAttribute("dojangDto", dojangDto);
+				  page="./Leader/dojangEdit";
+			  }
+		} 
+    	return page;
+   }
+   
+   @RequestMapping(value = "/leaderGroupEdit.do")
+	public ModelAndView leaderGroupEdit(HttpSession session, Model model,
+		   @RequestParam HashMap<String, String> params){
+	  logger.info("params : {}",params);
+	   return service.leaderGroupEdit(params);
    }
    
    //가입 대기 회원 팝업
-   @RequestMapping(value = "/joinWait.go")
-   public String joinWait(){
-      return "./Leader/joinWait";
+	@RequestMapping(value = "/joinWait.go")
+	public String joinWaitGo(){
+		return "./Leader/joinWait";
    }
+   
+	@RequestMapping(value = "/joinWait.do")
+	public String joinWait(HttpSession session, Model model,
+		   @RequestParam String idx){
+		//가입 대기 회원
+		ArrayList<LeaderDTO> joinWait = service.joinWait(idx);
+		model.addAttribute("joinWait", joinWait);
+		return "./Leader/joinWait";
+   }
+	
+	@RequestMapping(value = "/joinWaitUpdate")
+	public ModelAndView joinWaitUpdate(@RequestParam HashMap<String, String> params){
+		logger.info("params : {}",params);
+		//가입 대기 회원
+		//ArrayList<LeaderDTO> joinWait = service.joinWait(idx);
+		//model.addAttribute("joinWait", joinWait);
+		return service.joinWaitUpdate(params);
+   }
+	
+	//나의 모임 관리 - 게시글
+	@RequestMapping(value = "/myGroupPostSetting")
+	public String myGroupPostSettingGo(HttpSession session, Model model,
+			@RequestParam String class_no, @RequestParam String idx){
+		String loginId = (String) session.getAttribute("loginId");
+		model.addAttribute("loginId", loginId);
+		//상단 프로필사진, 모임이름, 작성글, 작성댓글 불러오기
+		LeaderDTO dto = service.myGroupEtc(loginId,class_no,idx);
+		model.addAttribute("dto", dto);
+		
+		return "./Leader/myGroupPostSetting";
+   }
+
+	@RequestMapping("/myGroupPostSetting.ajax")
+	@ResponseBody
+	public HashMap<String, Object> myGroupPostSetting(@RequestParam HashMap<String, String> params){
+		logger.info("나의 모임 관리 게시글 리스트 요청 : "+params);
+		return service.myGroupPostSetting(params);
+	}
+	
+	//나의 모임 관리 - 회원
+	@RequestMapping(value = "/myGroupMemberSetting")
+	public String myGroupMemberSettingGo(HttpSession session, Model model,
+			@RequestParam String class_no, @RequestParam String idx){
+		String loginId = (String) session.getAttribute("loginId");
+		model.addAttribute("loginId", loginId);
+		//상단 프로필사진, 모임이름, 작성글, 작성댓글 불러오기
+		LeaderDTO dto = service.myGroupEtc(loginId,class_no,idx);
+		model.addAttribute("dto", dto);
+		
+		return "./Leader/myGroupMemberSetting";
+	}
+	
+	//회원 추방 팝업
+	@RequestMapping("/memberGetOut.go")
+	public String memberGetOut(Model model,@RequestParam String member_id) {
+		logger.info("번개 모임 신고 팝업 이동  : "+member_id);
+		model.addAttribute("lightning_no", member_id);
+		return"./Lightning/lightReport";   
+	}
 }
