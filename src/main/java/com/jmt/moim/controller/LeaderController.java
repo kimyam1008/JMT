@@ -118,7 +118,7 @@ public class LeaderController {
 	public String joinWait(HttpSession session, Model model,
 		   @RequestParam String idx){
 		//가입 대기 회원
-		ArrayList<LeaderDTO> joinWait = service.joinWait(idx);
+		ArrayList<LeaderDTO> joinWait = service.joinWait();
 		model.addAttribute("joinWait", joinWait);
 		return "./Leader/joinWait";
    }
