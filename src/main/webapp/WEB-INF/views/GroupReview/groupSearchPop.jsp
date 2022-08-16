@@ -245,6 +245,7 @@ function groupSearchEnd() {
 		window.opener.document.getElementById("group_name").value = title;
 		window.opener.document.getElementById("groupNumber").value = idx;
 		self.close();
+		self.close();
 
 	
 }*/
