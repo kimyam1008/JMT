@@ -305,4 +305,22 @@
 		left outer join codetable c2 ON c2.class_no =r.class_no 
 		left outer join `member` m on m.member_id =b.member_id  where m.member_id ="hello_02")  aa
 	</select>
+	
+	
+	
+	
+	
+	<!--  -->
+	
+	<select id="testPost"  parameterType="string" resultType="int">
+	select count(comment_no) from comment c where c.member_id  =#{param1};
+	</select>
+	
+	<select id="spoonList" resultType="com.jmt.admin.dto.TestDto">
+		select * from grade
+	</select>
+	
+	<update id="levelUp" parameterType="map">
+	update profile f set f.grade_no  = #{level_no} where f.member_id = #{loginId}
+	</update>
 </mapper>

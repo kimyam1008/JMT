@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.jmt.admin.dto.ReportDTO;
 import com.jmt.admin.dto.ReportPostDto;
+import com.jmt.admin.dto.TestDto;
 
 public interface ReportDAO {
 
@@ -80,6 +81,14 @@ public interface ReportDAO {
 	int blindMemberCount(Map<String, Object> data);
 
 	ArrayList<ReportDTO> blindMemberList(Map<String, Object> data);
+
+	
+	
+	int testPost(String loginId);
+
+	ArrayList<TestDto> spoonList();
+
+	void levelUp(Map<String, Object> data);
 
 
 

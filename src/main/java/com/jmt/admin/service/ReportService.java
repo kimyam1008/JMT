@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.jmt.admin.dao.ReportDAO;
 import com.jmt.admin.dto.ReportDTO;
 import com.jmt.admin.dto.ReportPostDto;
+import com.jmt.admin.dto.TestDto;
 
 @Service
 public class ReportService {
@@ -372,6 +373,29 @@ public class ReportService {
 		ArrayList<ReportDTO>  dto= dao.blindMemberList(data);
 		 map.put("blindList",dto);
 		return map;
+	}
+	
+	// test test test 
+	public int test(String loginId) {
+		int comment_no = dao.testPost(loginId);
+		return comment_no; 
+	
+		
+	}
+
+	public ArrayList<TestDto> spoonList() {
+		
+		return dao.spoonList();
+	}
+
+	public void levelUp(Map<String, Object> data) {
+		dao.levelUp(data);
+	
+	}
+
+	public void levelUp(String loginId, String level_0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
