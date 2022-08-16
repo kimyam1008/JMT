@@ -20,30 +20,32 @@
 <body>
 	<h3>모임 수정</h3>
 	<form action="leaderGroupEdit" method="post">
+	<input type="hidden" name="class_no" value="${dojangDto.class_no}"/>
+		<input type="hidden" name="dojang_no" value="${dojangDto.dojang_no}"/>
 		<table>
 			<tr>
 				<th>이름</th>
-				<td>모임이름</td>
+				<td>${dojangDto.dojang_title}</td>
 			</tr>
 			<tr>
 				<th>정원</th>
 				<td>
-					<input type="range" id="points" min="0" max="30" step="1" value="0" oninput="document.getElementById('people_num').innerHTML=this.value;"/>
+					<input name="people_num" type="range" id="points" min="0" max="30" step="1" value="${dojangDto.people_num}" oninput="document.getElementById('people_num').innerHTML=this.value;"/>
 				</td>
 			</tr>
 			<tr>
-				<th>모집상태</th>
+				<th>모집 상태</th>
 				<td>
-					<select>
-						<option>모집중</option>
-						<option>모집마감</option>
+					<select name="dojang_status">
+						<option value="모집 중">모집 중</option>
+						<option value="모집 마감">모집 마감</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
 				<th>소개글</th>
 				<td>
-					<textarea name="content"></textarea>
+					<textarea name="dojang_content">${dojangDto.dojang_content}</textarea>
 				</td>
 			</tr>
 			<tr>
@@ -58,7 +60,15 @@
 <script>
 //수정 완료
 function leaderGroupUpd(){
-	
+	var result confirm("도장깨기 모임의 내용을 수정하시겠습니까?");
+	if(result == true){
+		alert("수정이 완료되었습니다.");
+		$('form').submit();
+		opener.parent.location.reload();
+		window.close();
+	} else {
+		alert("취소되었습니다.");
+	}
 }
 
 //취소

@@ -32,8 +32,8 @@
 	<select id="allCount" parameterType="hashmap" resultType="int">
 		SELECT COUNT(groupReview_no) 
 		FROM groupreview g
-		LEFT OUTER join lightninglist l on l.lightning_no = idx and g.class_no = 1
-		LEFT OUTER join dojangList ON dojang_no = idx AND g.class_no = 3
+		LEFT OUTER JOIN lightninglist l on l.lightning_no = idx and g.class_no = 1
+		LEFT OUTER JOIN dojangList ON dojang_no = idx AND g.class_no = 3
 		JOIN codetable c on g.class_no = c.class_no
 		<where>
 			g.groupReview_status = "노출"

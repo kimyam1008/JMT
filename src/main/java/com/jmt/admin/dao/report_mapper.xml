@@ -230,6 +230,9 @@
 				<if test="list_option.equals('블랙')">
 					member_status ='블랙리스트'
 				</if>
+				<if test="list_option.equals('탈퇴')">
+					member_status ='탈퇴'
+				</if>
 			</if>
 		</where>
 	</select>
@@ -243,6 +246,9 @@
 			<if test="list_option !=null">
 				<if test="list_option.equals('블랙')">
 					member_status ='블랙리스트'
+				</if>
+				<if test="list_option.equals('탈퇴')">
+					member_status ='탈퇴'
 				</if>
 			</if>
 		</where>

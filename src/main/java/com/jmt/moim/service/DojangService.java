@@ -1,5 +1,9 @@
 package com.jmt.moim.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jmt.moim.dao.DojangDAO;
@@ -208,6 +213,87 @@ public class DojangService {
 
 	public int allCountHomeM(HashMap<String, String> params) {
 		return dao.allCountHomeM(params);
+	}
+
+	public ModelAndView fileUpload(MultipartFile file, HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView("./Dojang/gpFileUploadForm");
+		
+		//1.파일명 추출
+		String fileName = file.getOriginalFilename();
+		
+		//2. 신규파일명 생성
+		String ext = fileName.substring(fileName.lastIndexOf("."));
+		String newFileName = System.currentTimeMillis()+ext;
+		
+		
+		try {
+			byte[] bytes = file.getBytes();//3. 파일 받아오기
+			//4. 파일 저장(java nio 사용)
+			Path filePath = Paths.get("C:/upload/" + newFileName);
+			Files.write(filePath, bytes);
+			//5. DB에 저장(불가능 하다 - 아직 글을 쓰지도 않았으니까)
+			//그래서 세션에 임시 저장 한다.
+			
+			HashMap<String, String> map = (HashMap<String, String>) session.getAttribute("fileList");
+			if(map == null) {
+				map = new HashMap<String, String>();
+			}
+			
+			map.put(newFileName, fileName);
+			logger.info("업로드 된 파일 수 : "+map.size());
+			session.setAttribute("fileList", map);
+			
+			//6. 이미지 url 전달
+			mav.addObject("path", "/photo/" + newFileName);
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return mav;
+	}
+	
+
+	public boolean dojangPostReg(HashMap<String, String> params, HttpSession session) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		System.out.println("도장번호 확인..."+params.get("dojang_no"));
+		System.out.println("작성자 확인..."+params.get("member_id"));
+		System.out.println("도장제목 확인..."+params.get("dojangPost_subject"));
+		System.out.println("도장내용 확인..."+params.get("dojangPost_content"));
+		//1. 게시글 저장 작업
+		DojangDTO dto = new DojangDTO();
+		dto.setDojangPost_subject(params.get("dojangPost_subject"));
+		dto.setDojangPost_content(params.get("dojangPost_content"));
+		dto.setDojang_no(Integer.parseInt(params.get("dojang_no")));
+		dto.setMember_id(params.get("member_id"));
+		dto.setDojangPost_type(params.get("dojangPost_type"));
+		dao.dojangPostReg(dto);
+		
+		
+		int dojangPost_no = dto.getDojangPost_no();
+		int idx = dto.getIdx();
+		int class_no = dto.getClass_no();
+		
+		boolean success = false;
+		
+		if(dojangPost_no >0) {
+			
+			//3. idx로 파일 디비 저장
+			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
+			for (String newFileName : fileList.keySet()) {
+				dao.filewrite(newFileName, fileList.get(newFileName),dojangPost_no);
+			}
+			
+			//4. session 에서 fileList 삭제
+			session.removeAttribute("fileList");
+			success = true;
+		}
+		
+		result.put("success", success);
+		return success;
 	}
 
 	
