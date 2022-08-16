@@ -89,7 +89,7 @@ td a {
   <li class="post"><a href="dojangHome.go?dojang_no=${sessionScope.dojang_no}">전체게시판</a></li>
   <li class="post"><a href="dojangHomeL.go?dojang_no=${sessionScope.dojang_no}">공지게시판</a></li>
   <li class="post"><a href="dojangHomeM.go?dojang_no=${sessionScope.dojang_no}">일반게시판</a></li>
-  <li><a href="#">방장페이지</a></li>
+  <li><a href="dojangLeaderPage.go?dojang_no=${sessionScope.dojang_no}">방장페이지</a></li>
 </ul>
 
 <div  id="review">
@@ -137,6 +137,8 @@ function listCall(page){
 		dataType:'JSON',
 		success:function(data){
 				maxPage = data.pages;
+				class_no = data.dojangHome.class_no;
+				console.log(data);
 				drawList(data.dojangHome);
 				console.log("데이터",data.dojangHome);
 				$('#leader').html(data.dojangHomeLeader);
@@ -173,6 +175,7 @@ function drawList(list){
 		content += '<div>'+"등록된 게시글이 없습니다."+'</div>';
 	} else {
 		list.forEach(function(item){
+			console.log(item.class_no);
 			var date = new Date(item.dojangPost_date);
 			var create = date.toLocaleDateString("ko-KR");
 	
