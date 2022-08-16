@@ -158,5 +158,62 @@ public class MypageService {
 		}
 	}
 
+	public int memberDrop(String loginId) {
+		
+		return dao.memberDrop(loginId);
+	}
+
+	public String pwCon(String loginId) {
+
+		return dao.pwCon(loginId);
+	}
+
+	public ArrayList<String> followingList(String loginId) {
+
+		return dao.followingList(loginId);
+	}
+
+	public ArrayList<String> followerList(String loginId) {
+		
+		return dao.followerList(loginId);
+	}
+
+	public MemberDTO otherPage(int profile_no) {
+		
+		return dao.otherPage(profile_no);
+	}
+
+	public photoDTO otherPhoto(int profile_no) {
+
+		return dao.otherPhoto(profile_no);
+	}
+
+	public int otherBlind(int profile_no) {
+
+		return dao.otherBlind(profile_no);
+	}
+
+	public int otherFollower(int profile_no) {
+
+		return dao.otherFollower(profile_no);
+	}
+
+	public int otherFollowing(int profile_no) {
+
+		return dao.otherFollowing(profile_no);
+	}
+
+	public int follow(HashMap<String, Object> params) {
+
+		return dao.follow(params);
+	}
+
+	public String followCon(String loginId, int profile_no) {
+
+		return dao.followCon(loginId, profile_no);
+	}
+
+
+
 
 }

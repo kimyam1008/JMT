@@ -4,7 +4,7 @@
 <mapper namespace="com.jmt.mypage.dao.MypageDAO">
 
 	<select id="mypage" resultType="member">
-		SELECT * FROM profile p INNER JOIN member m ON p.member_id = #{param1} and m.member_id = #{param1};
+		SELECT * FROM profile p INNER JOIN member m ON p.member_id = #{param1} and m.member_id = #{param1}
 	</select>
 	
 	<select id="blindCount" resultType="int">
@@ -60,7 +60,52 @@
 		SELECT profile_no FROM profile WHERE member_id = #{member_id}
 	</select>
 	
+	<update id="memberDrop">
+		UPDATE member SET member_status = '탈퇴회원' WHERE member_id = #{param1}
+	</update>
 	
+	<select id="pwCon" resultType="String">
+		SELECT member_pw FROM member WHERE member_id = #{param1}
+	</select>
+	
+	<select id="followingList" resultType="hashmap">
+		SELECT follower_id, profile_no, (SELECT photo_newFileName FROM photo p2 WHERE idx = profile_no) AS photo_newFileName 
+			FROM follow f JOIN profile p ON p.member_id = f.follower_id WHERE following_id = #{param1}
+	</select>
+	
+	<select id="followerList" resultType="hashmap">
+		SELECT following_id, profile_no, (SELECT photo_newFileName FROM photo p2 WHERE idx = profile_no) AS photo_newFileName 
+			FROM follow f JOIN profile p ON p.member_id = f.following_id WHERE follower_id = #{param1}
+	</select>
+	
+	<select id="otherPage" resultType="member">
+		SELECT * FROM profile p INNER JOIN member m 
+			WHERE p.profile_no = #{param1} AND m.member_id = (SELECT member_id FROM profile p2 WHERE profile_no = #{param1})
+	</select>
+	
+	<select id="otherPhoto" resultType="photo">
+		SELECT * FROM profile p INNER JOIN photo p2 ON p.profile_no = #{param1} AND p2.idx = #{param1}
+	</select>
+	
+	<select id="otherBlind" resultType="int">
+		SELECT COUNT(blind_no) FROM blind WHERE member_id = (SELECT member_id FROM profile p WHERE profile_no = #{param1})
+	</select>
+	
+	<select id="otherFollower" resultType="int">
+		SELECT COUNT(follower_id) FROM follow f WHERE follower_id = (SELECT member_id FROM profile p WHERE profile_no = #{param1})
+	</select>
+	
+	<select id="otherFollowing" resultType="int">
+		SELECT COUNT(following_id) FROM follow f WHERE following_id = (SELECT member_id FROM profile p WHERE profile_no = #{param1})
+	</select>
+	
+	<insert id="follow" parameterType="hashmap">
+		INSERT INTO follow (follower_id, following_id) VALUES(#{loginId}, #{following_id})
+	</insert>
+	
+	<select id="followCon" resultType="String">
+		SELECT following_id FROM follow WHERE follower_id = #{param1} AND following_id = (SELECT member_id FROM profile p WHERE profile_no = #{param2})
+	</select>
 	
 	
 </mapper>

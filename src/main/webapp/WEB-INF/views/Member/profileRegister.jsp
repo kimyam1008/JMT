@@ -46,6 +46,7 @@
 			<tr>
 				<th>선호음식 : 
 					<select name="food_no">
+					<option value="">선택</option>
 	                	<c:forEach items="${foodList}" var="foodList">
 	                		<option value="${foodList.food_no}">${foodList.food_name}</option>
 	                	</c:forEach>
@@ -54,10 +55,14 @@
 			</tr>
 		</table>
 		<button>등록하기</button> 
-		<button>취소</button>
 	</form>
+		<button onclick="cancel()">취소</button>
 </body>
 <script>
+	function cancel(){
+		alert("프로필을 등록하지 않으면 이용에 제한 될 수 있습니다.")
+		location.href='./';
+	}
 
 </script>
 </html>
