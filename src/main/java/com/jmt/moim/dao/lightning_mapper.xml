@@ -151,7 +151,7 @@
 	</update>
 	
 	<select id="profileChk" resultType="int" parameterType="String">
-		SELECT COUNT(profile_no) FROM profile p NATURAL JOIN member m WHERE member_id = #{loginId}
+		SELECT COUNT(profile_no) FROM profile WHERE member_id = #{loginId}
 	</select>
 	
 	<select id="resList" resultType="light">

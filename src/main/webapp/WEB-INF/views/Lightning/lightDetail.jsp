@@ -279,8 +279,8 @@
 	}
 	
 	
-	//var member_count = "${dto.member_count}";
-	//var member_num = "${dto.member_num}";if(member_count == member_num){alert("모임 정원이 꽉차서 신청이 불가합니다.")}}else
+	
+	var profileChk = "${profileChk}";
 	
 	function application(){
 		console.log(status);
@@ -289,8 +289,10 @@
 			alert("방장은 신청할 수 없습니다.");
 		//아직 가입신청을 안한 경우
 		}else if (status == ""){
+			if(!profileChk){
+				alert("프로필 생성 후 이용 가능합니다");
 			//프로필 상태 기반
-			if("${dto.gender}" !="상관없음" && "${dto.gender}" != profile_gender){
+			}else if("${dto.gender}" !="상관없음" && "${dto.gender}" != profile_gender){
 				alert("성별 조건이 맞지않습니다.");
 			}else{
 				if(confirm("가입 신청하시겠습니까?")){

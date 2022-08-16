@@ -53,7 +53,7 @@
 	<input type="radio" name ="gender" id="gender" value="남자"/>남자
 	<input type="radio" name ="gender" id="gender" value="여자"/>여자
 	<input type="radio" name ="gender" id="gender" value="상관없음"/>상관없음
-	<button onclick="location.href='/lightCreate.go'">번개 생성하기</button>
+	<button onclick="lightCreateChk()">번개 생성하기</button>
 	
 	<table>
 		<thead>
@@ -242,7 +242,7 @@
 		$('#list').append(content); 
 	}
 	
-	/*번개모임 생성시 유효성 체크  onclick="lightCreateChk()"
+	//번개모임 생성시 유효성 체크 
 	var profileChk = "${profileChk}";
 	function lightCreateChk(){
 		if(profileChk){
@@ -253,6 +253,6 @@
 			alert("프로필 생성 후 이용 가능합니다.");
 		}
 	}
-	*/
+
 </script>
 </html>

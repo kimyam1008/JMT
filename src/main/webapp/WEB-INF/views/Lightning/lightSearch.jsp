@@ -54,11 +54,10 @@
 	</form>
 	<div>
  		<table>
- 		<colgroup>
+ 			<colgroup>
 		  		<col width="50"></col>
 				<col width="180"></col>
 				<col width="*"></col>
-				
 			</colgroup>
 	 		<tr>
 	 			<th>선택</th>

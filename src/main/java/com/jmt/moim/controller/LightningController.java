@@ -43,7 +43,7 @@ public class LightningController {
 			//방장아이디와 로그인아이디 비교하기 위해서 
 			String loginId = (String) session.getAttribute("loginId");
 			model.addAttribute("loginId", loginId);
-			//프롤필 있는지 알아보기
+			//프로필 있는지 알아보기
 			boolean profileChk = service.profileChk(loginId);
 			logger.info("프로필 유무 : " + profileChk); //true or false
 			model.addAttribute("profileChk", profileChk); 
@@ -122,6 +122,10 @@ public class LightningController {
 		LightningDTO profileInfo = service.profile(loginId);
 		model.addAttribute("profileInfo", profileInfo);
 		
+		//프로필 있는지 알아보기
+		boolean profileChk = service.profileChk(loginId);
+		logger.info("프로필 유무 : " + profileChk); //true or false
+		model.addAttribute("profileChk", profileChk);
 		
 		return "./Lightning/lightDetail";
 	}
