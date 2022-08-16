@@ -16,7 +16,7 @@
 			<th>아이디</th>
 		</tr>
 		<tr>
-			<td></td>
+			<td id="memberID"></td>
 		</tr>
 		<tr>
 			<th>사유</th>

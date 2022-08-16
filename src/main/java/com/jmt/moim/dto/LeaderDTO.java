@@ -51,6 +51,9 @@ public class LeaderDTO {
 	private int groupReview_no;
 	private String review_title;
 	private Date review_date;
+	
+	//etc
+	
 	public String getMember_id() {
 		return member_id;
 	}

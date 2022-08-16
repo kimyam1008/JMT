@@ -36,7 +36,7 @@
 			,d.eat_speed
 			,d.dojang_create 
 			,d.job
-			,d.donjang_content
+			,d.dojang_content
 			,d.dojang_no
 			,d.class_no
 		FROM dojangList d 
