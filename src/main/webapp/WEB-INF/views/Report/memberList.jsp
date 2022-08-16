@@ -12,7 +12,10 @@
 </head>
 <style>
 <style>
-	table{
+body{
+width: 100%;	
+}
+	#memberTable{
 		width: 100%;		
 	}
 	
@@ -21,16 +24,42 @@
 		border-collapse: collapse;
 		padding: 5px;
 	}
+	
+	.active{
+		color:pink;
+		font: bold;
+		text-decoration: underline;
+	}
+	#option_list{ text-align:center;  margin:20px 0px;}
+	#option_list span{font-size: 20px; margin:20px 20px;}
+	#search{
+		text-align:center; 
+	}
 </style>
 <body>
 
-<div>
-	<h3 onclick="listCall(1)">전체</h3>
-	<h3 onclick="listCall(1 ,'블랙')">블랙리스트</h3>
-	<h3>탈퇴</h3>
+
+
+
+<!-- 클릭 옵션 -->
+<div id="option_list" >
+	<span class="active" onclick="listCall(1)">전체</span>
+	<span onclick="listCall(1 ,'블랙')">블랙리스트</span>
+	<span onclick="listCall(1 ,'탈퇴')">탈퇴</span>
 </div>
 
-	<table>
+<!-- 검색 옵션  -->
+<div id="search">
+	<select name="memberSearch">
+		<option value="memberID">회원ID</option>
+		<option value="grade">등급</option>
+	</select>
+	<input type="text" name="keyword" placeholder="검색어를 입력해 주세요">
+	<button  onclick="searchClick()">검색</button>
+	
+</div>
+
+	<table id="memberTable">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -64,11 +93,15 @@
 var currPage = 1;
 
 listCall(currPage);
-
+$('span').click(  
+		function(){$("#pagination").twbsPagination('destroy'); 
+		console.log('부심');
+});
 
  function listCall(page,list_option){
 	 var pagePerNum=5;
-	 $("#pagination").twbsPagination('destroy');
+	 var option1 = list_option;
+
 		
 	$.ajax({
 		type:'GET',
@@ -130,5 +163,23 @@ function drawList(list){
 	$('#list').append(content);
 }
 
+
+$('span').click(function(){
+	  if($('span').hasClass("active")){
+	    $('span').removeClass("active");
+	    $(this).addClass("active"); 
+	    
+	  }else{
+	    $(this).addClass("active");  
+	  }
+	});
+	
+function searchClick(){
+	var search =$('select[name=memberSearch]').val();
+	var keyword = $('keyword').val();
+	console.log(search);
+	console.log(keyword);
+
+}
 </script>
 </html>
