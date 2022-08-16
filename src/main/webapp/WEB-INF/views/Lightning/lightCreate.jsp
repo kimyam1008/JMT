@@ -124,7 +124,9 @@
 	var today = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString();
 	var today_Date = today.slice(0, 10);
 	$('input[name="lightning_date"]').attr("min", today_Date);
-	
+	var max_Date = new Date(new Date().getTime()+new Date("60")); // 7일 더하여 setting
+	console.log(max_Date);
+	$('input[name="lightning_date"]').attr("max", max_Date);
 	
 	//생성 버튼 눌렀을 시 유효성 검사
 	function chkCreate(){

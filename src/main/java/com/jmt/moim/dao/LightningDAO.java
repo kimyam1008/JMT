@@ -37,4 +37,6 @@ public interface LightningDAO {
 
 	void lightCreate(HashMap<String, String> params);
 
+	void Delnoti(String lightning_no);
+
 }

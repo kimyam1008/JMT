@@ -280,7 +280,7 @@
 	
 	
 	
-	var profileChk = "${profileChk}";
+	var profileChk = ${profileChk};
 	
 	function application(){
 		console.log(status);

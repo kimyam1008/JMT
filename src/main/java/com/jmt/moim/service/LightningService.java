@@ -124,5 +124,13 @@ public class LightningService {
 		dao.lightCreate(params);
 	}
 
+
+	public void Delnoti(String lightning_no) {
+		logger.info("알림 서비스 요청");
+		dao.Delnoti(lightning_no);
+		
+	}
+
+	
 	
 }

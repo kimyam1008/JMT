@@ -23,7 +23,7 @@
 </style>
 </head>
 <body>
-
+${notitest} 
 		<input type="text" id="lightning_title" placeholder="모임 이름을 입력해주세요"
 		 onKeypress="javascript:if(event.keyCode==13) {enterkey()}"/>
 		<button id="search">검색</button><br/>
@@ -243,10 +243,10 @@
 	}
 	
 	//번개모임 생성시 유효성 체크 
-	var profileChk = "${profileChk}";
+	var profileChk = ${profileChk};
 	function lightCreateChk(){
 		if(profileChk){
-		console.log(profileChk);
+			//console.log(profileChk);
 			location.href='/lightCreate.go';
 		}else{
 			console.log(profileChk);
