@@ -29,4 +29,8 @@ public interface LeaderDAO {
 
 	LeaderDTO myGroupEtc(String loginId, String class_no, String idx);
 
+	ArrayList<LeaderDTO> myGroupMemberSetting(int cnt, int offset);
+
+	int allCount2();
+
 }

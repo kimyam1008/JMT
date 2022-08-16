@@ -18,34 +18,34 @@
 </style>
 </head>
 <body>
-	<input type="hidden" name="class_no" value="${lightDto.class_no}"/>
-	<input type="hidden" name="idx" value="${lightDto.idx}"/>
-	<h3>방장 페이지</h3>
+	<input type="hidden" name="class_no" value="${dojangDto.class_no}"/>
+	<input type="hidden" name="idx" value="${dojangDto.idx}"/>
+	<h3>도장깨기 방장 페이지</h3>
 		<table style="padding:10px;">
 			<caption>${dojangDto.dojang_title}</caption>
 			<tr>
 				<th>방장</th>
-				<td></td>
+				<td>${dojangDto.leaderName}</td>
 				<th>모집상태</th>
-				<td></td>
+				<td>${dojangDto.dojang_status}</td>
 			</tr>
 			<tr>
 				<th>정원</th>
-				<td> / </td>
+				<td>${dojangDto.member_count} / ${dojangDto.people_num}</td>
 				<th>성별</th>
-				<td></td>
+				<td>${dojangDto.gender}</td>
 			</tr>
 			<tr>
 				<th>음식 카테고리</th>
-				<td></td>
+				<td>${dojangDto.food_name}</td>
 				<th>식사속도</th>
-				<td></td>
+				<td>${dojangDto.eat_speed}</td>
 			</tr>
 			<tr>
 				<th>개설일</th>
-				<td></td>
+				<td>${dojangDto.dojang_create}</td>
 				<th>직업</th>
-				<td></td>
+				<td>${dojangDto.job}</td>
 			</tr>
 			<tr>
 				<th colspan="4">

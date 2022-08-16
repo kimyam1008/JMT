@@ -5,14 +5,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원 추방</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 </style>
 </head>
 <body>
-
+	<table>
+		<tr>
+			<th>아이디</th>
+		</tr>
+		<tr>
+			<td></td>
+		</tr>
+		<tr>
+			<th>사유</th>
+		</tr>
+		<tr>
+			<td><textarea name="reason"></textarea></td>
+		</tr>
+		<tr>
+			<th colspan="2"><input type="button" value="추방" onclick="getOutSave()"/></th>
+		</tr>
+	</table>
 </body>
 <script>
+	function getOutSave(){
+		
+	}
 </script>
 </html>

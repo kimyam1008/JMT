@@ -113,9 +113,9 @@
 			,d.dojang_content = #{dojang_content}
 	</update>
 	
-	<!-- 나의 모임 관리 -->
+	<!-- 나의 모임 관리 (게시글) -->
 	<select id="myGroupPostSetting" resultType="leader">
-		SELECT g.groupReview_no,g.review_title,g.review_date 
+		SELECT g.groupReview_no,g.review_title,g.review_date
 		FROM groupReview g
 		LEFT OUTER JOIN lightningList l on l.lightning_no = idx and g.class_no = 1
 		LEFT OUTER JOIN dojangList d ON d.dojang_no = idx AND g.class_no = 3
@@ -170,6 +170,37 @@
 			</if>
 			<if test="class_no != 1">
 				d.dojang_no = #{param3}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 나의 모임 관리 (회원) -->
+	<select id="myGroupMemberSetting" resultType="leader">
+		SELECT (SELECT a.member_id FROM apply a WHERE a.status = "승인" AND l.lightning_no = idx) AS lightning_member
+			,(SELECT a.member_id FROM apply a WHERE a.status = "승인" AND d.dojang_no = idx) AS dojang_member
+			,m.member_name
+		FROM member m
+		<where>
+			<if test="class_no == 1">
+				l.lightning_no = #{idx}
+			</if>
+			<if test="class_no != 1">
+				d.dojang_no = #{idx}
+			</if>
+		</where>
+	</select>
+	
+	<select id="allCount2" resultType="int">
+		SELECT (SELECT a.member_id FROM apply a WHERE a.status = "승인" AND l.lightning_no = idx) AS lightning_member
+			,(SELECT a.member_id FROM apply a WHERE a.status = "승인" AND d.dojang_no = idx) AS dojang_member
+			,m.member_name
+		FROM member m
+		<where>
+			<if test="class_no == 1">
+				l.lightning_no = #{idx}
+			</if>
+			<if test="class_no != 1">
+				d.dojang_no = #{idx}
 			</if>
 		</where>
 	</select>

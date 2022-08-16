@@ -93,4 +93,32 @@ public class LeaderService {
 		return dao.myGroupEtc(loginId,class_no,idx);
 	}
 
+	public HashMap<String, Object> myGroupMemberSetting(HashMap<String, String> params) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int cnt = Integer.parseInt(params.get("cnt"));
+		int page = Integer.parseInt(params.get("page"));
+		logger.info("보여줄 페이지 : "+page);
+		
+		//총 갯수(allCnt) / 페이지당 보여줄 갯수(cnt) = 생성 가능한 페이지(pages)
+		int allCnt = dao.allCount2();
+		logger.info("allCnt : "+allCnt);
+		int pages = allCnt % cnt > 0 ? (allCnt / cnt)+1 : (allCnt / cnt);
+		logger.info("pages : "+pages);
+		
+		if(page > pages) {
+			page = pages;
+		}
+		
+		map.put("pages", pages); //만들 수 있는 최대 페이지 수
+		map.put("currPage", page); //현재 페이지
+		
+		int offset = (page -1) * cnt; //offset : 게시글 시작 번호
+		logger.info("offset : "+offset);
+		
+		ArrayList<LeaderDTO> myGroupMemberSetting = dao.myGroupMemberSetting(cnt,offset);
+		map.put("myGroupMemberSetting", myGroupMemberSetting);
+		return map;
+	}
+
 }

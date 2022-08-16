@@ -63,14 +63,14 @@ function listCall(page){
 	
 	$.ajax({
 		type:'get',
-		url:'myGroupPostSetting.ajax',
+		url:'myGroupMemberSetting.ajax',
 		data:{
 			cnt : pagePerNum,
 			page : page
 		},
 		dataType:'JSON',
 		success:function(data){
-			drawList(data.myGroupPostSetting);
+			drawList(data.myGroupMemberSetting);
 			currPage=data.currPage;
 			console.log(currPage);
 			
@@ -94,11 +94,11 @@ function listCall(page){
 
 
 //리스트 그리기
-function drawList(myGroupPostSetting){
+function drawList(myGroupMemberSetting){
 	
 	var content ="";
 	
-	myGroupPostSetting.forEach(function(item){
+	myGroupMemberSetting.forEach(function(item){
 		
 		content += '<tr>';
 		content += '<td><input type="radio" name="'+item.member_id+'" value="'+item.member_id+'"/></td>';
