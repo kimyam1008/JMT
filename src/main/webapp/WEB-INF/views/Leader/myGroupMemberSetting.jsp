@@ -101,7 +101,7 @@ function drawList(myGroupMemberSetting){
 	myGroupMemberSetting.forEach(function(item){
 		
 		content += '<tr>';
-		content += '<td><input type="radio" name="'+item.member_id+'" value="'+item.member_id+'"/></td>';
+		content += '<td><input type="radio" name="'+item.member_id+' id="'+item.member_id+'"" value="'+item.member_id+'"/></td>';
 		content += '<td>'+item.member_id+'</td>';
 		content += '<td>'+item.member_name+'</td>';
 		content += '</tr>';

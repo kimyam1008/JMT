@@ -20,24 +20,24 @@ public class LeaderService {
 
 	@Autowired  LeaderDAO dao;
 
-	public LeaderDTO lightDetail(String idx, String loginId) {
+	public LeaderDTO lightDetail(String lightning_no, String loginId) {
 		logger.info("방장 페이지 번개모임 상세정보 요청");
-		return dao.lightDetail(idx,loginId);
+		return dao.lightDetail(lightning_no,loginId);
 	}
 
-	public LeaderDTO dojangDetail(String idx, String loginId) {
+	public LeaderDTO dojangDetail(String dojang_no, String loginId) {
 		logger.info("방장 페이지 도장깨기 상세정보 요청");
-		return dao.dojangDetail(idx,loginId);
+		return dao.dojangDetail(dojang_no,loginId);
 	}
 
-	public ArrayList<LeaderDTO> recentPost(String idx) {
+	public ArrayList<LeaderDTO> recentPost() {
 		logger.info("최근 게시물 호출 요청");
-		return dao.recentPost(idx);
+		return dao.recentPost();
 	}
 
-	public ArrayList<LeaderDTO> joinWait(String idx) {
+	public ArrayList<LeaderDTO> joinWait() {
 		logger.info("가입 대기 회원 리스트 호출 요청");
-		return dao.joinWait(idx);
+		return dao.joinWait();
 	}
 
 	public ModelAndView joinWaitUpdate(HashMap<String, String> params) {

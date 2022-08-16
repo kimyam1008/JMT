@@ -4,7 +4,7 @@
 <mapper namespace="com.jmt.moim.dao.LeaderDAO">
 	<!-- 번개모임 상세 -->
 	<select id="lightDetail" resultType="leader">
-		SELECT (SELECT member_name FROM `member` m WHERE m.member_id = l.leader_id) AS leaderName <!-- leader_id = #{param2} -->
+		SELECT (SELECT member_name FROM `member` m WHERE m.member_id = #{param2}) AS leaderName <!-- leader_id = #{param2} -->
 			,l.lightning_title
 			,l.lightning_status
 			,(select count(member_id)+1 from apply a where class_no = 1 and status = '승인' and a.idx = l.lightning_no) as member_count
@@ -20,12 +20,12 @@
 			,l,class_no
 		FROM lightningList l 
 		JOIN food f ON l.food_no = f.food_no
-		WHERE l.lightning_no = 13 <!-- #{param1} -->
+		WHERE l.lightning_no = #{param1} <!-- #{param1} -->
 	</select>
 	
 	<!-- 도장깨기 상세 -->
 	<select id="dojangDetail" resultType="leader">
-		SELECT (SELECT member_name FROM `member` m WHERE m.member_id = d.leader_id) AS leaderName <!-- leader_id = #{param2} -->
+		SELECT (SELECT member_name FROM `member` m WHERE m.member_id = #{param2}) AS leaderName <!-- leader_id = #{param2} -->
 			,d.dojang_title
 			,d.dojang_status  
 			,(select count(member_id)+1 from apply a where class_no = 3 and status = '승인' and a.idx = d.dojang_no) as member_count
@@ -41,11 +41,11 @@
 			,d.class_no
 		FROM dojangList d 
 		JOIN food f ON d.food_no = f.food_no
-		WHERE d.dojang_no = 18 <!-- #{param1} -->
+		WHERE d.dojang_no = #{param1} <!-- #{param1} -->
 	</select>
 	
 	<!-- 최근 게시글 -->
-	<select id="recentPost" parameterType="String" resultType="leader">
+	<select id="recentPost" resultType="leader">
 		SELECT g.groupReview_no
 			,g.member_id
 			,g.review_title
@@ -65,7 +65,7 @@
 	</select>
 	
 	<!-- 가입 승인 대기 회원 -->
-	<select id="joinWait" parameterType="String" resultType="leader">
+	<select id="joinWait" resultType="leader">
 		SELECT a.class_no
 			,a.member_id
 			,a.status
@@ -88,7 +88,11 @@
 	
 	<!-- 가입 대기상태 수정 -->
 	<update id="joinWaitUpdate" parameterType="hashmap">
-		UPDATE apply a SET a.status = #{status}
+		UPDATE apply a
+		JOIN codeTable ON a.class_no ON c.class_no
+		LEFT OUTER JOIN lightningList l ON l.class_no = c.class_no
+		LEFT OUTER JOIN dojangList d ON d.class_no = c.class_no
+		SET a.status = #{status}
 		<where>
 			<if test="a.class_no == 1">
 				l.lightning_no = #{idx}

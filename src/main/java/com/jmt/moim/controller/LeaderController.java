@@ -28,23 +28,23 @@ public class LeaderController {
 	//번개모임 방장페이지 메인
 	@RequestMapping(value = "/lightningLeaderPage.go")
 	public String lightningLeaderPage(Model model,HttpSession session,
-		   @RequestParam String idx,@RequestParam String class_no){
+		   @RequestParam String lightning_no){
 		logger.info("번개모임 방장 페이지 진입");
 		String loginId = (String) session.getAttribute("loginId");
 		model.addAttribute("loginId", loginId);
 	  
 		 //번개모임 고유 데이터 가져오기
-		 LeaderDTO lightDto = service.lightDetail(idx,loginId);
+		 LeaderDTO lightDto = service.lightDetail(lightning_no,loginId);
 		 if (lightDto != null) {
 			 model.addAttribute("lightDto", lightDto);
 		 }
 		 
 		 //최근 게시글
-		 ArrayList<LeaderDTO> recentPost = service.recentPost(idx);
+		 ArrayList<LeaderDTO> recentPost = service.recentPost();
 		 model.addAttribute("recentPost", recentPost);
 		  
 		 //가입 대기 회원
-		 ArrayList<LeaderDTO> joinWait = service.joinWait(idx);
+		 ArrayList<LeaderDTO> joinWait = service.joinWait();
 		 model.addAttribute("joinWait", joinWait);
 		  
 	     return "./Leader/lightningLeaderPage";
@@ -53,23 +53,23 @@ public class LeaderController {
 	//도장깨기 방장 페이지
 	@RequestMapping(value = "/dojangLeaderPage.go")
 	public String dojangLeaderPage(Model model,HttpSession session,
-		   @RequestParam String idx,@RequestParam String class_no){
+		   @RequestParam String dojang_no){
 		logger.info("도장깨기 방장 페이지 진입");
 		String loginId = (String) session.getAttribute("loginId");
 		model.addAttribute("loginId", loginId);
 
 		//도장깨기 고유 데이터 가져오기
-		LeaderDTO dojangDto = service.dojangDetail(idx,loginId);
+		LeaderDTO dojangDto = service.dojangDetail(dojang_no,loginId);
 		if (dojangDto != null) {
 			 model.addAttribute("dojangDto", dojangDto);
 		 }
 		
 		 //최근 게시글
-		 ArrayList<LeaderDTO> recentPost = service.recentPost(idx);
+		 ArrayList<LeaderDTO> recentPost = service.recentPost();
 		 model.addAttribute("recentPost", recentPost);
 		  
 		 //가입 대기 회원
-		 ArrayList<LeaderDTO> joinWait = service.joinWait(idx);
+		 ArrayList<LeaderDTO> joinWait = service.joinWait();
 		 model.addAttribute("joinWait", joinWait);
 		  
 	     return "./Leader/lightningLeaderPage";
