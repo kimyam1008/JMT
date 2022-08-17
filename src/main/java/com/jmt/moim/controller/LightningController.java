@@ -10,18 +10,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jmt.main.controller.NotiController;
+import com.jmt.main.dao.NotiDAO;
+import com.jmt.main.service.NotiService;
 import com.jmt.moim.dto.LightningDTO;
 import com.jmt.moim.service.LightningService;
-
-import lombok.extern.slf4j.Slf4j;
-import sun.rmi.runtime.Log;
 
 @Controller
 public class LightningController {
@@ -31,7 +31,7 @@ public class LightningController {
 	@Autowired  LightningService service;
 
 	//번개모임리스트 lightning.jsp 페이지 이동 
-	@RequestMapping("/lightList.go") 
+	@RequestMapping(value="/lightList.go") 
 	public String listPage(Model model,HttpSession session) {
 		logger.info("리스트 페이지 이동");
 		//음식카테고리 가져오기 
@@ -43,6 +43,10 @@ public class LightningController {
 			//방장아이디와 로그인아이디 비교하기 위해서 
 			String loginId = (String) session.getAttribute("loginId");
 			model.addAttribute("loginId", loginId);
+			//프로필 있는지 알아보기
+			boolean profileChk = service.profileChk(loginId);
+			logger.info("프로필 유무 : " + profileChk); //true or false
+			model.addAttribute("profileChk", profileChk); 
 			
 		return "./Lightning/lightning";
 	}
@@ -118,6 +122,10 @@ public class LightningController {
 		LightningDTO profileInfo = service.profile(loginId);
 		model.addAttribute("profileInfo", profileInfo);
 		
+		//프로필 있는지 알아보기
+		boolean profileChk = service.profileChk(loginId);
+		logger.info("프로필 유무 : " + profileChk); //true or false
+		model.addAttribute("profileChk", profileChk);
 		
 		return "./Lightning/lightDetail";
 	}
@@ -182,15 +190,22 @@ public class LightningController {
 		return map;	
 	}
 	
+	
+	
 	//번개 모임 삭제(update)
+	@Transactional
 	@RequestMapping("/lightDelete.do")
-	public String lightDelete(Model model,@RequestParam String lightning_no) {
+	public String lightDelete(Model model,@RequestParam String lightning_no
+			,HttpSession session) {
 		logger.info("번개 모임 게시글 삭제   : "+lightning_no);
 		service.delete(lightning_no);
 		
 		//글 삭제시 댓글도 삭제 처리 
 		service.cmtDel(lightning_no);
 		
+		//알람이 가게 
+		service.Delnoti(lightning_no);
+		model.addAttribute("notiChk", true);
 		return "redirect:/lightList.go";	
 	}
 	
@@ -218,6 +233,53 @@ public class LightningController {
 		map.put("lightCmtReport", report);
 		return map;	
 	}
+	
+	
+	//번개모임 생성하기 페이지 이동
+	@RequestMapping("/lightCreate.go") 
+	public String lightCreatePage(Model model,HttpSession session) {
+		logger.info("리스트 페이지 이동");
+			
+				
+		return "./Lightning/lightCreate";
+	}
+		
+		
+	//번개모임 생성하기 - 맛집 검색 팝업 이동
+	@RequestMapping("/lightResSearch.go") 
+	public String resSearchPop(Model model,HttpSession session
+			,@RequestParam HashMap<String, String> param) {
+		logger.info("맛집 검색 팝업 이동");
+					
+		ArrayList<LightningDTO> resList = service.resList(param);
+		logger.info("레스토랑 리스트 : " + resList.size());
+		model.addAttribute("resList", resList);
+		return "./Lightning/lightSearch";
+	}
+	
+	
+	/*팝업 - 맛집 리스트 가져오기
+	@RequestMapping("/lightResList.do") 
+	public String lightResList(Model model ,@RequestParam HashMap<String, String> param) {
+		logger.info("맛집 검색 팝업 이동");
+		return "./Lightning/lightSearch";
+	}
+	*/
+	
+	// 번개 모임 생성 
+	@RequestMapping("/lightCreate.do") 
+	public String lightCreate(Model model,HttpSession session
+			,@RequestParam HashMap<String, String> params) {
+		logger.info("번개 모임 생성 : " + params);
+		String loginId = (String) session.getAttribute("loginId");
+		params.put("loginId", loginId);
+		service.lightCreate(params);
+		return "redirect:/lightList.go";
+	}
+	
+	
+	
+	
 	
 	
 	

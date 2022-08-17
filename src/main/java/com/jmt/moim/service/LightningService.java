@@ -104,5 +104,33 @@ public class LightningService {
 		
 	}
 
+	public boolean profileChk(String loginId) {
+		logger.info("번개모임 생성시 프로필 유무 체크 서비스");
+		boolean profileChk = false;
+		int row =dao.profileChk(loginId);
+		if(row>0) {
+			profileChk = true;
+		}
+		return profileChk;
+	}
+
+	public ArrayList<LightningDTO> resList(HashMap<String, String> param) {
+		logger.info("레스토랑 리스트 가져오기 서비스");
+		return dao.resList(param);
+	}
+
+	public void lightCreate(HashMap<String, String> params) {
+		logger.info("번개 모임 생성 서비스");
+		dao.lightCreate(params);
+	}
+
+
+	public void Delnoti(String lightning_no) {
+		logger.info("알림 서비스 요청");
+		dao.Delnoti(lightning_no);
+		
+	}
+
+	
 	
 }

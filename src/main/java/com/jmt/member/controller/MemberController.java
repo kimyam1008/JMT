@@ -185,11 +185,11 @@ public class MemberController {
 			String loginId = (String) session.getAttribute("loginId"); //세션에 저장된 아이디 꺼내오기
 			params.put("loginId", loginId); //hashmap 타입으로 한번에 보내기 위해 params 에 넣기
 			if(params.get("gender") == null) { //입력되지 않은 값이 하나라도 있다면 경고창 띄우기
-				model.addAttribute("msg", "입력되지 않은 값이 있다면 이용에 제한될 수 있습니다.");
+				model.addAttribute("msg", "입려되지 않은 값이 있으면 이용에 제한 될 수 있습니다.");
 			}else if(params.get("job") == null) {
-				model.addAttribute("msg", "입력되지 않은 값이 있다면 이용에 제한될 수 있습니다.");
+				model.addAttribute("msg", "입려되지 않은 값이 있으면 이용에 제한 될 수 있습니다.");
 			}else if(params.get("speed") == null) {
-				model.addAttribute("msg", "입력되지 않은 값이 있다면 이용에 제한될 수 있습니다.");
+				model.addAttribute("msg", "입려되지 않은 값이 있으면 이용에 제한 될 수 있습니다.");
 			}else {
 				model.addAttribute("msg", "등록이 완료되었습니다.");
 			}

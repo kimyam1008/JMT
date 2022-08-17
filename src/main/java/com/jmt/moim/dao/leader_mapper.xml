@@ -17,7 +17,7 @@
 			,l.job
 			,l.lightning_content
 			,l.lightning_no
-			,l,class_no
+			,l.class_no
 		FROM lightningList l 
 		JOIN food f ON l.food_no = f.food_no
 		WHERE l.lightning_no = #{param1} <!-- #{param1} -->

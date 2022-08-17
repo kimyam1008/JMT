@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.jmt.member.dto.MemberDTO;
 import com.jmt.member.dto.photoDTO;
+import com.jmt.mypage.dto.MypageDTO;
 import com.jmt.mypage.service.MypageService;
 
 @Controller
@@ -37,12 +38,24 @@ public class MypageController {
 			int blindCount = service.blindCount(loginId); //블라인드 갯수 가져오기
 			int follower = service.follower(loginId); //팔로워 수 가져오기
 			int following = service.following(loginId); //팔로잉 수 가져오기
+			ArrayList<MypageDTO> myboard = service.myboard(loginId);//내가 쓴 게시글 가져오기 (도장깨기 하위+모임후기)
+			ArrayList<MypageDTO> mycomment = service.mycomment(loginId);//내가 쓴 댓글의 게시글 가져오기
+			ArrayList<MypageDTO> myLightning = service.myLightning(loginId);//내모임 - 번개
+			ArrayList<MypageDTO> myDojang = service.myDojang(loginId);//내모임 - 도장
+			ArrayList<MypageDTO> myLightningRoom = service.myLightningRoom(loginId);//내가 생성한 방 - 번개
+			ArrayList<MypageDTO> myDojangRoom = service.myDojangRoom(loginId);//내가 생성한 방 - 도장
 			//뷰에 보내주기
 			model.addAttribute("list", my);
 			model.addAttribute("blind", blindCount);
 			model.addAttribute("follower", follower);
 			model.addAttribute("following", following);
 			model.addAttribute("photo",photoList);
+			model.addAttribute("myboard", myboard);
+			model.addAttribute("mycomment", mycomment);
+			model.addAttribute("myLightning", myLightning);
+			model.addAttribute("myDojang", myDojang);
+			model.addAttribute("myLightningRoom", myLightningRoom);
+			model.addAttribute("myDojangRoom", myDojangRoom);
 			
 			return "/Mypage/mypage";
 		}
@@ -188,20 +201,60 @@ public class MypageController {
 			return "/Mypage/otherspage";
 		}
 		
-		//팔로우
-		@RequestMapping("/follow.ajax")
-		@ResponseBody
-		public HashMap<String, Object> follow(HttpSession session, @RequestParam String follow) {
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			logger.info("팔로우 : "+follow);
-			
+		// 다른사람 팔로잉 리스트 팝업
+		@RequestMapping(value = "/otherFollowingList.go")
+		public String otherFollowingList(Model model, @RequestParam int profile_no) {
+			logger.info("다른회원 아이디 : "+profile_no);
+			ArrayList<String> otherFollowingList = service.otherFollowingList(profile_no);
+			logger.info("다른사람 팔로잉리스트 : "+otherFollowingList);
+			model.addAttribute("otherFollowingList", otherFollowingList);
+			return "/Mypage/otherFollowingList";
+		}
+		
+		// 다른사람 팔로워 리스트 팝업
+		@RequestMapping(value = "/otherFollowerList.go")
+		public String otherFollowerList(Model model, @RequestParam int profile_no) {
+			logger.info("다른회원 아이디 : "+profile_no);
+			ArrayList<String> otherFollowerList = service.otherFollowerList(profile_no);
+			logger.info("다른사람 팔로워리스트 : "+otherFollowerList);
+			model.addAttribute("otherFollowerList", otherFollowerList);
+			return "/Mypage/otherFollowerList";
+		}
+		
+		//팔로우&언팔로우
+		@RequestMapping(value = "/follow.do")
+		public String follow(HttpSession session, Model model,
+				@RequestParam String follow, @RequestParam String member_id, @RequestParam int profile_no) {
+			String loginId = (String) session.getAttribute("loginId");
 			if(follow.equals("팔로우")) {
-				//디비에 팔로우 넣기
+				//팔로우 하기
+				int row = service.followRegist(loginId, member_id);
+				if(row>0) {
+					model.addAttribute("follow","팔로잉");
+				}
 			} else if (follow.equals("팔로잉")) {
-				//디비에 언팔로우 넣기
+				//팔로우 취소
+				int row = service.unfollow(loginId, member_id);
+				if(row>0) {
+					model.addAttribute("follow", "팔로우");
+				}
 			}
 			
-			return null;
+			return "redirect:/othersPage.go?profile_no="+profile_no;
+		}
+
+		// 내가 쓴 게시글 더보기
+		@RequestMapping(value = "/boardMore.go")
+		public String boardMore() {
+			
+			return "/Mypage/myBoardList";
+		}
+		
+		// 내가 쓴 댓글의 게시글 더보기
+		@RequestMapping(value = "/commentMore.go")
+		public String commentMore() {
+			
+			return "/Mypage/myBoardList";
 		}
 		
 		
