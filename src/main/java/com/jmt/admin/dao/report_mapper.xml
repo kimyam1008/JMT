@@ -323,4 +323,7 @@
 	<update id="levelUp" parameterType="map">
 	update profile f set f.grade_no  = #{level_no} where f.member_id = #{loginId}
 	</update>
+	<select id="chkGrade" resultType="int" parameterType="String"> 
+		select p.grade_no  from profile p join grade g ON p.grade_no =g.grade_no  where p.member_id =#{loginId};
+	</select>
 </mapper>

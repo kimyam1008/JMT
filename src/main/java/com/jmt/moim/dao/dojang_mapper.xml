@@ -137,8 +137,8 @@
 	
 	
 	<select id="dojangHome" resultType="dojang" parameterType="hashmap">
-		SELECT d.class_no,p.dojang_no,p.dojangPost_subject,p.dojangPost_content,p.member_id,p.dojangPost_date,p.dojangPost_no,p.dojangPost_type
-			FROM dojangpost p join dojanglist d on d.dojang_no = p.dojang_no WHERE p.dojang_no = #{dojang_no} ORDER BY p.dojangPost_no DESC limit #{cnt} OFFSET #{offset}
+		SELECT dojang_no,dojangPost_subject,dojangPost_content,member_id,dojangPost_date,dojangPost_no,dojangPost_type
+			FROM dojangpost WHERE dojang_no = #{dojang_no} ORDER BY dojangPost_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
 	<select id="dojangHomeL" resultType="dojang" parameterType="hashmap">

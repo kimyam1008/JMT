@@ -49,7 +49,7 @@
 			</tr>
 			<tr>
 				<th colspan="4">
-					<input type="button" value="수정" onclick="leaderGroupEdit()"/>
+					<input type="button" value="수정" onclick="dojangEdit()"/>
 					<input type="button" value="삭제" onclick="groupDelete()"/>
 				</th>
 			</tr>
@@ -60,11 +60,11 @@
 	<div style="float:left; border: 1px solid pink; magin-right:30px;">
 		<h3>최근 게시글</h3>
 		<ul>
-			<c:if test = "${recentPost.size() == 0}">
+			<c:if test = "${dojangRecentPost.size() == 0}">
 				등록된 글이 없습니다.
 			</c:if>
-			<c:forEach items="recentPost" var="recentPost">			
-				<li>${recentPost.review_title}</li>
+			<c:forEach items="${dojangRecentPost}" var="dojangRecentPost">			
+				<li>${dojangRecentPost.dojangPost_subject}</li>
 			</c:forEach>
 		</ul>
 	</div>
@@ -73,23 +73,19 @@
 		<h3>가입 대기 회원</h3><a style="text-decoration:none" onclick="joinWait()">회원보기</a>
 		<input type="button" value="회원보기" onclick="joinWait()"/>
 		<ul>
-			<c:forEach items="joinWait" var="joinWait">
-				<li>${joinWait.member_id}</li>
+			<c:forEach items="${dojangJoinWait}" var="dojangJoinWait">
+				<li>${dojangJoinWait.member_id}</li>
 			</c:forEach>
 		</ul>
 	</div>
 </body>
 <script>
 //모임 수정 팝업
-var lightning_class_no = "${lightDto.class_no}";
+//var lightning_class_no = "${lightDto.class_no}";
+///var dojang_no = ${dojangDto.dojang_no};
 
-function leaderGroupEdit(){
-	if (lightning_class_no != null) {
-		window.open("/leaderLightningEdit.go","new","width=300, height=300, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
-	} else {
-		window.open("/leaderDojangEdit.go","new","width=300, height=300, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
-		//window.open("/leaderGroupEdit.go?grouop_no="+${dojangDetail.group_no},"new","width=600, height=300, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
-	}
+function dojangEdit(){
+	window.open("/leaderDojangEdit.go?dojang_no="+${dojangDto.dojang_no},"new","width=300, height=300, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 }
 
 //모임 삭제

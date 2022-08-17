@@ -144,6 +144,7 @@ textarea {
 	<tr>
 		<th>게시판 글쓰기</th>
 		<td height=350 id="dojangPostContent">
+		<!-- html 태그를 인식하기 위해 div 사용(type="text"나 textarea는 html을 그냥 글자취급) -->
 			<div id="editable" contenteditable="true"></div>
 					<!-- 하지만 div 는 서버에 값을 전송할 수가 없다. -->
 					<!-- 결국엔 div의 내용을 input에 담아 서버에 전송할 예정 -->
@@ -171,6 +172,8 @@ textarea {
 	
 	
 console.log($('#dojang_no').val());
+var dojangPost_content = $('#dojangPost_content').val($('#editable').html());
+console.log(dojangPost_content);
 
 function dojangPostReg(){
 	
@@ -178,7 +181,7 @@ function dojangPostReg(){
 	var dojangPost_type = $('#dojangPost_type').val();
 	var dojangPost_subject = $('#dojangPost_subject').val();
 	//var restaurant_no = $('#restaurant_no').val();
-	var dojangPost_content = $('#dojangPost_content').val($('#editable').html());
+	var dojangPost_content = $('#editable').html();
 	var member_id = $('#loginId').val();
 	var dojang_no = $('#dojang_no').val();
 	

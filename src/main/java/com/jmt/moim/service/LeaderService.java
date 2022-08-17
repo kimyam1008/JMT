@@ -21,42 +21,64 @@ public class LeaderService {
 	@Autowired  LeaderDAO dao;
 
 	public LeaderDTO lightDetail(String lightning_no, String loginId) {
-		logger.info("방장 페이지 번개모임 상세정보 요청");
+		logger.info("번개모임 방장 페이지 번개모임 상세정보 요청");
 		return dao.lightDetail(lightning_no,loginId);
 	}
 
 	public LeaderDTO dojangDetail(String dojang_no, String loginId) {
-		logger.info("방장 페이지 도장깨기 상세정보 요청");
+		logger.info("도장깨기 방장 페이지 도장깨기 상세정보 요청");
 		return dao.dojangDetail(dojang_no,loginId);
 	}
 
-	public ArrayList<LeaderDTO> recentPost() {
-		logger.info("최근 게시물 호출 요청");
-		return dao.recentPost();
+	public ArrayList<LeaderDTO> lightRecentPost(String lightning_no) {
+		logger.info("번개모임 최근 게시물 호출 요청");
+		return dao.lightRecentPost(lightning_no);
 	}
 
-	public ArrayList<LeaderDTO> joinWait() {
-		logger.info("가입 대기 회원 리스트 호출 요청");
-		return dao.joinWait();
+	public ArrayList<LeaderDTO> dojangRecentPost(String dojang_no) {
+		logger.info("도장깨기 최근 게시물 호출 요청");
+		return dao.dojangRecentPost(dojang_no);
+	}
+	
+	public ArrayList<LeaderDTO> lightJoinWait(String lightning_no) {
+		logger.info("번개모임가입 대기 회원 리스트 호출 요청");
+		return dao.lightJoinWait(lightning_no);
+	}
+	
+	public ArrayList<LeaderDTO> dojangJoinWait(String dojang_no) {
+		logger.info("도장깨기 대기 회원 리스트 호출 요청");
+		return dao.dojangJoinWait(dojang_no);
 	}
 
-	public ModelAndView joinWaitUpdate(HashMap<String, String> params) {
+	public ModelAndView lightJoinWaitUpdate(HashMap<String, String> params) {
 		String page = "redirect:/leaderPage.go?"; //마이페이지 완성되면 다시 해봐야됨
-		page += "idx="+params.get("idx");
+		page += "lightning_no="+params.get("lightning_no");
 		ModelAndView mav = new ModelAndView(page);
-		dao.joinWaitUpdate(params);
+		dao.lightJoinWaitUpdate(params);
 		return mav;
 	}
-
-	public ModelAndView leaderGroupEdit(HashMap<String, String> params) {
-		String page ="redirect:/leaderPage.go?"; //마이페이지 완성되면 다시 해봐야됨
-		page += "idx="+params.get("idx");
+	
+	public ModelAndView dojangJoinWaitUpdate(HashMap<String, String> params) {
+		String page = "redirect:/leaderPage.go?"; //마이페이지 완성되면 다시 해봐야됨
+		page += "dojang_no="+params.get("dojang_no");
 		ModelAndView mav = new ModelAndView(page);
-		if (params.get("class_no") == "1") {
-			dao.leaderLightningEdit(params);
-		} else {			
-			dao.leaderDojangGroupEdit(params);
-		}
+		dao.dojangJoinWaitUpdate(params);
+		return mav;
+	}
+	
+	public ModelAndView leaderDojangEdit(HashMap<String, String> params) {
+		String page ="redirect:/leaderPage.go?"; //마이페이지 완성되면 다시 해봐야됨
+		page += "dojang_no="+params.get("dojang_no");
+		ModelAndView mav = new ModelAndView(page);
+		dao.leaderDojangEdit(params);
+		return mav;
+	}
+	
+	public ModelAndView lightningEdit(HashMap<String, String> params) {
+		String page ="redirect:/leaderPage.go?"; //마이페이지 완성되면 다시 해봐야됨
+		page += "lightning_no="+params.get("lightning_no");
+		ModelAndView mav = new ModelAndView(page);
+		dao.leaderLightningEdit(params);
 		return mav;
 	}
 
@@ -120,5 +142,7 @@ public class LeaderService {
 		map.put("myGroupMemberSetting", myGroupMemberSetting);
 		return map;
 	}
+
+
 
 }

@@ -44,63 +44,81 @@
 		WHERE d.dojang_no = #{param1} <!-- #{param1} -->
 	</select>
 	
-	<!-- 최근 게시글 -->
-	<select id="recentPost" resultType="leader">
+	<!-- 번개 최근 게시글 -->
+	<select id="lightRecentPost" resultType="leader">
 		SELECT g.groupReview_no
 			,g.member_id
 			,g.review_title
 			,review_date
 			,g.class_no
 		FROM groupReview g
-		JOIN dojangList d ON d.dojang_no = idx AND g.class_no = 3
-		JOIN lightningList d ON l.lightning_no = idx AND g.class_no = 1
-		<where>
-			<if test="class_no == 1">
-				l.lightning_no = #{idx}
-			</if>
-			<if test="class_no != 1">
-				d.dojang_no = #{idx} <!-- #{param1} -->
-			</if>
-		</where>
+		<!-- JOIN dojangList d ON d.dojang_no = idx AND g.class_no = 3 -->
+		JOIN lightningList l ON l.lightning_no = g.idx AND g.class_no = 1
+		WHERE l.lightning_no = #{param1} <!-- #{param1} -->
 	</select>
 	
-	<!-- 가입 승인 대기 회원 -->
-	<select id="joinWait" resultType="leader">
+	<!-- 도장깨기 최근 게시글 -->
+	<select id="dojangRecentPost" resultType="leader">
+		SELECT p.dojangPost_no
+			,p.member_id
+			,p.dojangPost_subject
+			,p.dojangPost_date
+			,p.dojang_no
+		FROM dojangPost p
+		JOIN dojangList d ON d.dojang_no = p.dojang_no
+		WHERE p.dojang_no = #{param1} <!-- #{param1} -->
+	</select>
+	
+	<!-- 번개 가입 승인 대기 회원 -->
+	<select id="lightJoinWait" resultType="leader">
 		SELECT a.class_no
 			,a.member_id
 			,a.status
 			,a.idx
 			,l.lightning_no
+			<!-- ,d.dojang_no -->
+		<!-- (SELECT a.member_id FROM apply a WHERE status = "대기" AND a.idx = d.dojang_no) AS wait -->
+		FROM apply a 
+		<!-- JOIN dojangList d ON a.member_id = d.leader_id -->
+		JOIN lightningList l ON a.member_id = l.leader_id
+		WHERE a.status = "대기" AND a.class_no = 1 AND l.lightning_no = #{param1}
+			<!-- <if test="a.class_no != 1">
+				 a.status = "대기" AND d.dojang_no = #{idx}
+			</if> -->
+	</select>
+	
+	<!-- 도장깨기 가입 승인 대기 회원 -->
+	<select id="dojangJoinWait" resultType="leader">
+		SELECT a.class_no
+			,a.member_id
+			,a.status
+			,a.idx
 			,d.dojang_no
 		<!-- (SELECT a.member_id FROM apply a WHERE status = "대기" AND a.idx = d.dojang_no) AS wait -->
 		FROM apply a 
 		JOIN dojangList d ON a.member_id = d.leader_id
-		JOIN lightningList l ON a.member_id = l.leader_id
-		<where>
-			<if test="a.class_no == 1">
-				a.status = "대기" AND l.lightning_no = #{idx}
-			</if>
-			<if test="a.class_no != 1">
+		WHERE a.status = "대기" AND a.class_no = 3 AND d.dojang_no = #{param1}
+			<!-- <if test="a.class_no != 1">
 				 a.status = "대기" AND d.dojang_no = #{idx}
-			</if>
-		</where>
+			</if> -->
 	</select>
 	
-	<!-- 가입 대기상태 수정 -->
-	<update id="joinWaitUpdate" parameterType="hashmap">
+	<!-- 번개 가입 대기상태 수정 -->
+	<update id="lightJoinWaitUpdate" parameterType="hashmap">
 		UPDATE apply a
-		JOIN codeTable ON a.class_no ON c.class_no
+		JOIN codeTable ON a.class_no ON c.class_no = 1
 		LEFT OUTER JOIN lightningList l ON l.class_no = c.class_no
+		SET a.status = #{lightning_status}
+		WHERE a.idx = #{lightning_no} AND a.member_id = #{member_id}
+	</update>
+	
+	<!-- 도장깨기 가입 대기상태 수정 -->
+	<update id="dojangJoinWaitUpdate" parameterType="hashmap">
+		UPDATE apply a
+		JOIN codeTable ON a.class_no ON c.class_no = 3
 		LEFT OUTER JOIN dojangList d ON d.class_no = c.class_no
-		SET a.status = #{status}
-		<where>
-			<if test="a.class_no == 1">
-				l.lightning_no = #{idx}
-			</if>
-			<if test="a.class_no != 1">
-				d.dojang_no = #{idx}
-			</if>
-		</where>
+		SET a.status = #{dojang_status}
+		WHERE a.idx = #{dojang_no} AND a.member_id = #{member_id}
 	</update>
 	
 	<!-- 번개모임 수정 -->
@@ -111,8 +129,8 @@
 	</update>
 	
 	<!-- 도장깨기 수정 -->
-	<update id="leaderDojangGroupEdit" parameterType="hashmap">
-		UPDATE dojang d SET d.dojang_status = #{dojang_status}
+	<update id="leaderDojangEdit" parameterType="hashmap">
+		UPDATE dojangList d SET d.dojang_status = #{dojang_status}
 			,d.people_num = #{people_num}
 			,d.dojang_content = #{dojang_content}
 	</update>

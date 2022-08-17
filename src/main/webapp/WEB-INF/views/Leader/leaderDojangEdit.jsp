@@ -19,8 +19,8 @@
 </head>
 <body>
 	<h3>모임 수정</h3>
-	<form action="leaderGroupEdit" method="post">
-	<input type="hidden" name="class_no" value="${dojangDto.class_no}"/>
+	<form action="dojangEdit" method="post">
+		<input type="hidden" name="class_no" value="${dojangDto.class_no}"/>
 		<input type="hidden" name="dojang_no" value="${dojangDto.dojang_no}"/>
 		<table>
 			<tr>
@@ -50,8 +50,8 @@
 			</tr>
 			<tr>
 				<th colspan="2">
-					<input type="button" value="수정 완료" onclick="leaderGroupUpd()"/>
-					<input type="button" value="취소" onclick="leaderGroupEditClose()"/>
+					<input type="button" value="수정 완료" onclick="dojangGroupUpd()"/>
+					<input type="button" value="취소" onclick="dojangGroupEditClose()"/>
 				</th>
 			</tr>
 		</table>
@@ -59,7 +59,7 @@
 </body>
 <script>
 //수정 완료
-function leaderGroupUpd(){
+function dojangGroupUpd(){
 	var result confirm("도장깨기 모임의 내용을 수정하시겠습니까?");
 	if(result == true){
 		alert("수정이 완료되었습니다.");
@@ -72,7 +72,7 @@ function leaderGroupUpd(){
 }
 
 //취소
-function leaderGroupEditClose(){
+function dojangGroupEditClose(){
 	opener.parent.location.reload();
 	window.close();
 }

@@ -23,6 +23,8 @@
 	
 	var path = "${path}";
 	
+	console.log(path);
+	
 	if(path != ''){
 		var content = '<a href="#" id="${path}" onclick="del(this)">';
 		content += '<img src="'+path+'" height="150"/>';

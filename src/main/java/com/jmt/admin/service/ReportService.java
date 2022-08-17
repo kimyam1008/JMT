@@ -398,6 +398,11 @@ public class ReportService {
 		
 	}
 
+	public int chkGrade(String loginId) {
+		
+		return dao.chkGrade( loginId);
+	}
+
 
 	
 	

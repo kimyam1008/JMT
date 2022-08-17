@@ -137,8 +137,6 @@ function listCall(page){
 		dataType:'JSON',
 		success:function(data){
 				maxPage = data.pages;
-				class_no = data.dojangHome.class_no;
-				console.log(data);
 				drawList(data.dojangHome);
 				console.log("데이터",data.dojangHome);
 				$('#leader').html(data.dojangHomeLeader);

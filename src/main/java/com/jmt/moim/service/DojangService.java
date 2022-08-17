@@ -277,21 +277,22 @@ public class DojangService {
 		int idx = dto.getIdx();
 		int class_no = dto.getClass_no();
 		
-		boolean success = false;
+		boolean success = true;
 		
 		if(dojangPost_no >0) {
 			
 			//3. idx로 파일 디비 저장
 			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
+			if (fileList != null) {
 			for (String newFileName : fileList.keySet()) {
 				dao.filewrite(newFileName, fileList.get(newFileName),dojangPost_no);
 			}
 			
 			//4. session 에서 fileList 삭제
 			session.removeAttribute("fileList");
-			success = true;
+
+			}
 		}
-		
 		result.put("success", success);
 		return success;
 	}
