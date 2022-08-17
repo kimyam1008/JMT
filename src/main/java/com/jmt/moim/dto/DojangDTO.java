@@ -44,8 +44,11 @@ public class DojangDTO {
 	private String restaurant_name;
 	private String restaurant_address;
 	private String food_name;
+	private String searchContent;
 	
 	
+	
+
 	private int groupReview_no;
 	private String review_title;
 	private String review_date;

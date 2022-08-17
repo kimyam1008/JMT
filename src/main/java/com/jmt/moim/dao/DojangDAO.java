@@ -51,6 +51,8 @@ public interface DojangDAO {
 
 	void filewrite(String newFileName, String string, int dojangPost_no);
 
+	ArrayList<DojangDTO> gpRestaurantSearchList(HashMap<String, Object> map);
+
 
 
 

@@ -1,5 +1,6 @@
 package com.jmt.moim.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -268,9 +269,9 @@ public class DojangService {
 		dto.setDojangPost_subject(params.get("dojangPost_subject"));
 		dto.setDojangPost_content(params.get("dojangPost_content"));
 		dto.setDojang_no(Integer.parseInt(params.get("dojang_no")));
+		dto.setRestaurant_no(Integer.parseInt(params.get("restaurant_no")));
 		dto.setMember_id(params.get("member_id"));
 		dto.setDojangPost_type(params.get("dojangPost_type"));
-		dao.dojangPostReg(dto);
 		
 		
 		int dojangPost_no = dto.getDojangPost_no();
@@ -278,6 +279,11 @@ public class DojangService {
 		int class_no = dto.getClass_no();
 		
 		boolean success = true;
+		
+		if(params.get("restaurant_no") == "" || params.get("restaurant_no") != "") {
+			
+		dao.dojangPostReg(dto);
+		
 		
 		if(dojangPost_no >0) {
 			
@@ -293,8 +299,44 @@ public class DojangService {
 
 			}
 		}
+		}
 		result.put("success", success);
 		return success;
+	}
+
+	public HashMap<String, Object> gpFileDelete(String fileName, HttpSession session) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		
+		//파일 삭제 성공시
+		boolean success = delFile(fileName);
+		if (success) {
+			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
+			fileList.remove(fileName);
+			logger.info("삭제 후 남은 파일 수 : "+fileList.size());
+			session.setAttribute("fileList", fileList);
+		}
+		result.put("success", success);
+		return result;
+	}
+
+	private boolean delFile(String fileName) {
+		File file = new File("C:/upload/"+fileName);
+		boolean success = false;
+		if(file.exists()) {
+			success = file.delete();
+		}
+		return success;
+	}
+
+	
+
+	public ArrayList<DojangDTO> gpRestaurantSearchList(String gpSearchCondition, String searchContent) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("gpSearchCondition", gpSearchCondition);
+		map.put("searchContent", searchContent);
+		
+			
+		return dao.gpRestaurantSearchList(map);
 	}
 
 	

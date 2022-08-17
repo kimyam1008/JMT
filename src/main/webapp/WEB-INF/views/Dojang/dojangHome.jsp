@@ -173,7 +173,6 @@ function drawList(list){
 		content += '<div>'+"등록된 게시글이 없습니다."+'</div>';
 	} else {
 		list.forEach(function(item){
-			console.log(item.class_no);
 			var date = new Date(item.dojangPost_date);
 			var create = date.toLocaleDateString("ko-KR");
 	
@@ -193,6 +192,8 @@ function drawList(list){
 			content += '<tr>';
 			content += '<td  height=350 colspan="4"><a href="dojangHomeDetail.go?dojangPost_no='+item.dojangPost_no+'">'+item.dojangPost_content+'</td>';
 			content += '</tr>';
+			content += '<th colspan="2">'+item.member_id+"님의 추천맛집은?"+'</th>';
+			content += item.restaurant_name==null || item.restaurant_name=="test"? '<td colspan="2">'+"추천맛집이 없습니다."+'</td>': '<td colspan="2">'+item.restaurant_name+'</td>';
 			content += '</table>';
 		});
 	}
