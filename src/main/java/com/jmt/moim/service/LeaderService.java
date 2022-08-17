@@ -20,52 +20,88 @@ public class LeaderService {
 
 	@Autowired  LeaderDAO dao;
 
-	public LeaderDTO lightDetail(String idx, String loginId) {
-		logger.info("방장 페이지 번개모임 상세정보 요청");
-		return dao.lightDetail(idx,loginId);
+	public LeaderDTO lightDetail(String lightning_no, String loginId) {
+		logger.info("번개모임 방장 페이지 번개모임 상세정보 요청");
+		return dao.lightDetail(lightning_no,loginId);
 	}
 
-	public LeaderDTO dojangDetail(String idx, String loginId) {
-		logger.info("방장 페이지 도장깨기 상세정보 요청");
-		return dao.dojangDetail(idx,loginId);
+	public LeaderDTO dojangDetail(String dojang_no, String loginId) {
+		logger.info("도장깨기 방장 페이지 도장깨기 상세정보 요청");
+		return dao.dojangDetail(dojang_no,loginId);
 	}
 
-	public ArrayList<LeaderDTO> recentPost(String idx) {
-		logger.info("최근 게시물 호출 요청");
-		return dao.recentPost(idx);
+	public ArrayList<LeaderDTO> lightRecentPost(String lightning_no) {
+		logger.info("번개모임 최근 게시물 호출 요청");
+		return dao.lightRecentPost(lightning_no);
 	}
 
-	public ArrayList<LeaderDTO> joinWait(String idx) {
-		logger.info("가입 대기 회원 리스트 호출 요청");
-		return dao.joinWait(idx);
+	public ArrayList<LeaderDTO> dojangRecentPost(String dojang_no) {
+		logger.info("도장깨기 최근 게시물 호출 요청");
+		return dao.dojangRecentPost(dojang_no);
+	}
+	
+	public LeaderDTO lightJoinWait(String lightning_no) {
+		logger.info("번개모임가입 대기 회원 리스트 호출 요청");
+		return dao.lightJoinWait(lightning_no);
+	}
+	
+	public LeaderDTO dojangJoinWait(String dojang_no) {
+		logger.info("도장깨기 대기 회원 리스트 호출 요청");
+		return dao.dojangJoinWait(dojang_no);
 	}
 
-	public ModelAndView joinWaitUpdate(HashMap<String, String> params) {
+	public ModelAndView lightJoinWaitUpdate(HashMap<String, String> params) {
 		String page = "redirect:/leaderPage.go?"; //마이페이지 완성되면 다시 해봐야됨
-		page += "idx="+params.get("idx");
+		page += "lightning_no="+params.get("lightning_no");
 		ModelAndView mav = new ModelAndView(page);
-		dao.joinWaitUpdate(params);
+		dao.lightJoinWaitUpdate(params);
 		return mav;
 	}
+	
+	public boolean dojangJoinWaitUp(HashMap<String, String> params) {
+		logger.info("도장깨기 가입 승인 서비스 도착 : "+params);
 
-	public ModelAndView leaderGroupEdit(HashMap<String, String> params) {
-		String page ="redirect:/leaderPage.go?"; //마이페이지 완성되면 다시 해봐야됨
-		page += "idx="+params.get("idx");
-		ModelAndView mav = new ModelAndView(page);
-		if (params.get("class_no") == "1") {
-			dao.leaderLightningEdit(params);
-		} else {			
-			dao.leaderDojangGroupEdit(params);
+		boolean success = false;
+		int row = dao.dojangJoinWaitUp(params);
+		if(row>0) {
+			success=true;
 		}
-		return mav;
+		return success;
+	}
+	
+	public boolean leaderDojangEdit(HashMap<String, String> params) {
+		logger.info("도장깨기 수정 서비스 도착 : "+params);
+		
+		boolean success = false;
+		int row = dao.leaderDojangEdit(params);
+		if (row>0) {
+			success=true;
+		}
+		return success;
+	}
+	
+	public boolean leaderLightEdit(HashMap<String, String> params) {
+		logger.info("번개 수정 서비스 도착 : "+params);
+		boolean success = false;
+		int row = dao.leaderLightEdit(params);
+		if (row>0) {
+			success=true;
+		}
+		return success;
 	}
 
-	public HashMap<String, Object> myGroupPostSetting(HashMap<String, String> params) {
+	public HashMap<String, Object> myGroupPostSettingD(HashMap<String, String> params) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		HashMap<String, Object> param = new HashMap<String, Object>();
 		
 		int cnt = Integer.parseInt(params.get("cnt"));
 		int page = Integer.parseInt(params.get("page"));
 		logger.info("보여줄 페이지 : "+page);
+		
+		String dojang_no = params.get("dojang_no");
+		HashMap<String, Object> postSort = new HashMap<String, Object>();
+		postSort.put("dojang_no", dojang_no);
+		logger.info("dojang_no : "+dojang_no);
 		
 		//총 갯수(allCnt) / 페이지당 보여줄 갯수(cnt) = 생성 가능한 페이지(pages)
 		int allCnt = dao.allCount();
@@ -83,14 +119,17 @@ public class LeaderService {
 		int offset = (page -1) * cnt; //offset : 게시글 시작 번호
 		logger.info("offset : "+offset);
 		
-		ArrayList<LeaderDTO> myGroupPostSetting = dao.myGroupPostSetting(cnt,offset);
-		map.put("myGroupPostSetting", myGroupPostSetting);
+		postSort.put("cnt", cnt);
+		postSort.put("offset", offset);
+		
+		ArrayList<LeaderDTO> myGroupPostSettingD = dao.myGroupPostSettingD(postSort);
+		map.put("myGroupPostSettingD", myGroupPostSettingD);
 		return map;
 	}
 
-	public LeaderDTO myGroupEtc(String loginId, String class_no, String idx) {
-		logger.info("나의 모임관리 잡다한거 요청");
-		return dao.myGroupEtc(loginId,class_no,idx);
+	public LeaderDTO myGroupEtcD(String loginId, String dojang_no) {
+		logger.info("도장-나의 모임관리 잡다한거 요청");
+		return dao.myGroupEtcD(loginId,dojang_no);
 	}
 
 	public HashMap<String, Object> myGroupMemberSetting(HashMap<String, String> params) {
@@ -116,9 +155,11 @@ public class LeaderService {
 		int offset = (page -1) * cnt; //offset : 게시글 시작 번호
 		logger.info("offset : "+offset);
 		
-		ArrayList<LeaderDTO> myGroupMemberSetting = dao.myGroupMemberSetting(cnt,offset);
+		ArrayList<LeaderDTO> myGroupMemberSetting = dao.myGroupMemberSettingD(cnt,offset);
 		map.put("myGroupMemberSetting", myGroupMemberSetting);
 		return map;
 	}
+
+
 
 }

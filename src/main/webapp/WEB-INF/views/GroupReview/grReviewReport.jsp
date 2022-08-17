@@ -96,7 +96,7 @@
 				},
 				dataType:'JSON',
 				success:function(data){
-					if(data.lightReport){
+					if(data.grReviewReport){
 						opener.parent.location.reload();
 						window.close();
 					}else{

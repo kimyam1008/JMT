@@ -7,30 +7,44 @@ import com.jmt.moim.dto.LeaderDTO;
 
 public interface LeaderDAO {
 
-	LeaderDTO lightDetail(String idx, String loginId);
+	LeaderDTO lightDetail(String lightning_no, String loginId);
 
-	LeaderDTO dojangDetail(String idx, String loginId);
+	LeaderDTO dojangDetail(String dojang_no, String loginId);
 
-	ArrayList<LeaderDTO> recentPost(String idx);
+	ArrayList<LeaderDTO> lightRecentPost(String lightning_no);
+	
+	ArrayList<LeaderDTO> dojangRecentPost(String dojang_no);
 
-	ArrayList<LeaderDTO> joinWait(String idx);
+	LeaderDTO lightJoinWait(String lightning_no);
+	
+	LeaderDTO dojangJoinWait(String dojang_no);
 
-	void joinWaitUpdate(HashMap<String, String> params);
+	void lightJoinWaitUpdate(HashMap<String, String> params);
+	
+	int dojangJoinWaitUp(HashMap<String, String> params);
 
 	//void leaderGroupEdit(HashMap<String, String> params);
 
-	void leaderLightningEdit(HashMap<String, String> params);
+	int leaderLightEdit(HashMap<String, String> params);
 
-	void leaderDojangGroupEdit(HashMap<String, String> params);
+	int leaderDojangEdit(HashMap<String, String> params);
 
 	int allCount();
 
-	ArrayList<LeaderDTO> myGroupPostSetting(int cnt, int offset);
+	//ArrayList<LeaderDTO> myGroupPostSettingD(int cnt, int offset);
 
-	LeaderDTO myGroupEtc(String loginId, String class_no, String idx);
+	LeaderDTO myGroupEtcD(String loginId, String dojang_no);
 
-	ArrayList<LeaderDTO> myGroupMemberSetting(int cnt, int offset);
+	ArrayList<LeaderDTO> myGroupMemberSettingD(int cnt, int offset);
 
 	int allCount2();
+
+	ArrayList<LeaderDTO> myGroupPostSettingD(HashMap<String, Object> postSort);
+
+	
+
+	
+
+	
 
 }

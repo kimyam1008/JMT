@@ -8,13 +8,13 @@
 <title>사진 업로드</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
+.btn {cursor:pointer;}
 </style>
 </head>
 <body>
 	<form action="gpFileUpload" method="post" enctype="multipart/form-data">
 		<input type="file" name="file" onchange="fileUpload()"/>
 	</form>
-	path : ${path}
 </body>
 <script>
 	function fileUpload(){
@@ -23,10 +23,10 @@
 	
 	var path = "${path}";
 	
+	console.log(path);
+	
 	if(path != ''){
-		var content = '<a href="#" id="${path}" onclick="del(this)">';
-		content += '<img src="'+path+'" height="150"/>';
-		content += '</a>';
+		var content = '<img src="'+path+'" height="150" id="${path}" class="btn" onclick="del(this)"/>';
 		opener.document.getElementById("editable").innerHTML += content;
 		self.close();
 	}

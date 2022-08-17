@@ -4,7 +4,7 @@
 <mapper namespace="com.jmt.moim.dao.LeaderDAO">
 	<!-- 번개모임 상세 -->
 	<select id="lightDetail" resultType="leader">
-		SELECT (SELECT member_name FROM `member` m WHERE m.member_id = l.leader_id) AS leaderName <!-- leader_id = #{param2} -->
+		SELECT (SELECT member_name FROM `member` m WHERE m.member_id = #{param2}) AS leaderName <!-- leader_id = #{param2} -->
 			,l.lightning_title
 			,l.lightning_status
 			,(select count(member_id)+1 from apply a where class_no = 1 and status = '승인' and a.idx = l.lightning_no) as member_count
@@ -20,12 +20,12 @@
 			,l,class_no
 		FROM lightningList l 
 		JOIN food f ON l.food_no = f.food_no
-		WHERE l.lightning_no = 13 <!-- #{param1} -->
+		WHERE l.lightning_no = #{param1} <!-- #{param1} -->
 	</select>
 	
 	<!-- 도장깨기 상세 -->
 	<select id="dojangDetail" resultType="leader">
-		SELECT (SELECT member_name FROM `member` m WHERE m.member_id = d.leader_id) AS leaderName <!-- leader_id = #{param2} -->
+		SELECT (SELECT member_name FROM `member` m WHERE m.member_id = #{param2}) AS leaderName <!-- leader_id = #{param2} -->
 			,d.dojang_title
 			,d.dojang_status  
 			,(select count(member_id)+1 from apply a where class_no = 3 and status = '승인' and a.idx = d.dojang_no) as member_count
@@ -36,142 +36,148 @@
 			,d.eat_speed
 			,d.dojang_create 
 			,d.job
-			,d.donjang_content
+			,d.dojang_content
 			,d.dojang_no
 			,d.class_no
 		FROM dojangList d 
 		JOIN food f ON d.food_no = f.food_no
-		WHERE d.dojang_no = 18 <!-- #{param1} -->
+		WHERE d.dojang_no = #{param1} <!-- #{param1} -->
 	</select>
 	
-	<!-- 최근 게시글 -->
-	<select id="recentPost" parameterType="String" resultType="leader">
+	<!-- 번개 최근 게시글 -->
+	<select id="lightRecentPost" resultType="leader">
 		SELECT g.groupReview_no
 			,g.member_id
 			,g.review_title
 			,review_date
 			,g.class_no
 		FROM groupReview g
-		JOIN dojangList d ON d.dojang_no = idx AND g.class_no = 3
-		JOIN lightningList d ON l.lightning_no = idx AND g.class_no = 1
-		<where>
-			<if test="class_no == 1">
-				l.lightning_no = #{idx}
-			</if>
-			<if test="class_no != 1">
-				d.dojang_no = #{idx} <!-- #{param1} -->
-			</if>
-		</where>
+		<!-- JOIN dojangList d ON d.dojang_no = idx AND g.class_no = 3 -->
+		JOIN lightningList l ON l.lightning_no = g.idx AND g.class_no = 1
+		WHERE l.lightning_no = #{param1} <!-- #{param1} -->
 	</select>
 	
-	<!-- 가입 승인 대기 회원 -->
-	<select id="joinWait" parameterType="String" resultType="leader">
+	<!-- 도장깨기 최근 게시글 -->
+	<select id="dojangRecentPost" resultType="leader">
+		SELECT p.dojangPost_no
+			,p.member_id
+			,p.dojangPost_subject
+			,p.dojangPost_date
+			,p.dojang_no
+		FROM dojangPost p
+		JOIN dojangList d ON d.dojang_no = p.dojang_no
+		WHERE p.dojang_no = #{param1} <!-- #{param1} -->
+	</select>
+	
+	<!-- 번개 가입 승인 대기 회원 -->
+	<select id="lightJoinWait" resultType="leader">
 		SELECT a.class_no
 			,a.member_id
 			,a.status
 			,a.idx
 			,l.lightning_no
+			<!-- ,d.dojang_no -->
+		<!-- (SELECT a.member_id FROM apply a WHERE status = "대기" AND a.idx = d.dojang_no) AS wait -->
+		FROM apply a 
+		<!-- JOIN dojangList d ON a.member_id = d.leader_id -->
+		JOIN lightningList l ON a.member_id = l.leader_id
+		WHERE a.status = "대기" AND a.class_no = 1 AND l.lightning_no = #{param1}
+			<!-- <if test="a.class_no != 1">
+				 a.status = "대기" AND d.dojang_no = #{idx}
+			</if> -->
+	</select>
+	
+	<!-- 도장깨기 가입 승인 대기 회원 -->
+	<select id="dojangJoinWait" resultType="leader">
+		SELECT a.class_no
+			,a.member_id
+			,a.status
+			,a.idx
 			,d.dojang_no
 		<!-- (SELECT a.member_id FROM apply a WHERE status = "대기" AND a.idx = d.dojang_no) AS wait -->
 		FROM apply a 
-		JOIN dojangList d ON a.member_id = d.leader_id
-		JOIN lightningList l ON a.member_id = l.leader_id
-		<where>
-			<if test="a.class_no == 1">
-				a.status = "대기" AND l.lightning_no = #{idx}
-			</if>
-			<if test="a.class_no != 1">
+		LEFT OUTER JOIN dojangList d ON a.member_id = d.leader_id
+		WHERE a.status = "대기" AND a.class_no = 3 AND d.dojang_no = #{param1}
+			<!-- <if test="a.class_no != 1">
 				 a.status = "대기" AND d.dojang_no = #{idx}
-			</if>
-		</where>
+			</if> -->
 	</select>
 	
-	<!-- 가입 대기상태 수정 -->
-	<update id="joinWaitUpdate" parameterType="hashmap">
-		UPDATE apply a SET a.status = #{status}
-		<where>
-			<if test="a.class_no == 1">
-				l.lightning_no = #{idx}
-			</if>
-			<if test="a.class_no != 1">
-				d.dojang_no = #{idx}
-			</if>
-		</where>
+	<!-- 번개 가입 대기상태 수정 -->
+	<update id="lightJoinWaitUpdate" parameterType="hashmap">
+		UPDATE apply a
+		JOIN codeTable ON a.class_no ON c.class_no = 1
+		LEFT OUTER JOIN lightningList l ON l.class_no = c.class_no
+		SET a.status = #{lightning_status}
+		WHERE a.idx = #{lightning_no} AND a.member_id = #{member_id}
+	</update>
+	
+	<!-- 도장깨기 가입 대기상태 수정 -->
+	<update id="dojangJoinWaitUp" parameterType="hashmap">
+		UPDATE apply a
+		JOIN codeTable ON a.class_no ON c.class_no = 3
+		LEFT OUTER JOIN dojangList d ON d.class_no = c.class_no
+		SET a.status = #{status}
+		WHERE a.idx = #{dojang_no} AND a.member_id = #{member_id}
 	</update>
 	
 	<!-- 번개모임 수정 -->
-	<update id="leaderLightningEdit" parameterType="hashmap">
+	<update id="leaderLightEdit" parameterType="hashmap">
 		UPDATE lightning l SET l.lightning_status = #{lightning_status}
 			,l.member_num = #{member_num}
 			,l.lightning_content = #{lightning_content}
+		WHERE l.lightning_no = #{lightning_no}
 	</update>
 	
 	<!-- 도장깨기 수정 -->
-	<update id="leaderDojangGroupEdit" parameterType="hashmap">
-		UPDATE dojang d SET d.dojang_status = #{dojang_status}
+	<update id="leaderDojangEdit" parameterType="hashmap">
+		UPDATE dojangList d SET d.dojang_status = #{dojang_status}
 			,d.people_num = #{people_num}
 			,d.dojang_content = #{dojang_content}
+		WHERE d.dojang_no = #{dojang_no}
 	</update>
 	
-	<!-- 나의 모임 관리 (게시글) -->
-	<select id="myGroupPostSetting" resultType="leader">
-		SELECT g.groupReview_no,g.review_title,g.review_date
-		FROM groupReview g
-		LEFT OUTER JOIN lightningList l on l.lightning_no = idx and g.class_no = 1
-		LEFT OUTER JOIN dojangList d ON d.dojang_no = idx AND g.class_no = 3
-		<where>
-			g.groupReview_status = "노출"
-			<if test="class_no == 1">
-				l.lightning_no = #{idx}
-			</if>
-			<if test="class_no != 1">
-				d.dojang_no = #{idx}
-			</if>
-		</where> 
-		ORDER BY groupReview_no DESC limit #{cnt} OFFSET #{offset}
+	<!-- 나의 모임 관리 (게시글) / 도장 -->
+	<select id="myGroupPostSettingD" resultType="leader">
+		SELECT p.dojangPost_no
+			,p.member_id
+			,p.dojangPost_subject
+			,p.dojangPost_date
+			,p.dojang_no
+		FROM dojangPost p
+		JOIN dojangList d ON d.dojang_no = p.dojang_no
+		WHERE p.dojang_no = #{dojang_no}
+		ORDER BY p.dojangPost_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
 	<select id="allCount" resultType="int">
-		SELECT COUNT(groupReview_no)
-		FROM groupReview g
-		LEFT OUTER JOIN lightningList l ON l.lightning_no = idx AND g.class_no = 1
-		LEFT OUTER JOIN dojangList d ON d.dojang_no = idx AND g.class_no = 3
-		<where>
-			g.groupReview_status = "노출"
-			<if test="class_no == 1">
-				l.lightning_no = #{idx}
-			</if>
-			<if test="class_no != 1">
-				d.dojang_no = #{idx}
-			</if>
-		</where> 
-		ORDER BY groupReview_no DESC limit #{cnt} OFFSET #{offset}
+		SELECT p.dojangPost_no
+			,p.member_id
+			,p.dojangPost_subject
+			,p.dojangPost_date
+			,p.dojang_no
+		FROM dojangPost p
+		JOIN dojangList d ON d.dojang_no = p.dojang_no
+		WHERE p.dojang_no = #{dojang_no}
+		ORDER BY p.dojangPost_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
-	<select id="myGroupEtc" parameterType="String" resultType="leader">
-		SELECT l.lightning_title
-			,d.dojang_title
-			,l.class_no
-			,d.class_no
-			,m.member_id
-			,(SELECT a.member_id FROM apply a WHERE a.status = "승인" AND l.lightning_no = #{param3}) AS lightning_member
-			,(SELECT a.member_id FROM apply a WHERE a.status = "승인" AND d.dojang_no = #{param3}) AS dojang_member
+	<select id="myGroupEtcD" parameterType="String" resultType="leader">
+		SELECT d.dojang_title
 			,(SELECT COUNT(groupReview_no) FROM groupReview g WHERE g.member_id =#{param1}) AS post_count
 			,(SELECT COUNT(comment_no) FROM comment c WHERE c.member_id =#{param1}) AS comment_count
 			,(SELECT photo_newFileName FROM photo p WHERE p.class_no=9 AND p.idx = (SELECT profile_no FROM profile f WHERE f.member_id =#{param1})) AS photo_newFileName
-		FROM groupReview g
-		LEFT OUTER JOIN lightningList l ON l.lightning_no = idx and groupReview.class_no = 1
-		LEFT OUTER JOIN dojangList d ON d.dojang_no = idx AND groupReview.class_no = 3
-		LEFT OUTER JOIN member ON member.member_id = groupReview.member_id
-		JOIN codeTable ON groupReview.class_no = codeTable.class_no
-		<where>
-			<if test="class_no == 1">
-				l.lightning_no = #{param3}
-			</if>
-			<if test="class_no != 1">
-				d.dojang_no = #{param3}
-			</if>
-		</where>
+		FROM dojangList d
+		WHERE d.dojang_no = #{param2}
+	</select>
+	
+	<select id="myGroupEtcL" parameterType="String" resultType="leader">
+		SELECT l.lightning_title
+			,(SELECT COUNT(groupReview_no) FROM groupReview g WHERE g.member_id =#{param1}) AS post_count
+			,(SELECT COUNT(comment_no) FROM comment c WHERE c.member_id =#{param1}) AS comment_count
+			,(SELECT photo_newFileName FROM photo p WHERE p.class_no=9 AND p.idx = (SELECT profile_no FROM profile f WHERE f.member_id =#{param1})) AS photo_newFileName
+		FROM lightningList l
+		WHERE l.lightning_no = #{param2}
 	</select>
 	
 	<!-- 나의 모임 관리 (회원) -->
