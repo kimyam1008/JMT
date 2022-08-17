@@ -9,6 +9,7 @@
 	
 	function notiChk(){
 			$("#notix").attr("src","resources/photo/noti4.png");
+			
 		}
 	
 	</script>
