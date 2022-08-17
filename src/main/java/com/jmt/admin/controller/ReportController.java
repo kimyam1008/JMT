@@ -81,7 +81,10 @@ public class ReportController {
 		ra.addAttribute("class_no",class_no);
 		ra.addAttribute("idx",idx);
 		
-		
+		//알림
+		if(report_status.equals("블라인드")) {
+			service.blindNoti(class_no,idx,reported);
+		}
 		
 		String msg = null;
 		if(result>0) {
