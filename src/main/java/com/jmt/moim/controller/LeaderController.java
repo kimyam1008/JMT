@@ -44,7 +44,7 @@ public class LeaderController {
 		 model.addAttribute("lightRecentPost", lightRecentPost);
 		  
 		 //가입 대기 회원
-		 ArrayList<LeaderDTO> lightJoinWait = service.lightJoinWait(lightning_no);
+		 LeaderDTO lightJoinWait = service.lightJoinWait(lightning_no);
 		 model.addAttribute("lightJoinWait", lightJoinWait);
 		  
 	     return "./Leader/lightningLeaderPage";
@@ -70,7 +70,7 @@ public class LeaderController {
 		 model.addAttribute("dojangRecentPost", dojangRecentPost);
 		  
 		 //가입 대기 회원
-		 ArrayList<LeaderDTO> dojangJoinWait = service.dojangJoinWait(dojang_no);
+		 LeaderDTO dojangJoinWait = service.dojangJoinWait(dojang_no);
 		 model.addAttribute("dojangJoinWait", dojangJoinWait);
 		  
 	     return "./Leader/dojangLeaderPage";
@@ -98,11 +98,14 @@ public class LeaderController {
    }
    
     //도장깨기 수정
-   @RequestMapping(value = "/dojangEdit")
-	public ModelAndView leaderDojangEdit(HttpSession session, Model model,
-		   @RequestParam HashMap<String, String> params){
-	  logger.info("params : {}",params);
-	   return service.leaderDojangEdit(params);
+   @RequestMapping(value = "/leaderDojangEdit.ajax")
+   @ResponseBody
+	public HashMap<String, Object> leaderDojangEdit(@RequestParam HashMap<String, String> params){
+	  logger.info("도장깨기 수정 : {}",params);
+	  HashMap<String, Object> map = new HashMap<String, Object>();
+	  boolean dojangEdit = service.leaderDojangEdit(params);
+	  map.put("leaderDojangEdit", dojangEdit);
+	  return map;
    }
    
    //번개모임 수정 팝업
@@ -112,6 +115,7 @@ public class LeaderController {
       	String page = "./Leader/leaderLightningEdit";
       	String loginId = (String) session.getAttribute("loginId");
       	model.addAttribute("loginId", loginId);
+      	session.setAttribute("lightning_no", lightning_no);
 
       //번개모임 고유 데이터 가져오기
 		 LeaderDTO lightDto = service.lightDetail(lightning_no,loginId);
@@ -123,11 +127,14 @@ public class LeaderController {
    }
    
    //번개 수정
-   @RequestMapping(value = "/lightEdit")
-	public ModelAndView lightningEdit(HttpSession session, Model model,
-		   @RequestParam HashMap<String, String> params){
-	  logger.info("params : {}",params);
-	   return service.lightningEdit(params);
+   @RequestMapping(value = "/leaderLightEdit.ajax")
+   @ResponseBody
+	public HashMap<String, Object> leaderLightEdit(@RequestParam HashMap<String, String> params){
+	  logger.info("번개모임 수정 : {}",params);
+	  HashMap<String, Object> map = new HashMap<String, Object>();
+	  boolean lightEdit = service.leaderLightEdit(params);
+	  map.put("leaderLightEdit", lightEdit);
+	  return map;
    }
    
    //번개 가입 대기 회원 팝업
@@ -136,9 +143,10 @@ public class LeaderController {
 			@RequestParam String lightning_no){
 		String loginId = (String) session.getAttribute("loginId");
       	model.addAttribute("loginId", loginId);
+      	session.setAttribute("lightning_no", lightning_no);
       	
       	//가입 대기 회원
-		ArrayList<LeaderDTO> lightJoinWait = service.lightJoinWait(lightning_no);
+		LeaderDTO lightJoinWait = service.lightJoinWait(lightning_no);
 		model.addAttribute("lightJoinWait", lightJoinWait);
 		return "./Leader/lightJoinWait";
    }
@@ -155,53 +163,61 @@ public class LeaderController {
 			@RequestParam String dojang_no){
 		String loginId = (String) session.getAttribute("loginId");
       	model.addAttribute("loginId", loginId);
+      	session.setAttribute("dojang_no", dojang_no);
       	
       	//가입 대기 회원
-		ArrayList<LeaderDTO> dojangJoinWait = service.dojangJoinWait(dojang_no);
+		LeaderDTO dojangJoinWait = service.dojangJoinWait(dojang_no);
 		model.addAttribute("dojangJoinWait", dojangJoinWait);
 		return "./Leader/dojangJoinWait";
    }
 	
-	@RequestMapping(value = "/dojangJoinWaitUpdate")
-	public ModelAndView dojangJoinWaitUpdate(@RequestParam HashMap<String, String> params){
-		logger.info("params : {}",params);
-		return service.dojangJoinWaitUpdate(params);
+	@RequestMapping(value = "/dojangJoinWaitUp.ajax")
+	@ResponseBody
+	public HashMap<String, Object> dojangJoinWaitUp(@RequestParam HashMap<String, String> params){
+		logger.info("도장깨기 가입 승인 : {}",params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		boolean dojangEditUp = service.dojangJoinWaitUp(params);
+		map.put("dojangJoinWaitUp", dojangEditUp);
+		return map;
    }
 	
 	//나의 모임 관리 - 게시글
-	@RequestMapping(value = "/myGroupPostSetting")
+	@RequestMapping(value = "/myGroupPostSettingD.go")
 	public String myGroupPostSettingGo(HttpSession session, Model model,
-			@RequestParam String class_no, @RequestParam String idx){
+			@RequestParam String dojang_no){
 		String loginId = (String) session.getAttribute("loginId");
 		model.addAttribute("loginId", loginId);
+		session.setAttribute("dojang_no", dojang_no);
 		//상단 프로필사진, 모임이름, 작성글, 작성댓글 불러오기
-		LeaderDTO dto = service.myGroupEtc(loginId,class_no,idx);
+		LeaderDTO dto = service.myGroupEtcD(loginId,dojang_no);
 		model.addAttribute("dto", dto);
 		
-		return "./Leader/myGroupPostSetting";
+		return "./Leader/myGroupPostSettingD";
    }
 
-	@RequestMapping("/myGroupPostSetting.ajax")
+	@RequestMapping("/myGroupPostSettingD.ajax")
 	@ResponseBody
-	public HashMap<String, Object> myGroupPostSetting(@RequestParam HashMap<String, String> params){
+	public HashMap<String, Object> myGroupPostSetting(@RequestParam HashMap<String, String> params,
+			HttpSession session,@RequestParam String dojang_no){
 		logger.info("나의 모임 관리 게시글 리스트 요청 : "+params);
-		return service.myGroupPostSetting(params);
+		session.setAttribute("dojang_no", dojang_no);
+		return service.myGroupPostSettingD(params);
 	}
 	
 	//나의 모임 관리 - 회원
-	@RequestMapping(value = "/myGroupMemberSetting")
+	@RequestMapping(value = "/myGroupMemberSettingD")
 	public String myGroupMemberSettingGo(HttpSession session, Model model,
-			@RequestParam String class_no, @RequestParam String idx){
+			@RequestParam String dojang_no){
 		String loginId = (String) session.getAttribute("loginId");
 		model.addAttribute("loginId", loginId);
 		//상단 프로필사진, 모임이름, 작성글, 작성댓글 불러오기
-		LeaderDTO dto = service.myGroupEtc(loginId,class_no,idx);
+		LeaderDTO dto = service.myGroupEtcD(loginId,dojang_no);
 		model.addAttribute("dto", dto);
 		
-		return "./Leader/myGroupMemberSetting";
+		return "./Leader/myGroupMemberSettingD";
 	}
 	
-	@RequestMapping("/myGroupMemberSetting.ajax")
+	@RequestMapping("/myGroupMemberSettingD.ajax")
 	@ResponseBody
 	public HashMap<String, Object> myGroupMemberSetting(@RequestParam HashMap<String, String> params){
 		logger.info("나의 모임 관리 게시글 리스트 요청 : "+params);

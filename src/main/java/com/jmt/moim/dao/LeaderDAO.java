@@ -15,29 +15,31 @@ public interface LeaderDAO {
 	
 	ArrayList<LeaderDTO> dojangRecentPost(String dojang_no);
 
-	ArrayList<LeaderDTO> lightJoinWait(String lightning_no);
+	LeaderDTO lightJoinWait(String lightning_no);
 	
-	ArrayList<LeaderDTO> dojangJoinWait(String dojang_no);
+	LeaderDTO dojangJoinWait(String dojang_no);
 
 	void lightJoinWaitUpdate(HashMap<String, String> params);
 	
-	void dojangJoinWaitUpdate(HashMap<String, String> params);
+	int dojangJoinWaitUp(HashMap<String, String> params);
 
 	//void leaderGroupEdit(HashMap<String, String> params);
 
-	void leaderLightningEdit(HashMap<String, String> params);
+	int leaderLightEdit(HashMap<String, String> params);
 
-	void leaderDojangEdit(HashMap<String, String> params);
+	int leaderDojangEdit(HashMap<String, String> params);
 
 	int allCount();
 
-	ArrayList<LeaderDTO> myGroupPostSetting(int cnt, int offset);
+	//ArrayList<LeaderDTO> myGroupPostSettingD(int cnt, int offset);
 
-	LeaderDTO myGroupEtc(String loginId, String class_no, String idx);
+	LeaderDTO myGroupEtcD(String loginId, String dojang_no);
 
-	ArrayList<LeaderDTO> myGroupMemberSetting(int cnt, int offset);
+	ArrayList<LeaderDTO> myGroupMemberSettingD(int cnt, int offset);
 
 	int allCount2();
+
+	ArrayList<LeaderDTO> myGroupPostSettingD(HashMap<String, Object> postSort);
 
 	
 

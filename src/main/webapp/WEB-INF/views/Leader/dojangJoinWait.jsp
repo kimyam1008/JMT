@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>가입 대기 회원 목록</title>
+<title>도장깨기 가입 대기 회원 목록</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 	table,th,td {
@@ -18,10 +18,10 @@
 </style>
 </head>
 <body>
-	<form action="dojangJoinWaitUpdate" method="post">
-		<input type="hidden" name="class_no" value="${dojangJoinWait.class_no}"/>
-		<input type="hidden" name="dojang_no" value="${dojangJoinWait.dojang_no}"/>
-		<input type="hidden" name="idx" value="${dojangJoinWait.idx}"/>
+	<h3>도장깨기 가입 대기 회원</h3>
+	<!-- <form action="dojangJoinWaitUpdate" method="post"> -->
+		<%-- <input type="hidden" name="class_no" value="${dojangJoinWait.class_no}"/> --%>
+		<input type="hidden" id="dojang_no" value="${dojangJoinWait.dojang_no}"/>
 		<table>
 			<thead>
 				<tr>
@@ -31,16 +31,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="dojangJoinWait" var="dojangJoinWait">
+				<c:forEach items="${dojangJoinWait}" var="dojangJoinWait">
 					<tr>
 						<td>
-							<input type="checkbox" name="" value="${dojangJoinWait.member_id}"/>
+							<input type="checkbox" id="member_id" value="${dojangJoinWait.member_id}"/>
 						</td>
 						<td>회원 아이디
 							${dojangJoinWait.member_id}
 						</td>
 						<td>
-							<select name="dojang_status">
+							<select id="status">
 								<option value="대기중" selected>대기중</option>
 								<option value="승인">승인</option>
 								<option value="거절">거절</option>
@@ -50,30 +50,56 @@
 				</c:forEach>
 				<tr>
 					<th colspan="3">
-						<input type="button" value="처리 완료" onclick="joinWaitSave()"/>
-						<input type="button" value="취소" onclick="joinWaitClose()"/>
+						<input type="button" value="처리 완료" onclick="dojangJoinWaitSave()"/>
+						<input type="button" value="취소" onclick="dojangJoinWaitClose()"/>
 					</th>
 				</tr>
 			</tbody>
 		</table>
-	</form>
+	<!-- </form> -->
 </body>
 <script>
 //처리 완료
-function joinWaitSave(){
+function dojangJoinWaitSave(){
+	var dojang_no = $('#dojang_no').val();
+	var status = $('#status').val();
+	var member_id = $('input[type="radio"]:checked').val();
+	
 	var result confirm("가입 대기 회원의 상태를 수정하시겠습니까?");
 	if(result == true){
-		alert("수정이 완료되었습니다.");
-		$('form').submit();
-		opener.parent.location.reload();
-		window.close();
+		$.ajax({
+			type:'get',
+			url:'dojangJoinWaitUp.ajax',
+			data:{
+				'dojang_no':dojang_no,
+				'member_id':member_id,
+				'status':status
+			},
+			dataType:'JSON',
+			success:function(data){
+				if (data.dojangJoinWaitUp) {
+					alert("수정이 완료되었습니다.");
+					opener.parent.location.reload();
+					window.close();
+				} else {
+					alert("수정에 실패했습니다.");
+				}
+			},
+			error:fuction(e){
+				console.log(e);
+			}
+		});
+		
+		
+
+		
 	} else {
 		alert("취소되었습니다.");
 	}
 }
 
 //취소
-function joinWaitClose(){
+function dojangJoinWaitClose(){
 	opener.parent.location.reload();
 	window.close();
 }
