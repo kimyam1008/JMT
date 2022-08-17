@@ -50,12 +50,15 @@ public class LeaderService {
 		return dao.dojangJoinWait(dojang_no);
 	}
 
-	public ModelAndView lightJoinWaitUpdate(HashMap<String, String> params) {
-		String page = "redirect:/leaderPage.go?"; //마이페이지 완성되면 다시 해봐야됨
-		page += "lightning_no="+params.get("lightning_no");
-		ModelAndView mav = new ModelAndView(page);
-		dao.lightJoinWaitUpdate(params);
-		return mav;
+	public boolean lightJoinWaitUp(HashMap<String, String> params) {
+		logger.info("번개 가입 승인 서비스 도착 : "+params);
+
+		boolean success = false;
+		int row = dao.lightJoinWaitUp(params);
+		if(row>0) {
+			success=true;
+		}
+		return success;
 	}
 	
 	public boolean dojangJoinWaitUp(HashMap<String, String> params) {

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>모임 수정 팝업</title>
+<title>번개 모임 수정 팝업</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 	table,th,td {

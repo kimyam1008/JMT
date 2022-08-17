@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>방장 페이지</title>
+<title>도장깨기 방장 페이지</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 	table,th,td {
@@ -63,7 +63,7 @@
 			<c:if test = "${dojangRecentPost.size() == 0}">
 				등록된 글이 없습니다.
 			</c:if>
-			<c:forEach items="${dojangRecentPost}" var="dojangRecentPost">			
+			<c:forEach items="${dojangRecentPost}" var="dojangRecentPost" begin="0" end="4">			
 				<li>${dojangRecentPost.dojangPost_subject}</li>
 			</c:forEach>
 		</ul>

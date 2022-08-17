@@ -27,11 +27,13 @@ public class LeaderController {
 
 	//번개모임 방장페이지 메인
 	@RequestMapping(value = "/lightningLeaderPage.go")
-	public String lightningLeaderPage(Model model,HttpSession session,
-		   @RequestParam String lightning_no){
-		logger.info("번개모임 방장 페이지 진입");
+	public String lightningLeaderPage(Model model,HttpSession session
+		   /*,@RequestParam String lightning_no*/){
 		String loginId = (String) session.getAttribute("loginId");
+		String lightning_no = (String) session.getAttribute("lightning_no");
 		model.addAttribute("loginId", loginId);
+		model.addAttribute("lightning_no", lightning_no);
+		logger.info("번개모임 "+lightning_no+"번 방장 페이지 진입");
 	  
 		 //번개모임 고유 데이터 가져오기
 		 LeaderDTO lightDto = service.lightDetail(lightning_no,loginId);
@@ -139,11 +141,11 @@ public class LeaderController {
    
    //번개 가입 대기 회원 팝업
 	@RequestMapping(value = "/lightJoinWait.go")
-	public String lightJoinWait(HttpSession session, Model model,
-			@RequestParam String lightning_no){
+	public String lightJoinWait(HttpSession session, Model model){
 		String loginId = (String) session.getAttribute("loginId");
       	model.addAttribute("loginId", loginId);
-      	session.setAttribute("lightning_no", lightning_no);
+      	String lightning_no = (String) session.getAttribute("lightning_no");
+		model.addAttribute("lightning_no", lightning_no);
       	
       	//가입 대기 회원
 		LeaderDTO lightJoinWait = service.lightJoinWait(lightning_no);
@@ -151,10 +153,14 @@ public class LeaderController {
 		return "./Leader/lightJoinWait";
    }
 	
-	@RequestMapping(value = "/lightJoinWaitUpdate")
-	public ModelAndView lightJoinWaitUpdate(@RequestParam HashMap<String, String> params){
-		logger.info("params : {}",params);
-		return service.lightJoinWaitUpdate(params);
+	@RequestMapping(value = "/lightJoinWaitUp.ajax")
+	@ResponseBody
+	public HashMap<String, Object> lightJoinWaitUp(@RequestParam HashMap<String, String> params){
+		logger.info("번개 가입 승인 : {}",params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		boolean lightEditUp = service.lightJoinWaitUp(params);
+		map.put("lightJoinWaitUp", lightEditUp);
+		return map;
    }
 	
 	//도장깨기 가입 대기 회원 팝업

@@ -19,7 +19,7 @@ public interface LeaderDAO {
 	
 	LeaderDTO dojangJoinWait(String dojang_no);
 
-	void lightJoinWaitUpdate(HashMap<String, String> params);
+	int lightJoinWaitUp(HashMap<String, String> params);
 	
 	int dojangJoinWaitUp(HashMap<String, String> params);
 

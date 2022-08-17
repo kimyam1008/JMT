@@ -65,7 +65,7 @@ function JoinWaitSaveD(){
 	var status = $('#status').val();
 	var member_id = $('input[type="checkbox"]:checked').val();
 	
-	var result confirm("가입 대기 회원의 상태를 수정하시겠습니까?");
+	var result = confirm("가입 대기 회원의 상태를 수정하시겠습니까?");
 	if(result == true){
 		$.ajax({
 			type:'get',
@@ -77,7 +77,7 @@ function JoinWaitSaveD(){
 			},
 			dataType:'JSON',
 			success:function(data){
-				if (data.dojangJoinWaitUp) {
+				if(data.dojangJoinWaitUp){
 					alert("수정이 완료되었습니다.");
 					opener.parent.location.reload();
 					window.close();
@@ -85,7 +85,7 @@ function JoinWaitSaveD(){
 					alert("수정에 실패했습니다.");
 				}
 			},
-			error:fuction(e){
+			error:function(e){
 				console.log(e);
 			}
 		});

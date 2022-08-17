@@ -19,7 +19,7 @@
 </head>
 <body>
 	<input type="hidden" name="class_no" value="${lightDto.class_no}"/>
-	<input type="hidden" name="idx" value="${lightDto.idx}"/>
+	<input type="hidden" name="lightning_no" value="${lightDto.lightning_no}"/>
 	<h3>방장 페이지</h3>
 		<table style="padding:10px;">
 			<caption>${lightDto.dojang_title}</caption>
@@ -63,8 +63,8 @@
 			<c:if test = "${lightRecentPost.size() == 0}">
 				등록된 글이 없습니다.
 			</c:if>
-			<c:forEach items="${lightRecentPost}" var="lightRecentPost">			
-				<li>${lightRecentPost.review_title}</li>
+			<c:forEach items="${lightRecentPost}" var="lightRecentPost" begin="0" end="4">			
+				<li>${lightRecentPost.comment_content}</li>
 			</c:forEach>
 		</ul>
 	</div>
