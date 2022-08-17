@@ -98,7 +98,7 @@ td a {
 
 <div id="list">
 <h1>게시글 상세</h1>
-<input type="button" value="글쓰기" onclick="location.href='dojangPostReg.go'"/>
+<input type="button" value="수정하기" onclick="location.href='dojangPostUpdate.go'"/>
 <table>
 	<tr>
 		<th>제목</th>
@@ -113,6 +113,26 @@ td a {
 	</tr>
 	<tr>
 		<td height=350 colspan="4" id="dojangPost_content"></td>
+	</tr>
+	<tr>
+		<th colspan="2">
+		<c:choose>
+			<c:when test="${list.leader_id == loginId and list.dojangPost_type == '공지게시판'}">
+				이번 모임장소는?
+			</c:when>
+			<c:otherwise>
+				추천 맛집은?
+			</c:otherwise>
+		</c:choose>
+		</th>
+		<c:choose>
+			<c:when test="${list.restaurant_name == null or list.restaurant_name == 'test'}">
+				<td colspan="2">등록된 맛집이 없습니다.</td>
+			</c:when>
+			<c:otherwise>
+				<td colspan="2" id="restaurant_name"></td>
+			</c:otherwise>
+		</c:choose>
 	</tr>
 </table>
 </div>
@@ -141,7 +161,7 @@ function listCall(page){
 				$('#dojangPost_subject').html(data.dojangHomeDetail.dojangPost_subject);
 				$('#dojangPost_type').html(data.dojangHomeDetail.dojangPost_type);
 				$('#member_id').html(data.dojangHomeDetail.member_id);
-				
+				$('#restaurant_name').html(data.dojangHomeDetail.restaurant_name);
 				var date = new Date(data.dojangHomeDetail.dojangPost_date);
 				
 				$('#dojangPost_date').html(date.toLocaleDateString("ko-KR"));

@@ -86,11 +86,11 @@ textarea {
 		text-align: left;
 }
 
+.btn {cursor:pointer;}
 </style>
 </head>
 <body>
  ${sessionScope.loginId} 님 환영합니다, <a href="logout.do">로그아웃</a>
-  ${sessionScope.dojang_no} 님 환영합니다, <a href="logout.do">로그아웃</a>
   <input type="hidden" id="loginId" value="${sessionScope.loginId}"/>
   <input type="hidden" id="dojang_no" value="${sessionScope.dojang_no}"/>
 <div id="test">
@@ -124,8 +124,18 @@ textarea {
 	<tr>
 		<th>게시판 선택</th>
 		<td>
-		<input type="hidden" id="dojangPost_type" value="일반게시판"/>
-		일반게시판</td>
+		<c:choose>
+			<c:when test="${leader == loginId}">
+				<select id="dojangPost_type">
+					<option value="공지게시판">공지게시판</option>
+					<option value="일반게시판">일반게시판</option>
+				</select>
+			</c:when>
+			<c:otherwise>
+				<input type="hidden" id="dojangPost_type" value="일반게시판"/>일반게시판
+			</c:otherwise>
+		</c:choose>
+		</td>
 		
 	</tr>
 	<tr>
@@ -134,10 +144,14 @@ textarea {
 		<input type="text" id="dojangPost_subject" />
 		</td>
 	</tr>
+	<tr class="hidden">
+		<th>맛집 번호</th>
+		<td><input type="text" id="restaurant_no"/></td>
+	</tr>	
 	<tr>
 		<th>맛집 이름</th>
 		<td>
-		<input type="text" id="restaurant_no" readonly placeholder="검색버튼을 눌러주세요"/>
+		<input type="text" id="restaurant_name" readonly placeholder="검색버튼을 눌러주세요"/>
 		<input type="button" value="맛집검색" onclick="restaurant_pop()"/>
 		</td>
 	</tr>
@@ -160,7 +174,7 @@ textarea {
 	<tr>
 		<th colspan="2">
 		<input type="button" value="저장" onclick="dojangPostReg()"/>
-		<input type="button" value="취소" onclick="location.href='dojang.go'"/>
+		<input type="button" value="취소" onclick="location.href='dojangHome.go?dojang_no=${sessionScope.dojang_no}'"/>
 		</th>
 	</tr>
 </table>
@@ -169,18 +183,27 @@ textarea {
 
 </body>
 <script>
+
+noHidden();
+function noHidden(){
+	$(".hidden").css("display", "none");
+}
+
+	
+memberCall()	
 	
 	
 console.log($('#dojang_no').val());
 var dojangPost_content = $('#dojangPost_content').val($('#editable').html());
-console.log(dojangPost_content);
+
+
 
 function dojangPostReg(){
 	
 	
 	var dojangPost_type = $('#dojangPost_type').val();
 	var dojangPost_subject = $('#dojangPost_subject').val();
-	//var restaurant_no = $('#restaurant_no').val();
+	var restaurant_no = $('#restaurant_no').val();
 	var dojangPost_content = $('#editable').html();
 	var member_id = $('#loginId').val();
 	var dojang_no = $('#dojang_no').val();
@@ -190,25 +213,62 @@ function dojangPostReg(){
 	formData.append("dojangPost_type", dojangPost_type);
 	formData.append("dojangPost_subject", dojangPost_subject);
 	formData.append("dojangPost_content", dojangPost_content);
+	formData.append("restaurant_no", restaurant_no);
 	formData.append("member_id", member_id);
 	formData.append("dojang_no", dojang_no);
 	
+		
 	
+	if(dojangPost_subject == ""){
+		alert("제목을 입력해주세요");
+	}else if($('img').length > 3) {
+		alert('이미지 업로드 제한 갯수 3개를 초과했습니다.');
+	}else if(restaurant_no == ""){
+		var restaurant_no = $('#restaurant_no').val(320);
+	}else{
+	
+	
+		$.ajax({
+			type:'post',
+			url:'dojangPostReg.ajax',
+			data: formData,
+			contentType: false,
+			processData: false,
+			dataType:'JSON',
+			success:function(data){
+				console.log(data);
+				if(data.dojangPostReg){
+					location.href='dojangHome.go?dojang_no='+dojang_no;
+				}else{
+					alert("등록 실패");
+				}
+			},
+			error:function(e){
+				console.log(e);
+			}
+				
+		});	
+	
+	}
+	
+}
+
+
+function memberCall(){
+	
+	
+	var dojang_no = $('#dojang_no').val();
 	
 	$.ajax({
-		type:'post',
-		url:'dojangPostReg.ajax',
-		data: formData,
-		contentType: false,
-		processData: false,
+		type:'get',
+		url:'dojangMember.ajax',
+		data:{
+			dojang_no:dojang_no,
+		},
 		dataType:'JSON',
 		success:function(data){
-			console.log(data);
-			if(data.dojangPostReg){
-				location.href='dojang.go';
-			}else{
-				alert("등록 실패");
-			}
+				$('#leader').html(data.dojangHomeLeader);
+				drawMember(data.dojangHomeMember);
 		},
 		error:function(e){
 			console.log(e);
@@ -216,13 +276,16 @@ function dojangPostReg(){
 			
 	});	
 	
-
 }
 
 
 function dojangfileUp(){
-	window.open('gpFileUploadForm.go','','width=400, height=100');
+	window.open('gpFileUploadForm.go','','width=400, height=100,left=550 ,top=300');
 }
+
+function restaurant_pop(){	
+	 window.open("/gpRestaurantSearch.go","new","width=800, height=600, left=350 ,top=500, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	}
 
 
 
@@ -234,6 +297,31 @@ function drawMember(member){
 	});
 	$('#member').empty();
 	$('#member').append(content);
+}
+
+
+//사진 삭제
+function del(elem){
+	console.log(elem);
+	//id에서 삭제할 파일명을 추출
+	var id = $(elem).attr("id");
+	var fileName = id.substring(id.lastIndexOf("/")+1);
+	console.log(fileName);
+	//해당 파일 삭제 요청
+	$.ajax({
+		url:'gpFileDelete.ajax',
+		type:'get',
+		data:{'fileName':fileName},
+		dataType:'json',
+		success:function(data){
+			console.log(data)
+			//a 태그를 포함한 img 태그를 삭제
+			$(elem).remove();
+		},
+		error:function(e){
+			console.log(e);
+		}
+	});
 }
 
 

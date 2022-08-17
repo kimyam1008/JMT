@@ -9,18 +9,28 @@
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
 <style>
-
-table, th, td{
+	body{
+	width: 100%;
+	}
+	#memberTable{
+		width: 100%;		
+	}
+	
+	table,th,td{
 		border: 1px solid black;
 		border-collapse: collapse;
+		padding: 5px;
 	}
 	
-	th,td {
-		padding: 5px 10px;
+	.active{
+		color:pink;
+		font: bold;
+		text-decoration: underline;
 	}
-	
-	table {
-		width: 80%;
+	#option_list{ text-align:center;  margin:20px 0px;}
+	#option_list span{font-size: 20px; margin:20px 20px;}
+	#search{
+		text-align:center; 
 	}
 
 </style>
@@ -28,6 +38,13 @@ table, th, td{
 </head>
 <body>
         <h3>맛집 수정요청 목록</h3>
+       
+	<div id="option_list" >
+		<span class="active" onclick="listCall(1)">전체</span>
+		<span onclick="listCall(1 ,'처리대기')">처리대기</span>
+		<span onclick="listCall(1 ,'처리완료')">처리완료</span>
+	</div>
+
    <table>
       <thead>
       <tr>
@@ -50,50 +67,62 @@ table, th, td{
 </body>
 	
 <script>
-
-var currPage = 1;
-
-listCall(currPage);
-
-
-function listCall(page){
 	
-	var pagePerNum = 10;	
-	
-	$.ajax({
-		type:'get',
-		url:'resUpdateList.ajax',
-		data:{
-			cnt:pagePerNum,
-			page:page
-		},
-		dataType:'JSON',
-		success:function(data){
-				console.log(data);
-				drawList(data.resUpdateList);
-				currPage = data.currPage;
-				console.log(currPage);
-				
-				$("#pagination").twbsPagination({
-					startPage: data.currPage, //시작 페이지
-					totalPages: data.pages, //총 페이지
-					visiblePages: 5, //한번에 보여줄 리스트 수
-					onPageClick: function(e,page){
-						console.log(page); //사용자가 클릭한 페이지
-						currPage = page;
-						listCall(page);
-					}
-				});
-		},
-		error:function(e){
-			console.log(e);
-		}
-			
+	var currPage = 1;
+
+	listCall(currPage);
+	$('span').click(  
+			function(){$("#pagination").twbsPagination('destroy'); 
+			console.log('부심');
 	});
-	
-}
 
+	 function listCall(page,list_option){
+		 var pagePerNum=5;
+		 var option1 = list_option;
 
+			
+		$.ajax({
+			type:'GET',
+			url:'resUpdateList.ajax',
+			data:{
+				list_option:list_option,
+				cnt:pagePerNum,
+				page:page
+			},
+			dataType:'JSON',
+			success:function(data){
+				
+				console.log(data);
+				console.log(data.resUpdateList);
+				currPage = data.currPage;
+				drawList(data.resUpdateList);
+				//currPage = data.currPage;
+				//불러오기가 성공되면 플러그인 을 이용해 페이징 처리
+			 	$("#pagination").twbsPagination({
+					startPage:data.currPage, //시작 페이지
+					totalPages: data.pages, // 총 페이지(전체 개시물 수 / 한 페이지에 보여줄 게시물 수)
+					visiblePages: 5, //한번에 보여줄 페이지 수 [1][2][3][4][5]
+					onPageClick:function(e,page){
+						if(currPage!=page){
+							//console.log(e);//클릭한 페이지와 관련된 이벤트 객체
+							console.log(page);//사용자가 클릭한 페이지
+							currPage = page;
+							listCall(page,list_option);	
+							
+						}
+						
+					}
+				}); 
+				
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});	
+		
+	}
+	 
+	 
 	function drawList(list){
 		var content = '';
 		list.forEach(function(item){
@@ -110,6 +139,18 @@ function listCall(page){
 		$('#list').empty();
 		$('#list').append(content);
 	}
+	 
+	$('span').click(function(){
+	  if($('span').hasClass("active")){
+	    $('span').removeClass("active");
+	    $(this).addClass("active"); 
+	    
+	  }else{
+	    $(this).addClass("active");  
+	  }
+	});
+	
+
 
 </script>
 

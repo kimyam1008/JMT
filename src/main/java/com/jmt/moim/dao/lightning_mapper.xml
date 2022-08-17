@@ -47,7 +47,7 @@
 		
 			<include refid="selectedListSql"></include>
 			
-		ORDER BY lightning_status DESC, lightning_create ASC limit 10 offset #{offset}
+		ORDER BY lightning_status DESC, lightning_date ASC limit 10 offset #{offset}
 	</select>
 	
 	<sql id="selectedListSql">
@@ -88,7 +88,7 @@
 			,lightning_title
 			,leader_id
 			,member_num
-			,(select count(apply_no)+1 from apply a where status="승인" and class_no = 1 and l.lightning_no = #{param1}) as member_count
+			,(select count(apply_no)+1 from apply a where status="승인" and class_no = 1 and a.idx = #{param1}) as member_count
 			,(select status from apply a where  class_no = 1 and idx= #{param1} and member_id=#{param2}) as status
 			,(select profile_gender FROM profile p WHERE member_id = #{param2}) as profile_gender
 			,eat_speed
@@ -150,5 +150,53 @@
 			WHERE comment_no IN (SELECT comment_no FROM comment WHERE class_no =2 AND idx=#{lightning_no} AND comment_status ="공개")
 	</update>
 	
+	<select id="profileChk" resultType="int" parameterType="String">
+		SELECT COUNT(profile_no) FROM profile WHERE member_id = #{loginId}
+	</select>
 	
+	<select id="resList" resultType="light">
+		SELECT restaurant_no, restaurant_name, restaurant_address, food_no, food_name FROM restaurant NATURAL JOIN food
+		
+		<if test="restaurant_name != null and !restaurant_name.equals('')">
+			WHERE restaurant_name LIKE CONCAT('%',#{restaurant_name}, '%') 
+		</if>
+	</select>
+	
+	
+	<insert id="lightCreate" parameterType="hashmap">
+		INSERT INTO lightninglist(
+			lightning_title
+			,restaurant_no
+			,lightning_date
+			,food_no
+			,member_num
+			,eat_speed
+			,gender
+			,job
+			,lightning_content
+			,leader_id)
+		VALUES(
+			#{lightning_title}
+			,#{restaurant_no}
+			,#{lightning_date}
+			,#{food_no}
+			,#{member_num}
+			,#{eat_speed}
+			,#{gender}
+			,#{job}
+			,#{lightning_content}
+			,#{loginId}
+		)	
+	</insert>
+
+
+	<insert id="Delnoti" >
+		INSERT INTO noti(class_no,noti_content,idx,info,member_id)
+		SELECT 1
+				,"모임글이 삭제 됐습니다."
+				,#{param1}
+				,(select lightning_title from lightninglist where lightning_no = #{param1})
+				, member_id
+		FROM apply WHERE status IN("승인","대기") AND class_no = 1 AND idx=#{param1}
+	</insert>
 </mapper>
