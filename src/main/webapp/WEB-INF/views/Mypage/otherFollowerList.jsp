@@ -16,13 +16,13 @@ table {
 </style>
 </head>
 <body>
-	<p>팔로잉</p>
+	<p>팔로워</p>
 	<table>
-		<c:forEach items="${followingList }" var="list">
+		<c:forEach items="${otherFollowerList }" var="list">
 			<tr>
 				<td><input type="hidden" name="profile_no" value="${list.profile_no}"/></td>
 				<td><img src="/photo/${list.photo_newFileName}" width="50" height="50"/></td>
-				<td><a href="#" onclick="self.close(); javascript:parent.opener.location.href='./othersPage.go?profile_no=${list.profile_no }'">${list.follower_id}</a></td>
+				<td><a href="./othersPage.go?profile_no=${list.profile_no }">${list.following_id}</a></td>
 			</tr>
 		</c:forEach>
 	</table>

@@ -9,8 +9,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 	.top {height:200px;}
-	.left {float:left; width:400px; height:300px;}
-	.right {float:right; width:320px; height:300px;}
+	.left {float:left; width:400px; height:350px;}
+	.right {float:right; width:320px; height:350px;}
 	div, th, td {border: 1px solid black;}
 	.wel {float:left;}
 	.profile {float:right;}
@@ -37,10 +37,41 @@
 	</div>
 	<p><a href='./myBoardList.go'>나의 활동</a></p>
 	<div class="left">
-		<td>내가 쓴 게시글</td>
+		<h5>내가 쓴 게시글</h5>
+		<c:forEach items="${myboard }" var="list">
+			<ul>
+				<li>${list.review_title }</li>
+			</ul>
+		</c:forEach>
+		<a href="./boardMore.go">더 보기</a>
+		<h5>내가 쓴 댓글의 게시글</h5>
+		<c:forEach items="${mycomment}" var="board">
+			<ul>
+				<li>${board.lightning_title}</li>
+			</ul>
+		</c:forEach>
+		<a href="./commentMore.go">더 보기</a>
 	</div>
 	<div class="right">
-	
+		<h5>내모임</h5>
+			<ul>
+				<li>번개모임</li>
+				<c:forEach items="${myLightning}" var="myLightning">
+					<a href="">${myLightning.lightning_title }</a>
+				</c:forEach>
+				<li>도장깨기</li>
+				<c:forEach items="${myDojang}" var="myDojang">
+					<a href="">${myDojang.dojang_title }</a>
+				</c:forEach>
+				<li>내가 생성한 방 - 번개</li>
+				<c:forEach items="${myLightningRoom}" var="myLightningRoom">
+					<a href="">${myLightningRoom.lightning_title }</a>
+				</c:forEach>
+				<li>내가 생성한 방 - 도장</li>
+				<c:forEach items="${myDojangRoom}" var="myDojangRoom">
+					<a href="">${myDojangRoom.dojang_title }</a>
+				</c:forEach>
+			</ul>
 	</div>
 </body>
 <script>
@@ -48,5 +79,6 @@
 	if (msg != "") {
 		alert(msg);
 	}
+	
 </script>
 </html>
