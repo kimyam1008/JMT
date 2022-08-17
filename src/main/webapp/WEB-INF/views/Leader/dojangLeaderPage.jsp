@@ -82,9 +82,10 @@
 <script>
 //모임 수정 팝업
 //var lightning_class_no = "${lightDto.class_no}";
+///var dojang_no = ${dojangDto.dojang_no};
 
 function dojangEdit(){
-	window.open("/leaderDojangEdit.go","new","width=300, height=300, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	window.open("/leaderDojangEdit.go?dojang_no="+${dojangDto.dojang_no},"new","width=300, height=300, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 }
 
 //모임 삭제

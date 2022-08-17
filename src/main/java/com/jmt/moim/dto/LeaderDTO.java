@@ -61,7 +61,28 @@ public class LeaderDTO {
 	//etc
 	private String leaderName;
 	private int member_count;
+	private int post_count;
+	private int comment_count;
+	private String photo_newFileName;
 	
+	public int getPost_count() {
+		return post_count;
+	}
+	public void setPost_count(int post_count) {
+		this.post_count = post_count;
+	}
+	public int getComment_count() {
+		return comment_count;
+	}
+	public void setComment_count(int comment_count) {
+		this.comment_count = comment_count;
+	}
+	public String getPhoto_newFileName() {
+		return photo_newFileName;
+	}
+	public void setPhoto_newFileName(String photo_newFileName) {
+		this.photo_newFileName = photo_newFileName;
+	}
 	public int getDojangPost_no() {
 		return dojangPost_no;
 	}
