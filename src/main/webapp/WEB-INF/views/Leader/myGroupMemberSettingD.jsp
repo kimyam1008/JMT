@@ -11,53 +11,99 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> 
 <script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
 <style>
-table,th,td {
-	border:1px solid black;
-	border-collapse:collapse;
-}
-th,td {
-	padding:5px 10px;
-}
+	table,th,td {
+		border:1px solid black;
+		border-collapse:collapse;
+	}
+	th,td {
+		padding:5px 10px;
+	}
+	.profileImg{
+		width:150px;
+		border-radius:50%;
+	}
+	.top-section{
+		border:1px solid black;
+		margin-bottom:20px;
+	}
+	
+	#test {
+	  list-style-type: none;
+	  padding: 10px;
+	  margin: 0px;
+	  width: 190px;
+	  background: #edacb1;
+	  height: 100%;
+	  overflow: auto;
+	  position: fixed;
+	  top: 70px;
+	}
+	li a {
+	  text-decoration: none;
+	  padding: 10px;
+	  display: block;
+	  color: #000;
+	  font-weight: bold;
+	}
+	
+	li a:hover {
+	  background: #333;
+	  color: #fff;
+	}
+	
+	#centered {
+	  margin-left: 260px;
+	}
 </style>
 </head>
 <body>
+	<input type="hidden" id="loginId" value="${sessionScope.loginId}"/>
+ 	${sessionScope.loginId} 님 환영합니다, <a href="logout.do">로그아웃</a>
 	<h3>모임 관리</h3>
 	<input type="hidden" id="dojang_no" value="${sessionScope.dojang_no}"/>
-	<div>
-		<a href="#"><img src ="/photo/${dto.photo_newFileName}" class="profileImg"></a>
-		<p>${dto.dojang_title}</p>
-		<p>작성글 : ${dto.post_count}</p><p>작성 댓글 : ${dto.comment_count}</p>
+	<div id="test">
+		<ul>
+			<li><a href="dojangLeaderPage.go?dojang_no=${sessionScope.dojang_no}">방장 페이지</a></li>
+			<li><a href="myGroupPostSettingD.go?dojang_no=${sessionScope.dojang_no}">나의 모임 관리</a></li>
+		</ul>
 	</div>
-	<a href="/myGroupPostSettingD.go?dojang_no=${dto.dojang_no}">게시글</a> <a href="javascript:location.reload()">회원</a>
-	<input type="button" value="추방하기" onclick="getOut()"/>
-	<table>
-		<thead>
-			<tr>
-				<th></th>
-				<th>회원 ID</th>
-				<th>이름</th>
-			</tr>
-		</thead>
-		<tbody id="list">
-			<c:forEach items="${dojangMember}" var="dojangMember">
-			<tr>			
-				<td><input type="radio" name="member_id" id="member_id" value="${dojangMember.member_id}"/></td>
-				<td>${dojangMember.member_id}</td>
-				<td>${dojangMember.member_name}</td>
-			</tr>
-			</c:forEach>
-		</tbody>
-			<!-- <tr>
-				<td colspan="7" id="paging">
-					twbspagination 플러그인
-					<div class="container">
-						<nav arial-label="Page navigation" style="text-align:center">
-							<ul class="pagination" id="pagination"></ul>
-						</nav>
-					</div>
-				</td>
-			</tr> -->
-	</table>
+	<div id="centered">
+		<div class="top-section">
+			<a href="#"><img src ="/photo/${dto.photo_newFileName}" class="profileImg"></a>
+			<p>${dto.dojang_title}</p>
+			<p>작성글 : ${dto.post_count}</p><p>작성 댓글 : ${dto.comment_count}</p>
+		</div>
+		<a href="/myGroupPostSettingD.go?dojang_no=${dto.dojang_no}">게시글</a> <a href="javascript:location.reload()">회원</a>
+		<input type="button" value="추방하기" onclick="getOut()"/>
+		<table>
+			<thead>
+				<tr>
+					<th></th>
+					<th>회원 ID</th>
+					<th>이름</th>
+				</tr>
+			</thead>
+			<tbody id="list">
+				<c:forEach items="${dojangMember}" var="dojangMember">
+				<tr>			
+					<td><input type="radio" name="member_id" id="member_id" value="${dojangMember.member_id}"/></td>
+					<td>${dojangMember.member_id}</td>
+					<td>${dojangMember.member_name}</td>
+				</tr>
+				</c:forEach>
+			</tbody>
+				<!-- <tr>
+					<td colspan="7" id="paging">
+						twbspagination 플러그인
+						<div class="container">
+							<nav arial-label="Page navigation" style="text-align:center">
+								<ul class="pagination" id="pagination"></ul>
+							</nav>
+						</div>
+					</td>
+				</tr> -->
+		</table>
+	</div>
 </body>
 <script>
 /*

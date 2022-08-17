@@ -36,11 +36,9 @@
 						<td>
 							<input type="checkbox" id="member_id" value="${lightJoinWait.member_id}"/>
 						</td>
-						<td>회원 아이디
-							${lightJoinWait.member_id}
-						</td>
+						<td>${lightJoinWait.member_id}</td>
 						<td>
-							<select name="status" value="">
+							<select id="status">
 								<option value="대기중" selected>대기중</option>
 								<option value="승인">승인</option>
 								<option value="거절">거절</option>
@@ -62,7 +60,7 @@
 //처리 완료
 function joinWaitSave(){
 	var lightning_no = $('#lightning_no').val();
-	var status = $('#status').val();
+	var status = $('#status option:selected').val();
 	var member_id = $('input[type="checkbox"]:checked').val();
 	
 	var result = confirm("가입 대기 회원의 상태를 수정하시겠습니까?");

@@ -30,7 +30,7 @@
 			<tr>
 				<th>정원</th>
 				<td>
-					<input name="member_num" type="range" id="member_num" min="0" max="30" step="1" value="${lightDto.member_num}" oninput="document.getElementById('people_num').innerHTML=this.value;"/>
+					<input name="member_num" type="range" id="member_num" min="2" max="6" step="1" value="${lightDto.member_num}" oninput="document.getElementById('member_num').innerHTML=this.value;"/>
 					<div id="ex-out"></div>
 				</td>
 			</tr>
@@ -38,7 +38,7 @@
 				<th>모집 상태</th>
 				<td>
 					<select id="lightning_status" value="${lightDto.lightning_status}">
-						<option value="모집 중">모집 중</option>
+						<option value="모집중">모집중</option>
 						<option value="모집 마감">모집 마감</option>
 					</select>
 				</td>
@@ -59,7 +59,7 @@
 	<!-- </form> -->
 </body>
 <script>
-document.querySelector('#people_num').addEventListener('input',e=>{
+document.querySelector('#member_num').addEventListener('input',e=>{
     document.querySelector('#ex-out').innerHTML= e.target.value;
 });
 
@@ -71,7 +71,7 @@ function lightGroupUpd(){
 	var lightning_status = $('#lightning_status').val();
 	var lightning_content = $('#lightning_content').val();
 	
-	var result confirm("번개 모임의 내용을 수정하시겠습니까?");
+	var result = confirm("번개 모임의 내용을 수정하시겠습니까?");
 	if(result == true){
 		if ($('#member_num').val() == '') {
 			alert("인원수는 0 이상이어야 합니다.");
