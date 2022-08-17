@@ -55,7 +55,15 @@ public class RestaurantDTO {
 	private int like_no;
 	private int like_count;
 	
+	private int profile_no;
 	
+	
+	public int getProfile_no() {
+		return profile_no;
+	}
+	public void setProfile_no(int profile_no) {
+		this.profile_no = profile_no;
+	}
 	public int getLike_no() {
 		return like_no;
 	}

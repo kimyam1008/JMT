@@ -417,6 +417,33 @@ public class RestaurantService {
 	}
 
 
+	public void commentList(Model model, int comment_no) {
+		RestaurantDTO commentList = dao.commentList(comment_no);
+		model.addAttribute("comment_no",comment_no);
+		
+	}
+
+
+	public boolean resCmtReport(HashMap<String, String> params) {
+		logger.info("번개모임 댓글 신고하기 서비스 : " + params);
+		
+		boolean success = false;
+		int row = dao.resCmtReport(params);
+		if(row>0) {
+			success = true;
+		}
+		return success;
+	}
+
+
+//	public ArrayList<HashMap<String, String>> memberPhoto(String member_id) {
+//		return dao.memberPhoto(member_id);
+//	}
+
+
+	
+
+
 
 	
 	

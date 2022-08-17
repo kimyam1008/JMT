@@ -55,13 +55,13 @@ public class TestController extends HandlerInterceptorAdapter {
 			
 			
 			ArrayList<TestDto> list = service.spoonList();	
-			// 나무 수저			
+			// 나무 수저
 		int tree_post = list.get(0).getGrade_post();
 		int tree_comment = list.get(0).getGrade_comment();
 		String level_0 =list.get(0).getGrade_name();
 		int level_0_no =list.get(0).getGrade_no();
 			
-			// 동 
+			// 동
 		int bronze_post = list.get(1).getGrade_post();
 		int bronze_comment = list.get(1).getGrade_comment();
 		String level_1 =list.get(1).getGrade_name();
@@ -81,6 +81,8 @@ public class TestController extends HandlerInterceptorAdapter {
 		int dia_comment = list.get(4).getGrade_comment();
 		String level_4 =list.get(4).getGrade_name();
 		int level_4_no =list.get(4).getGrade_no();
+		
+		
 		
 		
 		Map<String, Object> data = new HashMap<String, Object>(); 

@@ -312,9 +312,36 @@
 		where restuarantUpdate_no = #{restuarantUpdate_no}
 	</update>
 	
+	<select id="commentList" resultType="res" parameterType="int">
+		select * from comment c where comment_no = #{comment_no}
+	</select>
 	
+	<select id="memberPhoto" resultType="res" parameterType="Hashmap">
+		select
+			  p.profile_no
+			, p.member_id
+			, p2.idx
+			, p2.photo_newFileName
+		from
+			profile p
+		join
+			photo p2
+		where
+			p.profile_no = p2.idx
+		and
+			class_no = 9
+	</select>
 	
-	
+	<insert id="resCmtReport" parameterType="hashmap">
+		INSERT INTO report(reporter,reported,class_no,report_reason,idx)
+			VALUES(
+				#{loginId}
+				,(select member_id from comment where comment_no = #{comment_no})
+				,8,
+				<if test="!report_reason.equals('기타')">#{report_reason}</if>
+				<if test="report_reason.equals('기타')">#{report_reason_text}</if>
+				,#{comment_no})
+	</insert>
 	
 	
 

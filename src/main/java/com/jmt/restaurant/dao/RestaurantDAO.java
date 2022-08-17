@@ -69,6 +69,12 @@ public interface RestaurantDAO {
 
 	ArrayList<HashMap<String, String>> CommentLike(int comment_no);
 
+	RestaurantDTO commentList(int comment_no);
+
+	ArrayList<HashMap<String, String>> memberPhoto(String member_id);
+
+	int resCmtReport(HashMap<String, String> params);
+
 
 
 

@@ -75,6 +75,8 @@ public class RestaurantController {
 		
 		params.put("loginId", (String) session.getAttribute("loginId"));
 		
+		
+		
 		logger.info("맛집 상세보기 : "+ restaurant_no); 
 		service.resDetail(model, restaurant_no);
 		ArrayList<RestaurantDTO> lightninglist = service.lightninglist(model, restaurant_no);
@@ -88,7 +90,9 @@ public class RestaurantController {
 			CommentPhoto = service.CommentPhoto(restaurantDTO.getComment_no());
 			
 			CommentPhoto2.addAll(CommentPhoto);
+			
 			for (HashMap<String, String> hashMap : CommentPhoto2) {
+				
 			}
 		} 
 		
@@ -103,10 +107,20 @@ public class RestaurantController {
 				
 			}
 		}
+		
+//		ArrayList<HashMap<String, String>> memberPhoto = null;
+//		ArrayList<HashMap<String, String>> memberPhoto2 = new ArrayList<HashMap<String,String>>() ;
+//		for (RestaurantDTO restaurantDTO : resCommet) {
+//			CommentLike = service.memberPhoto(restaurantDTO.getMember_id());
+//			
+//			CommentLike2.addAll(memberPhoto);
+//		for (HashMap<String, String> hashMap : memberPhoto2) {
+//				
+//			}
+//		}
+		
+	
 		model.addAttribute("CommentLike", CommentLike2);
-		
-		
-		
 		model.addAttribute("CommentPhoto", CommentPhoto2);
 		model.addAttribute("resCommet", resCommet);
 		
@@ -130,12 +144,27 @@ public class RestaurantController {
 	public String resReport(HttpSession session ,Model model, @RequestParam int comment_no,
 			@RequestParam HashMap<String, String> params) {
 		params.put("loginId", (String) session.getAttribute("loginId"));
+		params.put("comment", Integer.toString(comment_no));
 		model.addAttribute("comment_no",comment_no);
 		System.out.println(" : "+comment_no);
-		service.resDetail(model, comment_no);
+		service.commentList(model, comment_no);
 		return "Restaurant/resReport";
 	}
 	
+	
+	//번개모임 댓글 신고 팝업
+		@RequestMapping("/resCmtReport.ajax")
+		@ResponseBody
+		public HashMap<String, Object> resCmtReport(@RequestParam HashMap<String, String> params, HttpSession session) {
+			String loginId = (String) session.getAttribute("loginId");
+			params.put("loginId", loginId);
+				
+			logger.info("번개 모임 댓글 신고  : "+ params);
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			boolean report = service.resCmtReport(params);
+			map.put("lightCmtReport", report);
+			return map;	
+		}
 	
 	@RequestMapping(value = "/restaurantWrite")
 	public ModelAndView restaurantWrite(
