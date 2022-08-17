@@ -65,13 +65,13 @@
 	<!-- 번개 가입 승인 대기 회원 -->
 	<select id="lightJoinWait" resultType="leader">
 		SELECT a.member_id,a.status FROM apply a 
-		WHERE a.status = "대기" AND a.class_no = 1 AND l.lightning_no = #{param1}
+		WHERE a.status = "대기" AND a.class_no = 1 AND a.idx = #{param1}
 	</select>
 	
 	<!-- 도장깨기 가입 승인 대기 회원 -->
 	<select id="dojangJoinWait" resultType="leader">
 		SELECT a.member_id,a.status FROM apply a 
-		WHERE a.status = "대기" AND a.class_no = 3 AND d.dojang_no = #{param1}
+		WHERE a.status = "대기" AND a.class_no = 3 AND a.idx = #{param1}
 	</select>
 	
 	<!-- 번개 가입 대기상태 수정 -->
@@ -83,7 +83,7 @@
 		WHERE a.idx = #{lightning_no} AND a.member_id = #{member_id} -->
 		
 		UPDATE apply a
-		SET a.status = #{lightning_status}
+		SET a.status = #{status}
 		WHERE a.class_no = 1 AND a.idx = #{lightning_no} 
 		AND a.member_id = #{member_id}
 	</update>
@@ -99,7 +99,7 @@
 	
 	<!-- 번개모임 수정 -->
 	<update id="leaderLightEdit" parameterType="hashmap">
-		UPDATE lightning l SET l.lightning_status = #{lightning_status}
+		UPDATE lightningList l SET l.lightning_status = #{lightning_status}
 			,l.member_num = #{member_num}
 			,l.lightning_content = #{lightning_content}
 		WHERE l.lightning_no = #{lightning_no}
@@ -140,6 +140,22 @@
 			,(SELECT photo_newFileName FROM photo p WHERE p.class_no=9 AND p.idx = (SELECT profile_no FROM profile f WHERE f.member_id =#{param1})) AS photo_newFileName
 		FROM dojangList d
 		WHERE d.dojang_no = #{param2}
+	</select>
+	
+	<!-- 나의 모임 관리 (댓글) / 번개 -->
+	<select id="myGroupPostSettingL" parameterType="hashmap" resultType="leader">
+		SELECT c.comment_no
+			,c.comment_content
+			,c.comment_date
+			,c.idx
+		FROM comment c
+		WHERE c.class_no=2 AND c.idx = #{lightning_no}
+		ORDER BY comment_no DESC limit #{cnt} OFFSET #{offset}
+	</select>
+	
+	<select id="allCount2" parameterType="hashmap" resultType="int">
+		SELECT COUNT(comment_no) FROM comment c
+		WHERE c.class_no=2 AND c.idx = #{lightning_no}
 	</select>
 	
 	<select id="myGroupEtcL" parameterType="String" resultType="leader">
@@ -194,5 +210,30 @@
 		UPDATE apply a SET a.status = "추방"
 			,a.reason = #{reason}
 		WHERE a.class_no = 3 AND a.idx = #{dojang_no} AND a.member_id = #{member_id}
+	</update>
+	
+	<!-- 나의 모임 관리 - 회원 / 도장 -->
+	<select id="lightMember" resultType="leader">
+		SELECT a.member_id, m.member_name
+		FROM apply a
+		LEFT OUTER JOIN member m ON a.member_id = m.member_id
+		WHERE a.class_no = 1 AND a.status = "승인" and a.idx = #{param1}
+	</select>
+	
+	<update id="memberGetOutL" parameterType="hashmap">
+		UPDATE apply a SET a.status = "추방"
+			,a.reason = #{reason}
+		WHERE a.class_no = 1 AND a.idx = #{lightning_no} AND a.member_id = #{member_id}
+	</update>
+	
+	<!-- 모임 삭제 -->
+	<update id="leaderLightDelete" parameterType="String">
+		UPDATE lightningList SET lightning_status = "삭제"
+		WHERE lightning_no = #{param1}
+	</update>
+	
+	<update id="leaderDojangDelete" parameterType="String">
+		UPDATE dojangList SET dojang_status = "삭제"
+		WHERE dojang_no = #{param1}
 	</update>
 </mapper>

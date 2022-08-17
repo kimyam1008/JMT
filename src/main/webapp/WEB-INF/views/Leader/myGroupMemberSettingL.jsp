@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>나의 모임 관리 - 게시글</title>
+<title>나의 모임 관리 - 회원</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> 
@@ -26,7 +26,7 @@
 		border:1px solid black;
 		margin-bottom:20px;
 	}
-	
+
 	#test {
 	  list-style-type: none;
 	  padding: 10px;
@@ -54,56 +54,64 @@
 	#centered {
 	  margin-left: 260px;
 	}
+	
 </style>
 </head>
 <body>
 	<input type="hidden" id="loginId" value="${sessionScope.loginId}"/>
  	${sessionScope.loginId} 님 환영합니다, <a href="logout.do">로그아웃</a>
 	<h3>모임 관리</h3>
-	<input type="hidden" id="dojang_no" value="${sessionScope.dojang_no}"/>
+	<input type="hidden" id="lightning_no" value="${sessionScope.lightning_no}"/>
 	<div id="test">
 		<ul>
-			<li><a href="dojangLeaderPage.go?dojang_no=${sessionScope.dojang_no}">방장 페이지</a></li>
-			<li><a href="myGroupPostSettingD.go?dojang_no=${sessionScope.dojang_no}">나의 모임 관리</a></li>
+			<li><a href="lightningLeaderPage.go?lightning_no=${sessionScope.lightning_no}">방장 페이지</a></li>
+			<li><a href="myGroupPostSettingL.go?lightning_no=${sessionScope.lightning_no}">나의 모임 관리</a></li>
 		</ul>
 	</div>
-	<div id="centered">
+	<div id="centered">	
 		<div class="top-section">
 			<a href="#"><img src ="/photo/${dto.photo_newFileName}" class="profileImg"></a>
-			<p>${dto.dojang_title}</p>
+			<p>${dto.lightning_title}</p>
 			<p>작성글 : ${dto.post_count}</p><p>작성 댓글 : ${dto.comment_count}</p>
 		</div>
-		<a href="javascript:location.reload()">게시글</a> <a href="/myGroupMemberSettingD.go?dojang_no=${dto.dojang_no}">회원</a>
+	
+		<a href="/myGroupPostSettingL.go?lightning_no=${dto.lightning_no}">댓글</a> <a href="javascript:location.reload()">회원</a>
+		<input type="button" value="추방하기" onclick="getOut()"/>
 		<table>
 			<thead>
 				<tr>
-					<th>글번호</th>
-					<th>제목</th>
-					<th>작성일</th>
+					<th></th>
+					<th>회원 ID</th>
+					<th>이름</th>
 				</tr>
 			</thead>
 			<tbody id="list">
-			
+				<c:forEach items="${lightMember}" var="lightMember">
+				<tr>			
+					<td><input type="radio" name="member_id" id="member_id" value="${lightMember.member_id}"/></td>
+					<td>${lightMember.member_id}</td>
+					<td>${lightMember.member_name}</td>
+				</tr>
+				</c:forEach>
 			</tbody>
-				<tr>
+				<!-- <tr>
 					<td colspan="7" id="paging">
-						<!-- twbspagination 플러그인 -->
+						twbspagination 플러그인
 						<div class="container">
 							<nav arial-label="Page navigation" style="text-align:center">
 								<ul class="pagination" id="pagination"></ul>
 							</nav>
 						</div>
 					</td>
-				</tr>
+				</tr> -->
 		</table>
 	</div>
 </body>
 <script>
+/*
 var currPage = 1;
 
 listCall(currPage);
-
-console.log($('#dojang_no').val());
 
 //페이징
 function listCall(page){
@@ -112,7 +120,7 @@ function listCall(page){
 	
 	$.ajax({
 		type:'get',
-		url:'myGroupPostSettingD.ajax',
+		url:'myGroupMemberSettingD.ajax',
 		data:{
 			cnt : pagePerNum,
 			page : page,
@@ -120,7 +128,7 @@ function listCall(page){
 		},
 		dataType:'JSON',
 		success:function(data){
-			drawList(data.myGroupPostSettingD);
+			drawList(data.myGroupMemberSettingD);
 			currPage=data.currPage;
 			console.log(currPage);
 			
@@ -144,22 +152,36 @@ function listCall(page){
 
 
 //리스트 그리기
-function drawList(myGroupPostSettingD){
+function drawList(myGroupMemberSettingD){
 	
 	var content ="";
 	
-	myGroupPostSettingD.forEach(function(item,dojangPost_no){
+	myGroupMemberSettingD.forEach(function(item){
 		
 		content += '<tr>';
-		content += '<td>'+item.dojangPost_no+'</td>';
-		content += '<td><a href="dojangDetail.do?dojangPost_no='+item.dojangPost_no+'">'+item.dojangPost_subject+'</a></td>';
-		content += '<td>'+item.dojangPost_date+'</td>';
+		content += '<td><input type="radio" name="'+item.member_id+' id="'+item.member_id+'"" value="'+item.member_id+'"/></td>';
+		content += '<td>'+item.member_id+'</td>';
+		content += '<td>'+item.member_name+'</td>';
 		content += '</tr>';
 	});
 	
 	$('#list').empty();
 	$('#list').append(content);
 }
+*/
 
+//추방하기
+function getOut(){
+	var member_id = $('input[type="radio"]:checked').val();
+	//var radioChk = opener.document.getElementsByName('member_id');
+	
+	
+	if($('input[type="radio"]:checked').is(":checked") == false){
+		alert("추방할 회원을 선택해 주세요.");
+	} else {
+		window.open("/memberGetOutL.go?member_id="+member_id,"new","width=500, height=500, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+		//openWin.document.getElementById("member_id").value = document.getElementById("member_id").value;
+	}
+}
 </script>
 </html>
