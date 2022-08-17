@@ -180,6 +180,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="../commons/header.jsp"/>
 	<a href="/lightningLeaderPage.go?lightning_no=${dto.lightning_no}">방장페이지</a>
 	<table>
 		<tr>

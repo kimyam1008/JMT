@@ -1,6 +1,5 @@
-<!-- 
-
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -16,14 +15,65 @@
 	table,th,td {
 		border : 1px solid black;
 		border-collapse : collapse;
+		width : 600px;
 	}
 
 	th,td { 
 		padding : 5px 10px;
 	}
- -->
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../../../resources/inc/header.jsp" %>
+	
+	 #loginMenu {
+    	float: left;
+    	width: 90%;
+    	margin : 0 60px;
+	}
+
+	 #loginMenu  {
+   		 text-align: right;
+	}
+	 #loginMenu > span {
+	    font-size:11px;
+	    color:#c8c8c8;
+	}
+	
+	img {
+		width : 20px;
+		height : 20px;
+	}
+
+	
+	#searchBar{
+		float : left;
+		height : 200px;
+	}
+
+	.ballon {
+                display: none;
+               	position : absolute;
+                width: 300px;
+                height: 200px;
+              	top : 40px;
+                background: #484848;
+                color: white;
+                border-radius: 5px;
+                padding: 12px 12.8px;
+            }
+
+
+   .ballon:after {
+                border-top: 10px solid #484848;
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                border-bottom: 0px solid transparent;
+                content: "";
+               	position : absolute;	
+                top: 210px;
+                left: 160px;
+  }
+</style>
+</head>
+<body>
+	<jsp:include page="../commons/header.jsp"/>
 	<div id="searchBar">
 		<button onclick="lightCreateChk()">번개 생성하기</button>
 		<br/>

@@ -1,7 +1,9 @@
 package com.jmt.main.controller;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -10,12 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.jmt.main.dto.NotiDTO;
 import com.jmt.main.service.NotiService;
 
 @Controller
-public class NotiController {
+public class NotiController extends HandlerInterceptorAdapter {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -24,17 +28,41 @@ public class NotiController {
 	
 	
 	
+
+
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView mav) throws Exception {
+		
+		logger.info("컨트롤러 진입 후 ... " );
+		String loginId = (String) request.getSession().getAttribute("loginId");
+		boolean notiChk = service.notiChk(loginId);
+		logger.info("안읽은 알림이 있는가 ? : " +notiChk );
+		mav.addObject("notiChk",notiChk); //true or false
+	}
+
+	
+	
 	//알림 테스트
 	@RequestMapping("/noti") 
-	public void noti(Model model,HttpSession session) {
+	public String noti(Model model,HttpSession session) {
 		String loginId = (String) session.getAttribute("loginId");
 		//알림 여부 확인
 		boolean notiChk = service.notiChk(loginId);
 		logger.info("안읽은 알림이 있는가 ? : " +notiChk );
-		model.addAttribute("notiChk", notiChk);
-		
+		model.addAttribute("notiChk", notiChk); //true or false
+		return  "./commons/header";
 	}
 	
+	//알림 리스트 불러오기
+	@RequestMapping("/notiList.do") 
+	public void notiList(Model model,HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+		//알림 여부 확인
+		ArrayList<NotiDTO> notiList = service.notiList(loginId);
+		model.addAttribute("notiList", notiList);
+		//return  "./commons/header";
+	}
 	
 	
 	// 생성자로 할지 메서드로 할지 

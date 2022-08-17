@@ -1,11 +1,14 @@
 package com.jmt.main.service;
 
+import java.util.ArrayList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jmt.main.dao.NotiDAO;
+import com.jmt.main.dto.NotiDTO;
 
 @Service
 public class NotiService {
@@ -22,6 +25,11 @@ public class NotiService {
 			success = true;
 		}
 		return success;
+	}
+
+	public ArrayList<NotiDTO> notiList(String loginId) {
+		logger.info("알림 리스트 서비스");
+		return dao.notiList(loginId);
 	}
 
 

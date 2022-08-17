@@ -3,13 +3,19 @@
          
 	</body>
 	<script>
+	/*
 	
-		
-	
-	
+ 		var notiChk = ${notiChk};
+	if(notiChk){
+		$("#notix").attr("src","resources/photo/noti4.png");
+	}
+ 		
+	*/
+ 		
 	function notiChk(){
-			$("#notix").attr("src","resources/photo/noti4.png");
-			
+			$("#notix").attr("src","resources/photo/noti.png");
+			//location.href='/notiList.do';
+			$(".ballon").toggle();
 		}
 	
 	</script>

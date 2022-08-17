@@ -7,6 +7,8 @@
 		select count(noti_no) from noti where member_id = #{param1} and noti_read ="안읽음"
 	</select>
 	
-	
+	<select id="notiList" resultType="noti" parameterType="String">
+		SELECT * FROM noti WHERE member_id = #{loginId}
+	</select>
 	
 </mapper>
