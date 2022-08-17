@@ -53,6 +53,8 @@ public interface DojangDAO {
 
 	ArrayList<DojangDTO> gpRestaurantSearchList(HashMap<String, Object> map);
 
+	int dojangPostUpdate(HashMap<String, String> params);
+
 
 
 
