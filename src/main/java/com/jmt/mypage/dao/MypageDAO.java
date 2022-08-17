@@ -38,9 +38,31 @@ public interface MypageDAO {
 
 	void fileWrite(String oriFileName, String newFileName, int profile_no);
 
+	int memberDrop(String loginId);
+
+	String pwCon(String loginId);
+
+	ArrayList<String> followingList(String loginId);
+
+	ArrayList<String> followerList(String loginId);
+
+	MemberDTO otherPage(int profile_no);
+
+	photoDTO otherPhoto(int profile_no);
+
+	int otherBlind(int profile_no);
+
+	int otherFollower(int profile_no);
+
+	int otherFollowing(int profile_no);
+
+	int follow(HashMap<String, Object> params);
+
+	String followCon(String loginId, int profile_no);
+
+
+
 	
-
-
 
 
 }

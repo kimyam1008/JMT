@@ -137,18 +137,18 @@
 	
 	
 	<select id="dojangHome" resultType="dojang" parameterType="hashmap">
-		SELECT dojang_no,dojangPost_subject,dojangPost_content,member_id,dojangPost_date,dojangPost_no
-			FROM dojangpost where dojang_no = #{dojang_no} ORDER BY dojangPost_no DESC limit #{cnt} OFFSET #{offset}
+		SELECT dojang_no,dojangPost_subject,dojangPost_content,member_id,dojangPost_date,dojangPost_no,dojangPost_type
+			FROM dojangpost WHERE dojang_no = #{dojang_no} ORDER BY dojangPost_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
 	<select id="dojangHomeL" resultType="dojang" parameterType="hashmap">
-		SELECT dojang_no,dojangPost_subject,dojangPost_content,member_id,dojangPost_date,dojangPost_no
+		SELECT dojang_no,dojangPost_subject,dojangPost_content,member_id,dojangPost_date,dojangPost_no,dojangPost_type
 			FROM dojangpost where dojang_no = #{dojang_no} AND dojangPost_type ="공지게시판"
 			ORDER BY dojangPost_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
 	<select id="dojangHomeM" resultType="dojang" parameterType="hashmap">
-		SELECT dojang_no,dojangPost_subject,dojangPost_content,member_id,dojangPost_date,dojangPost_no
+		SELECT dojang_no,dojangPost_subject,dojangPost_content,member_id,dojangPost_date,dojangPost_no,dojangPost_type
 			FROM dojangpost where dojang_no = #{dojang_no} AND dojangPost_type ="일반게시판"
 			ORDER BY dojangPost_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
@@ -170,9 +170,21 @@
 	</select>
 	
 	<select id="dojangHomeDetail" resultType="dojang">
-		SELECT dojang_no,dojangPost_subject,dojangPost_content,member_id,dojangPost_date,dojangPost_no
+		SELECT dojang_no,dojangPost_subject,dojangPost_content,member_id,dojangPost_date,dojangPost_no,dojangPost_type
 			FROM dojangpost where dojangPost_no = #{param1}
 	
 	</select>
+	
+	
+	<insert id="dojangPostReg" parameterType="dojang"
+		useGeneratedKeys="true" keyColumn="dojangPost_no" keyProperty="dojangPost_no">
+		INSERT INTO dojangpost (dojangPost_subject,dojangPost_content,dojang_no,member_id,dojangPost_type,dojangPost_status)
+			VALUES(#{dojangPost_subject},#{dojangPost_content},#{dojang_no},#{member_id},#{dojangPost_type},"공개"); 
+	</insert>
+	
+	<insert id="filewrite">
+		INSERT INTO photo(photo_newFileName,photo_oriFileName,class_no,idx)
+			VALUES(#{param1},#{param2},4,#{param3})
+	</insert>
 	
 </mapper>

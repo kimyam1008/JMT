@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.jmt.admin.dao.ReportDAO;
 import com.jmt.admin.dto.ReportDTO;
 import com.jmt.admin.dto.ReportPostDto;
+import com.jmt.admin.dto.TestDto;
 
 @Service
 public class ReportService {
@@ -301,8 +302,14 @@ public class ReportService {
 		int page =Integer.parseInt(params.get("page"));
 		String list_option =params.get("list_option");
 		
+		String keyword = params.get("keyword");
+		String memberSearch = params.get("memberSearch");
+		
+		
 		Map<String, Object> data = new HashMap<String, Object>(); 
 		data.put("list_option", list_option);
+		data.put("keyword",keyword);
+		data.put("memberSearch",memberSearch);
 		
 		logger.info("보여줄 페이지:"+page);
 		
@@ -330,6 +337,70 @@ public class ReportService {
 		//ArrayList<HashMap<String, Object>> list = dao.reportList();
 		map.put("list", memberList);
 		return map;
+	}
+
+	public ReportDTO memberDetail(String member_id) {
+		return dao.memberDetail(member_id);
+	}
+
+	public Map<String, Object> blindMemberList(HashMap<String, String> params) {
+		Map<String, Object> map = new HashMap<String, Object>(); 
+		
+		int cnt =Integer.parseInt(params.get("cnt"));  
+		int page =Integer.parseInt(params.get("page"));
+		String member_id= params.get("member_id");
+		Map<String, Object> data = new HashMap<String, Object>(); 
+		data.put("member_id", member_id);
+		
+		int allCnt = dao.blindMemberCount(data);
+		logger.info("총 allCnt:"+allCnt); // 총 페이지 수 
+		int pages = allCnt%cnt>0 ? (allCnt/cnt)+1 :(allCnt/cnt);  // 현재 만들 수 있는 최대 페이지 수 
+		if(pages==0) {pages=1;}
+		if(page>pages) {  // 페이지 바뀌는 경우 . 현재 페이지 가 
+			page=pages;
+		}
+		logger.info("pages"+pages);
+		
+		map.put("pages", pages);// 만들 수 있는 최대 페이지 수 
+		map.put("currPage",page); // 현재 페이지
+		/* currPage>pages? : page */
+		int offset =(page-1)*cnt;
+		logger.info("offset:"+offset);
+	//	ArrayList<HashMap<String, Object>> list =dao.reportList(cnt,offset);
+		data.put("cnt", cnt);
+		data.put("offset", offset);
+		
+		ArrayList<ReportDTO>  dto= dao.blindMemberList(data);
+		 map.put("blindList",dto);
+		return map;
+	}
+	
+	// test test test 
+	public int test(String loginId) {
+		int comment_no = dao.testPost(loginId);
+		return comment_no; 
+	
+		
+	}
+
+	public ArrayList<TestDto> spoonList() {
+		
+		return dao.spoonList();
+	}
+
+	public void levelUp(Map<String, Object> data) {
+		dao.levelUp(data);
+	
+	}
+
+	public void levelUp(String loginId, String level_0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public int chkGrade(String loginId) {
+		
+		return dao.chkGrade( loginId);
 	}
 
 

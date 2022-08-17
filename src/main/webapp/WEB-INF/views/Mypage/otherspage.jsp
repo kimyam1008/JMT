@@ -19,10 +19,10 @@
 	<div class="top">
 		<span class="wel">
 			<img src="/photo/${photo.photo_newFileName}" width="150" height="100"/>
-			${list.member_id }님 반갑습니다.
+			${list.member_id} 님의 마이페이지
 			등급 : ${list.grade_name }
-			팔로워 : <a href="./followerList.go" onclick="window.open(this.href, '_blank', 'width=400, height=450, left=500, top=200'); return false;">${follower }</a>
-			팔로잉 : <a href="./followingList.go" onclick="window.open(this.href, '_blank', 'width=400, height=450, left=500, top=200'); return false;">${following }</a>
+			팔로워 : <a href="#" onclick="window.open(this.href, '_blank', 'width=400, height=450, left=500, top=200'); return false;">${follower }</a>
+			팔로잉 : <a href="#" onclick="window.open(this.href, '_blank', 'width=400, height=450, left=500, top=200'); return false;">${following }</a>
 		</span>
 		<span class="profile">
 			성별 : ${list.profile_gender }
@@ -30,7 +30,7 @@
 			선호 음식 : ${list.food_name }
 			식사 속도 : ${list.eat_speed }
 			블라인드 수 : ${blind }
-			<a href='./profileUpdate.go'>개인정보수정</a>
+			<input id="follow" type="button" name="follow" value="${follow }" onclick="follow()"/>
 		</span>
 	</div>
 	<p><a href='./myBoardList.go'>나의 활동</a></p>
@@ -46,5 +46,27 @@
 	if (msg != "") {
 		alert(msg);
 	}
+
+	function follow() {
+		var follow = '${follow}';
+		$.ajax({
+			type:'get',
+			url:'follow.ajax',
+			data:{follow:follow},
+			dataType:'JSON',
+			success:function(data){
+			 if(data.idoverlay){
+					alert("이미 사용중인 아이디 입니다.");
+				}else{
+					alert("사용 가능한 아이디 입니다.");
+					overChkId = true;
+				}
+			},
+			error:function(e){
+				console.log(e);
+			}			
+		});
+	}
+	
 </script>
 </html>

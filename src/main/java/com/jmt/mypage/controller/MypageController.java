@@ -112,17 +112,101 @@ public class MypageController {
 			return "redirect:/mypage.go";
 		}
 		
-		//회원 탈퇴
+		// 회원탈퇴 팝업창
 		@RequestMapping(value = "/memberDrop.go")
-		public String memberDrop(Model model, HttpSession session, MultipartFile[] photos,
-				@RequestParam HashMap<String, Object> params) {
+		public String memberDrop(Model model, HttpSession session) {
 			String loginId = (String) session.getAttribute("loginId");
-			params.put("loginId", loginId);
-			logger.info("params :{}",params);
-			service.profileUpdate(model, photos, params);
-			
-			return "redirect:/mypage.go";
+			model.addAttribute("loginId",loginId);
+			return "/Mypage/memberDrop";
 		}
+		
+		// 회원탈퇴
+		@RequestMapping("/memberDrop.ajax")
+		@ResponseBody
+		public HashMap<String, Object> memberDrop(HttpSession session, @RequestParam String pw) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			String loginId = (String) session.getAttribute("loginId");
+			String hashText = service.pwCon(loginId);
+			logger.info("받아온 pw : " +pw);
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			boolean match = encoder.matches(pw, hashText);
+			logger.info("매치 : "+match);
+			if(match) {
+				int row = service.memberDrop(loginId);
+				boolean success = false;
+				if (row>0) {
+					success = true;
+					map.put("memberDrop", success);
+				}
+			}
+			
+			return map;
+		}
+
+		// 팔로잉 리스트 팝업
+		@RequestMapping(value = "/followingList.go")
+		public String followingList(Model model, HttpSession session) {
+			String loginId = (String) session.getAttribute("loginId");
+			ArrayList<String> followingList = service.followingList(loginId);
+			model.addAttribute("followingList", followingList);
+			return "/Mypage/followingList";
+		}
+		
+		// 팔로워 리스트 팝업
+		@RequestMapping(value = "/followerList.go")
+		public String followerList(Model model, HttpSession session) {
+			String loginId = (String) session.getAttribute("loginId");
+			ArrayList<String> followerList = service.followerList(loginId);
+			model.addAttribute("followerList", followerList);
+			return "/Mypage/followerList";
+		}
+		
+		// 다른 사람 마이페이지로 이동
+		@RequestMapping(value = "/othersPage.go")
+		public String othersPage(HttpSession session, Model model, @RequestParam int profile_no) {
+			logger.info("다른사람 프로필 번호 : "+profile_no);
+			String loginId = (String) session.getAttribute("loginId");
+			MemberDTO other = service.otherPage(profile_no); //마이페이지에 보여줄 프로필 정보 가져오기
+			photoDTO otherPhoto = service.otherPhoto(profile_no); //프로필 사진 가져오기
+			int otherBlind = service.otherBlind(profile_no); //블라인드 갯수 가져오기
+			int otherFollower = service.otherFollower(profile_no); //팔로워 수 가져오기
+			int otherFollowing = service.otherFollowing(profile_no); //팔로잉 수 가져오기
+			//로그인 한 아이디의 유저가 해당 페이지의 아이디를 팔로우 하고 있나?
+			String followCon = service.followCon(loginId, profile_no);
+			if(followCon == null) {
+				model.addAttribute("follow", "팔로우");
+			} else {
+				model.addAttribute("follow", "팔로잉");
+			}
+			//뷰에 보내주기
+			model.addAttribute("list", other);
+			model.addAttribute("photo",otherPhoto);
+			model.addAttribute("blind", otherBlind);
+			model.addAttribute("follower", otherFollower);
+			model.addAttribute("following", otherFollowing);
+		
+			return "/Mypage/otherspage";
+		}
+		
+		//팔로우
+		@RequestMapping("/follow.ajax")
+		@ResponseBody
+		public HashMap<String, Object> follow(HttpSession session, @RequestParam String follow) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			logger.info("팔로우 : "+follow);
+			
+			if(follow.equals("팔로우")) {
+				//디비에 팔로우 넣기
+			} else if (follow.equals("팔로잉")) {
+				//디비에 언팔로우 넣기
+			}
+			
+			return null;
+		}
+		
+		
+		
+		
 		
 		// 나의활동 첫 페이지 이동
 		@RequestMapping(value = "/myBoardList.go")

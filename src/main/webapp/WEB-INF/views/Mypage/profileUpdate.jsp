@@ -19,7 +19,7 @@
 				<tr><th>사진수정 : <input type="file" name="photos" multiple="multiple"/></th></tr>
 				<tr><td>이름 : <input type=text name="name" value="${list.member_name }"/></td></tr>
 				<tr><td>아이디 : ${list.member_id }</td></tr>
-				<tr><td>비밀번호 : <input type="button" name="passUpdate" value="비밀번호변경" onclick="passUpdate()"></td></tr>
+				<tr><td>비밀번호 : <input type="button" name="passUpdate" value="비밀번호변경" onclick="passUpdate()"/></td></tr>
 				<tr><td>생년월일 : ${list.member_birth }</td></tr>
 			</table>
 			<table class="bottom">
@@ -29,12 +29,13 @@
 					<tr><th>식사속도 : <input id="slow" type="radio" name="speed" value="느림"/>느림  <input id="nomal" type="radio" name="speed" value="보통"/>보통  <input id="fast" type="radio" name="speed" value="빠름"/>빠름</th></tr>
 					<tr><th>선호음식 : 
 						<select id="food" name="food_no">
+						<option value="">선택</option>
 		                	<c:forEach items="${foodList}" var="foodList">
 		                		<option value="${foodList.food_no}" ${foodList.food_name == list.food_name ? 'selected="selected"' : ''}>${foodList.food_name}</option>
 		                	</c:forEach>
 		           		</select>
 	            	</th></tr>
-					<tr><th><a href="./memberDrop.go">회원탈퇴</a></th></tr>
+					<tr><td><a href="./memberDrop.go" onclick="window.open(this.href, '_blank', 'width=400, height=200, left=500, top=300'); return false;">회원탈퇴</a></td></tr>
 			</table>
 		</form>
 </body>
@@ -64,6 +65,7 @@
 	function passUpdate(){
 		window.open("/passUpdate.go","new","width=400, height=100, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 	}
+	
 	
 </script>
 </html>

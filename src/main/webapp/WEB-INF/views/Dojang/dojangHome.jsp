@@ -89,7 +89,7 @@ td a {
   <li class="post"><a href="dojangHome.go?dojang_no=${sessionScope.dojang_no}">전체게시판</a></li>
   <li class="post"><a href="dojangHomeL.go?dojang_no=${sessionScope.dojang_no}">공지게시판</a></li>
   <li class="post"><a href="dojangHomeM.go?dojang_no=${sessionScope.dojang_no}">일반게시판</a></li>
-  <li><a href="#">방장페이지</a></li>
+  <li><a href="dojangLeaderPage.go?dojang_no=${sessionScope.dojang_no}">방장페이지</a></li>
 </ul>
 
 <div  id="review">
@@ -100,6 +100,7 @@ td a {
 
 <div id="list">
 	<h1>전체 게시판</h1>
+	<input type="button" value="글쓰기" onclick="location.href='dojangPostReg.go'"/>
 </div>
 
 
@@ -172,6 +173,7 @@ function drawList(list){
 		content += '<div>'+"등록된 게시글이 없습니다."+'</div>';
 	} else {
 		list.forEach(function(item){
+			console.log(item.class_no);
 			var date = new Date(item.dojangPost_date);
 			var create = date.toLocaleDateString("ko-KR");
 	
@@ -179,7 +181,8 @@ function drawList(list){
 			content += '<table>';
 			content += '<tr>';
 			content += '<th>'+"제목"+'</th>';
-			content += '<td colspan="3">'+item.dojangPost_subject+'</td>';
+			content += '<td colspan="2">'+item.dojangPost_subject+'</td>';
+			content += '<td>'+item.dojangPost_type+'</td>';
 			content += '</tr>';
 			content += '<tr>';
 			content += '<th>'+"작성자"+'</th>';

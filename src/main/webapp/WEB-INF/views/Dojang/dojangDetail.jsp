@@ -70,7 +70,7 @@ table, th, td{
 				<c:forEach items="${dojangGreview}" var="djg">
 					<p>${djg.member_id}<span style="padding-right: 5px"></span>
 					: <span style="padding-right: 5px"></span>
-					<a href="?groupReview_no=${djg.groupReview_no}">${djg.review_title}</a>
+					<a href="groupReviewDetail.do?groupReview_no=${djg.groupReview_no}">${djg.review_title}</a>
 				</c:forEach>
 			</ul>
 		</td>

@@ -47,10 +47,78 @@ public class LeaderDTO {
 	private String dojang_content;
 	private Date dojang_create;
 	
+	//dojangPost
+	private int dojangPost_no;
+	private String dojangPost_subject;
+	private String dojangPost_content;
+	private String dojangPost_date;
+	
 	//groupReview
 	private int groupReview_no;
 	private String review_title;
 	private Date review_date;
+	
+	//etc
+	private String leaderName;
+	private int member_count;
+	private int post_count;
+	private int comment_count;
+	private String photo_newFileName;
+	
+	public int getPost_count() {
+		return post_count;
+	}
+	public void setPost_count(int post_count) {
+		this.post_count = post_count;
+	}
+	public int getComment_count() {
+		return comment_count;
+	}
+	public void setComment_count(int comment_count) {
+		this.comment_count = comment_count;
+	}
+	public String getPhoto_newFileName() {
+		return photo_newFileName;
+	}
+	public void setPhoto_newFileName(String photo_newFileName) {
+		this.photo_newFileName = photo_newFileName;
+	}
+	public int getDojangPost_no() {
+		return dojangPost_no;
+	}
+	public void setDojangPost_no(int dojangPost_no) {
+		this.dojangPost_no = dojangPost_no;
+	}
+	public String getDojangPost_subject() {
+		return dojangPost_subject;
+	}
+	public void setDojangPost_subject(String dojangPost_subject) {
+		this.dojangPost_subject = dojangPost_subject;
+	}
+	public String getDojangPost_content() {
+		return dojangPost_content;
+	}
+	public void setDojangPost_content(String dojangPost_content) {
+		this.dojangPost_content = dojangPost_content;
+	}
+	public String getDojangPost_date() {
+		return dojangPost_date;
+	}
+	public void setDojangPost_date(String dojangPost_date) {
+		this.dojangPost_date = dojangPost_date;
+	}
+	public String getLeaderName() {
+		return leaderName;
+	}
+	public void setLeaderName(String leaderName) {
+		this.leaderName = leaderName;
+	}
+	public int getMember_count() {
+		return member_count;
+	}
+	public void setMember_count(int member_count) {
+		this.member_count = member_count;
+	}
 	public String getMember_id() {
 		return member_id;
 	}

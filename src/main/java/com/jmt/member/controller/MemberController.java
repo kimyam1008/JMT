@@ -99,11 +99,11 @@ public class MemberController {
 					if(member_status.equals("블랙리스트")) { 
 						session.removeAttribute("loginId");
 						model.addAttribute("msg", "블랙리스트 회원입니다. 관리자에게 문의하세요.");
-						page="/Main/main";
+						page="/Member/login";
 					} else if(member_status.equals("탈퇴회원")) { //탈퇴 회원일 경우
 						session.removeAttribute("loginId");
 						model.addAttribute("msg", "탈퇴한 회원입니다.");
-						page="/Main/main";
+						page="/Member/login";
 					}
 				}
 			}else {

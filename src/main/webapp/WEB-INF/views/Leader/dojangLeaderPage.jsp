@@ -18,36 +18,38 @@
 </style>
 </head>
 <body>
-	<h3>방장 페이지</h3>
+	<input type="hidden" name="class_no" value="${dojangDto.class_no}"/>
+	<input type="hidden" name="idx" value="${dojangDto.idx}"/>
+	<h3>도장깨기 방장 페이지</h3>
 		<table style="padding:10px;">
-			<caption>모임이름</caption>
+			<caption>${dojangDto.dojang_title}</caption>
 			<tr>
 				<th>방장</th>
-				<td></td>
+				<td>${dojangDto.leaderName}</td>
 				<th>모집상태</th>
-				<td></td>
+				<td>${dojangDto.dojang_status}</td>
 			</tr>
 			<tr>
 				<th>정원</th>
-				<td> / </td>
+				<td>${dojangDto.member_count} / ${dojangDto.people_num}</td>
 				<th>성별</th>
-				<td></td>
+				<td>${dojangDto.gender}</td>
 			</tr>
 			<tr>
 				<th>음식 카테고리</th>
-				<td></td>
+				<td>${dojangDto.food_name}</td>
 				<th>식사속도</th>
-				<td></td>
+				<td>${dojangDto.eat_speed}</td>
 			</tr>
 			<tr>
 				<th>개설일</th>
-				<td></td>
+				<td>${dojangDto.dojang_create}</td>
 				<th>직업</th>
-				<td></td>
+				<td>${dojangDto.job}</td>
 			</tr>
 			<tr>
 				<th colspan="4">
-					<input type="button" value="수정" onclick="leaderGroupEdit()"/>
+					<input type="button" value="수정" onclick="dojangEdit()"/>
 					<input type="button" value="삭제" onclick="groupDelete()"/>
 				</th>
 			</tr>
@@ -58,23 +60,32 @@
 	<div style="float:left; border: 1px solid pink; magin-right:30px;">
 		<h3>최근 게시글</h3>
 		<ul>
-			<li></li>
+			<c:if test = "${dojangRecentPost.size() == 0}">
+				등록된 글이 없습니다.
+			</c:if>
+			<c:forEach items="${dojangRecentPost}" var="dojangRecentPost">			
+				<li>${dojangRecentPost.dojangPost_subject}</li>
+			</c:forEach>
 		</ul>
 	</div>
 	
 	<div style="float:left; border: 1px solid pink; margin-left:30px;">
-		<h3>가입 대기 회원</h3>
+		<h3>가입 대기 회원</h3><a style="text-decoration:none" onclick="joinWait()">회원보기</a>
 		<input type="button" value="회원보기" onclick="joinWait()"/>
 		<ul>
-			<li></li>
+			<c:forEach items="${dojangJoinWait}" var="dojangJoinWait">
+				<li>${dojangJoinWait.member_id}</li>
+			</c:forEach>
 		</ul>
 	</div>
 </body>
 <script>
 //모임 수정 팝업
-function leaderGroupEdit(){
-	window.open("/leaderGroupEdit.go","new","width=600, height=300, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
-	//window.open("/leaderGroupEdit.go?grouop_no="+${dojangDetail.group_no},"new","width=600, height=300, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+//var lightning_class_no = "${lightDto.class_no}";
+///var dojang_no = ${dojangDto.dojang_no};
+
+function dojangEdit(){
+	window.open("/leaderDojangEdit.go?dojang_no="+${dojangDto.dojang_no},"new","width=300, height=300, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 }
 
 //모임 삭제
@@ -86,7 +97,7 @@ function groupDelete(){
 
 //가입 대기 회원 팝업
 function joinWait(){
-	window.open("/joinWait.go","new","width=600, height=300, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	window.open("/joinWait.go","new","width=300, height=300, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 	//window.open("/joinWait.go?grouop_no="+${dojangDetail.group_no},"new","width=600, height=300, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 }
 </script>

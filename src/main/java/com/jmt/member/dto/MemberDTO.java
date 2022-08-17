@@ -21,6 +21,10 @@ public class MemberDTO {
 	private String profile_gender;
 	private String profile_job;
 	
+	private int follow_no;
+	private String follower_id;
+	private String following_id;
+	
 	
 	public String getMember_id() {
 		return member_id;
@@ -105,6 +109,24 @@ public class MemberDTO {
 	}
 	public void setGrade_name(String grade_name) {
 		this.grade_name = grade_name;
+	}
+	public int getFollow_no() {
+		return follow_no;
+	}
+	public void setFollow_no(int follow_no) {
+		this.follow_no = follow_no;
+	}
+	public String getFollower_id() {
+		return follower_id;
+	}
+	public void setFollower_id(String follower_id) {
+		this.follower_id = follower_id;
+	}
+	public String getFollowing_id() {
+		return following_id;
+	}
+	public void setFollowing_id(String following_id) {
+		this.following_id = following_id;
 	}
 	
 	

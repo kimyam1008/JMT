@@ -98,10 +98,12 @@ td a {
 
 <div id="list">
 <h1>게시글 상세</h1>
+<input type="button" value="글쓰기" onclick="location.href='dojangPostReg.go'"/>
 <table>
 	<tr>
 		<th>제목</th>
-		<td colspan="3" id="dojangPost_subject"></td>
+		<td colspan="2" id="dojangPost_subject"></td>
+		<td id="dojangPost_type"></td>
 	</tr>
 	<tr>
 		<th>작성자</th>
@@ -128,13 +130,22 @@ function listCall(page){
 	
 	$.ajax({
 		type:'get',
-		url:'dojangHome.ajax',
+		url:'dojangHomeDetail.ajax',
 		data:{
 		},
 		dataType:'JSON',
 		success:function(data){
 				$('#leader').html(data.dojangHomeLeader);
 				drawMember(data.dojangHomeMember);
+				
+				$('#dojangPost_subject').html(data.dojangHomeDetail.dojangPost_subject);
+				$('#dojangPost_type').html(data.dojangHomeDetail.dojangPost_type);
+				$('#member_id').html(data.dojangHomeDetail.member_id);
+				
+				var date = new Date(data.dojangHomeDetail.dojangPost_date);
+				
+				$('#dojangPost_date').html(date.toLocaleDateString("ko-KR"));
+				$('#dojangPost_content').html(data.dojangHomeDetail.dojangPost_content);
 		},
 		error:function(e){
 			console.log(e);
