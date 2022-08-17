@@ -138,7 +138,7 @@
 	</update>
 	
 	<!-- 나의 모임 관리 (게시글) / 도장 -->
-	<select id="myGroupPostSettingD" resultType="leader">
+	<select id="myGroupPostSettingD" parameterType="hashmap" resultType="leader">
 		SELECT p.dojangPost_no
 			,p.member_id
 			,p.dojangPost_subject
@@ -147,19 +147,14 @@
 		FROM dojangPost p
 		JOIN dojangList d ON d.dojang_no = p.dojang_no
 		WHERE p.dojang_no = #{dojang_no}
-		ORDER BY p.dojangPost_no DESC limit #{cnt} OFFSET #{offset}
+		ORDER BY dojangPost_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
-	<select id="allCount" resultType="int">
-		SELECT p.dojangPost_no
-			,p.member_id
-			,p.dojangPost_subject
-			,p.dojangPost_date
-			,p.dojang_no
+	<select id="allCount" parameterType="hashmap" resultType="int">
+		SELECT COUNT(dojangPost_no)
 		FROM dojangPost p
 		JOIN dojangList d ON d.dojang_no = p.dojang_no
 		WHERE p.dojang_no = #{dojang_no}
-		ORDER BY p.dojangPost_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
 	<select id="myGroupEtcD" parameterType="String" resultType="leader">
@@ -210,4 +205,17 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="dojangMember" resultType="leader">
+		SELECT a.member_id, m.member_name
+		FROM apply a
+		LEFT OUTER JOIN member m ON a.member_id = m.member_id
+		WHERE a.class_no = 3 AND a.status = "승인" and a.idx = #{param1}
+	</select>
+	
+	<update id="memberGetOutD" parameterType="hashmap">
+		UPDATE apply a SET a.status = "추방"
+			,a.reason = #{reason}
+		WHERE a.class_no = 3 AND a.idx = #{dojang_no} AND a.member_id = #{member_id}
+	</update>
 </mapper>

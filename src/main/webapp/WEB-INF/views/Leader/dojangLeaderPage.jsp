@@ -19,7 +19,7 @@
 </head>
 <body>
 	<input type="hidden" name="class_no" value="${dojangDto.class_no}"/>
-	<input type="hidden" name="idx" value="${dojangDto.idx}"/>
+	<input type="hidden" name="dojang_no" value="${dojangDto.dojang_no}"/>
 	<h3>도장깨기 방장 페이지</h3>
 		<table style="padding:10px;">
 			<caption>${dojangDto.dojang_title}</caption>
@@ -55,7 +55,7 @@
 			</tr>
 		</table><br/>
 	
-	<h4><a href="/myGroupPostSettingD.go?dojang_no=+${dojangDto.dojang_no}">나의 모임 관리</a></h4>
+	<h4><a href="/myGroupPostSettingD.go?dojang_no=${dojangDto.dojang_no}">나의 모임 관리</a></h4>
 	
 	<div style="float:left; border: 1px solid pink; magin-right:30px;">
 		<h3>최근 게시글</h3>

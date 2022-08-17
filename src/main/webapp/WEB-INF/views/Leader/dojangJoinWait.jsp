@@ -21,7 +21,7 @@
 	<h3>도장깨기 가입 대기 회원</h3>
 	<!-- <form action="dojangJoinWaitUpdate" method="post"> -->
 		<%-- <input type="hidden" name="class_no" value="${dojangJoinWait.class_no}"/> --%>
-		<input type="hidden" id="dojang_no" value="${dojangJoinWait.dojang_no}"/>
+		<input type="hidden" id="dojang_no" value="${sessionScope.dojang_no}"/>
 		<table>
 			<thead>
 				<tr>
@@ -40,7 +40,7 @@
 							${dojangJoinWait.member_id}
 						</td>
 						<td>
-							<select id="status">
+							<select id="status" value="">
 								<option value="대기중" selected>대기중</option>
 								<option value="승인">승인</option>
 								<option value="거절">거절</option>
@@ -50,8 +50,8 @@
 				</c:forEach>
 				<tr>
 					<th colspan="3">
-						<input type="button" value="처리 완료" onclick="dojangJoinWaitSave()"/>
-						<input type="button" value="취소" onclick="dojangJoinWaitClose()"/>
+						<input type="button" value="처리 완료" onclick="JoinWaitSaveD()"/>
+						<input type="button" value="취소" onclick="JoinWaitCloseD()"/>
 					</th>
 				</tr>
 			</tbody>
@@ -60,10 +60,10 @@
 </body>
 <script>
 //처리 완료
-function dojangJoinWaitSave(){
+function JoinWaitSaveD(){
 	var dojang_no = $('#dojang_no').val();
 	var status = $('#status').val();
-	var member_id = $('input[type="radio"]:checked').val();
+	var member_id = $('input[type="checkbox"]:checked').val();
 	
 	var result confirm("가입 대기 회원의 상태를 수정하시겠습니까?");
 	if(result == true){
@@ -99,7 +99,7 @@ function dojangJoinWaitSave(){
 }
 
 //취소
-function dojangJoinWaitClose(){
+function JoinWaitCloseD(){
 	opener.parent.location.reload();
 	window.close();
 }
