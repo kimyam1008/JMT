@@ -324,8 +324,12 @@ public class DojangController {
 		
 		//도장깨기 방 게시글 상세보기 이동
 		@RequestMapping("/dojangHomeDetail.go")
-		public String dojangHomeDetailGo(@RequestParam String dojangPost_no, HttpSession session) {
+		public String dojangHomeDetailGo(@RequestParam String dojangPost_no, Model model, HttpSession session) {
 			session.setAttribute("dojangPost_no", dojangPost_no);
+			String loginId = (String) session.getAttribute("loginId");
+			DojangDTO dojangHomeDetail = service.dojangHomeDetail(dojangPost_no);
+				model.addAttribute("loginId",loginId);
+				model.addAttribute("list",dojangHomeDetail);
 			return "./Dojang/dojangHomeDetail";
 		}	
 		
@@ -354,9 +358,13 @@ public class DojangController {
 		
 		//도장깨기방 글쓰기 페이지
 		@RequestMapping("/dojangPostReg.go")
-		public String dojangPostRegGo(HttpSession session) {
+		public String dojangPostRegGo(Model model, HttpSession session) {
 			String dojang_no = (String) session.getAttribute("dojang_no");
 			String loginId = (String) session.getAttribute("loginId");
+			String dojangHomeLeader = service.reported(dojang_no);
+				model.addAttribute("leader",dojangHomeLeader);
+				model.addAttribute("loginId",loginId);
+			logger.info("방장확인::"+dojangHomeLeader);
 			logger.info("도장깨기 방번호 확인 ::"+ dojang_no+"도장깨기 방 게시글 작성자 ::"+ loginId);
 			return "./Dojang/dojangPostReg";
 		}

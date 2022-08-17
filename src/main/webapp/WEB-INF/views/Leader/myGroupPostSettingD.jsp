@@ -22,12 +22,13 @@ th,td {
 </head>
 <body>
 	<h3>모임 관리</h3>
+	<input type="hidden" id="dojang_no" value="${sessionScope.dojang_no}"/>
 	<div>
 		<a href="#"><img src ="/photo/${dto.photo_newFileName}" class="profileImg"></a>
-		<p>일식먹자!(모임 이름) ${dto.lightning_title} ${dto.dojang_title}</p>
+		<p>${dto.lightning_title} ${dto.dojang_title}</p>
 		<p>작성글 : ${dto.post_count}</p><p>작성 댓글 : ${dto.comment_count}</p>
 	</div>
-	<a href="#">회원</a> <a href="#">게시글</a>
+	<a href="javascript:location.reload()">게시글</a> <a href="/myGroupMemberSettingD.go?dojang_no=${dto.dojang_no}">회원</a>
 	<table>
 		<thead>
 			<tr>
@@ -56,16 +57,20 @@ var currPage = 1;
 
 listCall(currPage);
 
+console.log($('#dojang_no').val());
+
 //페이징
 function listCall(page){
 	var pagePerNum = 10;
+	var dojang_no = $('#dojang_no').val();
 	
 	$.ajax({
 		type:'get',
 		url:'myGroupPostSettingD.ajax',
 		data:{
 			cnt : pagePerNum,
-			page : page
+			page : page,
+			dojang_no : dojang_no
 		},
 		dataType:'JSON',
 		success:function(data){
@@ -101,7 +106,7 @@ function drawList(myGroupPostSettingD){
 		
 		content += '<tr>';
 		content += '<td>'+item.dojangPost_no+'</td>';
-		content += '<td><a href="groupReviewDetail.do?groupReview_no='+item.dojangPost_no+'">'+item.dojangPost_subject+'</a></td>';
+		content += '<td><a href="dojangDetail.do?dojangPost_no='+item.dojangPost_no+'">'+item.dojangPost_subject+'</a></td>';
 		content += '<td>'+item.dojangPost_date+'</td>';
 		content += '</tr>';
 	});

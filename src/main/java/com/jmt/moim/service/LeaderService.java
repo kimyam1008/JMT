@@ -104,10 +104,12 @@ public class LeaderService {
 		logger.info("dojang_no : "+dojang_no);
 		
 		//총 갯수(allCnt) / 페이지당 보여줄 갯수(cnt) = 생성 가능한 페이지(pages)
-		int allCnt = dao.allCount();
+		int allCnt = dao.allCount(postSort);
 		logger.info("allCnt : "+allCnt);
 		int pages = allCnt % cnt > 0 ? (allCnt / cnt)+1 : (allCnt / cnt);
 		logger.info("pages : "+pages);
+		
+		if(pages==0) {pages=1;}
 		
 		if(page > pages) {
 			page = pages;
@@ -117,11 +119,12 @@ public class LeaderService {
 		map.put("currPage", page); //현재 페이지
 		
 		int offset = (page -1) * cnt; //offset : 게시글 시작 번호
-		logger.info("offset : "+offset);
+		logger.info("offset,cnt : "+offset+","+cnt);
 		
 		postSort.put("cnt", cnt);
 		postSort.put("offset", offset);
 		
+		logger.info("postSort : "+postSort);
 		ArrayList<LeaderDTO> myGroupPostSettingD = dao.myGroupPostSettingD(postSort);
 		map.put("myGroupPostSettingD", myGroupPostSettingD);
 		return map;
@@ -132,33 +135,21 @@ public class LeaderService {
 		return dao.myGroupEtcD(loginId,dojang_no);
 	}
 
-	public HashMap<String, Object> myGroupMemberSetting(HashMap<String, String> params) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		int cnt = Integer.parseInt(params.get("cnt"));
-		int page = Integer.parseInt(params.get("page"));
-		logger.info("보여줄 페이지 : "+page);
-		
-		//총 갯수(allCnt) / 페이지당 보여줄 갯수(cnt) = 생성 가능한 페이지(pages)
-		int allCnt = dao.allCount2();
-		logger.info("allCnt : "+allCnt);
-		int pages = allCnt % cnt > 0 ? (allCnt / cnt)+1 : (allCnt / cnt);
-		logger.info("pages : "+pages);
-		
-		if(page > pages) {
-			page = pages;
-		}
-		
-		map.put("pages", pages); //만들 수 있는 최대 페이지 수
-		map.put("currPage", page); //현재 페이지
-		
-		int offset = (page -1) * cnt; //offset : 게시글 시작 번호
-		logger.info("offset : "+offset);
-		
-		ArrayList<LeaderDTO> myGroupMemberSetting = dao.myGroupMemberSettingD(cnt,offset);
-		map.put("myGroupMemberSetting", myGroupMemberSetting);
-		return map;
+	public ArrayList<LeaderDTO> dojangMember(String dojang_no) {
+		return dao.dojangMember(dojang_no);
 	}
+
+	public boolean memberGetOutD(HashMap<String, String> params) {
+		logger.info("도장깨기 회원 추방 서비스 도착");
+		boolean success = false;
+		int row = dao.memberGetOutD(params);
+		if (row>0) {
+			success=true;
+		}
+		return success;
+	}
+
+	
 
 
 

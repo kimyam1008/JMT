@@ -124,8 +124,18 @@ textarea {
 	<tr>
 		<th>게시판 선택</th>
 		<td>
-		<input type="hidden" id="dojangPost_type" value="일반게시판"/>
-		일반게시판</td>
+		<c:choose>
+			<c:when test="${leader == loginId}">
+				<select id="dojangPost_type">
+					<option value="공지게시판">공지게시판</option>
+					<option value="일반게시판">일반게시판</option>
+				</select>
+			</c:when>
+			<c:otherwise>
+				<input type="hidden" id="dojangPost_type" value="일반게시판"/>일반게시판
+			</c:otherwise>
+		</c:choose>
+		</td>
 		
 	</tr>
 	<tr>
@@ -270,11 +280,11 @@ function memberCall(){
 
 
 function dojangfileUp(){
-	window.open('gpFileUploadForm.go','','width=400, height=100');
+	window.open('gpFileUploadForm.go','','width=400, height=100,left=550 ,top=300');
 }
 
 function restaurant_pop(){	
-	 window.open("/gpRestaurantSearch.go","new","width=600, height=400, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	 window.open("/gpRestaurantSearch.go","new","width=800, height=600, left=350 ,top=500, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 	}
 
 

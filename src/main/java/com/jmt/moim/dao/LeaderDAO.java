@@ -29,7 +29,7 @@ public interface LeaderDAO {
 
 	int leaderDojangEdit(HashMap<String, String> params);
 
-	int allCount();
+	int allCount(HashMap<String, Object> postSort);
 
 	//ArrayList<LeaderDTO> myGroupPostSettingD(int cnt, int offset);
 
@@ -40,6 +40,10 @@ public interface LeaderDAO {
 	int allCount2();
 
 	ArrayList<LeaderDTO> myGroupPostSettingD(HashMap<String, Object> postSort);
+
+	ArrayList<LeaderDTO> dojangMember(String dojang_no);
+
+	int memberGetOutD(HashMap<String, String> params);
 
 	
 
