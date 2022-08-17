@@ -55,7 +55,7 @@
 			</tr>
 		</table><br/>
 	
-	<h4><a href="#">나의 모임 관리</a></h4>
+	<h4><a href="/myGroupPostSettingD.go?dojang_no=+${dojangDto.dojang_no}">나의 모임 관리</a></h4>
 	
 	<div style="float:left; border: 1px solid pink; magin-right:30px;">
 		<h3>최근 게시글</h3>
@@ -85,7 +85,7 @@
 ///var dojang_no = ${dojangDto.dojang_no};
 
 function dojangEdit(){
-	window.open("/leaderDojangEdit.go?dojang_no="+${dojangDto.dojang_no},"new","width=300, height=300, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	window.open("/leaderDojangEdit.go?dojang_no="+${dojangDto.dojang_no},"new","width=500, height=500, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 }
 
 //모임 삭제
@@ -97,7 +97,7 @@ function groupDelete(){
 
 //가입 대기 회원 팝업
 function joinWait(){
-	window.open("/joinWait.go","new","width=300, height=300, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	window.open("/dojangJoinWait.go?dojang_no="+${dojangDto.dojang_no},"new","width=500, height=500, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 	//window.open("/joinWait.go?grouop_no="+${dojangDetail.group_no},"new","width=600, height=300, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 }
 </script>

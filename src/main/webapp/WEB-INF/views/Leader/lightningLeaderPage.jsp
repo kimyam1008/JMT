@@ -63,7 +63,7 @@
 			<c:if test = "${lightRecentPost.size() == 0}">
 				등록된 글이 없습니다.
 			</c:if>
-			<c:forEach items="lightRecentPost" var="lightRecentPost">			
+			<c:forEach items="${lightRecentPost}" var="lightRecentPost">			
 				<li>${lightRecentPost.review_title}</li>
 			</c:forEach>
 		</ul>
@@ -73,7 +73,7 @@
 		<h3>가입 대기 회원</h3><a style="text-decoration:none" onclick="lightJoinWait()">회원보기</a>
 		<input type="button" value="회원보기" onclick="lightJoinWait()"/>
 		<ul>
-			<c:forEach items="lightJoinWait" var="lightJoinWait">
+			<c:forEach items="${lightJoinWait}" var="lightJoinWait">
 				<li>${lightJoinWait.member_id}</li>
 			</c:forEach>
 		</ul>
@@ -84,7 +84,7 @@
 //var lightning_class_no = "${lightDto.class_no}";
 
 function lightEdit(){
-	window.open("/lightEdit.go","new","width=300, height=300, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	window.open("/lightEdit.go?lightning_no="+${lightDto.lightning_no},"new","width=500, height=500, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 }
 
 //모임 삭제
@@ -96,7 +96,7 @@ function groupDelete(){
 
 //가입 대기 회원 팝업
 function joinWait(){
-	window.open("/lightJoinWait.go","new","width=300, height=300, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	window.open("/lightJoinWait.go?lightning_no="+${lightDto.lightning_no},"new","width=500, height=500, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 	//window.open("/joinWait.go?grouop_no="+${dojangDetail.group_no},"new","width=600, height=300, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 }
 </script>

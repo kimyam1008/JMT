@@ -62,14 +62,14 @@ function listCall(page){
 	
 	$.ajax({
 		type:'get',
-		url:'myGroupPostSetting.ajax',
+		url:'myGroupPostSettingD.ajax',
 		data:{
 			cnt : pagePerNum,
 			page : page
 		},
 		dataType:'JSON',
 		success:function(data){
-			drawList(data.myGroupPostSetting);
+			drawList(data.myGroupPostSettingD);
 			currPage=data.currPage;
 			console.log(currPage);
 			
@@ -93,16 +93,16 @@ function listCall(page){
 
 
 //리스트 그리기
-function drawList(myGroupPostSetting){
+function drawList(myGroupPostSettingD){
 	
 	var content ="";
 	
-	myGroupPostSetting.forEach(function(item,groupReview_no){
+	myGroupPostSettingD.forEach(function(item,dojangPost_no){
 		
 		content += '<tr>';
-		content += '<td>'+item.groupReview_no+'</td>';
-		content += '<td><a href="groupReviewDetail.do?groupReview_no='+item.groupReview_no+'">'+item.review_title+'</a></td>';
-		content += '<td>'+item.review_date+'</td>';
+		content += '<td>'+item.dojangPost_no+'</td>';
+		content += '<td><a href="groupReviewDetail.do?groupReview_no='+item.dojangPost_no+'">'+item.dojangPost_subject+'</a></td>';
+		content += '<td>'+item.dojangPost_date+'</td>';
 		content += '</tr>';
 	});
 	
