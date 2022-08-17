@@ -432,7 +432,7 @@
 				content += '</header>';
 				content += '<p id="p'+item.comment_no+'">'+str+'</p>';
 				content += '<ul class="bottom">';
-				content += '<li class="menu comment_date">'+date.toLocaleDateString("ko-KR")+'</li>';
+				content += '<li class="menu comment_date">'+date.toLocaleString("ko-KR")+'</li>';
 				
 				if(loginId != item.member_id){ //본인 댓글은 '신고하기' 안보이게
 					content += '<li class="divider"></li>';
