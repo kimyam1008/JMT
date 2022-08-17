@@ -13,13 +13,8 @@
 		</c:otherwise>
 	</c:choose>
 </div>
+
  <!-- 	<table>
-	<c:if test="${sessionScope.loginId != null}">
-		<strong>${sessionScope.loginId}</strong> 님 <a href="#">마이페이지</a> <span>|</span><img id="notix" src="resources/photo/noti.png"  onclick="notiChk()" alt="noti" /> <span>|</span> <a href="logout.do">로그아웃</a>
-	</c:if>
-	<c:if test="${notiChk == true}">
-		<strong>${sessionScope.loginId}</strong> 님 <a href="#">마이페이지</a> <span>|</span><img id="notix" src="resources/photo/noti4.png"  onclick="notiChk()" alt="noti" /> <span>|</span> <a href="logout.do">로그아웃</a>
-	</c:if>
 <div class="ballon"></div>
          <c:forEach items="${notiList}" var="list">
                 <tr>
@@ -27,4 +22,5 @@
                     <td>${list.noti_date}</td>
                 </tr>
          </c:forEach>
+         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
        </table> -->

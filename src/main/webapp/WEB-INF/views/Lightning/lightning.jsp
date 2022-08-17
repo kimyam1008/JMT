@@ -11,6 +11,7 @@
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> 
 <script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
 
+<link rel="stylesheet" href="resources/css/common.css" type="text/css">
 <style>
 	table,th,td {
 		border : 1px solid black;
@@ -22,54 +23,12 @@
 		padding : 5px 10px;
 	}
 	
-	 #loginMenu {
-    	float: left;
-    	width: 90%;
-    	margin : 0 60px;
-	}
 
-	 #loginMenu  {
-   		 text-align: right;
-	}
-	 #loginMenu > span {
-	    font-size:11px;
-	    color:#c8c8c8;
-	}
-	
-	img {
-		width : 20px;
-		height : 20px;
-	}
-
-	
 	#searchBar{
 		float : left;
 		height : 200px;
 	}
 
-	.ballon {
-                display: none;
-               	position : absolute;
-                width: 300px;
-                height: 200px;
-              	top : 40px;
-                background: #484848;
-                color: white;
-                border-radius: 5px;
-                padding: 12px 12.8px;
-            }
-
-
-   .ballon:after {
-                border-top: 10px solid #484848;
-                border-left: 10px solid transparent;
-                border-right: 10px solid transparent;
-                border-bottom: 0px solid transparent;
-                content: "";
-               	position : absolute;	
-                top: 210px;
-                left: 160px;
-  }
 </style>
 </head>
 <body>
