@@ -3,5 +3,10 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jmt.main.dao.NotiDAO">
 	
+	<select id="notiChk" resultType="int">
+		select count(noti_no) from noti where member_id = #{param1} and noti_read ="안읽음"
+	</select>
+	
+	
 	
 </mapper>

@@ -1,9 +1,16 @@
 package com.jmt.main.controller;
 
+import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jmt.main.service.NotiService;
 
@@ -13,6 +20,23 @@ public class NotiController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired NotiService service;
+	
+	
+	
+	
+	//알림 테스트
+	@RequestMapping("/noti") 
+	public void noti(Model model,HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+		//알림 여부 확인
+		boolean notiChk = service.notiChk(loginId);
+		logger.info("안읽은 알림이 있는가 ? : " +notiChk );
+		model.addAttribute("notiChk", notiChk);
+		
+	}
+	
+	
+	
 	// 생성자로 할지 메서드로 할지 
 	//메서드 - 모임 삭제
 	//private final NotiService servicey; //여기서만 써야함 빨간줄 생기는 이유 : 아무것도 안들어갔는데 괜찮아?

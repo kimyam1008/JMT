@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!-- 
+
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -20,40 +21,43 @@
 	th,td { 
 		padding : 5px 10px;
 	}
-</style>
-</head>
-<body>
-${notitest} 
+ -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../../../resources/inc/header.jsp" %>
+	<div id="searchBar">
+		<button onclick="lightCreateChk()">번개 생성하기</button>
+		<br/>
 		<input type="text" id="lightning_title" placeholder="모임 이름을 입력해주세요"
 		 onKeypress="javascript:if(event.keyCode==13) {enterkey()}"/>
 		<button id="search">검색</button><br/>
-	
-	
-	<select id="food_no">
-		<option value="">음식카테고리</option>
-			<c:forEach items="${foodList}" var="foodList">
-				<option value="${foodList.food_no}">${foodList.food_name}</option>
-			</c:forEach>
-	</select>
-	<select id="eat_speed">
-		<option value="">식사속도</option>
-		<option value="느림">느림</option>
-		<option value="보통">보통</option>
-		<option value="빠름">빠름</option>
-		<option value="상관없음">상관없음</option>
-	</select>
-	<select id="job">
-		<option value="">직업</option>
-		<option value="직장인">직장인</option>
-		<option value="취준생">취준생</option>
-		<option value="학생">학생</option>
-		<option value="상관없음">상관없음</option>
-	</select>
-	
-	<input type="radio" name ="gender" id="gender" value="남자"/>남자
-	<input type="radio" name ="gender" id="gender" value="여자"/>여자
-	<input type="radio" name ="gender" id="gender" value="상관없음"/>상관없음
-	<button onclick="lightCreateChk()">번개 생성하기</button>
+		
+		<select id="food_no">
+			<option value="">음식카테고리</option>
+				<c:forEach items="${foodList}" var="foodList">
+					<option value="${foodList.food_no}">${foodList.food_name}</option>
+				</c:forEach>
+		</select>
+		<br/>
+		<select id="eat_speed">
+			<option value="">식사속도</option>
+			<option value="느림">느림</option>
+			<option value="보통">보통</option>
+			<option value="빠름">빠름</option>
+			<option value="상관없음">상관없음</option>
+		</select>
+		<br/>
+		<select id="job">
+			<option value="">직업</option>
+			<option value="직장인">직장인</option>
+			<option value="취준생">취준생</option>
+			<option value="학생">학생</option>
+			<option value="상관없음">상관없음</option>
+		</select>
+		<br/>
+		<input type="radio" name ="gender" id="gender" value="남자"/>남자
+		<input type="radio" name ="gender" id="gender" value="여자"/>여자
+		<input type="radio" name ="gender" id="gender" value="상관없음"/>상관없음
+	</div>
 	
 	<table>
 		<thead>
@@ -69,20 +73,6 @@ ${notitest}
 			</tr>
 		</thead>
 		<tbody id="list">
-		<!-- 
-				<c:forEach items="${list}" var="list">
-			        <tr>
-			            <td>${list.restaurant_name}</td>
-			            <td>${list.food_name}</td>
-			            <td>${list.leader_id}</td>
-			            <td><a href="detail.go?lightning_no=${list.lightning_no}">${list.lightning_title}</a></td>
-			            <td>${list.lightning_date}</td>
-			            <td>${list.member_count} / ${list.member_num}</td>
-			            <td>${list.lightning_status}</td>
-			            <td>참여여부</td>
-					</tr>
-		 	</c:forEach>
-		 -->
 		</tbody>
 			<tr>
 				<td colspan="8" id="paging">
@@ -96,7 +86,7 @@ ${notitest}
 			</tr>
 	</table>
 
-</body>
+		<%@ include file="../../../resources/inc/footer.jsp" %>
 <script>
 	var loginId = "${loginId}";
 	var currpage = 1;

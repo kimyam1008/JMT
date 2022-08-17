@@ -31,7 +31,7 @@ public class LightningController {
 	@Autowired  LightningService service;
 
 	//번개모임리스트 lightning.jsp 페이지 이동 
-	@RequestMapping("/lightList.go") 
+	@RequestMapping(value="/lightList.go") 
 	public String listPage(Model model,HttpSession session) {
 		logger.info("리스트 페이지 이동");
 		//음식카테고리 가져오기 
@@ -195,7 +195,8 @@ public class LightningController {
 	//번개 모임 삭제(update)
 	@Transactional
 	@RequestMapping("/lightDelete.do")
-	public String lightDelete(Model model,@RequestParam String lightning_no) {
+	public String lightDelete(Model model,@RequestParam String lightning_no
+			,HttpSession session) {
 		logger.info("번개 모임 게시글 삭제   : "+lightning_no);
 		service.delete(lightning_no);
 		
@@ -204,6 +205,7 @@ public class LightningController {
 		
 		//알람이 가게 
 		service.Delnoti(lightning_no);
+		model.addAttribute("notiChk", true);
 		return "redirect:/lightList.go";	
 	}
 	
@@ -274,6 +276,10 @@ public class LightningController {
 		service.lightCreate(params);
 		return "redirect:/lightList.go";
 	}
+	
+	
+	
+	
 	
 	
 	
