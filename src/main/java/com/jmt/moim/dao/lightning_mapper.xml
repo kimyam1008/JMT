@@ -194,7 +194,7 @@
 		INSERT INTO noti(class_no,noti_content,idx,info,member_id)
 		SELECT 1
 				,"모임글이 삭제 됐습니다."
-				,27
+				,#{param1}
 				,(select lightning_title from lightninglist where lightning_no = #{param1})
 				, member_id
 		FROM apply WHERE status IN("승인","대기") AND class_no = 1 AND idx=#{param1}
