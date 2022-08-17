@@ -98,7 +98,7 @@ td a {
 
 <div id="list">
 <h1>게시글 상세</h1>
-<input type="button" value="글쓰기" onclick="location.href='dojangPostReg.go'"/>
+<input type="button" value="수정하기" onclick="location.href='dojangPostUpdate.go'"/>
 <table>
 	<tr>
 		<th>제목</th>

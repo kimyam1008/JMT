@@ -104,7 +104,62 @@
 	</insert>
 	
 	<select id="followCon" resultType="String">
-		SELECT following_id FROM follow WHERE follower_id = #{param1} AND following_id = (SELECT member_id FROM profile p WHERE profile_no = #{param2})
+		SELECT follower_id FROM follow WHERE following_id = #{param1} AND follower_id = (SELECT member_id FROM profile p WHERE profile_no = #{param2})
+	</select>
+	
+	<insert id="followRegist">
+		INSERT INTO follow (follower_id, following_id) VALUES (#{param2}, #{param1})
+	</insert>
+	
+	<delete id="unfollow">
+		DELETE FROM follow WHERE follower_id = #{param2} AND following_id = #{param1}
+	</delete>
+	
+	<select id="otherFollowingList" resultType="hashmap">
+		SELECT follower_id, profile_no, (SELECT photo_newFileName FROM photo p2 WHERE idx = profile_no) AS photo_newFileName 
+			FROM follow f JOIN profile p ON p.member_id = f.follower_id 
+				WHERE following_id = (SELECT member_id FROM profile p3 WHERE profile_no = #{param1})
+	</select>
+	
+	<select id="otherFollowerList" resultType="hashmap">
+		SELECT following_id, profile_no, (SELECT photo_newFileName FROM photo p2 WHERE idx = profile_no) AS photo_newFileName 
+			FROM follow f JOIN profile p ON p.member_id = f.following_id 
+				WHERE follower_id = (SELECT member_id FROM profile p3 WHERE profile_no = #{param1})
+	</select>
+	
+	<select id="myboard" resultType="mypage">
+		SELECT review_title FROM groupreview g2 WHERE member_id = #{param1}
+		UNION ALL
+		SELECT dojangPost_subject FROM dojangpost d WHERE member_id = #{param1} limit 2
+	</select>
+	
+	<select id="mycomment" resultType="mypage">
+		SELECT lightning_title, idx FROM lightninglist l JOIN comment c ON lightning_no = idx 
+			WHERE member_id = #{param1} AND c.comment_status = '공개' AND c.class_no = '2'
+		UNION 
+		SELECT dojangPost_subject, idx FROM dojangpost d JOIN comment c ON dojangPost_no = idx 
+			WHERE c.member_id = #{param1} AND c.comment_status = '공개' AND c.class_no = '5'
+		UNION 
+		SELECT restaurant_name, idx FROM restaurant r JOIN comment c ON restaurant_no = idx 
+			WHERE member_id = #{param1} AND c.comment_status = '공개' AND c.class_no = '8' LIMIT 2
+	</select>
+	
+	<select id="myLightning" resultType="mypage">
+		SELECT lightning_title, idx FROM lightninglist l JOIN apply a 
+			ON lightning_no = idx WHERE member_id = #{param1} AND status = '승인' AND a.class_no = '1' LIMIT 1
+	</select>
+	
+	<select id="myDojang" resultType="mypage">
+		SELECT dojang_title, idx FROM dojanglist d JOIN apply a 
+			ON dojang_no = idx WHERE member_id = #{param1} AND status = '승인' AND a.class_no = '3' LIMIT 1
+	</select>
+	
+	<select id="myLightningRoom" resultType="mypage">
+		SELECT lightning_title, lightning_no FROM lightninglist l WHERE leader_id = #{param1} LIMIT 1
+	</select>
+	
+	<select id="myDojangRoom" resultType="mypage">
+		SELECT dojang_title, dojang_no FROM dojanglist d WHERE leader_id = #{param1} LIMIT 1
 	</select>
 	
 	

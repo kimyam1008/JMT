@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.jmt.member.dto.MemberDTO;
 import com.jmt.member.dto.photoDTO;
+import com.jmt.mypage.dto.MypageDTO;
 
 public interface MypageDAO {
 
@@ -59,6 +60,26 @@ public interface MypageDAO {
 	int follow(HashMap<String, Object> params);
 
 	String followCon(String loginId, int profile_no);
+
+	int followRegist(String loginId, String member_id);
+
+	int unfollow(String loginId, String member_id);
+
+	ArrayList<String> otherFollowingList(int profile_no);
+
+	ArrayList<String> otherFollowerList(int profile_no);
+
+	ArrayList<MypageDTO> myboard(String loginId);
+
+	ArrayList<MypageDTO> mycomment(String loginId);
+
+	ArrayList<MypageDTO> myLightning(String loginId);
+
+	ArrayList<MypageDTO> myDojang(String loginId);
+
+	ArrayList<MypageDTO> myLightningRoom(String loginId);
+
+	ArrayList<MypageDTO> myDojangRoom(String loginId);
 
 
 

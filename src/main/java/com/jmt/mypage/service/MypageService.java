@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.jmt.member.dto.MemberDTO;
 import com.jmt.member.dto.photoDTO;
 import com.jmt.mypage.dao.MypageDAO;
+import com.jmt.mypage.dto.MypageDTO;
 
 @Service
 public class MypageService {
@@ -211,6 +212,56 @@ public class MypageService {
 	public String followCon(String loginId, int profile_no) {
 
 		return dao.followCon(loginId, profile_no);
+	}
+
+	public int followRegist(String loginId, String member_id) {
+		
+		return dao.followRegist(loginId, member_id);
+	}
+
+	public int unfollow(String loginId, String member_id) {
+
+		return dao.unfollow(loginId, member_id);
+	}
+
+	public ArrayList<String> otherFollowingList(int profile_no) {
+
+		return dao.otherFollowingList(profile_no);
+	}
+
+	public ArrayList<String> otherFollowerList(int profile_no) {
+
+		return dao.otherFollowerList(profile_no);
+	}
+
+	public ArrayList<MypageDTO> myboard(String loginId) {
+
+		return dao.myboard(loginId);
+	}
+
+	public ArrayList<MypageDTO> mycomment(String loginId) {
+
+		return dao.mycomment(loginId);
+	}
+
+	public ArrayList<MypageDTO> myLightning(String loginId) {
+
+		return dao.myLightning(loginId);
+	}
+
+	public ArrayList<MypageDTO> myDojang(String loginId) {
+
+		return dao.myDojang(loginId);
+	}
+
+	public ArrayList<MypageDTO> myLightningRoom(String loginId) {
+
+		return dao.myLightningRoom(loginId);
+	}
+
+	public ArrayList<MypageDTO> myDojangRoom(String loginId) {
+
+		return dao.myDojangRoom(loginId);
 	}
 
 
