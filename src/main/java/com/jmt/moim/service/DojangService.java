@@ -339,6 +339,17 @@ public class DojangService {
 		return dao.gpRestaurantSearchList(map);
 	}
 
+	public boolean dojangPostUpdate(HashMap<String, String> params) {
+		boolean success =false;
+		int row = dao.dojangPostUpdate(params);
+		System.out.println("업데이트 데이터::{}"+params);
+		  
+		  if (row > 0) { success = true; }
+		  logger.info("update success : " + success);
+		  
+		  return success; 
+	}
+
 	
 
 	

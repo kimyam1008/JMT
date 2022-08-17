@@ -90,7 +90,9 @@ td a {
   <li class="post"><a href="dojangHome.go?dojang_no=${sessionScope.dojang_no}">전체게시판</a></li>
   <li class="post"><a href="dojangHomeL.go?dojang_no=${sessionScope.dojang_no}">공지게시판</a></li>
   <li class="post"><a href="dojangHomeM.go?dojang_no=${sessionScope.dojang_no}">일반게시판</a></li>
-  <li><a href="#">방장페이지</a></li>
+   <c:if test="${leader == loginId}">
+  <li><a href="dojangLeaderPage.go?dojang_no=${sessionScope.dojang_no}">방장페이지</a></li>
+	</c:if>
 </ul>
 
 <div  id="review">
@@ -197,7 +199,7 @@ function drawList(list){
 			content += '<td  height=350 colspan="4"><a href="dojangHomeDetail.go?dojangPost_no='+item.dojangPost_no+'">'+item.dojangPost_content+'</td>';
 			content += '</tr>';
 			content += item.leader_id ==loginId && item.dojangPost_type == "공지게시판"?'<th colspan="2">'+"이번 모임장소는?"+'</th>' : '<th colspan="2">'+item.member_id+"님의 추천맛집은?"+'</th>';
-			content += item.restaurant_name==null || item.restaurant_name=="test"? '<td colspan="2">'+"등록된 맛집이 없습니다."+'</td>': '<td colspan="2">'+item.restaurant_name+'</td>';
+			content += item.restaurant_name==null || item.restaurant_name=="검색버튼을 눌러주세요"? '<td colspan="2">'+"등록된 맛집이 없습니다."+'</td>': '<td colspan="2">'+item.restaurant_name+'</td>';
 			content += '</table>';
 		});
 	}

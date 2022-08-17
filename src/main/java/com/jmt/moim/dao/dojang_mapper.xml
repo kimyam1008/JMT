@@ -219,5 +219,13 @@
 		</trim>
 	</sql>
 	
+	<update id="dojangPostUpdate" parameterType="hashmap">
+		UPDATE dojangpost SET dojangPost_subject = #{dojangPost_subject}
+					,dojangPost_content = #{dojangPost_content}
+					,restaurant_no = #{restaurant_no}
+					,dojangPost_type = #{dojangPost_type}
+					WHERE dojangPost_no = #{dojangPost_no}
+	</update>
+	
 	
 </mapper>

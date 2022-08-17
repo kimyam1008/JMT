@@ -87,7 +87,9 @@ td a {
   <li class="post"><a href="dojangHome.go?dojang_no=${sessionScope.dojang_no}">전체게시판</a></li>
   <li class="post"><a href="dojangHomeL.go?dojang_no=${sessionScope.dojang_no}">공지게시판</a></li>
   <li class="post"><a href="dojangHomeM.go?dojang_no=${sessionScope.dojang_no}">일반게시판</a></li>
-  <li><a href="#">방장페이지</a></li>
+   <c:if test="${list.leader_id == loginId}">
+  <li><a href="dojangLeaderPage.go?dojang_no=${sessionScope.dojang_no}">방장페이지</a></li>
+	</c:if>
 </ul>
 
 <div  id="review">
@@ -98,8 +100,14 @@ td a {
 
 <div id="list">
 <h1>게시글 상세</h1>
-<input type="button" value="수정하기" onclick="location.href='dojangPostUpdate.go'"/>
+<c:if test="${list.member_id ==loginId}">
+<input type="button" value="수정하기" onclick="dojangPostUpdate()"/>
+</c:if>
 <table>
+	<tr id="dojangPost_no_tr">
+		<th>글번호</th>
+		<td id="dojangPost_no"></td>
+	</tr>
 	<tr>
 		<th>제목</th>
 		<td colspan="2" id="dojangPost_subject"></td>
@@ -126,7 +134,7 @@ td a {
 		</c:choose>
 		</th>
 		<c:choose>
-			<c:when test="${list.restaurant_name == null or list.restaurant_name == 'test'}">
+			<c:when test="${list.restaurant_name == null or list.restaurant_name == '검색버튼을 눌러주세요'}">
 				<td colspan="2">등록된 맛집이 없습니다.</td>
 			</c:when>
 			<c:otherwise>
@@ -140,13 +148,8 @@ td a {
 
 </body>
 <script>
+$('#dojangPost_no_tr').attr('style', "display:none;");
 
-
-listCall();
-
-	
-
-function listCall(page){
 	
 	$.ajax({
 		type:'get',
@@ -157,7 +160,7 @@ function listCall(page){
 		success:function(data){
 				$('#leader').html(data.dojangHomeLeader);
 				drawMember(data.dojangHomeMember);
-				
+				$('#dojangPost_no').html(data.dojangHomeDetail.dojangPost_no);
 				$('#dojangPost_subject').html(data.dojangHomeDetail.dojangPost_subject);
 				$('#dojangPost_type').html(data.dojangHomeDetail.dojangPost_type);
 				$('#member_id').html(data.dojangHomeDetail.member_id);
@@ -174,8 +177,6 @@ function listCall(page){
 	});	
 	
 
-}
-
 
 
 function drawMember(member){
@@ -188,6 +189,10 @@ function drawMember(member){
 	$('#member').append(content);
 }
 
+function dojangPostUpdate(){
+	var dojangPost_no = $('#dojangPost_no').html();
+	location.href='dojangPostUpdate.go?dojangPost_no='+dojangPost_no;
+}
 
 
 
