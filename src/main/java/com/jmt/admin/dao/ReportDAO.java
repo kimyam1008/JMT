@@ -92,6 +92,14 @@ public interface ReportDAO {
 
 	int chkGrade(String loginId);
 
+	int blackReg(HashMap<String, String> params);
+
+	ReportDTO blackList(String member_id);
+
+	int blackMemberCount(Map<String, Object> data);
+
+	ArrayList<ReportDTO> blackMemberList(Map<String, Object> data);
+
 
 
 }

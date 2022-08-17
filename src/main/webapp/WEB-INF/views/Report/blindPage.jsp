@@ -23,14 +23,20 @@
 
 </style>
 <body>
-
-<select>
-	<option selected>처리상태</option>
+<div>
+<select name="status_option">
+	<option selected>전체</option>
 	<option value="blind">블라인드</option>
 	<option value="end">해제</option>
 </select>
-
-
+<select name="search_option">
+	<option value="post_title">글제목</option>
+	<option value="reporterID">신고자ID</option>
+	<option value="reportedID">피신고자ID</option>
+</select>
+<input  name="keyword" type="text" placeholder="검색어를 입력해 주세요"/>
+<button type="button" onclick="search_go()">검색</button>
+</div>
 
 <table>
 	<thead>
@@ -64,8 +70,26 @@
 var currPage = 1;
 listCall(currPage)
 
+ function search_go(){ 
 
-function listCall(page){
+	 var status_option=$('select[name=status_option]').val();
+	 var search_option=$('select[name=search_option]').val();
+	 var keyword=$('input[name=keyword]').val();
+
+	 console.log("상태"+status_option);
+	 console.log("검색"+search_option);
+	 console.log("키워드"+keyword);
+	 
+	 
+	 listCall(1,status_option ,search_option , keyword);
+	 
+	 
+
+}
+ 
+ 
+
+function listCall(page,status_option ,search_option , keyword){
 	 var pagePerNum=5;
 	$.ajax({
 		type:'get',
@@ -73,8 +97,11 @@ function listCall(page){
 		dateType:'json', 
 		data:{
 			cnt:pagePerNum,
-			page:page
+			page:page,
 			
+			status_option:status_option,
+			search_option:search_option,
+			keyword:keyword
 		}, 
 		success:function(data){
 			console.log(data.blindList); 

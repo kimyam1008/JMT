@@ -178,9 +178,37 @@
 		,(select d.dojang_title  from  dojanglist d  where d.dojang_no  =r.idx and r.class_no  =d.class_no   )as mb_dojang_title
 		,(select d2.dojangPost_subject  from  dojangpost d2  where d2.dojangPost_no  =r.idx and r.class_no = d2.class_no  )as mb_dojang_post
 		,(select g.review_title  from groupreview g where g.groupReview_no = r.idx and r.class_no = g.class_no  )as mb_groupreview
-		from blind b  left outer join report r on r.report_no = b.report_no  group by r.class_no , r.idx
-		ORDER BY r.report_date DESC limit #{cnt} offset #{offset}
+		from blind b  left outer join report r on r.report_no = b.report_no  
+		<where>
+			<if test="status_option!= null ">
+				<if test="status_option.equals('블라인드')">
+			 		 r.report_proc_status  ='블라인드' 
+			 	</if>
+			 	<if test="status_option.equals('해제')">
+			 		 r.report_proc_status  ='해제' 
+			 	</if>
+			</if>	
+			<if test="search_option != null ">
+			
+			  	<if test="search_option.equals('reporterID')">
+					 r.reporter LIKE concat('%',#{keyword},'%') 
+				</if>
+			  	<if test="search_option.equals('reportedID')">
+					 r.reported LIKE concat('%',#{keyword},'%') 
+				</if>
+			</if>		
+		</where>
+		  group by r.class_no , r.idx 
+		  <if test="search_option!= null and  search_option.equals('post_title')">
+				having mb_ligntning_title LIKE concat ('%',#{keyword},'%') 
+				|| mb_dojang_title LIKE concat('%',#{keyword},'%')  || mb_comment LIKE concat('%',#{keyword},'%') 
+				|| mb_dojang_post LIKE concat('%',#{keyword},'%')  ||mb_groupreview  LIKE concat('%',#{keyword},'%') 
+		   </if>
+		
+		ORDER BY r.report_proc_date DESC limit #{cnt} offset #{offset}
 	</select>
+	
+	
 	
 	<select id="updateCheck" parameterType="int" resultType="String">
 		SELECT report_proc_status  from report WHERE report_no=#{report_no}
@@ -192,6 +220,9 @@
 	<select id="blindCount" parameterType="map" resultType="int">
 		select count(dd.blind_no) from (select b.blind_no from blind b  left outer join report r ON r.report_no = b.report_no  group by r.class_no , r.idx) as dd
 	</select>
+	
+	
+	
 	
 <!-- 	<select id="blindHistory" resultType="com.jmt.admin.dto.ReportDTO" parameterType="int" >
 		
@@ -303,14 +334,42 @@
 		,(select g.review_title  from groupreview g where g.groupReview_no = r.idx and r.class_no = g.class_no  )as mb_groupreview
 		from blind b  left outer join report r  on r.report_no = b.report_no 
 		left outer join codetable c2 ON c2.class_no =r.class_no 
-		left outer join `member` m on m.member_id =b.member_id  where m.member_id ="hello_02")  aa
+		left outer join `member` m on m.member_id =b.member_id  where m.member_id =#{member_id})  aa
+	</select>
+	
+	
+	<!-- 블랙 등록 -->
+	<insert id="blackReg" parameterType="hashmap">
+		INSERT INTO blacklist
+	(blacklist_proc_date, blacklist_proc_reason, member_id, admin_id, blacklist_status) VALUES(now(), #{reason}, #{member_id}, "admin1", #{black})
+	</insert>
+	
+	
+	<!-- 블랙리스트 1개  최신-->
+	<select id="blackList" parameterType="string"  resultType="com.jmt.admin.dto.ReportDTO">
+		select b.admin_id ,b.blacklist_status ,b.blacklist_proc_reason,b.member_id ,b.blacklist_proc_date from blacklist b where b.member_id=#{member_id} ORDER BY b.blacklist_proc_date DESC LIMIT 1 
 	</select>
 	
 	
 	
+	<!-- 해당 유저 블랙리스트 all -->
+	<select id="blackMemberList" parameterType="map"  resultType="com.jmt.admin.dto.ReportDTO">
+		select b.admin_id ,b.blacklist_status ,b.blacklist_proc_reason,b.member_id ,b.blacklist_proc_date from blacklist b where b.member_id=#{member_id} ORDER BY b.blacklist_proc_date DESC  limit #{cnt} offset #{offset}
+	</select>
 	
 	
-	<!--  -->
+	<!-- 카운트 -->
+	<select id="blackMemberCount" parameterType="string" resultType="int">
+		select count(bb.blacklist_no) from (select  b.blacklist_no, b.admin_id ,b.blacklist_status ,b.blacklist_proc_reason,b.member_id ,b.blacklist_proc_date from blacklist b )  bb where
+		bb.member_id=#{member_id} ORDER BY bb.blacklist_proc_date DESC 
+	</select>
+
+
+
+
+
+	
+	<!-- 등급 -->
 	
 	<select id="testPost"  parameterType="string" resultType="int">
 	select count(comment_no) from comment c where c.member_id  =#{param1};

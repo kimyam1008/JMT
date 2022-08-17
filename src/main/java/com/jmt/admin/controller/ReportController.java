@@ -205,20 +205,35 @@ public class ReportController {
 	
 	@RequestMapping("/memberDetail.go")
 	public String memberDetail(Model model ,String member_id ) {
-		logger.info("아이니:"+member_id);
 		
 		ReportDTO detail= service.memberDetail(member_id);
 		model.addAttribute("detail",detail);
-			
+		ReportDTO black= service.blackList(member_id);
+		model.addAttribute("black",black);
 		return "Report/memberDetail"; 
 	}
 	
 	@RequestMapping("/blindMemberList.ajax")
 	@ResponseBody
 	public Map<String, Object> blindMemberList(@RequestParam HashMap<String, String> params){ 
-			
-		
+	
 		return service.blindMemberList(params);
+	}
+	
+	@RequestMapping("/blackReg.ajax")
+	@ResponseBody
+	public Map<String, Object> blackReg(@RequestParam HashMap<String, String> params){ 
+		
+		return service.blackReg(params); 
+		
+	}
+	
+	@RequestMapping("/blackMemberList.ajax")
+	@ResponseBody
+	public Map<String, Object> blackMemberList(@RequestParam HashMap<String, String> params){ 
+		
+		return service.blackMemberList(params); 
+		
 	}
 	
 	

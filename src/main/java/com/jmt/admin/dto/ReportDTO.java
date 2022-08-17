@@ -51,7 +51,45 @@ public class ReportDTO {
 	private String profile_gender; 
 	private String member_email;
 	
+	private String blacklist_status;
+	private String blacklist_proc_reason;
+	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH시mm분", timezone = "Asia/Seoul")
+	private Date blacklist_proc_date;
 	
+	
+	
+	
+	
+	public String getBlacklist_status() {
+		return blacklist_status;
+	}
+
+
+	public void setBlacklist_status(String blacklist_status) {
+		this.blacklist_status = blacklist_status;
+	}
+
+
+	public String getBlacklist_proc_reason() {
+		return blacklist_proc_reason;
+	}
+
+
+	public void setBlacklist_proc_reason(String blacklist_proc_reason) {
+		this.blacklist_proc_reason = blacklist_proc_reason;
+	}
+
+
+	public Date getBlacklist_proc_date() {
+		return blacklist_proc_date;
+	}
+
+
+	public void setBlacklist_proc_date(Date blacklist_proc_date) {
+		this.blacklist_proc_date = blacklist_proc_date;
+	}
+
+
 	public String getMember_email() {
 		return member_email;
 	}
