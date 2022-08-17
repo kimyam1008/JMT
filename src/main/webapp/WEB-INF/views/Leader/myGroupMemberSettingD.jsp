@@ -24,7 +24,7 @@ th,td {
 	<h3>모임 관리</h3>
 	<div>
 		<a href="#"><img src ="/photo/${dto.photo_newFileName}" class="profileImg"></a>
-		<p>일식먹자!(모임 이름) ${dto.lightning_title} ${dto.dojang_title}</p>
+		<p>${dto.dojang_title}</p>
 		<p>작성글 : ${dto.post_count}</p><p>작성 댓글 : ${dto.comment_count}</p>
 	</div>
 	<a href="#">회원</a> <a href="#">게시글</a>
@@ -63,14 +63,14 @@ function listCall(page){
 	
 	$.ajax({
 		type:'get',
-		url:'myGroupMemberSetting.ajax',
+		url:'myGroupMemberSettingD.ajax',
 		data:{
 			cnt : pagePerNum,
 			page : page
 		},
 		dataType:'JSON',
 		success:function(data){
-			drawList(data.myGroupMemberSetting);
+			drawList(data.myGroupMemberSettingD);
 			currPage=data.currPage;
 			console.log(currPage);
 			
@@ -94,11 +94,11 @@ function listCall(page){
 
 
 //리스트 그리기
-function drawList(myGroupMemberSetting){
+function drawList(myGroupMemberSettingD){
 	
 	var content ="";
 	
-	myGroupMemberSetting.forEach(function(item){
+	myGroupMemberSettingD.forEach(function(item){
 		
 		content += '<tr>';
 		content += '<td><input type="radio" name="'+item.member_id+' id="'+item.member_id+'"" value="'+item.member_id+'"/></td>';

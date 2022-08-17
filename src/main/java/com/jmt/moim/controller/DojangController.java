@@ -3,6 +3,7 @@ package com.jmt.moim.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -365,13 +366,21 @@ public class DojangController {
 		@ResponseBody
 		public HashMap<String, Object> dojangPostReg(@RequestParam HashMap<String, String> params, HttpSession session) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
+			String dojang_no = (String) session.getAttribute("dojang_no");
 			System.out.println("도장번호 확인..."+params.get("dojang_no"));
 			System.out.println("작성자 확인..."+params.get("member_id"));
 			System.out.println("도장제목 확인..."+params.get("dojangPost_subject"));
 			System.out.println("도장내용 확인..."+params.get("dojangPost_content"));
+			System.out.println("식당번호 확인..."+params.get("restaurant_no"));
+			
+			
+			String dojangHomeLeader = service.reported(dojang_no);
+			ArrayList<DojangDTO> dojangHomeMember = service.dojangHomeMember(dojang_no);
 			
 			boolean dojangPostReg = service.dojangPostReg(params,session);
 			map.put("dojangPostReg", dojangPostReg);
+			map.put("dojangHomeLeader", dojangHomeLeader);
+			map.put("dojangHomeMember", dojangHomeMember);
 			
 			return map;
 		}
@@ -392,9 +401,66 @@ public class DojangController {
 		   }
 		
 		
+		   
+		   //도장깨기 방 파일 삭제
+		   @RequestMapping(value = "/gpFileDelete.ajax")
+		   @ResponseBody
+		   public HashMap<String, Object> gpFileDelete(@RequestParam String fileName, HttpSession session) {
+		      logger.info(fileName+"삭제 요청");
+		      return service.gpFileDelete(fileName,session);
+		   }
+		   
+		   //도장깨기 회원리스트
+		   
+		   @RequestMapping(value = "/dojangMember.ajax")
+		   @ResponseBody
+		   public HashMap<String, Object> dojangMember(HttpSession session) {
+			   String dojang_no = (String) session.getAttribute("dojang_no");
+			   HashMap<String, Object> map = new HashMap<String, Object>();
+			   
+			   String dojangHomeLeader = service.reported(dojang_no);
+			   ArrayList<DojangDTO> dojangHomeMember = service.dojangHomeMember(dojang_no);
+			   
+				map.put("dojangHomeLeader", dojangHomeLeader);
+				map.put("dojangHomeMember", dojangHomeMember);
+			   
+		      return map;
+		   }
+		   
+		   
+		 //도장깨기방 글 수정 페이지
+			@RequestMapping("/dojangPostUpdate.go")
+			public String dojangPostUpdateGo(HttpSession session) {
+				String dojang_no = (String) session.getAttribute("dojang_no");
+				String loginId = (String) session.getAttribute("loginId");
+				logger.info("도장깨기 방번호 확인 ::"+ dojang_no+"도장깨기 방 게시글 작성자 ::"+ loginId);
+				return "./Dojang/dojangPostUpdate";
+			}
+			
+			
+			//도장깨기 방 글쓰기 맛집검색 팝업
+			@RequestMapping(value = "/gpRestaurantSearch.go")
+			public String gpRestaurantSearchGo(Model model, HttpSession session) {	
+				return "./Dojang/gpRestaurantSearch";	
+			}
+			
+			
+			//도장깨기 방 글쓰기 맛집검색
+			@RequestMapping(value = "/gpRestaurantSearch.do")
+			public String gpRestaurantSearch(Model model, HttpSession session, HttpServletRequest req) {
+				logger.info("맛집 검색");
+				
+				String gpSearchCondition = req.getParameter("gpSearchCondition");
+				String searchContent = req.getParameter("searchContent");
+				
+				ArrayList<DojangDTO> gpRestaurantSearchList = service.gpRestaurantSearchList(gpSearchCondition,searchContent);
+				logger.info("list size : " + gpRestaurantSearchList.size());
+				model.addAttribute("gpRestaurantSearchList", gpRestaurantSearchList);
+
+				
+				return "./Dojang/gpRestaurantSearch";
 		
-		
-		
+			}
 	
 	//도장모임 검색
 	/*
