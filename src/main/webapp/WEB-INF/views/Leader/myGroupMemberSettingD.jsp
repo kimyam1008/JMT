@@ -22,37 +22,45 @@ th,td {
 </head>
 <body>
 	<h3>모임 관리</h3>
+	<input type="hidden" id="dojang_no" value="${sessionScope.dojang_no}"/>
 	<div>
 		<a href="#"><img src ="/photo/${dto.photo_newFileName}" class="profileImg"></a>
 		<p>${dto.dojang_title}</p>
 		<p>작성글 : ${dto.post_count}</p><p>작성 댓글 : ${dto.comment_count}</p>
 	</div>
-	<a href="#">회원</a> <a href="#">게시글</a>
-	<button value="추방하기" onclick="getOut()"></button>
+	<a href="/myGroupPostSettingD.go?dojang_no=${dto.dojang_no}">게시글</a> <a href="javascript:location.reload()">회원</a>
+	<input type="button" value="추방하기" onclick="getOut()"/>
 	<table>
 		<thead>
 			<tr>
 				<th></th>
 				<th>회원 ID</th>
-				<th>가입일</th>
+				<th>이름</th>
 			</tr>
 		</thead>
 		<tbody id="list">
-		
+			<c:forEach items="${dojangMember}" var="dojangMember">
+			<tr>			
+				<td><input type="radio" name="member_id" id="member_id" value="${dojangMember.member_id}"/></td>
+				<td>${dojangMember.member_id}</td>
+				<td>${dojangMember.member_name}</td>
+			</tr>
+			</c:forEach>
 		</tbody>
-			<tr>
+			<!-- <tr>
 				<td colspan="7" id="paging">
-					<!-- twbspagination 플러그인 -->
+					twbspagination 플러그인
 					<div class="container">
 						<nav arial-label="Page navigation" style="text-align:center">
 							<ul class="pagination" id="pagination"></ul>
 						</nav>
 					</div>
 				</td>
-			</tr>
+			</tr> -->
 	</table>
 </body>
 <script>
+/*
 var currPage = 1;
 
 listCall(currPage);
@@ -60,13 +68,15 @@ listCall(currPage);
 //페이징
 function listCall(page){
 	var pagePerNum = 10;
+	var dojang_no = $('#dojang_no').val();
 	
 	$.ajax({
 		type:'get',
 		url:'myGroupMemberSettingD.ajax',
 		data:{
 			cnt : pagePerNum,
-			page : page
+			page : page,
+			dojang_no : dojang_no
 		},
 		dataType:'JSON',
 		success:function(data){
@@ -110,16 +120,19 @@ function drawList(myGroupMemberSettingD){
 	$('#list').empty();
 	$('#list').append(content);
 }
-
+*/
 
 //추방하기
 function getOut(){
 	var member_id = $('input[type="radio"]:checked').val();
+	//var radioChk = opener.document.getElementsByName('member_id');
+	
 	
 	if($('input[type="radio"]:checked').is(":checked") == false){
 		alert("추방할 회원을 선택해 주세요.");
 	} else {
-		window.open("/memberGetOut.go?member_id="+member_id,"new","width=400, height=200, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+		window.open("/memberGetOutD.go?member_id="+member_id,"new","width=500, height=500, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+		//openWin.document.getElementById("member_id").value = document.getElementById("member_id").value;
 	}
 }
 </script>

@@ -180,7 +180,7 @@
 </style>
 </head>
 <body>
-	<a href="#">방장페이지</a>
+	<a href="/lightningLeaderPage.go?lightning_no=${dto.lightning_no}">방장페이지</a>
 	<table>
 		<tr>
 			<th>모임 이름</th>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>모임 수정 팝업</title>
+<title>도장깨기 수정 팝업</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 	table,th,td {
@@ -18,7 +18,7 @@
 </style>
 </head>
 <body>
-	<h3>모임 수정</h3>
+	<h3>도장깨기 수정</h3>
 	<!-- <form action="leaderDojangEdit" method="post"> -->
 		<input type="hidden" id="class_no" value="${dojangDto.class_no}"/>
 		<input type="hidden" id="dojang_no" value="${dojangDto.dojang_no}"/>
