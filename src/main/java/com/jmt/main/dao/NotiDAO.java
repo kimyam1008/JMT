@@ -12,6 +12,8 @@ public interface NotiDAO {
 
 	void notiStatusUpdate(String loginId);
 
+	int notiDel(String noti_no);
+
 	
 
 }

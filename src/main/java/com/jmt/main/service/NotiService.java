@@ -33,6 +33,16 @@ public class NotiService {
 		return dao.notiList(loginId);
 	}
 
+	public boolean notiDel(String noti_no) {
+		logger.info("알림 삭제 서비스");
+		boolean success = false;
+		int row =  dao.notiDel(noti_no);
+		if(row>0) {
+			success = true;
+		}
+		return success;
+	}
+
 
 
 }

@@ -12,7 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -59,7 +61,7 @@ public class NotiController extends HandlerInterceptorAdapter {
 	//알림 리스트 불러오기
 	@RequestMapping("/notiList.ajax") 
 	@ResponseBody
-	public HashMap<String, Object> notiList(Model model,HttpSession session) {
+	public HashMap<String, Object> notiList(HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		String loginId = (String) session.getAttribute("loginId");
 		
@@ -67,6 +69,17 @@ public class NotiController extends HandlerInterceptorAdapter {
 		ArrayList<NotiDTO> notiList = service.notiList(loginId);
 		//model.addAttribute("notiList", notiList);
 		map.put("notiList", notiList);
+		return map;
+	}
+	
+	//알림 리스트 삭제 
+	@RequestMapping("/notiDel.ajax") 
+	@ResponseBody
+	public HashMap<String, Object> notiDel(@RequestParam String noti_no ) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		boolean notiDelSuccess = service.notiDel(noti_no);
+		map.put("notiDelSuccess", notiDelSuccess);
 		return map;
 	}
 	
