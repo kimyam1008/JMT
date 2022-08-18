@@ -21,7 +21,7 @@
  		
 	*/
 	$('.dropdown-toggle').on("click",function(){
-		
+		$('.dropdown-toggle').css("color","black");
 		
 		$.ajax({
 			type: 'get',
@@ -52,7 +52,7 @@
 				content += '<li>'+ '<'+item.info + '> ' + item.noti_content;
 				content += '<span class="notiDelBtn">X</span><br/>';
 				content += date.toLocaleDateString("ko-KR");
-				content += '<hr>';
+				//content += '<hr>';
 				content += '</li>';
 			});
 		//데이터가 없을 경우	
