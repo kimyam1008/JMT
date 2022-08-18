@@ -8,6 +8,7 @@
 </head>
 <body>
 <jsp:include page="loginBox.jsp"/>
+<a href="./mypage.go">마이페이지</a>
 </body>
 <script></script>
 </html>

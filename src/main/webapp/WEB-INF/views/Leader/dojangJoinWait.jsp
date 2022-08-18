@@ -36,9 +36,7 @@
 						<td>
 							<input type="checkbox" id="member_id" value="${dojangJoinWait.member_id}"/>
 						</td>
-						<td>회원 아이디
-							${dojangJoinWait.member_id}
-						</td>
+						<td>${dojangJoinWait.member_id}</td>
 						<td>
 							<select id="status">
 								<option value="대기중" selected>대기중</option>

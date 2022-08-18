@@ -10,6 +10,7 @@
 </head>
 <body>
 ㅎㅇ
+<a href="./mypage.go">마이페이지</a>
 </body>
 <script>
 	var msg = "${msg}";

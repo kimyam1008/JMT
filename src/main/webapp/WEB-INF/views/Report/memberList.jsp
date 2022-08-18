@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="../../../resources/inc/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +9,14 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/resources/js/jquery.twbsPagination.js"></script>
+
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+ <link href="${path}/resources/etcResource/assets/css/animate.min.css" rel="stylesheet"/>
+<link href="${path}/resources/etcResource/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
+<link href="/http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+<link href="${path}/resources/etcResource/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+<link rel="icon" type="image/png" href="${path}/resources/mainResource/assets/img/pizza-slice.png">
 </head>
 <style>
 <style>

@@ -476,6 +476,11 @@ public class ReportService {
 		return dao.chkGrade( loginId);
 	}
 
+	public void blindNoti(Integer class_no, Integer idx, String reported) {
+		logger.info("신고리스트- 블라인드 처리 시 알림 서비스");
+		dao.blindNoti(class_no,idx,reported);
+	}
+
 	
 
 

@@ -25,7 +25,7 @@
 	
 	if(path != ''){
 		var content = '<a href="#" id="${path}" onclick="del(this)">';
-		content += '<img src="'+path+'" height="150"/>';
+		content += '<img id="content-image" src="'+path+'" height="150"/>';
 		content += '</a>';
 		opener.document.getElementById("editable").innerHTML += content;
 		self.close();

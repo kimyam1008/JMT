@@ -48,6 +48,22 @@
    <table>
       <thead>
       <tr>
+      	<td></td>
+      	<td>
+      		회원 아이디
+      	</td>
+      	<td>
+      		식당이름
+      	</td>
+      	<td>
+      		신청날짜
+      	</td>
+      	<td>
+      		사유
+      	</td>
+      	<td>
+      		처리여부
+      	</td>
       </tr>      
       </thead>
       <tbody id="list">
@@ -129,11 +145,12 @@
 			
 			content += '<tr>';
 			content += '<td>'+item.restuarantUpdate_no+'</td>';
-			content += '<td>'+item.restaurantUpdate_reason+'</td>';
-			content += '<td><a href=/resAdminUpdate.go?restaurant_no='+item.restaurant_no+'&restuarantUpdate_no='+item.restuarantUpdate_no+'>'+item.restaurant_name +'</a>' +'</td>';
 			content += '<td>'+item.member_id+'</td>';
-			content += '<td>'+item.restaurantUpdate_proc_status+'</td>';
+			content += '<td><a href=/resAdminUpdate.go?restaurant_no='+item.restaurant_no+'&restuarantUpdate_no='+item.restuarantUpdate_no+'>'+item.restaurant_name +'</a>' +'</td>';
 			content += '<td>'+item.restaurantUpdate_date+'</td>';
+			content += '<td>'+item.restaurantUpdate_reason+'</td>';
+			content += '<td>'+item.restaurantUpdate_proc_status+'</td>';
+			
 			content += '</tr>';
 		});
 		$('#list').empty();

@@ -430,4 +430,25 @@
 	<select id="chkGrade" resultType="int" parameterType="String"> 
 		select p.grade_no  from profile p join grade g ON p.grade_no =g.grade_no  where p.member_id =#{loginId};
 	</select>
+	
+	
+	<!-- 알림  -->
+	<insert id="blindNoti">
+		INSERT INTO noti(class_no,idx,noti_content,member_id,info)
+			values
+			(#{param1}
+			,#{param2}
+			,"글이 블라인드 처리 됐습니다"
+			,#{param3},
+			<if test="param1==1">(select lightning_title from lightninglist where lightning_no = #{param2})</if>
+			<if test="param1==2">(select comment_content from comment where comment_no = #{param2})</if>
+			<if test="param1==3">(select dojang_title from dojanglist where dojang_no = #{param2})</if>
+			<if test="param1==4">(select dojangPost_subject from dojangPost where dojangPost_no = #{param2})</if>
+			<if test="param1==5">(select comment_content from comment where comment_no = #{param2})</if>
+			<if test="param1==6">(select review_title from groupReview where groupReview_no = #{param2})</if>
+			<if test="param1==7">(select comment_content from comment where comment_no = #{param2})</if>
+			<if test="param1==8">(select comment_content from comment where comment_no = #{param2})</if>
+			)
+	</insert>
+	
 </mapper>
