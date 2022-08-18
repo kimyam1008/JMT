@@ -167,6 +167,9 @@ td a {
 
 </body>
 <script>
+
+console.log($('#dojangPost_no').val());
+
 $('#dojangPost_no_tr').attr('style', "display:none;");
 
 
@@ -210,21 +213,21 @@ function drawMember(member){
 }
 
 function dojangPostUpdate(){
-	var dojangPost_no = $('#dojangPost_no').html();
+	var dojangPost_no = $('#dojangPost_no').val();
 	location.href='dojangPostUpdate.go?dojangPost_no='+dojangPost_no;
 }
 
 
 //신고하기 팝업
 function dojangPostReport(){
-	var dojangPost_no = $('#dojangPost_no').html();
+	var dojangPost_no = $('#dojangPost_no').val();
 	window.open("/dojangPostReport.go?dojangPost_no="+dojangPost_no,"new","width=600, height=400, left=450 ,top=200, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 }
 
 //삭제(숨김처리)
 function dojangPostDel(){
 	
-	var dojangPost_no = $('#dojangPost_no').html();
+	var dojangPost_no = $('#dojangPost_no').val();
 	var dojang_no = $('#dojang_no').val();
 	
 		if (!confirm("정말로 삭제하시겠습니까?")) {
