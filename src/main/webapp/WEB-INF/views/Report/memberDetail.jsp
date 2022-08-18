@@ -10,11 +10,19 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/resources/js/jquery.twbsPagination.js"></script>
+
+
+
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+ <link href="${path}/resources/etcResource/assets/css/animate.min.css" rel="stylesheet"/>
+<link href="${path}/resources/etcResource/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
+<link href="/http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+<link href="${path}/resources/etcResource/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+<link rel="icon" type="image/png" href="${path}/resources/mainResource/assets/img/pizza-slice.png">
 </head>
 <style>
-	table{
-		width: 400px;		
-	}
+.modal{z-index:1050;}
 	
 /* 	table,th,td{
 		border: 1px solid black;
@@ -49,10 +57,11 @@
  	.pagination>.active>span,
    .pagination>.active>span:focus, 
    .pagination>.active>span:hover{
-background-color: pink;
-	border-color:pink;
-	
-}
+		background-color: pink;
+			border-color:pink;
+			
+		}
+		
  .pagination>li>a{
 	color:pink;
 	}
@@ -69,69 +78,19 @@ background-color: pink;
 	display:inline-block;
 }
 #memberListSet{
-	float:left; relative; right:170px;
+	float:left;
+	width:100%;
+}
+/* 
+#blindTable{width:100%;  } 
+#twobutton{
+    display: flex;
+  
 }
 
-#blindTable{width:70%;}
+
 </style>
-<br>
 <body>
-<h3>회원관리 상세</h3>
-<input type="hidden" value="${loginId}"/>
-
-<!-- 회원 상세 정보  -->
-<table class="table table-bordered">
-	<tr>
-		<th>회원ID</th>
-		<td>${detail.member_id}</td>
-		<th>상태</th>
-		<td>${detail.member_status}</td>
-	</tr>
-	<tr>
-		<th>성별</th>
-		<td>${detail.profile_gender}</td>
-		<th>생년월일</th>
-		<td>${detail.member_birth}</td>
-	</tr>
-	<tr>
-		<th>이메일</th>
-		<td>${detail.member_email}</td>
-		<th>직업</th>
-		<td>${detail.profile_job}</td>
-	</tr>
-</table>
-
-
-<!-- 클릭 옵션 -->
-<div id="option_list" >
-	<span onclick="listCall(1)" data-value="블라인드" class="active">블라인드 내역</span>
-	<span onclick="listCallBlack(1)" data-value="블랙">블랙리스트 내역</span>
-</div>
-
-<div id="boxList">
-
-<div class="list-group">
-  <a href="#" class="list-group-item">신고목록 </a>
-  <a href="#" class="list-group-item">블라인드 목록 </a>
-  <a href="#" class="list-group-item">회원 관리 </a>
-  <a href="#" class="list-group-item">등급 관리 </a>
-  <a href="#" class="list-group-item">맛집 수정 </a>
-</div>
-
-
-
-
-
-<div id="memberListSet">
-
-
-<!-- Button trigger modal -->
-
-<button id="regButton" type="button" style="background-color: pink; border:none;" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">  블라인드 등록/ 해제</button>
-<button type ="button" onclick="Back()"  style="background-color: pink; border:none;" class="btn btn-info btn-lg" >목록</button>
-
-
-
 <!-- 모달.  -->
 <!-- 블랙리스트 처리  -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -153,13 +112,13 @@ background-color: pink;
      			<th>블랙리스트 처리</th>
      			<td>
      				<c:if test="${black.blacklist_status eq null}">
-	     				<label>Y <input name="black" type="radio" value="블랙"/> </label>       			
+	     				<label>Y <input name="black" type="radio" value="블랙리스트"/> </label>       			
 	     			</c:if>
 	     			<c:if test="${black.blacklist_status eq '블랙'}">
-	     				<label>Y <input name="black" type="radio" value="블랙" checked/> </label>       			
+	     				<label>Y <input name="black" type="radio" value="블랙리스트" checked/> </label>       			
 	     			</c:if>
 	     				<c:if test="${black.blacklist_status eq '일반회원'}">
-	     				<label>Y <input name="black" type="radio" value="블랙" /> </label>       			
+	     				<label>Y <input name="black" type="radio" value="블랙리스트" /> </label>       			
 	     			</c:if>
 	     			&nbsp;&nbsp;&nbsp;&nbsp;
 	     			<c:if test="${black.blacklist_status eq null}">
@@ -191,6 +150,196 @@ background-color: pink;
   </div>
 </div>
 <!-- 모달.  -->
+<!--상단바 시작-->
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">신고 목록 페이지</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <!-- <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-dashboard"></i>
+								<p class="hidden-lg hidden-md">Dashboard</p>
+                            </a>
+                        </li> -->
+                        <!--누르면 알림창같은거 조그맣게 뜸-->
+                        <!-- <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-globe"></i>
+                                    <b class="caret hidden-lg hidden-md"></b>
+									<p class="hidden-lg hidden-md">
+										5 Notifications
+										<b class="caret"></b>
+									</p>
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">Notification 1</a></li>
+                                <li><a href="#">Notification 2</a></li>
+                                <li><a href="#">Notification 3</a></li>
+                                <li><a href="#">Notification 4</a></li>
+                                <li><a href="#">Another notification</a></li>
+                              </ul>
+                        </li> -->
+                        <!-- <li>
+                           <a href="">
+                                <i class="fa fa-search"></i>
+								<p class="hidden-lg hidden-md">Search</p>
+                            </a>
+                        </li> -->
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="jmtMain.html">
+                                <p>Home</p>
+                             </a>
+                         </li>
+                        <li>
+                           <a href="mypage.html">
+                               <p>마이페이지</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <p>Log out</p>
+                            </a>
+                        </li>
+						<li class="separator hidden-lg"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--상단바 끝-->
+
+
+
+  <!--사이드바 시작-->
+ <div class="wrapper">
+     <div class="sidebar" data-color="purple">
+
+        <!--
+
+            Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+            Tip 2: you can also add an image using data-image tag
+
+        -->
+
+    	<div class="sidebar-wrapper">
+            <div class="logo">
+                <a href="jmtMain.html" class="simple-text">
+                    JMT
+                </a>
+            </div>
+            <ul class="nav">
+                <!--유저 사진, 이름-->
+                <li class="dojangParty">
+                    <a class="leaderProfile">
+                        <img class="avatar border-gray" src="etcResource/assets/img/faces/face-0.jpg" alt="..."/>
+                        <h4 class="title">Admin</h4>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="reportList.html">
+                        <i class="pe-7s-comment"></i>
+                        <p>신고 목록</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="blindList.html">
+                        <i class="pe-7s-config"></i>
+                        <p>블라인드</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="memberManage.html">
+                        <i class="pe-7s-users"></i>
+                        <p>회원 관리</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="gradeList.html">
+                        <i class="pe-7s-note"></i>
+                        <p>등급 관리</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="resUpdateReqList.html">
+                        <i class="pe-7s-pen"></i>
+                        <p>맛집 수정</p>
+                    </a>
+                </li>
+            </ul>
+    	</div>
+    </div>
+    <!--사이드바 끝-->
+
+
+<h3>회원관리 상세</h3>
+<input type="hidden" value="${loginId}"/>
+
+<!-- 회원 상세 정보  -->
+<table class="table table-bordered">
+	<tr>
+		<th>회원ID</th>
+		<td>${detail.member_id}</td>
+		<th>상태</th>
+		<td>${detail.member_status}</td>
+	</tr>
+	<tr>
+		<th>성별</th>
+		<td>${detail.profile_gender}</td>
+		<th>생년월일</th>
+		<td>${detail.member_birth}</td>
+	</tr>
+	<tr>
+		<th>이메일</th>
+		<td>${detail.member_email}</td>
+		<th>직업</th>
+		<td>${detail.profile_job}</td>
+	</tr>
+</table>
+
+
+<!-- 클릭 옵션 -->
+<div id="option_list" >
+	<span onclick="listCall(1)" data-value="블라인드" class="active">블라인드 내역</span>
+	<span onclick="listCallBlack(1)" data-value="블랙리스트">블랙리스트 내역</span>
+</div>
+
+<div id="boxList">
+
+<!-- <div class="list-group">
+  <a href="#" class="list-group-item">신고목록 </a>
+  <a href="#" class="list-group-item">블라인드 목록 </a>
+  <a href="#" class="list-group-item">회원 관리 </a>
+  <a href="#" class="list-group-item">등급 관리 </a>
+  <a href="#" class="list-group-item">맛집 수정 </a>
+</div> -->
+
+
+
+
+
+<div id="memberListSet">
+
+
+<!-- Button trigger modal -->
+<div id="twobutton">
+<button id="regButton" type="button" style="background-color: pink; border:none;" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">  블라인드 등록/ 해제</button>
+<button type ="button" onclick="Back()"  style="background-color: pink; border:none;" class="btn btn-info btn-lg" >목록</button>
+</div>
+
+
+
 
 
 <table id="blindTable" class="table table-bordered">
@@ -358,7 +507,7 @@ $('span[data-value="블라인드"]').click(function(){
 });
 
 
- $('span[data-value="블랙"]').click(function(){
+ $('span[data-value="블랙리스트"]').click(function(){
 	 $('#blackTable').removeClass("deactivate");  
 	 $('#blindTable').addClass("deactivate");  
  	

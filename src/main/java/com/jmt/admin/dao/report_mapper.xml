@@ -304,7 +304,7 @@
 		left outer join grade g on f.grade_no  = g.grade_no
 		<where>
 			<if test="list_option !=null">
-				<if test="list_option.equals('블랙')">
+				<if test="list_option.equals('블랙리스트')">
 					m.member_status ='블랙리스트'
 				</if>
 				<if test="list_option.equals('탈퇴')">
@@ -331,7 +331,7 @@
 		left outer join grade g on f.grade_no  = g.grade_no
 		<where>
 			<if test='list_option !=null'>
-				<if test='list_option.equals("블랙")'>
+				<if test='list_option.equals("블랙리스트")'>
 					member_status ='블랙리스트'
 				</if>
 				<if test='list_option.equals("탈퇴")'>
@@ -388,6 +388,11 @@
 		INSERT INTO blacklist
 	(blacklist_proc_date, blacklist_proc_reason, member_id, admin_id, blacklist_status) VALUES(now(), #{reason}, #{member_id}, "admin1", #{black})
 	</insert>
+	<!-- 블랙 등록시 멤버 변경 -->
+	<update id="blackUPdate" parameterType="hashmap">
+		UPDATE member SET member_status =  #{black} WHERE member_id = #{member_id}
+	</update>
+	
 	
 	
 	<!-- 블랙리스트 1개  최신-->

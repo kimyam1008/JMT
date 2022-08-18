@@ -7,13 +7,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+
+<link href="${path}/resources/etcResource/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+<link href="${path}/resources/etcResource/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
+
 </head>
 <style>
-	table,th,td	{
-		border: 1px solid black;
-		border-collapse: collapse;
-		padding: 5px;
-	}
+
 	textarea{
 		resize:none;width:95%;height:150px;
 	}
@@ -21,6 +27,13 @@
 	 border:none;	
 	 outline:none;
 	 } */
+	 
+	 
+	 #twobutton{
+		 position: absolute;
+  	left: 50%;
+ 	 transform: translateX(-50%);
+	 }
 </style>
 <body>
 	<form action="reportUpdate.do" method="post">
@@ -29,7 +42,7 @@
 		<input type="hidden" name="class_no" value="${detailDto.class_no}"/>
 		<input type="hidden" name="reported" value="${detailDto.reported}"/>
 	
-		<table>
+		<table  class="table"> 
 			<tr>
 				<th>신고된 글/댓글</th>
 				<td >
@@ -84,9 +97,9 @@
 				<th>처리사유</th><td colspan="3"><textarea name="reason">${detailDto.result_reason}</textarea></td>
 			</tr>
 			<tr>
-			<td colspan="4">
-				<input type="submit" value="등록">  
-				<button type="button" onclick="returnList()">목록</button>
+			<td colspan="4" id="twobutton">
+				<input  class="btn btn-outline-secondary" type="submit" value="등록" >  
+				<button class="btn btn-outline-secondary" type="button" onclick="returnList()" >목록</button>
 			</td>
 			</tr>	
 		</table>

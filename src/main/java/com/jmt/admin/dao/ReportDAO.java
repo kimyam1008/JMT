@@ -102,6 +102,8 @@ public interface ReportDAO {
 
 	void blindNoti(Integer class_no, Integer idx, String reported);
 
+	void blackUPdate(HashMap<String, String> params);
+
 
 
 }
