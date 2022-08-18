@@ -182,7 +182,16 @@
 	<insert id="dojangPostReg" parameterType="dojang"
 		useGeneratedKeys="true" keyColumn="dojangPost_no" keyProperty="dojangPost_no">
 		INSERT INTO dojangpost (dojangPost_subject,dojangPost_content,dojang_no,restaurant_no,member_id,dojangPost_type,dojangPost_status)
-			VALUES(#{dojangPost_subject},#{dojangPost_content},#{dojang_no},#{restaurant_no},#{member_id},#{dojangPost_type},"공개"); 
+			VALUES(#{dojangPost_subject},#{dojangPost_content},#{dojang_no}
+			<choose>
+				<when test="restaurant_no != null and restaurant_no != ''">
+					,#{restaurant_no}							
+				</when>
+				<otherwise>
+					,null
+				</otherwise>
+			</choose>
+			,#{member_id},#{dojangPost_type},"공개"); 
 	</insert>
 	
 	<insert id="filewrite">
@@ -196,8 +205,10 @@
 			,r.restaurant_name
 			,r.restaurant_address
 			,f.food_name from restaurant r JOIN food f ON f.food_no = r.food_no
-			ORDER BY r.restaurant_no ASC limit 30
+			
 		<include refid="RestaurantSearchSql"></include>
+		
+		ORDER BY r.restaurant_no ASC limit 30
 	</select>
 	
 	
@@ -217,7 +228,14 @@
 	<update id="dojangPostUpdate" parameterType="hashmap">
 		UPDATE dojangpost SET dojangPost_subject = #{dojangPost_subject}
 					,dojangPost_content = #{dojangPost_content}
-					,restaurant_no = #{restaurant_no}
+					<choose>
+						<when test="restaurant_no != null and restaurant_no != ''">
+							,restaurant_no = #{restaurant_no}				
+						</when>
+						<otherwise>
+							,restaurant_no = null
+						</otherwise>
+					</choose>
 					,dojangPost_type = #{dojangPost_type}
 					WHERE dojangPost_no = #{dojangPost_no}
 	</update>
