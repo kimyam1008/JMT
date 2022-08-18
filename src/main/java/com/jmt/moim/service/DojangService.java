@@ -339,6 +339,57 @@ public class DojangService {
 		return dao.gpRestaurantSearchList(map);
 	}
 
+	public boolean dojangPostUpdate(HashMap<String, String> params) {
+		boolean success =false;
+		int row = dao.dojangPostUpdate(params);
+		System.out.println("업데이트 데이터::{}"+params);
+		  
+		  if (row > 0) { success = true; }
+		  logger.info("update success : " + success);
+		  
+		  return success; 
+	}
+
+	public String postReported(String dojangPost_no) {
+		return dao.postReported(dojangPost_no);
+	}
+
+	public boolean dojangPostReport(HashMap<String, String> params) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		boolean success = false;
+		
+		if(dao.dojangPostReport(params)>0) {
+			success = true;
+		}
+		
+		result.put("success", success);
+		return success;
+	}
+
+	public boolean dojangPostDelete(String dojangPost_no) {
+		boolean success = true;
+		int row = dao.dojangPostDelete(dojangPost_no);
+		logger.info("뭐가문제니?::"+dojangPost_no+":"+row);
+
+		return success;
+		
+	}
+
+	public String dojangHomeMstatus(String dojang_no, String loginId) {
+		return dao.dojangHomeMstatus(dojang_no,loginId);
+	}
+
+	public boolean Mstatus(String dojang_no, String loginId) {
+		boolean success = false;
+		int row = dao.Mstatus(dojang_no,loginId);
+		
+		if(row>0) {
+			success = true;
+		}
+		logger.info("탈퇴확인::"+row);
+		return success;
+	}
+
 	
 
 	

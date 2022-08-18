@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="../../../resources/inc/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,12 +80,8 @@ listCall(currPage)
 	 console.log("상태"+status_option);
 	 console.log("검색"+search_option);
 	 console.log("키워드"+keyword);
-	 
-	 
 	 listCall(1,status_option ,search_option , keyword);
-	 
-	 
-
+	 $("#pagination").twbsPagination('destroy'); 
 }
  
  
@@ -112,10 +109,12 @@ function listCall(page,status_option ,search_option , keyword){
 				totalPages: data.pages, // 총 페이지(전체 개시물 수 / 한 페이지에 보여줄 게시물 수)
 				visiblePages: 5, //한번에 보여줄 페이지 수 [1][2][3][4][5]
 				onPageClick:function(e,page){
+					if(currPage!=page){
 					//console.log(e);//클릭한 페이지와 관련된 이벤트 객체
 					console.log(page);//사용자가 클릭한 페이지
 					currPage = page;
-					listCall(page);
+					 listCall(currPage,status_option ,search_option , keyword);
+				}
 				}
 			}); 
 		},

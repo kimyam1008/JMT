@@ -6,6 +6,15 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
+table, th, td{
+		border: 1px solid black;
+		border-collapse: collapse;
+	}
+th, td {
+  text-align: center;
+}
+
+
 </style>
 </head>
 <body>
@@ -20,7 +29,7 @@
 			            <option value="restaurant_address">가게주소</option>			            									            
 			        </select>
 				</td>
-			<td><input type="text" name="searchContent" placeholder="맛집을 입력해주세요"/></td>
+			<td><input type="text" name="searchContent" placeholder="검색어를 입력해주세요"/></td>
 			<td><input type="submit" value="검색"/></td>
 			</tr>
 		</table>

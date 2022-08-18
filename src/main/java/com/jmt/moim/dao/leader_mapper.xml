@@ -5,6 +5,7 @@
 	<!-- 번개모임 상세 -->
 	<select id="lightDetail" resultType="leader">
 		SELECT (SELECT member_name FROM `member` m WHERE m.member_id = #{param2}) AS leaderName <!-- leader_id = #{param2} -->
+			,(SELECT photo_newFileName FROM photo p WHERE p.class_no=9 AND p.idx = (SELECT profile_no FROM profile f WHERE f.member_id =#{param2})) AS photo_newFileName
 			,l.lightning_title
 			,l.lightning_status
 			,(select count(member_id)+1 from apply a where class_no = 1 and status = '승인' and a.idx = l.lightning_no) as member_count
@@ -26,6 +27,7 @@
 	<!-- 도장깨기 상세 -->
 	<select id="dojangDetail" resultType="leader">
 		SELECT (SELECT member_name FROM `member` m WHERE m.member_id = #{param2}) AS leaderName <!-- leader_id = #{param2} -->
+			,(SELECT photo_newFileName FROM photo p WHERE p.class_no=9 AND p.idx = (SELECT profile_no FROM profile f WHERE f.member_id =#{param2})) AS photo_newFileName
 			,d.dojang_title
 			,d.dojang_status  
 			,(select count(member_id)+1 from apply a where class_no = 3 and status = '승인' and a.idx = d.dojang_no) as member_count
@@ -44,17 +46,10 @@
 		WHERE d.dojang_no = #{param1} <!-- #{param1} -->
 	</select>
 	
-	<!-- 번개 최근 게시글 -->
+	<!-- 번개 최근 게시글(댓글) -->
 	<select id="lightRecentPost" resultType="leader">
-		SELECT g.groupReview_no
-			,g.member_id
-			,g.review_title
-			,review_date
-			,g.class_no
-		FROM groupReview g
-		<!-- JOIN dojangList d ON d.dojang_no = idx AND g.class_no = 3 -->
-		JOIN lightningList l ON l.lightning_no = g.idx AND g.class_no = 1
-		WHERE l.lightning_no = #{param1} <!-- #{param1} -->
+		SELECT comment_content, comment_date, c.member_id, c.idx FROM comment c
+		WHERE class_no = 2 AND comment_status = "공개" AND c.idx = #{param1}; <!-- #{param1} -->
 	</select>
 	
 	<!-- 도장깨기 최근 게시글 -->
@@ -71,59 +66,47 @@
 	
 	<!-- 번개 가입 승인 대기 회원 -->
 	<select id="lightJoinWait" resultType="leader">
-		SELECT a.class_no
-			,a.member_id
-			,a.status
-			,a.idx
-			,l.lightning_no
-			<!-- ,d.dojang_no -->
-		<!-- (SELECT a.member_id FROM apply a WHERE status = "대기" AND a.idx = d.dojang_no) AS wait -->
-		FROM apply a 
-		<!-- JOIN dojangList d ON a.member_id = d.leader_id -->
-		JOIN lightningList l ON a.member_id = l.leader_id
-		WHERE a.status = "대기" AND a.class_no = 1 AND l.lightning_no = #{param1}
-			<!-- <if test="a.class_no != 1">
-				 a.status = "대기" AND d.dojang_no = #{idx}
-			</if> -->
+		SELECT a.member_id,a.status FROM apply a 
+		WHERE a.status = "대기" AND a.class_no = 1 AND a.idx = #{param1}
 	</select>
 	
 	<!-- 도장깨기 가입 승인 대기 회원 -->
 	<select id="dojangJoinWait" resultType="leader">
-		SELECT a.class_no
-			,a.member_id
-			,a.status
-			,a.idx
-			,d.dojang_no
-		<!-- (SELECT a.member_id FROM apply a WHERE status = "대기" AND a.idx = d.dojang_no) AS wait -->
-		FROM apply a 
-		LEFT OUTER JOIN dojangList d ON a.member_id = d.leader_id
-		WHERE a.status = "대기" AND a.class_no = 3 AND d.dojang_no = #{param1}
-			<!-- <if test="a.class_no != 1">
-				 a.status = "대기" AND d.dojang_no = #{idx}
-			</if> -->
+		SELECT a.member_id,a.status FROM apply a 
+		WHERE a.status = "대기" AND a.class_no = 3 AND a.idx = #{param1}
 	</select>
 	
 	<!-- 번개 가입 대기상태 수정 -->
-	<update id="lightJoinWaitUpdate" parameterType="hashmap">
-		UPDATE apply a
+	<update id="lightJoinWaitUp" parameterType="hashmap">
+		<!-- UPDATE apply a
 		JOIN codeTable ON a.class_no ON c.class_no = 1
 		LEFT OUTER JOIN lightningList l ON l.class_no = c.class_no
 		SET a.status = #{lightning_status}
-		WHERE a.idx = #{lightning_no} AND a.member_id = #{member_id}
+		WHERE a.idx = #{lightning_no} AND a.member_id = #{member_id} -->
+		
+		UPDATE apply a
+		SET a.status = #{status}
+		WHERE a.class_no = 1 AND a.idx = #{lightning_no} 
+		AND a.member_id = #{member_id}
 	</update>
 	
 	<!-- 도장깨기 가입 대기상태 수정 -->
 	<update id="dojangJoinWaitUp" parameterType="hashmap">
-		UPDATE apply a
+		<!-- UPDATE apply a
 		JOIN codeTable ON a.class_no ON c.class_no = 3
 		LEFT OUTER JOIN dojangList d ON d.class_no = c.class_no
 		SET a.status = #{status}
-		WHERE a.idx = #{dojang_no} AND a.member_id = #{member_id}
+		WHERE a.idx = #{dojang_no} AND a.member_id = #{member_id} -->
+		
+		UPDATE apply a
+		SET a.status = #{status}
+		WHERE a.class_no = 3 AND a.idx = #{dojang_no} 
+		AND a.member_id = #{member_id}
 	</update>
 	
 	<!-- 번개모임 수정 -->
 	<update id="leaderLightEdit" parameterType="hashmap">
-		UPDATE lightning l SET l.lightning_status = #{lightning_status}
+		UPDATE lightningList l SET l.lightning_status = #{lightning_status}
 			,l.member_num = #{member_num}
 			,l.lightning_content = #{lightning_content}
 		WHERE l.lightning_no = #{lightning_no}
@@ -138,7 +121,7 @@
 	</update>
 	
 	<!-- 나의 모임 관리 (게시글) / 도장 -->
-	<select id="myGroupPostSettingD" resultType="leader">
+	<select id="myGroupPostSettingD" parameterType="hashmap" resultType="leader">
 		SELECT p.dojangPost_no
 			,p.member_id
 			,p.dojangPost_subject
@@ -147,19 +130,14 @@
 		FROM dojangPost p
 		JOIN dojangList d ON d.dojang_no = p.dojang_no
 		WHERE p.dojang_no = #{dojang_no}
-		ORDER BY p.dojangPost_no DESC limit #{cnt} OFFSET #{offset}
+		ORDER BY dojangPost_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
-	<select id="allCount" resultType="int">
-		SELECT p.dojangPost_no
-			,p.member_id
-			,p.dojangPost_subject
-			,p.dojangPost_date
-			,p.dojang_no
+	<select id="allCount" parameterType="hashmap" resultType="int">
+		SELECT COUNT(dojangPost_no)
 		FROM dojangPost p
 		JOIN dojangList d ON d.dojang_no = p.dojang_no
 		WHERE p.dojang_no = #{dojang_no}
-		ORDER BY p.dojangPost_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
 	<select id="myGroupEtcD" parameterType="String" resultType="leader">
@@ -169,6 +147,22 @@
 			,(SELECT photo_newFileName FROM photo p WHERE p.class_no=9 AND p.idx = (SELECT profile_no FROM profile f WHERE f.member_id =#{param1})) AS photo_newFileName
 		FROM dojangList d
 		WHERE d.dojang_no = #{param2}
+	</select>
+	
+	<!-- 나의 모임 관리 (댓글) / 번개 -->
+	<select id="myGroupPostSettingL" parameterType="hashmap" resultType="leader">
+		SELECT c.comment_no
+			,c.comment_content
+			,c.comment_date
+			,c.idx
+		FROM comment c
+		WHERE c.class_no=2 AND c.idx = #{lightning_no}
+		ORDER BY comment_no DESC limit #{cnt} OFFSET #{offset}
+	</select>
+	
+	<select id="allCount2" parameterType="hashmap" resultType="int">
+		SELECT COUNT(comment_no) FROM comment c
+		WHERE c.class_no=2 AND c.idx = #{lightning_no}
 	</select>
 	
 	<select id="myGroupEtcL" parameterType="String" resultType="leader">
@@ -181,7 +175,7 @@
 	</select>
 	
 	<!-- 나의 모임 관리 (회원) -->
-	<select id="myGroupMemberSetting" resultType="leader">
+	<!-- <select id="myGroupMemberSetting" resultType="leader">
 		SELECT (SELECT a.member_id FROM apply a WHERE a.status = "승인" AND l.lightning_no = idx) AS lightning_member
 			,(SELECT a.member_id FROM apply a WHERE a.status = "승인" AND d.dojang_no = idx) AS dojang_member
 			,m.member_name
@@ -209,5 +203,44 @@
 				d.dojang_no = #{idx}
 			</if>
 		</where>
+	</select> -->
+	
+	<!-- 나의 모임관리 - 회원 / 도장 -->
+	<select id="dojangMember" resultType="leader">
+		SELECT a.member_id, m.member_name
+		FROM apply a
+		LEFT OUTER JOIN member m ON a.member_id = m.member_id
+		WHERE a.class_no = 3 AND a.status = "승인" and a.idx = #{param1}
 	</select>
+	
+	<update id="memberGetOutD" parameterType="hashmap">
+		UPDATE apply a SET a.status = "추방"
+			,a.reason = #{reason}
+		WHERE a.class_no = 3 AND a.idx = #{dojang_no} AND a.member_id = #{member_id}
+	</update>
+	
+	<!-- 나의 모임 관리 - 회원 / 도장 -->
+	<select id="lightMember" resultType="leader">
+		SELECT a.member_id, m.member_name
+		FROM apply a
+		LEFT OUTER JOIN member m ON a.member_id = m.member_id
+		WHERE a.class_no = 1 AND a.status = "승인" and a.idx = #{param1}
+	</select>
+	
+	<update id="memberGetOutL" parameterType="hashmap">
+		UPDATE apply a SET a.status = "추방"
+			,a.reason = #{reason}
+		WHERE a.class_no = 1 AND a.idx = #{lightning_no} AND a.member_id = #{member_id}
+	</update>
+	
+	<!-- 모임 삭제 -->
+	<update id="leaderLightDelete" parameterType="String">
+		UPDATE lightningList SET lightning_status = "삭제"
+		WHERE lightning_no = #{param1}
+	</update>
+	
+	<update id="leaderDojangDelete" parameterType="String">
+		UPDATE dojangList SET dojang_status = "삭제"
+		WHERE dojang_no = #{param1}
+	</update>
 </mapper>

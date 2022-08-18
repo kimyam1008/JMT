@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page isELIgnored="false" %>
+<%@ include file="../../../resources/inc/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,12 +60,25 @@ background-color: pink;
 	
 /* 	
 	#blindTable{display:none;} */
-	
+	ul{
+	list-style:none; 
+	}
 
+
+.list-group{
+	width:200px; float:left;
+	display:inline-block;
+}
+#memberListSet{
+	float:left; relative; right:170px;
+}
+
+#blindTable{width:70%;}
 </style>
+<br>
 <body>
 <h3>회원관리 상세</h3>
-
+<input type="hidden" value="${loginId}"/>
 
 <!-- 회원 상세 정보  -->
 <table class="table table-bordered">
@@ -94,6 +108,23 @@ background-color: pink;
 	<span onclick="listCall(1)" data-value="블라인드" class="active">블라인드 내역</span>
 	<span onclick="listCallBlack(1)" data-value="블랙">블랙리스트 내역</span>
 </div>
+
+<div id="boxList">
+
+<div class="list-group">
+  <a href="#" class="list-group-item">신고목록 </a>
+  <a href="#" class="list-group-item">블라인드 목록 </a>
+  <a href="#" class="list-group-item">회원 관리 </a>
+  <a href="#" class="list-group-item">등급 관리 </a>
+  <a href="#" class="list-group-item">맛집 수정 </a>
+</div>
+
+
+
+
+
+<div id="memberListSet">
+
 
 <!-- Button trigger modal -->
 
@@ -216,9 +247,14 @@ background-color: pink;
 			</td>
 		</tr> 
 	</table>
+</div>
+
+</div>
 
 </body>
 <script>
+var loginId = $('input[type=hidden]').val();
+
 var currPage = 1;
 listCall(currPage);
 listCallBlack(currPage);
@@ -356,6 +392,7 @@ function blickReg(){
 				url:'/report/blackReg.ajax',
 				dataType:'json',
 				data:{
+					loginId:loginId,
 					member_id:member_id,
 					black:black,
 					reason:reason

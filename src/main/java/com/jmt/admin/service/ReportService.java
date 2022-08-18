@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jmt.admin.dao.ReportDAO;
@@ -187,7 +188,7 @@ public class ReportService {
 		Map<String, Object> data = new HashMap<String, Object>(); // 파라미터용
 		
 		data.put("status_option", status_option);
-		data.put("search_option", data);
+		data.put("search_option", search_option);
 		data.put("keyword", keyword);
 		
 		int allCnt = dao.blindCount(data);
@@ -284,7 +285,7 @@ public class ReportService {
 		dao.changeStatus(data);
 		
 	}
-
+	@Transactional
 	public int changeBlind(Map<String, Object> data) {
 		int result = 0; 
 		

@@ -18,8 +18,6 @@
 		FROM dojanglist d
 		JOIN food f ON d.food_no = f.food_no
 		
-		WHERE d.dojang_status IN ("모집중","모집마감")
-		
 		<include refid="selectedListSql"></include>
 		
 		ORDER BY d.dojang_no DESC limit #{cnt} OFFSET #{offset}
@@ -137,19 +135,25 @@
 	
 	
 	<select id="dojangHome" resultType="dojang" parameterType="hashmap">
-		SELECT d.dojang_no,d.dojangPost_subject,d.dojangPost_content,d.member_id,d.dojangPost_date,d.dojangPost_no,d.dojangPost_type,r.restaurant_name
-			FROM dojangpost d LEFT OUTER JOIN restaurant r ON r.restaurant_no = d.restaurant_no WHERE dojang_no = #{dojang_no} ORDER BY dojangPost_no DESC limit #{cnt} OFFSET #{offset}
+		SELECT leader_id,d.dojang_no,d.dojangPost_subject,d.dojangPost_content,d.member_id,d.dojangPost_date,d.dojangPost_no,d.dojangPost_type,r.restaurant_name
+			FROM dojangpost d LEFT OUTER JOIN restaurant r ON r.restaurant_no = d.restaurant_no 
+			JOIN dojanglist t ON t.dojang_no = d.dojang_no
+			WHERE d.dojang_no = #{dojang_no} AND d.dojangPost_status = "공개" ORDER BY dojangPost_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
 	<select id="dojangHomeL" resultType="dojang" parameterType="hashmap">
-		SELECT dojang_no,dojangPost_subject,dojangPost_content,member_id,dojangPost_date,dojangPost_no,dojangPost_type
-			FROM dojangpost where dojang_no = #{dojang_no} AND dojangPost_type ="공지게시판"
+		SELECT leader_id,d.dojang_no,d.dojangPost_subject,d.dojangPost_content,d.member_id,d.dojangPost_date,d.dojangPost_no,d.dojangPost_type,r.restaurant_name
+			FROM dojangpost d LEFT OUTER JOIN restaurant r ON r.restaurant_no = d.restaurant_no 
+			JOIN dojanglist t ON t.dojang_no = d.dojang_no
+			WHERE d.dojang_no = #{dojang_no} AND dojangPost_type ="공지게시판" AND d.dojangPost_status = "공개"
 			ORDER BY dojangPost_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
 	<select id="dojangHomeM" resultType="dojang" parameterType="hashmap">
-		SELECT dojang_no,dojangPost_subject,dojangPost_content,member_id,dojangPost_date,dojangPost_no,dojangPost_type
-			FROM dojangpost where dojang_no = #{dojang_no} AND dojangPost_type ="일반게시판"
+	SELECT leader_id,d.dojang_no,d.dojangPost_subject,d.dojangPost_content,d.member_id,d.dojangPost_date,d.dojangPost_no,d.dojangPost_type,r.restaurant_name
+			FROM dojangpost d LEFT OUTER JOIN restaurant r ON r.restaurant_no = d.restaurant_no 
+			JOIN dojanglist t ON t.dojang_no = d.dojang_no
+			WHERE d.dojang_no = #{dojang_no} AND dojangPost_type ="일반게시판" AND d.dojangPost_status = "공개"
 			ORDER BY dojangPost_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
@@ -170,8 +174,10 @@
 	</select>
 	
 	<select id="dojangHomeDetail" resultType="dojang">
-		SELECT dojang_no,dojangPost_subject,dojangPost_content,member_id,dojangPost_date,dojangPost_no,dojangPost_type
-			FROM dojangpost where dojangPost_no = #{param1}
+		SELECT leader_id,d.dojang_no,dojangPost_subject,dojangPost_content,member_id,dojangPost_date,dojangPost_no,dojangPost_type,r.restaurant_name
+			FROM dojangpost d LEFT OUTER JOIN restaurant r ON r.restaurant_no = d.restaurant_no
+			JOIN dojanglist t ON t.dojang_no = d.dojang_no
+			WHERE dojangPost_no = #{param1}
 	
 	</select>
 	
@@ -193,16 +199,57 @@
 			,r.restaurant_name
 			,r.restaurant_address
 			,f.food_name from restaurant r JOIN food f ON f.food_no = r.food_no
-			<where>
-			<if test="gpSearchCondition != null and gpSearchCondition != '' and searchContent != null and searchContent != ''">
-					<if test="gpSearchCondition.equals('restaurant_name')">
-						r.restaurant_name = #{searchContent}
-					</if>
-					<if test="gpSearchCondition.equals('restaurant_address')">
-						r.restaurant_address = #{searchContent}
-					</if>
-				</if>
-		</where>
+			ORDER BY r.restaurant_no ASC limit 30
+		<include refid="RestaurantSearchSql"></include>
 	</select>
+	
+	
+	<sql id="RestaurantSearchSql">
+		<trim prefix="where">
+		<if test="gpSearchCondition != null and gpSearchCondition != '' and searchContent != null and searchContent != ''">
+			<if test = "gpSearchCondition.equals('restaurant_name')">
+				r.restaurant_name LIKE CONCAT('%',#{searchContent}, '%')
+			</if>
+			<if test = "gpSearchCondition.equals('restaurant_address')">
+				r.restaurant_address LIKE CONCAT('%',#{searchContent}, '%') 
+			</if>
+		</if>
+		</trim>
+	</sql>
+	
+	<update id="dojangPostUpdate" parameterType="hashmap">
+		UPDATE dojangpost SET dojangPost_subject = #{dojangPost_subject}
+					,dojangPost_content = #{dojangPost_content}
+					,restaurant_no = #{restaurant_no}
+					,dojangPost_type = #{dojangPost_type}
+					WHERE dojangPost_no = #{dojangPost_no}
+	</update>
+	
+	<select id="postReported" resultType="String">
+		SELECT member_id FROM dojangpost WHERE dojangPost_no = #{param1}
+	</select>
+	
+	<insert id="dojangPostReport" parameterType="hashmap">
+		INSERT INTO report (report_reason,class_no,idx,reporter,reported)
+			VALUES(
+			<if test="!report_reason.equals('기타')">#{report_reason}</if>
+			<if test="report_reason.equals('기타')">#{report_text}</if>
+			,4,#{dojangPost_no},#{reporter},#{reported})
+	</insert>
+	
+	<update id="dojangPostDelete" parameterType="String">
+		UPDATE dojangpost SET dojangPost_status = "숨김"
+		WHERE dojangPost_no = #{dojangPost_no}
+	</update>
+	
+	<select id="dojangHomeMstatus" resultType="String">
+		SELECT member_id FROM apply WHERE class_no = 3 AND status = '승인' AND idx = #{param1} AND member_id = #{param2}
+	</select>
+	
+	<update id="Mstatus">
+		UPDATE apply SET status = "탈퇴"
+		WHERE class_no = 3 AND idx = #{param1} AND member_id = #{param2}
+	</update>
+	
 	
 </mapper>
