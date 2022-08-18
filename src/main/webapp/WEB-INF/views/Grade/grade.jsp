@@ -15,6 +15,7 @@
 <h3>등급 관리</h3>
 
  <p> 선택한 색상을 봐바^^</p>
+ 	<form action="grade" method="post" id="grade">
 <table>
 	<thead>
 		<tr>
@@ -31,8 +32,8 @@
 		
 	</tbody>
 </table>
-	<form action="grade" method="post" id="grade">
-		<input type="hidden" id="getColorCode" value=""/>
+
+		<!-- <input type="hidden" id="getColorCode" value=""/> -->
 	</form>
 	
 </body>
@@ -52,7 +53,7 @@
 		}
 		
 	});
-
+	
 	
 	function list(list){
 		var content = '';
@@ -144,7 +145,7 @@
 
 	function sendCode(color) {
 		var colorCode = color;
-		$("getColorCode").val(color);
+		$("colorCode").val(color);
 		$("#grade").submit();
 		console.log(colorCode);
 	}

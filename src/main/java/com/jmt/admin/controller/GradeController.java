@@ -55,16 +55,15 @@ public class GradeController {
 	}
 	
 	
-	@RequestMapping(value = "grade")
-	public String grade(@RequestParam String colorCode,@RequestParam HashMap<String, String> params) {
+	@RequestMapping(value = "/grade")
+	public String grade(@RequestParam String colorCode ,@RequestParam HashMap<String, String> params) {
 		String page = "Grade/grade";
 		
 		logger.info(" : " +colorCode);
 		
-		logger.info(" : " +params.get("colorCode"));
-
+		logger.info(" : " +params);
 		
-		return page;
+		return "redirect:/grade.go";
 		
 		
 	}
