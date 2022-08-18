@@ -65,6 +65,8 @@ public interface DojangDAO {
 
 	int Mstatus(String dojang_no, String loginId);
 
+	int dojangCmtReport(HashMap<String, String> params);
+
 
 
 

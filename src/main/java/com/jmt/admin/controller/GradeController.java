@@ -53,7 +53,22 @@ public class GradeController {
 		logger.info("리스트 요청");
 		return service.update(col,val,team);
 	}
+	
+	
+	@RequestMapping(value = "/grade")
+	public String grade(@RequestParam String colorCode ,@RequestParam HashMap<String, String> params) {
+		String page = "Grade/grade";
+		
+		logger.info(" : " +colorCode);
+		
+		logger.info(" : " +params);
+		
+		return "redirect:/grade.go";
+		
+		
+	}
 
+	
 	
 	
 	

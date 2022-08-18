@@ -389,7 +389,18 @@ public class DojangService {
 		logger.info("탈퇴확인::"+row);
 		return success;
 	}
-
+	
+	
+	public boolean dojangCmtReport(HashMap<String, String> params) {
+		logger.info("모임후기 댓글 신고하기 서비스 : " + params);
+		
+		boolean success = false;
+		int row = dao.dojangCmtReport(params);
+		if(row>0) {
+			success = true;
+		}
+		return success;
+	}
 	
 
 	

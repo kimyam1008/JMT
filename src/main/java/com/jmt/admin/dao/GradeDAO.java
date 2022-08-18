@@ -11,4 +11,10 @@ public interface GradeDAO {
 
 	int update(String col, String val, String team);
 
+	int dojang_no(String loginId);
+
+	int dojang_no2(String loginId);
+
+	int il_no(String loginId);
+
 }
