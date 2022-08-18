@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="../../../resources/inc/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,37 +40,17 @@
 					 <c:if test="${not empty reportPost.dojangPost_subject}"><input name="reporter" class="onlyread" type="text" value='${reportPost.dojangPost_subject}' readonly/></c:if>
 					 <c:if test="${not empty reportPost.review_title}"><input name="reporter" class="onlyread" type="text" value='${reportPost.review_title}' readonly/></c:if> --%>
 					 
-					 <c:if test="${not empty reportPost.lightning_title}">${reportPost.lightning_title}</c:if>
-					 <c:if test="${not empty reportPost.dojang_title}">${reportPost.dojang_title}</c:if>
-					 <c:if test="${not empty reportPost.comment_content}">${reportPost.comment_content}</c:if>
-					 <c:if test="${not empty reportPost.dojangPost_subject}">${reportPost.dojangPost_subject}</c:if>
-					 <c:if test="${not empty reportPost.review_title}">${reportPost.review_title}</c:if> 
+					 <c:if test="${not empty reportPost.lightning_title}"><a href="/lightDetail.go?lightning_no=${detailDto.idx}"> ${reportPost.lightning_title}</a></c:if>
+					 <c:if test="${not empty reportPost.dojang_title}"><a href="/dojangDetail.do?dojang_no=${detailDto.idx}"> ${reportPost.dojang_title}</a></c:if>
+					 <c:if test="${not empty reportPost.comment_content}"> ${reportPost.comment_content}</c:if>
+					 <c:if test="${not empty reportPost.dojangPost_subject}"><a href="/dojangHomeDetail.go?dojangPost_no=${detailDto.idx}"> ${reportPost.dojangPost_subject}</a></c:if>
+					 <c:if test="${not empty reportPost.review_title}"><a href="/groupReviewDetail.do?groupReview_no=${detailDto.idx}"> ${reportPost.review_title}</a></c:if> 
 					 
 					 </td>
 
 				<th>신고사유</th><td>${detailDto.report_reason}</td>
 			</tr>
-			<tr>
-				<th>신고된 글/댓글</th>
-				<td colspan="3">
-					<%-- <c:if test="${not empty reportPost.lightning_title}"><input name="reporter" class="onlyread" type="text" value='${reportPost.lightning_title}' readonly/></c:if>
-					 <c:if test="${not empty reportPost.dojang_title}"><input name="reporter" class="onlyread" type="text" value='${reportPost.dojang_title}' readonly/></c:if>
-					 <c:if test="${not empty reportPost.comment_content}"><input name="reporter" class="onlyread" type="text" value='${reportPost.comment_content}' readonly/></c:if>
-					 <c:if test="${not empty reportPost.dojangPost_subject}"><input name="reporter" class="onlyread" type="text" value='${reportPost.dojangPost_subject}' readonly/></c:if>
-					 <c:if test="${not empty reportPost.review_title}"><input name="reporter" class="onlyread" type="text" value='${reportPost.review_title}' readonly/></c:if> --%>
-					 
-					 <c:if test="${not empty reportPost.lightning_title}">${reportPost.lightning_title}</c:if>
-					 <c:if test="${not empty reportPost.dojang_title}">${reportPost.dojang_title}</c:if>
-					 <c:if test="${not empty reportPost.comment_content}">${reportPost.comment_content}</c:if>
-					 <c:if test="${not empty reportPost.dojangPost_subject}">${reportPost.dojangPost_subject}</c:if>
-					 <c:if test="${not empty reportPost.review_title}">${reportPost.review_title}</c:if> 
-					 
-					 </td>
-
-			
-				
-				<%-- <!-- 1. 번개 리스트  -->${reportPost.lightning_title} <!-- 3. 도장 리스트  --> ${reportPost.dojang_title} </td> --%>
-			</tr>
+	
 			<tr>
 				<th>게시판</th><td>${detailDto.class_name}</td>
 				<th>처리상태</th>
