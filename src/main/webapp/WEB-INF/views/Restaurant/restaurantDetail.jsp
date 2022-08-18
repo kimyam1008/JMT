@@ -36,13 +36,13 @@
 	<table>
 		<thead>
 	         <tr>
-	         	<td>
-				<input type="hidden" name="restaurant_no" value="${resDetail.restaurant_no}" />
-				<input type="hidden" NO_X="restaurant_X" value="${resDetail.restaurant_X}" />
-				<input type="hidden" NO_Y="restaurant_Y" value="${resDetail.restaurant_Y}" />
-				</td>
 	         	<th>식당이름</th>
-	         	<td>${resDetail.restaurant_name}</td>
+	         	<td>
+	         		${resDetail.restaurant_name}
+	         		<input type="hidden" name="restaurant_no" value="${resDetail.restaurant_no}" />
+					<input type="hidden" NO_X="restaurant_X" value="${resDetail.restaurant_X}" />
+					<input type="hidden" NO_Y="restaurant_Y" value="${resDetail.restaurant_Y}" />
+	         	</td>
 	         	<th>음식종류</th>
 	         	<td>${resDetail.food_name}</td>	
 				<th>지번주소</th>

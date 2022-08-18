@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,7 +71,7 @@ public class ReportController {
 	
 
 	@PostMapping("/reportUpdate.do")
-	public String reportUpdate(int report_no, String report_status , String reason, RedirectAttributes ra, Integer class_no , Integer idx,String reported) {
+	public String reportUpdate(int report_no, String report_status , String reason, RedirectAttributes ra, Integer class_no , Integer idx,String reported,HttpSession session) {
 		Map<String, Object> data  = new HashMap<String, Object>();
 		data.put("idx", idx);
 		data.put("report_no",report_no);
@@ -81,25 +83,49 @@ public class ReportController {
 		ra.addAttribute("class_no",class_no);
 		ra.addAttribute("idx",idx);
 		
+
+		//알림
+		if(report_status.equals("블라인드")) {
+			service.blindNoti(class_no,idx,reported);
+		}
+
+		
+		String loginId = (String) session.getAttribute("loginId");
+		System.out.println("세션 아이디:"+loginId);
+
+		
+		String page = "redirect:/login.go";
+		
+		if(loginId==null) {
+			
+			
+		}
+		
+		else if (loginId!=null) { 
+			
+		data.put("loginId",loginId);
+			
+			String msg = null;
+			if(result>0) {
+				//수정에 성공하는 경우 동일한 게시글을 신고한 글의 status를 수정해 준다. 
+				// idx, class_no를 활용하여 report_status 변경 . 
+				service.changeStatus(data);
+				//변경된 status 가 블라인드인 경우 블라인드(테이블 insert) 생성해야 함. 
+				String updateCheck= service.updateCheck(report_no); 
+				if(updateCheck.equals("블라인드")) { 
+					data.put("reported", reported);
+					service.insertBlind(data);
+				}
 		
 		
-		String msg = null;
-		if(result>0) {
-			//수정에 성공하는 경우 동일한 게시글을 신고한 글의 status를 수정해 준다. 
-			// idx, class_no를 활용하여 report_status 변경 . 
-			service.changeStatus(data);
-			//변경된 status 가 블라인드인 경우 블라인드(테이블 insert) 생성해야 함. 
-			String updateCheck= service.updateCheck(report_no); 
-			if(updateCheck.equals("블라인드")) { 
-				data.put("reported", reported);
-				service.insertBlind(data);
-			}
-	
-	
-			msg = "상태변경을 완료했습니다.";
-			ra.addFlashAttribute("msg",msg); 
-		}	
-		return "redirect:/report/detail.go";
+				msg = "상태변경을 완료했습니다.";
+				ra.addFlashAttribute("msg",msg); 
+			}	
+			page = "redirect:/report/detail.go";
+			
+			/* return "redirect:/report/detail.go"; */
+		}
+	return page; 
 	}
 
 	@RequestMapping("/blind.ajax")
@@ -152,8 +178,10 @@ public class ReportController {
 	}
 	
 	@RequestMapping("/blindUpdate.do")
-	public String blindUpdate(@RequestParam HashMap<String, String> params , @RequestParam(defaultValue = "해제") String blichk , RedirectAttributes ra) { 
+	public String blindUpdate(@RequestParam HashMap<String, String> params , @RequestParam(defaultValue = "해제") String blichk 
+			, RedirectAttributes ra) { 
 		Map<String, Object> data  = new HashMap<String, Object>();
+		
 		
 		
 		logger.info("파라미터 체크:{}",params);
@@ -204,13 +232,20 @@ public class ReportController {
 	}
 	
 	@RequestMapping("/memberDetail.go")
-	public String memberDetail(Model model ,String member_id ) {
-		
+	public String memberDetail(Model model ,String member_id ,HttpSession session) {
+		String page = "redirect:/login.go";
+		String loginId= (String) session.getAttribute("loginId");
+		if(loginId != null) {
 		ReportDTO detail= service.memberDetail(member_id);
 		model.addAttribute("detail",detail);
 		ReportDTO black= service.blackList(member_id);
 		model.addAttribute("black",black);
-		return "Report/memberDetail"; 
+		model.addAttribute("loginId",loginId);
+		page="Report/memberDetail";	
+		}
+		
+	
+		return page; 
 	}
 	
 	@RequestMapping("/blindMemberList.ajax")
@@ -234,6 +269,12 @@ public class ReportController {
 		
 		return service.blackMemberList(params); 
 		
+	}
+	
+	@RequestMapping("/boot")
+	public String boot() {
+		
+		return "Report/boot";
 	}
 	
 	

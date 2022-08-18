@@ -68,6 +68,11 @@ td a {
 	color: black; 
 }
 
+#review2{
+	display: flex;
+	justify-content: center;
+}
+
 </style>
 </head>
 <body>
@@ -98,6 +103,12 @@ td a {
 <div  id="review">
 <input type="button" value="모임후기 작성하러 가기" onclick="location.href='groupReviewList'"/>
 </div>
+<br/>
+<c:if test="${member == loginId}">
+<div id="review2">
+<input type="button" value="도장깨기 회원 탈퇴" onclick="memberStatus()"/>
+</div>
+</c:if>
 </div>
 
 
@@ -206,6 +217,42 @@ function drawList(list){
 }
 
 
+//회원탈퇴
+function memberStatus(){
+	
+	var loginId = $('#loginId').val();
+	var dojang_no = $('#dojang_no').val();
+	
+		if (!confirm("정말로 탈퇴 하시겠습니까?")) {
+			alert("탈퇴가 취소됐습니다.");
+			window.location.reload();
+		} else {
+			$.ajax({
+				type:'get',
+				url:'dojangHome.ajaxtwo',
+				data:{
+					dojang_no:dojang_no,
+					loginId:loginId
+				},
+				dataType:'JSON',
+				success:function(data){
+					console.log(data);
+					if(data.Mstatus){
+						console.log(data.Mstatus)
+						alert("탈퇴가 완료됐습니다.")
+						location.href='/dojang.go';
+					}else{
+						alert("탈퇴 실패");
+					}
+				},
+				error:function(e){
+					console.log(e);
+				}
+			});
+		
+		}
+	
+}
 
 
 

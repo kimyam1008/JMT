@@ -15,6 +15,7 @@
 			 ,(select photo_newFileName from photo p where p.class_no=9 and p.idx = (select profile_no from profile f where f.member_id =c.member_id)) as photo_newFileName
 			 ,(select grade_no from profile p join grade using(grade_no) where p.member_id = c.member_id) as grade_no
 			 ,(select grade_name from profile p join grade using(grade_no) where p.member_id = c.member_id) as grade_name
+			 ,(select grade_color from profile p join grade using(grade_no) where p.member_id = c.member_id) as grade_color
 	   	 FROM comment c WHERE class_no=#{param1} and idx=#{param2} and comment_status="공개"
   </select>
   

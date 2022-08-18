@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jmt.admin.dao.ReportDAO;
@@ -284,7 +285,7 @@ public class ReportService {
 		dao.changeStatus(data);
 		
 	}
-
+	@Transactional
 	public int changeBlind(Map<String, Object> data) {
 		int result = 0; 
 		
@@ -473,6 +474,11 @@ public class ReportService {
 	public int chkGrade(String loginId) {
 		
 		return dao.chkGrade( loginId);
+	}
+
+	public void blindNoti(Integer class_no, Integer idx, String reported) {
+		logger.info("신고리스트- 블라인드 처리 시 알림 서비스");
+		dao.blindNoti(class_no,idx,reported);
 	}
 
 	

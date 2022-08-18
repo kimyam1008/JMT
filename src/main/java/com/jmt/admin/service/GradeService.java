@@ -35,6 +35,22 @@ public class GradeService {
 		
 		return map;
 	}
+
+	public int dojang_no(String loginId) {
+		int dojang_no = dao.dojang_no(loginId);
+		return dojang_no; 
+	
+	}
+
+	public int dojang_no2(String loginId) {
+		int dojang_no2 = dao.dojang_no2(loginId);
+		return dojang_no2; 
+	}
+
+	public int il_no(String loginId) {
+		int il_no = dao.il_no(loginId);
+		return il_no; 
+	}
 }
 
 	

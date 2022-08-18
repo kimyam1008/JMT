@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.jmt.admin.dto.TestDto;
+import com.jmt.admin.service.GradeService;
 import com.jmt.admin.service.ReportService;
 import com.jmt.mypage.service.MypageService;
 
@@ -24,8 +25,9 @@ public class TestController extends HandlerInterceptorAdapter {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Autowired
-	ReportService service;
+	@Autowired ReportService service;
+	
+	@Autowired GradeService service3;
 	@Autowired  MypageService service2;
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
@@ -36,7 +38,7 @@ public class TestController extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession(false);
 	
 		 String loginId = (String) session.getAttribute("loginId"); 
-			int result =service2.profile_no(loginId);
+			int result = service2.profile_no(loginId);
 			
 			System.out.println("test: "+result);
 		if(loginId!=null) {
@@ -44,14 +46,27 @@ public class TestController extends HandlerInterceptorAdapter {
 			System.out.println("로그인 아이디 확인:"+loginId);
 			
 			// 사용자 등급 no 가져옴. 
-			int userGrade_no= service.chkGrade(loginId);
+			int userGrade_no = service.chkGrade(loginId);
 			System.out.println("로그인 등급 no 확인:"+userGrade_no);
+			
 			// 해당 계정의 게시글 댓글 확인
+			int comment_no = service.test(loginId);
+			System.out.println("사용자의 댓글 수확인:"+comment_no);
 			
-				int comment_no =service.test(loginId);
-				System.out.println("사용자의 댓글 수확인:"+comment_no);
+			// 해당 계정의 도장 게시판 확인
+			int dojang_no = service3.dojang_no(loginId);
+			System.out.println("사용자의 댓글 수확인:"+dojang_no);
 			
+			// 해당 계정의 도장 하위 게시판 확인
+			int dojang_no2 = service3.dojang_no2(loginId);
+			System.out.println("사용자의 댓글 수확인:"+dojang_no2);
 			
+			// 해당 계정의 번개 게시판 확인
+			int il_no = service3.il_no(loginId);
+			System.out.println("사용자의 댓글 수확인:"+il_no);
+			
+			int all_no = dojang_no + dojang_no2 + il_no;
+			System.out.println("사용자의 댓글 수확인:"+ all_no);
 			
 			
 			ArrayList<TestDto> list = service.spoonList();	
@@ -92,21 +107,21 @@ public class TestController extends HandlerInterceptorAdapter {
 	
 		String msg =""; 
 		
-		if(bronze_comment <= comment_no &&  comment_no< silver_comment && userGrade_no!= level_1_no) {
+		if(bronze_comment <= comment_no && comment_no < silver_comment && bronze_comment <= all_no && all_no < silver_comment && userGrade_no!= level_1_no) {
 			level_no=level_1_no;
 			data.put("level_no", level_no);
 			service.levelUp(data);
 			msg="동수저로 등업했습니다.";
 			System.out.println("등업 성공..");
 		} 
-		else if(silver_comment <= comment_no &&  comment_no< gold_comment  && userGrade_no!= level_2_no) { 
+		else if(silver_comment <= comment_no && comment_no< gold_comment && silver_comment <= all_no && all_no < gold_comment && userGrade_no!= level_2_no) { 
 			level_no=level_2_no;
 			data.put("level_no", level_no);
 			service.levelUp(data);
 			System.out.println("등업 성공..");
 			msg="동수저로 등업했습니다.";
 		}
-		else if( gold_comment <= comment_no &&  comment_no< dia_comment  && userGrade_no!= level_3_no) { 
+		else if(gold_comment <= comment_no && comment_no< dia_comment && gold_comment <= all_no && all_no < dia_comment && userGrade_no!= level_3_no) { 
 			level_no=level_3_no;
 			data.put("level_no", level_no);
 			service.levelUp(data);
@@ -114,7 +129,7 @@ public class TestController extends HandlerInterceptorAdapter {
 			
 		}
 		
-		else if(dia_comment <= comment_no  && userGrade_no!= level_4_no) {
+		else if(dia_comment <= comment_no  && dia_comment <= all_no  && userGrade_no!= level_4_no) {
 			data.put("level_no", level_no);
 			level_no=level_4_no;
 			service.levelUp(data);

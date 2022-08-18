@@ -32,6 +32,7 @@
 	}
 </style>
 <body>
+<br>
 <h1>블라인드 상세보기</h1>
 
 <form action="blindUpdate.do" method="post" id="blindUpdate">	
