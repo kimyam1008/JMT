@@ -257,16 +257,51 @@ public class MypageController {
 			return "/Mypage/myBoardList";
 		}
 		
-		// 나의활동 첫 페이지 이동 - 게시글
-		@RequestMapping("/myBoardList.ajax")
-		@ResponseBody
-		public HashMap<String, Object> myBoardList(@RequestParam HashMap<String, String>params, HttpSession session) {
+		// 나의활동 첫 페이지 이동 - 게시글 (상단 프로필)
+		@RequestMapping(value = "/myBoardList.go")
+		public String myBoardList(Model model, HttpSession session) {
 			String loginId = (String) session.getAttribute("loginId");
-			params.put("loginId", loginId);
+			MypageDTO dto = service.myBoardList(loginId); // 상단 프로필쪽
+			model.addAttribute("dto",dto); // 상단 프로필쪽
+			ArrayList<MypageDTO> myBoardArry = service.myBoardArry(loginId);
+			model.addAttribute("list",myBoardArry);
 			
-			return service.myBoardList(params);
+			return "/Mypage/myBoardList";
 		}
 		
+		// 나의활동 첫 페이지 이동 - 게시글 (아작스 페이징)
+		//@RequestMapping("/myBoardList.ajax")
+		//@ResponseBody
+		//public HashMap<String, Object> myBoardListAjax(@RequestParam HashMap<String, String>params, HttpSession session) {
+		//	String loginId = (String) session.getAttribute("loginId");
+		//	params.put("loginId", loginId);
+			
+		//	return service.myBoardListAjax(params);
+		//}
+		
+		// 나의활동 댓글단 글
+		@RequestMapping(value = "/myComment.go")
+		public String myComment(Model model, HttpSession session) {
+			String loginId = (String) session.getAttribute("loginId");
+			MypageDTO dto = service.myBoardList(loginId); // 상단 프로필쪽
+			model.addAttribute("dto",dto); // 상단 프로필쪽
+			ArrayList<MypageDTO> myCommentArry = service.myCommentArry(loginId);
+			model.addAttribute("list",myCommentArry);
+			
+			return "/Mypage/myComment";
+		}
+		
+		// 나의활동 댓글단 글
+		@RequestMapping(value = "/myMoim.go")
+		public String myMoim(Model model, HttpSession session) {
+			String loginId = (String) session.getAttribute("loginId");
+			MypageDTO dto = service.myBoardList(loginId); // 상단 프로필쪽
+			model.addAttribute("dto",dto); // 상단 프로필쪽
+			ArrayList<MypageDTO> myMoimArry = service.myMoimArry(loginId);
+			model.addAttribute("list",myMoimArry);
+			
+			return "/Mypage/myMoim";
+		}
 		
 
 }

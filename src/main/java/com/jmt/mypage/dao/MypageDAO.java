@@ -97,6 +97,12 @@ public interface MypageDAO {
 
 	String photo_new(String loginId);
 
+	ArrayList<MypageDTO> myBoardArry(String loginId);
+
+	ArrayList<MypageDTO> myCommentArry(String loginId);
+
+	ArrayList<MypageDTO> myMoimArry(String loginId);
+
 
 
 	

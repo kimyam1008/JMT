@@ -43,6 +43,16 @@ public class MypageDTO {
 	
 	private String photo_newFileName;
 	
+	private String category;
+	private String myCommentArry;
+	
+	
+	public String getMyCommentArry() {
+		return myCommentArry;
+	}
+	public void setMyCommentArry(String myCommentArry) {
+		this.myCommentArry = myCommentArry;
+	}
 	public int getDojangPost_no() {
 		return dojangPost_no;
 	}
@@ -204,6 +214,12 @@ public class MypageDTO {
 	}
 	public void setPhoto_newFileName(String photo_newFileName) {
 		this.photo_newFileName = photo_newFileName;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	
 	

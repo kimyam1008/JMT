@@ -265,59 +265,45 @@ public class MypageService {
 
 		return dao.myDojangRoom(loginId);
 	}
-
-	public HashMap<String, Object> myBoardList(HashMap<String, String> params) {
+	
+	public MypageDTO myBoardList(String loginId) {
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		int cnt = Integer.parseInt(params.get("cnt"));
-		int page = Integer.parseInt(params.get("page"));
-		
-		logger.info("보여줄 페이지 : "+page);
-		
-		ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();
-		
-		//총 갯수(allCnt) / 페이지 당 보여줄 갯수(cnt) = 생성 가능한 페이지(pages)
-		int allCnt = 0;
-		int pages = allCnt % cnt > 0 ? (allCnt / cnt)+1 : (allCnt / cnt);
-		if (page > pages) {
-			page = pages;
-		}
-		logger.info("pages : "+pages);
-		map.put("pages", pages); //만들 수 있는 최대 페이지 수
-		map.put("currPage", page); //현재 페이지
-		
-		int offset = (page - 1) * cnt;
-		logger.info("offset : "+offset);
-		
-		list = dao.blackList(cnt, offset);
-		map.put("list", list);
-				
-				
-				
-				
-		ArrayList<MypageDTO> myList = new ArrayList<MypageDTO>();
 		MypageDTO dto = new MypageDTO();
-		int dojangCount = dao.dojangCount(params.get("loginId")); // 도장깨기 하위 게시글 갯수
-		int moimCount = dao.moimCount(params.get("loginId")); // 모임후기 갯수
+		int dojangCount = dao.dojangCount(loginId); // 도장깨기 하위 게시글 갯수
+		int moimCount = dao.moimCount(loginId); // 모임후기 갯수
 		int boardCount = dojangCount+moimCount; // 나의 게시글 총 갯수
 		dto.setBoardCount(boardCount);; //dto 에 넣어주기
-		int lightningCount = dao.lightningCount(params.get("loginId"));//번개모임 댓글 갯수
-		int dojangCommentCount = dao.dojangCommentCount(params.get("loginId")); //도장깨기 댓글 갯수
-		int moimCommentCount = dao.moimCommentCount(params.get("loginId")); //모임후기 댓글 갯수
-		int jmtCount = dao.jmtCount(params.get("loginId")); //맛집리뷰 댓글 갯수
+		int lightningCount = dao.lightningCount(loginId);//번개모임 댓글 갯수
+		int dojangCommentCount = dao.dojangCommentCount(loginId); //도장깨기 댓글 갯수
+		int moimCommentCount = dao.moimCommentCount(loginId); //모임후기 댓글 갯수
+		int jmtCount = dao.jmtCount(loginId); //맛집리뷰 댓글 갯수
 		int commentCount = lightningCount+dojangCommentCount+moimCommentCount+jmtCount; //나의 댓글 총 갯수
 		dto.setCommentCount(commentCount); //dto 에 넣기
-		dto.setMember_id(params.get("loginId")); //마이페이지에 뿌려줄 아이디 넣어주기
-		String grade_name = dao.grade(params.get("loginId")); //마이페이지에 뿌려줄 등급 가져오기
+		dto.setMember_id(loginId); //마이페이지에 뿌려줄 아이디 넣어주기
+		String grade_name = dao.grade(loginId); //마이페이지에 뿌려줄 등급 가져오기
 		dto.setGrade_name(grade_name); //dto 에 넣기
-		String photo_new = dao.photo_new(params.get("loginId")); //마이페이지에 뿌려줄 프로필 사진 가져오기
+		String photo_new = dao.photo_new(loginId); //마이페이지에 뿌려줄 프로필 사진 가져오기
 		dto.setPhoto_newFileName(photo_new); //dto 에 넣기
-		myList.add(dto); //dto 타입으로 받았기 때문에 어레이 리스트에 넣어주기 (안그러면 map 으로 반환을 못함)
-		map.put("dto", myList);
-		
-		return map;
+
+		return dto;
 	}
+
+	public ArrayList<MypageDTO> myBoardArry(String loginId) {
+
+		return dao.myBoardArry(loginId);
+	}
+
+	public ArrayList<MypageDTO> myCommentArry(String loginId) {
+
+		return dao.myCommentArry(loginId);
+	}
+
+	public ArrayList<MypageDTO> myMoimArry(String loginId) {
+
+		return dao.myMoimArry(loginId);
+	}
+
+	
 
 
 
