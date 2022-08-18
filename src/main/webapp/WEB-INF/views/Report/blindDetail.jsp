@@ -7,28 +7,44 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+ <link href="${path}/resources/etcResource/assets/css/animate.min.css" rel="stylesheet"/>
+<link href="${path}/resources/etcResource/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
+<link href="/http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+<link href="${path}/resources/etcResource/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+<link rel="icon" type="image/png" href="${path}/resources/mainResource/assets/img/pizza-slice.png">
 </head>
 <style>
 
 
-	table,th,td	{
-		border: 1px solid black;
-		border-collapse: collapse;
-		padding: 5px;
-	}
-	textarea{
-		resize:none;width:95%;height:150px;
-	}
+textarea{ resize:none;width:100%;height:150px;}
 	.Detail{float:left;
 	height:400px;}
 	.history{
+		width:30%;
 		float:left;
 		height:400px;
-		border: 1px solid black ;
 		overflow:auto;
 	}
-	.history_li td {
-		height:50px;
+	.history_li  ,.history_li tr{
+		height:44px;
+	}
+	#historyTr{
+		height:44px;
+	}
+		#blindTable{
+	width:70%;float:left;
+	}
+	
+	#twobutton{
+	 position: absolute;
+  left: 70%;
+  transform: translateX(-50%);
 	}
 </style>
 <body>
@@ -40,7 +56,8 @@
 	<input type="hidden" name="class_no" value="${class_no}"/>
 	<input type="hidden" name="reported" value="${detailDto.reported}"/>
 	<input type="hidden" name="report_no" value="${report_no}"/>
-	<table class="Detail">
+	
+	<table id="blindTable" class="table table-hover table-striped" class="Detail">
 	<!-- 게시글인 경우    -->
 	<c:if test="${empty reportPost.comment_content}">
 			<tr>
@@ -119,19 +136,19 @@
 				</td>
 			</tr>
 			<tr>
-			<td colspan="4">
-				<button type="button" onclick="updateBlind()">등록</button> 
-				<button type="button" onclick="returnList()">목록</button>
+			<td colspan="4" id="twobutton">
+				<button  class="btn btn-default" type="button" onclick="updateBlind()">등록</button> 
+				<button  class="btn btn-default" type="button" onclick="returnList()">목록</button>
 			</td>
 			</tr>	
 		</table>
 </form>	
 	
 	<!-- 블라인드 히스토리 -->
-		<div class="history">
-			<table>
+		<div  class="history">
+			<table  class="table table-hover table-striped">
 				<thead>
-					<tr>
+					<tr id="historyTr">
 						<th>관리자 ID</th>
 						<th>신고 번호</th>
 						<th>처리날짜</th>
