@@ -27,11 +27,11 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="../resources/etcResource/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
-<style type="text/css">
-	caption,th {
-		text-align:center;
-	}
-</style>
+	<style type="text/css">
+		table th {
+			text-align:center;
+		}
+	</style>
 </head>
 <body>
     <input type="hidden" name="class_no" value="${lightDto.class_no}"/>
@@ -204,15 +204,17 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
+                        	<div class="content">
                             <h3>최근 게시글</h3>
-                            <ul>
-                                <c:if test = "${lightRecentPost.size() == 0}">
-                                    등록된 글이 없습니다.
-                                </c:if>
-                                <c:forEach items="${lightRecentPost}" var="lightRecentPost" begin="0" end="4">			
-                                    <li>${lightRecentPost.comment_content}</li>
-                                </c:forEach>
-                            </ul>
+	                            <ul>
+	                                <c:if test = "${lightRecentPost.size() == 0}">
+	                                    등록된 글이 없습니다.
+	                                </c:if>
+	                                <c:forEach items="${lightRecentPost}" var="lightRecentPost" begin="0" end="4">			
+	                                    <li>${lightRecentPost.comment_content}</li>
+	                                </c:forEach>
+	                            </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -222,13 +224,15 @@
                  <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <h3>가입 대기 회원</h3><a style="text-decoration:none" onclick="lightJoinWait()">회원보기</a>
-                            <!-- <input type="button" value="회원보기" onclick="lightJoinWait()"/> -->
-                            <ul>
-                                <c:forEach items="${lightJoinWait}" var="lightJoinWait">
-                                    <li>${lightJoinWait.member_id}</li>
-                                </c:forEach>
-                            </ul>
+                        	<div class="content">
+	                            <h3>가입 대기 회원</h3><a style="text-decoration:none" onclick="lightJoinWait()">회원보기</a>
+	                            <!-- <input type="button" value="회원보기" onclick="lightJoinWait()"/> -->
+	                            <ul>
+	                                <c:forEach items="${lightJoinWait}" var="lightJoinWait">
+	                                    <li>${lightJoinWait.member_id}</li>
+	                                </c:forEach>
+	                            </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -264,11 +268,11 @@ function groupDelete(){
 	var result = confirm("정말로 모임을 삭제하시겠습니까? 한 번 삭제하면 되돌릴 수 없습니다.");
 	
 	if(result == true){
-		if(member_count > 1) {
+		/* if(member_count > 1) {
 			alert("모임의 모든 회원을 추방한 뒤 모임을 삭제하세요.");
-		} else {
+		} else { */
 			location.href="/leaderLightDelete.do?lightning_no="+${lightDto.lightning_no};
-		}
+		/* } */
 		
 	}
 }

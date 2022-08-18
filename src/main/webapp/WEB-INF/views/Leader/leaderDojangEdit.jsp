@@ -38,7 +38,7 @@
 				<th>모집 상태</th>
 				<td>
 					<select id="dojang_status" value="${dojangDto.dojang_status}">
-						<option value="모집 중">모집 중</option>
+						<option value="모집 중">모집중</option>
 						<option value="모집 마감">모집 마감</option>
 					</select>
 				</td>

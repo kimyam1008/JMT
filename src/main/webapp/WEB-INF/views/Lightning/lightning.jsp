@@ -1,7 +1,51 @@
-<!-- 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>JMT 번개모임 리스트 페이지 </title>
+		<link rel="shortcut icon" type="image/x-icon" href="../resources/mainResource/assets/img/pizza-slice.png">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+		 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		
+		<!-- 페이징 -->
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	
+		<!--   Core JS Files   -->
+    	<script src="../resources/etcResource/assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
+		<script src="../resources/etcResource/assets/js/bootstrap.min.js" type="text/javascript"></script>
 
-<html>
+		<!--  Charts Plugin -->
+		<script src="../resources/etcResource/assets/js/chartist.min.js"></script>
+
+    	<!--  Notifications Plugin  : 없어도 되네  
+    	<script src="../resources/etcResource/assets/js/bootstrap-notify.js"></script>
+  -		-->
+  
+    	<!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+		<script src="../resources/etcResource/assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
+	
+
+			<!-- CSS here 이게 없으면 알림 이모티콘이 안 보임 -->
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/bootstrap.min.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/owl.carousel.min.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/slicknav.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/flaticon.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/price_rangs.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/animate.min.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/magnific-popup.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/fontawesome-all.min.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/themify-icons.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/slick.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/nice-select.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/style.css">
+
+      
+            <!--알림 css-->
+            <link href="../resources/etcResource/assets/css/bootstrap.min.css" rel="stylesheet" />
+   </head>
+   <!-- 
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -12,18 +56,40 @@
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> 
 <script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
 
+<link rel="stylesheet" href="resources/css/common.css" type="text/css">
+
+	<jsp:include page="../commons/header.jsp"/>
+    -->
+
+
 <style>
-	table,th,td {
+	#lightningList {
 		border : 1px solid black;
 		border-collapse : collapse;
+		width : 600px;
 	}
 
-	th,td { 
+	#lightningList > th,td { 
+		border : 1px solid black;
+		border-collapse : collapse;
+		width : 600px;
 		padding : 5px 10px;
 	}
- -->
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../../../resources/inc/header.jsp" %>
+	
+
+	#searchBar{
+		float : left;
+		height : 200px;
+	}
+	
+	.dropdown-menu{
+		overflow : auto;
+	}
+</style>
+</head>
+<body>
+	<jsp:include page="../commons/header.jsp"/>
+
 	<div id="searchBar">
 		<button onclick="lightCreateChk()">번개 생성하기</button>
 		<br/>
@@ -60,7 +126,7 @@
 	</div>
 	
 	<table>
-		<thead>
+		<thead id="lightningList">
 			<tr>
 				<th>맛집 이름</th>
 				<th>음식 카테고리</th>
@@ -86,7 +152,7 @@
 			</tr>
 	</table>
 
-		<%@ include file="../../../resources/inc/footer.jsp" %>
+<%@ include file="../../../resources/inc/footer.jsp" %>		
 <script>
 	var loginId = "${loginId}";
 	var currpage = 1;
@@ -245,4 +311,22 @@
 	}
 
 </script>
+ <!--   Core JS Files   -->
+    <script src="../resources/etcResource/assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
+	<script src="../resources/etcResource/assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<!--  Charts Plugin -->
+	<script src="../resources/etcResource/assets/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="../resources/etcResource/assets/js/bootstrap-notify.js"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+	<script src="../resources/etcResource/assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
+	
+	<!--  페이징  -->
+  	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> 
+	<script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
+
 </html>

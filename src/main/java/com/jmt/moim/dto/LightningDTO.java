@@ -44,8 +44,7 @@ public class LightningDTO {
 	private int comment_no;
 	
 	
-	
-	
+
 	
 	
 	

@@ -100,6 +100,8 @@ public interface ReportDAO {
 
 	ArrayList<ReportDTO> blackMemberList(Map<String, Object> data);
 
+	void blindNoti(Integer class_no, Integer idx, String reported);
+
 
 
 }

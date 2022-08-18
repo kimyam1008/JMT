@@ -252,4 +252,17 @@
 	</update>
 	
 	
+	<!-- 도장깨기 방 게시글 댓글 신고 -->
+	<insert id="dojangCmtReport" parameterType="hashmap">
+		INSERT INTO report(reporter,reported,class_no,report_reason,idx)
+			VALUES(
+			#{loginId}
+			,(select member_id from comment where comment_no = #{comment_no})
+			,5,
+			<if test="!report_reason.equals('기타')">#{report_reason}</if>
+			<if test="report_reason.equals('기타')">#{report_reason_text}</if>
+			,#{comment_no})
+	</insert>
+	
+	
 </mapper>

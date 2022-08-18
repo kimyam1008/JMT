@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="resources/css/common.css" type="text/css">
 <style>
 	table, td,th{
 		border: 1px solid black;
@@ -14,14 +15,14 @@
 	th, td{
 		padding: 10px 20px 10px 20px;
 	}
- 	a{
+ 	/*댓글 아이디 & 신고하기 */ 
+ 	.idatag{
  	color : black;
  	pointer : cursor;
  	text-decoration : none;
  	}
- 	
- 	
- 	/*댓글 작성 폼 */
+ 	/*댓글 작성 폼 
+ 	*/
 	 .comment-form {
 	  display: flex;
 	  flex-direction: column;
@@ -81,26 +82,6 @@
 		padding : 5px;
 	}
 	
-	/*등급색상*/
-	.g1{
-		color :green;
-	}
-	
-	.g2{
-		color :brown;
-	}
-	
-	.g3{
-		color :lightblue;
-	}
-	
-	.g4{
-		color :gold;
-	}
-	
-	.g5{
-		color :purple;
-	}
 	
 	.top .utility {
 	  display: flex;
@@ -180,7 +161,8 @@
 </style>
 </head>
 <body>
-	<a href="/lightningLeaderPage.go?lightning_no=${dto.lightning_no}">방장페이지</a>
+<jsp:include page="../commons/header.jsp"/>
+	<a href="/lightningLeaderPage.go?lightning_no=${dto.lightning_no}" id="leaderPage">방장페이지</a>
 	<table>
 		<tr>
 			<th>모임 이름</th>
@@ -257,13 +239,13 @@
 	
 	//방장이 본인 방 상세페이지를 볼 때 
 	if(leader_id == loginId){
-		$("a").css("display","inline");
+		$("#leaderPage").css("display","inline");
 		$("#button").text("삭제");
 		$("#button").attr("onclick","chkDel()");
 		/*댓글*/
 		cmtList(class_no,lightning_no);
 	}else if(leader_id != loginId && status !="승인"){
-		$("a").css("display","none");
+		$("#leaderPage").css("display","none");
 		/*댓글*/
 		$(".comment-form").css("display","none");
 	}
@@ -272,7 +254,7 @@
 	if(status=="승인"){
 		$("#application").text("탈퇴");
 		$("#application").attr("onclick","dropout()");
-		$("a").css("display","none");
+		$("#leaderPage").css("display","none");
 		/*댓글*/
 		$(".comment-form").css("display","flex");
 		cmtList(class_no,lightning_no);	
@@ -419,8 +401,9 @@
 				}
 				
 				content += '</div>';
-				content += '<div class="member_id"><a href="#">'+item.member_id+'</a></div>';
-				content += '<div class="grade_name g'+item.grade_no+'">'+item.grade_name+'</div>';
+				content += '<div class="member_id"><a href="#" class="idatag">'+item.member_id+'</a></div>';
+				//content += '<div class="grade_name g'+item.grade_no+'">'+item.grade_name+'</div>';
+				content += '<div class="grade_name" style="color :'+item.grade_color+'">'+item.grade_name+'</div>';
 				content += '<div class="utility">';
 				
 				if(loginId == item.member_id){ //본인 댓글만 수정,삭제 보이게 
