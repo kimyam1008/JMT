@@ -51,14 +51,14 @@
 	
 	<select id="resList" parameterType="hashmap" resultType="res">
 		select * from restaurant r left outer join comment c on r.restaurant_no = c.idx  
-		left outer join photo p on p.idx = c.comment_no join food f on r.food_no = f.food_no where restaurant_info = "영업중" group by restaurant_no
+		left outer join photo p on p.idx = c.comment_no join food f on r.food_no = f.food_no WHERE restaurant_info = "영업중"
 			<if test="search != null and search != ''">
 				AND r.restaurant_name LIKE CONCAT('%', #{search}, '%')
 			</if>
 	        <if test="foodname != null and foodname != ''">
 	        	AND  r.food_no = #{foodname}
         	</if>
-
+		group by restaurant_no
 		ORDER BY r.restaurant_no DESC limit #{cnt} OFFSET #{offset};
 	</select>
 	
@@ -66,15 +66,13 @@
 	<select id="allCount" parameterType="hashmap" resultType="int">
 		SELECT
 			COUNT(restaurant_no)
-		FROM restaurant r
-		<where>
+		FROM restaurant r WHERE restaurant_info = "영업중"
 			<if test="search != null and search != ''">
 				AND r.restaurant_name LIKE CONCAT('%', #{search}, '%')
 			</if>
 			<if test="foodname != null and foodname != ''">
 	        	AND  r.food_no = #{foodname}
         	</if>
-		</where>
 	</select>
 	
 		

@@ -17,34 +17,33 @@
 			, d.gender
 		FROM dojanglist d
 		JOIN food f ON d.food_no = f.food_no
-		
+		WHERE d.dojang_status IN ("모집중","모집마감")
 		<include refid="selectedListSql"></include>
 		
 		ORDER BY d.dojang_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
 	<sql id="selectedListSql">
-	<trim prefix="where" suffixOverrides="and">
 			<if test = "search != null &amp;&amp; !search.equals('')">
-				d.dojang_title LIKE CONCAT('%',#{search}, '%') and
+				and d.dojang_title LIKE CONCAT('%',#{search}, '%') 
 			</if>
 		
 			<if test = "foodname != null &amp;&amp; !foodname.equals('')">
-				d.food_no = #{foodname} and 
+				and d.food_no = #{foodname}  
 			</if>
 			
 			<if test = "eat_speed != null &amp;&amp; !eat_speed.equals('')">
-				eat_speed = #{eat_speed} and 
+				and eat_speed = #{eat_speed}  
 			</if>
 			
 			<if test = "job != null &amp;&amp; !job.equals('')">
-				job = #{job} and 
+				and job = #{job}  
 			</if>
 			
 			<if test = "gender!=null">
-				d.gender = #{gender} and 
+				and d.gender = #{gender}  
 			</if>
-			</trim>
+
 	</sql>
 	
 	
@@ -53,7 +52,7 @@
 		SELECT
 			COUNT(dojang_no)
 		FROM dojanglist d
-		
+		WHERE d.dojang_status IN ("모집중","모집마감")
 		<include refid="selectedListSql"></include>
 		
 	</select>
