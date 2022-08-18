@@ -176,13 +176,11 @@
  		width : 100%;
  		height : 100%;
  		object-fit : cover;
- 	}
- 	
+ 	} 	
 </style>
 </head>
-
 <body>
-	<a href="#">방장페이지</a>
+	<a href="/lightningLeaderPage.go?lightning_no=${dto.lightning_no}">방장페이지</a>
 	<table>
 		<tr>
 			<th>모임 이름</th>
@@ -223,14 +221,14 @@
 		<tr>
 			<th colspan ="4">
 				<button id="application" onclick="application()">신청</button>
-				<button onclick="location.href='javascript:history.back()'">목록</button>
+				<button onclick="location.href='/lightList.go'">목록</button>
 			</th>
 		</tr>
 	</table>
 
 <!--------- 댓글 영역 ---------->
 	<div class="comment-form">
-  		<textarea  id="cmtInput" placeholder="댓글을 작성하세요."></textarea>
+  		<textarea  id="cmtInput" placeholder="댓글을 작성하세요 (최대 300자)"></textarea>
   		<button type="button" class="submit" id="cmtWrite">댓글 쓰기</button>
 	</div>
 	<div id="cmtList">
@@ -281,6 +279,9 @@
 	}
 	
 	
+	
+	var profileChk = ${profileChk};
+	
 	function application(){
 		console.log(status);
 		//방장아이디랑 로그인아이디 비교해서 같으면 신청불가
@@ -288,8 +289,10 @@
 			alert("방장은 신청할 수 없습니다.");
 		//아직 가입신청을 안한 경우
 		}else if (status == ""){
+			if(!profileChk){
+				alert("프로필 생성 후 이용 가능합니다");
 			//프로필 상태 기반
-			if("${dto.gender}" !="상관없음" && "${dto.gender}" != profile_gender){
+			}else if("${dto.gender}" !="상관없음" && "${dto.gender}" != profile_gender){
 				alert("성별 조건이 맞지않습니다.");
 			}else{
 				if(confirm("가입 신청하시겠습니까?")){
@@ -410,7 +413,7 @@
 				content += '<div class ="img">';
 				
 				if (item.photo_newFileName!= null){
-				content += '<a href="#"><img src ="/photo/'+item.photo_newFileName+'" class="profileImg"></a>';
+					content += '<a href="#"><img src ="/photo/'+item.photo_newFileName+'" class="profileImg"></a>';
 				}else{ //프로필 등록을 안했을 시
 					content += '<a href="#"><img src ="/photo/profile.jpeg" class="profileImg"></a>';
 				}
@@ -421,19 +424,19 @@
 				content += '<div class="utility">';
 				
 				if(loginId == item.member_id){ //본인 댓글만 수정,삭제 보이게 
-				content += '<button class="btn" id="updBtn'+item.comment_no+'" onclick="updBtn('+item.comment_no+   ","     +  "\'" +  str   +"\'"  + ')">수정</button>';
-				content += '<button class="btn" id="delBtn'+item.comment_no+'" onclick="cmtDel('+item.comment_no+')">삭제</button>';
+					content += '<button class="btn" id="updBtn'+item.comment_no+'" onclick="updBtn('+item.comment_no+   ","     +  "\'" +  str   +"\'"  + ')">수정</button>';
+					content += '<button class="btn" id="delBtn'+item.comment_no+'" onclick="cmtDel('+item.comment_no+')">삭제</button>';
 				}
 				
 				content += '</div>';
 				content += '</header>';
 				content += '<p id="p'+item.comment_no+'">'+str+'</p>';
 				content += '<ul class="bottom">';
-				content += '<li class="menu comment_date">'+date.toLocaleDateString("ko-KR")+'</li>';
+				content += '<li class="menu comment_date">'+date.toLocaleString("ko-KR")+'</li>';
 				
 				if(loginId != item.member_id){ //본인 댓글은 '신고하기' 안보이게
-				content += '<li class="divider"></li>';
-				content += '<li class="menu report" onclick="lightCmtReport_pop('+item.comment_no+')">신고하기</li>';
+					content += '<li class="divider"></li>';
+					content += '<li class="menu report" onclick="lightCmtReport_pop('+item.comment_no+')">신고하기</li>';
 				}
 				
 				content += '</ul>';

@@ -9,33 +9,30 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <style>
+	table,th,td{
+		border: 1px solid black;
+		border-collapse: collapse;
+		padding: 5px;
+	}
+	
+	.nonono{
+	display:none;}
+	
 
-	#container {overflow:hidden;height:300px;position:relative;}
-	#btnRoadview,  #btnMap {position:absolute;top:5px;left:5px;padding:7px 12px;font-size:14px;border: 1px solid #dbdbdb;background-color: #fff;border-radius: 2px;box-shadow: 0 1px 1px rgba(0,0,0,.04);z-index:1;cursor:pointer;}
-	#btnRoadview:hover,  #btnMap:hover{background-color: #fcfcfc;border: 1px solid #c1c1c1;}
-	#container.view_map #mapWrapper {z-index: 10;}
-	#container.view_map #btnMap {display: none;}
-	#container.view_roadview #mapWrapper {z-index: 0;}
-	#container.view_roadview #btnRoadview {display: none;}
-
-	<style type="text/css">
-		li {list-style: none; float: left; padding: 6px;}
-		 a:link { color: black; text-decoration: none;}
-		 a:visited { color: black; text-decoration: none;}
-		 a:hover { color: blue; text-decoration: underline;}
-		 
-		 th { text-align: center; }
-		 table { text-align: center; }
-		 h1 { padding: 40px}	
 </style>
 <title>Insert title here</title>
 </head>
 <body>
 	<h3>${sessionScope.loginId}</h3>
 	<h3>맛집 상세보기</h3>
-	 <c:forEach items="${photoList}" var="path">
-      	<img src="/image/${path.photo_newFileName}" height="100"/>
-     </c:forEach>
+	<c:forEach items="${CommentPhoto}" var="p">
+	
+		<img src="/photo/${p.photo_newFileName}" height="100"/>
+	
+	</c:forEach>
+	 <%-- <c:forEach items="${photoList}" var="path">
+      	<img src="/photo/${path.photo_newFileName}" height="100"/>
+     </c:forEach> --%>
 	<table>
 		<thead>
 	         <tr>
@@ -72,33 +69,25 @@
 	        <!-- <input type="button" id="btnRoadview" onclick="toggleMap(false)" title="로드뷰 보기" value="로드뷰"> -->
 	    </div>
 	    <!-- 로드뷰 ^^ 와우 -->
-	    <div id="rvWrapper" style="width:50%;height:300px;position:absolute;top:0;left:0;">
+	    <!-- <div id="rvWrapper" style="width:50%;height:300px;position:absolute;top:0;left:0;"> -->
 	        <div id="roadview" style="height:100%"></div> <!-- 로드뷰를 표시할 div 입니다 -->
-	        <input type="button" id="btnMap" onclick="toggleMap(true)" title="지도 보기" value="지도">
+	        <!-- <input type="button" id="btnMap" onclick="toggleMap(true)" title="지도 보기" value="지도"> -->
 	    </div>
 	</div>
 	
 	<c:forEach items="${lightninglist}" var="liList">
 	 	번개 모임!!
 	 	<br/>
-      	<td>${liList.lightning_title}</td>
-      	<br/>
-      	<br/>
+	 	<c:if test="${liList.lightning_status eq '모집중'}">
+      		<td>${liList.lightning_title}</td>
+    	</c:if>
      </c:forEach>
 	
 		<h3>리뷰</h3>
 	<table>
 		<thead>
 			<tr>
-				<td>
-					좋아요 순
-				</td>
-				<td>
-					|
-				</td>
-				<td>
-					최신순
-				</td>
+				
 				<td>
 					<a href="./reviewWrite?restaurant_no=${resDetail.restaurant_no}">리뷰 쓰기</a>			
 				</td>
@@ -110,60 +99,117 @@
      <table>
 	 <c:forEach items="${resCommet}" var="comment" >
 	 <tr>
+		
 		<c:if test="${comment.comment_status eq '공개'}">
-			<td>
-				<input type="hidden" name="idx" value="${comment.comment_no}" />
-			</td>
+			<input type="hidden" name="idx" value="${comment.comment_no}" />
 			<td>${comment.member_id}</td>
 			<td>${comment.comment_content}</td>
 			<td>${comment.comment_date}</td>
 			
+			<%-- <c:forEach items="${memberPhoto}" var="p2">
+			<c:if test="${p2.profile_no eq p2.idx}">
+				<c:if test="${comment.member_id eq p2.member_id}">
+					<img src="/photo/${p2.photo_newFileName}" height="100"/>
+				</c:if>
+			</c:if>
+			</c:forEach>
+			<td> --%>
+
 			
-			<td>
-			<button class="likeDelBtn" onclick="likeDel(this)"
-			commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-			♥</button>
+			<%-- <c:forEach items="${CommentLike}" var="like">
+				<c:choose>
+				<c:if test="${comment.member_id eq like.member_id}">
+					<c:when test="${like.member_id eq sessionScope.loginId}">
+						<td>
+							<button class="likeDelBtn" onclick="likeDel(this)"
+							commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
+							♥</button>
+						</td>
+					</c:when>
+				</c:if>	
+					<c:otherwise>
+						<td>
+							<button class="likeBtn" onclick="like(this)"
+							commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
+							♡</button>
+						</td>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach> --%>
 			
-			<button class="likeBtn" onclick="like(this)"
-			commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-			♡</button>
-			</td>
-	
-			<%-- <td>
+			
+			<%-- <c:choose>
+				<c:when test="${comment.comment_no ne null}">
+					<td>
+						<button class="likeDelBtn" onclick="likeDel(this)"
+						commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
+						♥</button>
+					</td>	
+				</c:when>
+				<c:otherwise>
+					<td>
+						<button class="likeBtn" onclick="like(this)"
+						commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
+						♡</button>
+					</td>
+				</c:otherwise>
+			</c:choose>
+			
+			
 			<c:choose>
-				<c:when test="${comment.member_id eq sessionScope.loginId}">
-					<button class="likeDelBtn" onclick="likeDel(this)"
+				<c:when test="${comment.comment_no ne null}">
+					<td>
+						<button class="likeBtn" onclick="like(this)"
+						commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
+						♡</button>
+					</td>
+				</c:when>
+				<c:otherwise>
+					
+				</c:otherwise>
+			</c:choose> --%>
+			
+			
+			
+			
+				<td>
+					<button class="likeDelBtn" onclick="likeDel(this)" 
 					commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
 					♥</button>
-				</c:when>
-				<c:when test="${comment.member_id eq sessionScope.loginId}">
+					
 					<button class="likeBtn" onclick="like(this)"
 					commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
 					♡</button>
-					</c:when>
-			</c:choose>
-			</td> --%>
-			
-			<%-- 포토도 해야함..
-			<c:forEach items="${photoList}" var="p">
-				<c:if test="${comment.comment_no eq comment.comment_no}">
-				<td>
-					<input type="hidden" name="idx" value="${comment.comment_no}" />
 				</td>
-				<img src="/image/${p.photo_newFileName}" height="400"/>
-				</c:if>
-			</c:forEach> --%>
+					
 			 
+			
+			
 			<td>
 			<c:if test="${comment.member_id eq sessionScope.loginId}">
-			<input type="hidden" name="ID" value="${comment.member_id}" />
-			<button class="delBtn" onclick="commentDel(this)" commentID="${comment.comment_no}">삭제</button>
-			<a href="./reviewUpdate?comment_no=${comment.comment_no}">수정</a>
+				<input type="hidden" name="ID" value="${comment.member_id}" />
+				<button class="delBtn" onclick="commentDel(this)" commentID="${comment.comment_no}">삭제</button>
+				<a href="./reviewUpdate?comment_no=${comment.comment_no}">수정</a>
 			</c:if>
 			</td>
 			<td>
 			${comment.likeNo}
 			</td>
+			<c:if test="${comment.member_id ne sessionScope.loginId}">
+				<td>		
+					<input type="hidden" value="${comment.comment_no}">
+					<button type="button" resID="${comment.comment_no}"
+					memberID="${sessionScope.loginId}" onclick="report(${comment.comment_no})">신고하기</button>
+				</td>					
+			</c:if>
+			<td>
+			<c:forEach items="${CommentPhoto}" var="p">
+				<c:if test="${comment.comment_no eq p.idx}">
+				<img src="/photo/${p.photo_newFileName}" height="100"/>
+				</c:if>
+			</c:forEach>
+			</td> 
+			 
 		</c:if>	
 		</tr>
      </c:forEach>
@@ -172,48 +218,21 @@
    
     
     
-    <!-- 페이지 번호 -->	
-	<div>
-		<ul>	
-			<!-- 맨처음 버튼 -->
-			<li>
-				<a href="listPage${pageMaker.makeQuery(pageMaker.firstPage)}">맨처음</a>
-			</li>
-			
-			
-			<!-- 이전 버튼 -->
-			<li>
-				<a href="listPage${pageMaker.makeQuery(pageMaker.startPage-1)}">이전</a>
-			</li>
-			
-			<!-- 페이지 번호 (시작 페이지 번호부터 끝 페이지 번호까지) -->
-			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-			    <li>
-				    <a href="listPage${pageMaker.makeQuery(idx)}">
-				    	<!-- 시각 장애인을 위한 추가 -->
-				      	<span>${idx}</span>
-				    </a>
-			    </li>
-			</c:forEach>
-			
-			<!-- next 버튼 -->
-			<li>
-			    <a href="listPage${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a>
-			</li>
-			
-			<li>
-				<a href="listPage${pageMaker.makeQuery(pageMaker.finalPage)}">맨끝</a>
-			</li>
-			
-		</ul>
-	</div>
+    
 </body>
 
 <script>
-
-
+	
+	/* var i = ${comment.comment_no}; */
+	/* var comment_no = ${comment.comment_no}; */
+	var ooo = onclick="report(${comment.comment_no})"
+	
 	function resUp(){
 		window.open('restaurantUpdate.go?restaurant_no=${resDetail.restaurant_no}','','width=400, height=300');
+	}
+	
+	function report(){
+		window.open('resReport.go?comment_no=74','','width=400, height=300');
 	}
 	
 	
@@ -267,6 +286,8 @@
 	} 
 	
 	function likeDel(comment_no) { 
+		
+		
 	      var commentID = $(comment_no).attr("commentID");
 	      /* var loginID = $(comment_no).attr("loginID"); */
 	      console.log(commentID);
@@ -289,6 +310,18 @@
 	      
 	      
 	} 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	//지도^^
@@ -359,6 +392,7 @@
 	        container.className = "view_roadview"   
 	    }
 	}
+	
 	
 </script>
 

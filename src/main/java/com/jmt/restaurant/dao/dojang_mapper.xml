@@ -7,7 +7,7 @@
 		SELECT food_no, food_name FROM food
 	</select>
 	
-	<select id="resList" parameterType="hashmap" resultType="res">
+	<!-- <select id="resList" parameterType="hashmap" resultType="res">
 		select
 			*
 		from (
@@ -47,6 +47,21 @@
 		</where>
 		ORDER BY r.restaurant_no DESC limit #{cnt} OFFSET #{offset};
 	</select>
+	 -->
+	
+	<select id="resList" parameterType="hashmap" resultType="res">
+		select * from restaurant r left outer join comment c on r.restaurant_no = c.idx  
+		left outer join photo p on p.idx = c.comment_no join food f on r.food_no = f.food_no where restaurant_info = "영업중" group by restaurant_no
+		<where>
+			<if test="search != null and search != ''">
+				AND r.restaurant_name LIKE CONCAT('%', #{search}, '%')
+			</if>
+	        <if test="foodname != null and foodname != ''">
+	        	AND  r.food_no = #{foodname}
+        	</if>
+		</where>
+		ORDER BY r.restaurant_no DESC limit #{cnt} OFFSET #{offset};
+	</select>
 	
 	<!-- 음식점 검색 페이징 -->
 	<select id="allCount" parameterType="hashmap" resultType="int">
@@ -63,12 +78,7 @@
 		</where>
 	</select>
 	
-	<!-- 맛집수정요청 페이징 -->
-	<select id="allCount2" parameterType="hashmap" resultType="int">
-		select
-			count(restuarantUpdate_no)
-	 	from restaurantupdate r
-	</select>	
+		
 	
 	<select id="resDetail" resultType="res" parameterType="int" >
 		SELECT 
@@ -86,7 +96,8 @@
 	
 	<select id="lightninglist" resultType="res" parameterType="int" >
 		select
-			l.lightning_title 
+			  l.lightning_title 
+			, l.lightning_status 
 		from 
 			lightninglist l
 		inner join restaurant r on 
@@ -131,10 +142,7 @@
 	<select id="photoDelList" resultType="res" parameterType="hashmap" >
 		select * from photo p where photo_no = #{photo_no}
 	</select>
-	
-	
-	
-	
+		
 	
 	<!-- <select id="resCommet" resultType="res" parameterType="hashmap" >	
 		select
@@ -165,6 +173,13 @@
 			where idx = #{restaurant_no}
 	</select>
 	
+	<select id="CommentPhoto" resultType="hashmap" parameterType="int">
+		select * from photo p where idx = #{comment_no}
+	</select>
+	
+	<select id="CommentLike" resultType="hashmap" parameterType="int">
+		select * from likes l where comment_no = #{comment_no}
+	</select>
 	
 	<update id="commentDel" parameterType="hashmap">
 		update comment set comment_status = "삭제" where comment_no = #{comment_no}		
@@ -180,6 +195,10 @@
 	
 	<delete id="reviewDel">
 		DELETE FROM photo WHERE photo_no = #{photo_no}
+	</delete>
+	
+	<delete id="commentPhotoDel">
+		DELETE FROM photo WHERE idx = #{comment_no}
 	</delete>
 	
 	<update id="reviewReLoad" parameterType="Hashmap">
@@ -215,6 +234,35 @@
 		from restaurantupdate r 
 		inner join restaurant r2 on
 		r.restaurant_no = r2.restaurant_no
+		<where>
+			<if test="list_option !=null">
+				<if test="list_option.equals('처리대기')">
+					restaurantUpdate_proc_status = '처리대기'
+				</if>
+				<if test="list_option.equals('처리완료')">
+					restaurantUpdate_proc_status = '처리완료'
+				</if>
+			</if>
+		</where>
+		ORDER BY r.restuarantUpdate_no DESC limit #{cnt} offset #{offset}
+	</select>
+	
+	
+	<!-- 맛집수정요청 페이징 -->
+	<select id="allCount2" parameterType="hashmap" resultType="int">
+		select
+			count(restuarantUpdate_no)
+	 	from restaurantupdate r
+	 	<where>
+			<if test="list_option !=null">
+				<if test="list_option.equals('처리대기')">
+					restaurantUpdate_proc_status ='처리대기'
+				</if>
+				<if test="list_option.equals('처리완료')">
+					restaurantUpdate_proc_status ='처리완료'
+				</if>
+			</if>
+		</where>
 	</select>
 	
 	<!-- 맛집 수정요청 음식점 -->
@@ -264,9 +312,36 @@
 		where restuarantUpdate_no = #{restuarantUpdate_no}
 	</update>
 	
+	<select id="commentList" resultType="res" parameterType="int">
+		select * from comment c where comment_no = #{comment_no}
+	</select>
 	
+	<select id="memberPhoto" resultType="res" parameterType="Hashmap">
+		select
+			  p.profile_no
+			, p.member_id
+			, p2.idx
+			, p2.photo_newFileName
+		from
+			profile p
+		join
+			photo p2
+		where
+			p.profile_no = p2.idx
+		and
+			class_no = 9
+	</select>
 	
-	
+	<insert id="resCmtReport" parameterType="hashmap">
+		INSERT INTO report(reporter,reported,class_no,report_reason,idx)
+			VALUES(
+				#{loginId}
+				,(select member_id from comment where comment_no = #{comment_no})
+				,8,
+				<if test="!report_reason.equals('기타')">#{report_reason}</if>
+				<if test="report_reason.equals('기타')">#{report_reason_text}</if>
+				,#{comment_no})
+	</insert>
 	
 	
 

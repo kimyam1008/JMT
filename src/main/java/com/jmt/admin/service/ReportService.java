@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jmt.admin.dao.ReportDAO;
@@ -177,9 +178,18 @@ public class ReportService {
 		int cnt =Integer.parseInt(params.get("cnt"));  
 		int page =Integer.parseInt(params.get("page"));
 		
-		Map<String, Object> map = new HashMap<String, Object>();  // 리턴용 
+		/* 검색 옵션*/
+		String status_option = params.get("status_option");
+		String  search_option = params.get("search_option");
+		String keyword =  params.get("keyword");
 		
+		
+		Map<String, Object> map = new HashMap<String, Object>();  // 리턴용 	
 		Map<String, Object> data = new HashMap<String, Object>(); // 파라미터용
+		
+		data.put("status_option", status_option);
+		data.put("search_option", search_option);
+		data.put("keyword", keyword);
 		
 		int allCnt = dao.blindCount(data);
 		logger.info("총 allCnt:"+allCnt); // 총 페이지 수 
@@ -275,7 +285,7 @@ public class ReportService {
 		dao.changeStatus(data);
 		
 	}
-
+	@Transactional
 	public int changeBlind(Map<String, Object> data) {
 		int result = 0; 
 		
@@ -375,6 +385,69 @@ public class ReportService {
 		return map;
 	}
 	
+	
+	
+	
+	public Map<String, Object> blackReg(HashMap<String, String> params) {
+		Map<String, Object> data  = new HashMap<String, Object>();
+		 int result = dao.blackReg(params);
+		String msg =""; 
+		if(result >0 ) {
+			msg="처리가 완료되었습니다."; 
+			
+		}
+		 data.put("result",result);
+		 data.put("msg",msg);
+		return data;
+	}
+
+	public ReportDTO blackList(String member_id) {
+		return dao.blackList(member_id);
+	}
+
+	public Map<String, Object> blackMemberList(HashMap<String, String> params) {
+		
+		Map<String, Object> map = new HashMap<String, Object>(); 
+		
+		int cnt =Integer.parseInt(params.get("cnt"));  
+		int page =Integer.parseInt(params.get("page"));
+		String member_id= params.get("member_id");
+		Map<String, Object> data = new HashMap<String, Object>(); 
+		data.put("member_id", member_id);
+		
+		int allCnt = dao.blackMemberCount(data);
+		logger.info("총 allCnt:"+allCnt); // 총 페이지 수 
+		int pages = allCnt%cnt>0 ? (allCnt/cnt)+1 :(allCnt/cnt);  // 현재 만들 수 있는 최대 페이지 수 
+		if(pages==0) {pages=1;}
+		if(page>pages) {  // 페이지 바뀌는 경우 . 현재 페이지 가 
+			page=pages;
+		}
+		logger.info("pages"+pages);
+		
+		map.put("pages", pages);// 만들 수 있는 최대 페이지 수 
+		map.put("currPage",page); // 현재 페이지
+		/* currPage>pages? : page */
+		int offset =(page-1)*cnt;
+		logger.info("offset:"+offset);
+	//	ArrayList<HashMap<String, Object>> list =dao.reportList(cnt,offset);
+		data.put("cnt", cnt);
+		data.put("offset", offset);
+		
+		ArrayList<ReportDTO>  dto= dao.blackMemberList(data);
+		 map.put("blackMemberList",dto);
+		return map;	
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	// test test test 
 	public int test(String loginId) {
 		int comment_no = dao.testPost(loginId);
@@ -402,6 +475,8 @@ public class ReportService {
 		
 		return dao.chkGrade( loginId);
 	}
+
+	
 
 
 	

@@ -1,6 +1,7 @@
 package com.jmt.restaurant.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,7 +32,7 @@ public class RestaurantController {
 	
 	
 	// 맛집 페이지 이동
-	@RequestMapping(value = "/restaurant")
+	@RequestMapping(value = "/restaurant", method = RequestMethod.GET)
 	public ModelAndView restaurant() {
 		logger.info("맛집 페이지 이동");
 		ModelAndView mav = new ModelAndView("Restaurant/restaurant");
@@ -47,7 +49,7 @@ public class RestaurantController {
 		return map;
 	}
 	
-	@RequestMapping(value = "/resList.ajax")
+	@RequestMapping(value = "/resList.ajax", method = RequestMethod.GET)
 	@ResponseBody
 	public HashMap<String, Object> resList(Model model,@RequestParam HashMap<String, String> params) {
 		logger.info("맛집 리스트 요청");
@@ -56,7 +58,7 @@ public class RestaurantController {
 	}
 	
 	
-	@RequestMapping("/resSearch.ajax")
+	@RequestMapping(value = "/resSearch.ajax" , method = RequestMethod.GET)
 	@ResponseBody
 	public HashMap<String, Object> courSearch(
 			@RequestParam HashMap<String, String> params){
@@ -67,11 +69,13 @@ public class RestaurantController {
 	
 	
 	
-	@RequestMapping(value = "/resDetail.do")
+	@RequestMapping(value = "/resDetail.do", method = RequestMethod.GET)
 	public String resDetail(Model model, HttpSession session,
 			@RequestParam int restaurant_no, @RequestParam HashMap<String, String> params) {
 		
 		params.put("loginId", (String) session.getAttribute("loginId"));
+		
+		
 		
 		logger.info("맛집 상세보기 : "+ restaurant_no); 
 		service.resDetail(model, restaurant_no);
@@ -80,9 +84,47 @@ public class RestaurantController {
 		ArrayList<RestaurantDTO> photoList = service.photoList(model, restaurant_no);
 		model.addAttribute("photoList", photoList);
 		ArrayList<RestaurantDTO> resCommet = service.resCommet(model, restaurant_no);
+		ArrayList<HashMap<String, String>> CommentPhoto = null;
+		ArrayList<HashMap<String, String>> CommentPhoto2 = new ArrayList<HashMap<String,String>>() ;
+		for (RestaurantDTO restaurantDTO : resCommet) {
+			CommentPhoto = service.CommentPhoto(restaurantDTO.getComment_no());
+			
+			CommentPhoto2.addAll(CommentPhoto);
+			
+			for (HashMap<String, String> hashMap : CommentPhoto2) {
+				
+			}
+		} 
+		
+		
+		ArrayList<HashMap<String, String>> CommentLike = null;
+		ArrayList<HashMap<String, String>> CommentLike2 = new ArrayList<HashMap<String,String>>() ;
+		for (RestaurantDTO restaurantDTO : resCommet) {
+			CommentLike = service.CommentLike(restaurantDTO.getComment_no());
+			
+			CommentLike2.addAll(CommentLike);
+		for (HashMap<String, String> hashMap : CommentLike2) {
+				
+			}
+		}
+		
+//		ArrayList<HashMap<String, String>> memberPhoto = null;
+//		ArrayList<HashMap<String, String>> memberPhoto2 = new ArrayList<HashMap<String,String>>() ;
+//		for (RestaurantDTO restaurantDTO : resCommet) {
+//			CommentLike = service.memberPhoto(restaurantDTO.getMember_id());
+//			
+//			CommentLike2.addAll(memberPhoto);
+//		for (HashMap<String, String> hashMap : memberPhoto2) {
+//				
+//			}
+//		}
+		
+	
+		model.addAttribute("CommentLike", CommentLike2);
+		model.addAttribute("CommentPhoto", CommentPhoto2);
 		model.addAttribute("resCommet", resCommet);
 		
-				
+		
 		return "Restaurant/restaurantDetail";
 				
 	}
@@ -97,6 +139,32 @@ public class RestaurantController {
 		return "Restaurant/restaurantUpdate";
 	}
 	
+	// 신고^^
+	@RequestMapping(value = "/resReport.go")
+	public String resReport(HttpSession session ,Model model, @RequestParam int comment_no,
+			@RequestParam HashMap<String, String> params) {
+		params.put("loginId", (String) session.getAttribute("loginId"));
+		params.put("comment", Integer.toString(comment_no));
+		model.addAttribute("comment_no",comment_no);
+		System.out.println(" : "+comment_no);
+		service.commentList(model, comment_no);
+		return "Restaurant/resReport";
+	}
+	
+	
+	//번개모임 댓글 신고 팝업
+		@RequestMapping("/resCmtReport.ajax")
+		@ResponseBody
+		public HashMap<String, Object> resCmtReport(@RequestParam HashMap<String, String> params, HttpSession session) {
+			String loginId = (String) session.getAttribute("loginId");
+			params.put("loginId", loginId);
+				
+			logger.info("번개 모임 댓글 신고  : "+ params);
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			boolean report = service.resCmtReport(params);
+			map.put("lightCmtReport", report);
+			return map;	
+		}
 	
 	@RequestMapping(value = "/restaurantWrite")
 	public ModelAndView restaurantWrite(
@@ -142,6 +210,7 @@ public class RestaurantController {
 			@RequestParam HashMap<String, String> params) {
 		
 		logger.info(":"+params);
+		service.commentPhotoDel(params);
 		return service.commentDel(params);
 	}
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="../../../resources/inc/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,14 +24,20 @@
 
 </style>
 <body>
-
-<select>
-	<option selected>처리상태</option>
+<div>
+<select name="status_option">
+	<option selected>전체</option>
 	<option value="blind">블라인드</option>
 	<option value="end">해제</option>
 </select>
-
-
+<select name="search_option">
+	<option value="post_title">글제목</option>
+	<option value="reporterID">신고자ID</option>
+	<option value="reportedID">피신고자ID</option>
+</select>
+<input  name="keyword" type="text" placeholder="검색어를 입력해 주세요"/>
+<button type="button" onclick="search_go()">검색</button>
+</div>
 
 <table>
 	<thead>
@@ -64,8 +71,22 @@
 var currPage = 1;
 listCall(currPage)
 
+ function search_go(){ 
 
-function listCall(page){
+	 var status_option=$('select[name=status_option]').val();
+	 var search_option=$('select[name=search_option]').val();
+	 var keyword=$('input[name=keyword]').val();
+
+	 console.log("상태"+status_option);
+	 console.log("검색"+search_option);
+	 console.log("키워드"+keyword);
+	 listCall(1,status_option ,search_option , keyword);
+	 $("#pagination").twbsPagination('destroy'); 
+}
+ 
+ 
+
+function listCall(page,status_option ,search_option , keyword){
 	 var pagePerNum=5;
 	$.ajax({
 		type:'get',
@@ -73,8 +94,11 @@ function listCall(page){
 		dateType:'json', 
 		data:{
 			cnt:pagePerNum,
-			page:page
+			page:page,
 			
+			status_option:status_option,
+			search_option:search_option,
+			keyword:keyword
 		}, 
 		success:function(data){
 			console.log(data.blindList); 
@@ -85,10 +109,12 @@ function listCall(page){
 				totalPages: data.pages, // 총 페이지(전체 개시물 수 / 한 페이지에 보여줄 게시물 수)
 				visiblePages: 5, //한번에 보여줄 페이지 수 [1][2][3][4][5]
 				onPageClick:function(e,page){
+					if(currPage!=page){
 					//console.log(e);//클릭한 페이지와 관련된 이벤트 객체
 					console.log(page);//사용자가 클릭한 페이지
 					currPage = page;
-					listCall(page);
+					 listCall(currPage,status_option ,search_option , keyword);
+				}
 				}
 			}); 
 		},

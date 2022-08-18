@@ -4,17 +4,16 @@
 <mapper namespace="com.jmt.groupreview.dao.GroupReviewDAO">
 	<!-- 모임후기 리스트 -->
 	<select id="groupReviewList" resultType="groupReview">
-		 SELECT
-			 g.groupReview_no
+		 SELECT g.groupReview_no
 			 ,g.review_title
 			 ,l.lightning_title
 			 ,dojang_title
 			 ,c.class_name
 			 ,g.review_date
 		 FROM groupreview g
-		 LEFT OUTER join lightninglist l on l.lightning_no = idx and g.class_no = 1
-		 LEFT OUTER join dojangList ON dojang_no = idx AND g.class_no = 3
-		 JOIN codetable c on g.class_no = c.class_no
+		 LEFT OUTER JOIN lightninglist l ON l.lightning_no = idx AND g.class_no = 1
+		 LEFT OUTER JOIN dojangList ON dojang_no = idx AND g.class_no = 3
+		 JOIN codetable c ON g.class_no = c.class_no
 		<where>
 			g.groupReview_status = "노출"
 			<if test="searchCate != null and searchCate !=''">
@@ -32,9 +31,9 @@
 	<select id="allCount" parameterType="hashmap" resultType="int">
 		SELECT COUNT(groupReview_no) 
 		FROM groupreview g
-		LEFT OUTER JOIN lightninglist l on l.lightning_no = idx and g.class_no = 1
+		LEFT OUTER JOIN lightninglist l ON l.lightning_no = idx AND g.class_no = 1
 		LEFT OUTER JOIN dojangList ON dojang_no = idx AND g.class_no = 3
-		JOIN codetable c on g.class_no = c.class_no
+		JOIN codetable c ON g.class_no = c.class_no
 		<where>
 			g.groupReview_status = "노출"
 			<if test="searchCate != null and searchCate !=''">
@@ -101,37 +100,22 @@
 	
 	<!-- 도장리스트 -->
 	<select id="groupList" resultType="groupReview">
-		SELECT dojang_title
-			,dojang_no
-			,c.class_name
-			,c.class_no
-			,m.member_id	 
-		FROM apply a
-		LEFT OUTER JOIN dojangList d ON d.leader_id = a.member_id
-		<!-- LEFT OUTER JOIN lightningList l ON l.leader_id = a.member_id -->
-		JOIN member m ON m.member_id = a.member_id
-		JOIN codeTable c ON a.class_no = c.class_no
-		WHERE d.class_no = 3 AND m.member_id = #{param1} AND status="승인"
-			GROUP BY dojang_title
-			,d.dojang_no
+		SELECT leader_id,d.dojang_no,d.member_id,t.dojang_title,t.class_no,c.class_name
+		FROM dojangPost d
+		LEFT OUTER JOIN dojangList t ON t.dojang_no = d.dojang_no
+		LEFT OUTER JOIN codeTable c ON t.class_no = c.class_no
+		WHERE t.class_no=3 AND leader_id OR member_id = #{param1}
+		GROUP BY leader_id,d.dojang_no,d.member_id
 	</select>
 	
 	<!-- 번개리스트 -->
 	<select id="lightGroupList" resultType="groupReview">
-		SELECT 
-			l.lightning_title
-			,l.lightning_no
-			,c.class_name
-			,c.class_no
-			,m.member_id	 
+		SELECT a.member_id, l.lightning_title, l.lightning_no, l.leader_id
+			,c.class_name, a.class_no
 		FROM apply a
-		<!-- LEFT OUTER JOIN dojangList d ON d.leader_id = a.member_id -->
-		LEFT OUTER JOIN lightningList l ON l.leader_id = a.member_id
-		JOIN member m ON m.member_id = a.member_id
 		JOIN codeTable c ON a.class_no = c.class_no
-		WHERE l.class_no = 1 AND m.member_id = #{param1} AND status="승인"
-			GROUP BY lightning_title
-			,l.lightning_no
+		LEFT OUTER JOIN lightningList l ON a.idx = l.lightning_no
+		WHERE a.class_no = 1 AND (a.status = "승인" AND a.member_id = #{param1}) OR l.leader_id = #{param1}
 	</select>
 	
 	

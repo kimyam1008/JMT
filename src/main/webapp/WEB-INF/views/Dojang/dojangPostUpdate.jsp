@@ -86,6 +86,7 @@ textarea {
 		text-align: left;
 }
 
+.btn {cursor:pointer;}
 </style>
 </head>
 <body>
@@ -108,7 +109,9 @@ textarea {
   <li class="post"><a href="dojangHome.go?dojang_no=${sessionScope.dojang_no}">전체게시판</a></li>
   <li class="post"><a href="dojangHomeL.go?dojang_no=${sessionScope.dojang_no}">공지게시판</a></li>
   <li class="post"><a href="dojangHomeM.go?dojang_no=${sessionScope.dojang_no}">일반게시판</a></li>
-  <li><a href="#">방장페이지</a></li>
+   <c:if test="${leader == loginId}">
+  <li><a href="dojangLeaderPage.go?dojang_no=${sessionScope.dojang_no}">방장페이지</a></li>
+	</c:if>
 </ul>
 
 <div  id="review">
@@ -118,25 +121,40 @@ textarea {
 
 
 <div id="list">
-<h1>게시판 작성 </h1>
+<h1>게시판 수정</h1>
 <table>
 	<tr>
 		<th>게시판 선택</th>
 		<td>
-		<input type="hidden" id="dojangPost_type" value="일반게시판"/>
-		일반게시판</td>
+		<c:choose>
+			<c:when test="${leader == loginId}">
+				<select id="dojangPost_type">
+					<option value="공지게시판">공지게시판</option>
+					<option value="일반게시판">일반게시판</option>
+				</select>
+			</c:when>
+			<c:otherwise>
+				<input type="hidden" id="dojangPost_type" value="일반게시판"/>일반게시판
+			</c:otherwise>
+		</c:choose>
+		</td>
 		
 	</tr>
 	<tr>
 		<th>제목</th>
 		<td>
+		<input type="hidden" id="dojangPost_no"  value=""/>
 		<input type="text" id="dojangPost_subject" />
 		</td>
 	</tr>
+	<tr class="hidden">
+		<th>맛집 번호</th>
+		<td><input type="text" id="restaurant_no"/></td>
+	</tr>	
 	<tr>
 		<th>맛집 이름</th>
 		<td>
-		<input type="text" id="restaurant_no" readonly placeholder="검색버튼을 눌러주세요"/>
+		<input type="text" id="restaurant_name" readonly placeholder="검색버튼을 눌러주세요"/>
 		<input type="button" value="맛집검색" onclick="restaurant_pop()"/>
 		</td>
 	</tr>
@@ -158,8 +176,8 @@ textarea {
 	</tr>
 	<tr>
 		<th colspan="2">
-		<input type="button" value="저장" onclick="dojangPostReg()"/>
-		<input type="button" value="취소" onclick="location.href='dojang.go'"/>
+		<input type="button" value="저장" onclick="dojangPostUpdate()"/>
+		<input type="button" value="취소" onclick="location.href='dojangHome.go?dojang_no=${sessionScope.dojang_no}'"/>
 		</th>
 	</tr>
 </table>
@@ -168,52 +186,79 @@ textarea {
 
 </body>
 <script>
-	
+
+noHidden();
+function noHidden(){
+	$(".hidden").css("display", "none");
+}
+
+
+$.ajax({
+	type:'get',
+	url:'dojangHomeDetail.ajax',
+	data:{
+	},
+	dataType:'JSON',
+	success:function(data){
+			$('#dojangPost_no').val(data.dojangHomeDetail.dojangPost_no);
+			$('#dojangPost_subject').val(data.dojangHomeDetail.dojangPost_subject);
+			$('#editable').html(data.dojangHomeDetail.dojangPost_content);
+			$('#dojangPost_type').val(data.dojangHomeDetail.dojangPost_type);
+			$('#restaurant_name').val(data.dojangHomeDetail.restaurant_name);
+	},
+	error:function(e){
+		console.log(e);
+	}
+		
+});	
+
+
 memberCall()	
-	
+
 	
 console.log($('#dojang_no').val());
-var dojangPost_content = $('#dojangPost_content').val($('#editable').html());
 
 
 
-function dojangPostReg(){
+
+function dojangPostUpdate(){
 	
-	
+	var dojangPost_no = $('#dojangPost_no').val();
 	var dojangPost_type = $('#dojangPost_type').val();
 	var dojangPost_subject = $('#dojangPost_subject').val();
-	//var restaurant_no = $('#restaurant_no').val();
+	var restaurant_no = $('#restaurant_no').val();
 	var dojangPost_content = $('#editable').html();
 	var member_id = $('#loginId').val();
 	var dojang_no = $('#dojang_no').val();
 	
 	var formData = new FormData();
 	
+	formData.append("dojangPost_no", dojangPost_no);
 	formData.append("dojangPost_type", dojangPost_type);
 	formData.append("dojangPost_subject", dojangPost_subject);
 	formData.append("dojangPost_content", dojangPost_content);
-	formData.append("member_id", member_id);
-	formData.append("dojang_no", dojang_no);
-	
-	
+	formData.append("restaurant_no", restaurant_no);
+
 	if(dojangPost_subject == ""){
 		alert("제목을 입력해주세요");
 	}else if($('img').length > 3) {
 		alert('이미지 업로드 제한 갯수 3개를 초과했습니다.');
+	}else if(restaurant_no == ""){
+		var restaurant_no = $('#restaurant_no').val(320);
 	}else{
 	
 	
 		$.ajax({
 			type:'post',
-			url:'dojangPostReg.ajax',
+			url:'dojangPostUpdate.ajax',
 			data: formData,
 			contentType: false,
 			processData: false,
 			dataType:'JSON',
 			success:function(data){
 				console.log(data);
-				if(data.dojangPostReg){
-					location.href='dojang.go';
+				if(data.success){
+					location.href='dojangHome.go?dojang_no='+dojang_no;
 				}else{
 					alert("등록 실패");
 				}
@@ -225,7 +270,9 @@ function dojangPostReg(){
 		});	
 	
 	}
+	
 }
+
 
 
 function memberCall(){
@@ -254,8 +301,12 @@ function memberCall(){
 
 
 function dojangfileUp(){
-	window.open('gpFileUploadForm.go','','width=400, height=100');
+	window.open('gpFileUploadForm.go','','width=400, height=100,left=550 ,top=300');
 }
+
+function restaurant_pop(){	
+	 window.open("/gpRestaurantSearch.go","new","width=800, height=600, left=350 ,top=500, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	}
 
 
 
