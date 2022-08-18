@@ -39,7 +39,7 @@
 	         	<th>식당이름</th>
 	         	<td>
 	         		${resDetail.restaurant_name}
-	         		<input type="hidden" name="restaurant_no" value="${resDetail.restaurant_no}" />
+	         		<input type="hidden" id="restaurant_no" value="${resDetail.restaurant_no}" />
 					<input type="hidden" NO_X="restaurant_X" value="${resDetail.restaurant_X}" />
 					<input type="hidden" NO_Y="restaurant_Y" value="${resDetail.restaurant_Y}" />
 	         	</td>
@@ -222,6 +222,10 @@
 </body>
 
 <script>
+
+var restaurant_no = $('#restaurant_no').val();
+
+console.log("식당번호 확인::",restaurant_no);
 	
 	/* var i = ${comment.comment_no}; */
 	/* var comment_no = ${comment.comment_no}; */
@@ -240,6 +244,10 @@
 		  var commentID = $(comment_no).attr("commentID");
 	      console.log(commentID);
 	      
+	  	var dojang_no = $('#dojang_no').val();
+	      
+	      
+	      
 	         $.ajax({
 	               type:'get',
 	               url:'commentDel.ajax',
@@ -248,8 +256,8 @@
 	               },
 	               dataType:'JSON',
 	               success:function(data) {
-	                  alert(data.msg);
-	                  location.href="resDetail.do?restaurant_no="+commentID;
+	                  alert("삭제완료");
+	                  location.href="resDetail.do?restaurant_no="+restaurant_no;
 	               },
 	               error:function(e) {
 	                  console.log(e);

@@ -155,6 +155,7 @@ public class RestaurantService {
 		return page;
 	}
 	
+	//사진저장
 	public void reviewFileSave(MultipartFile[] photos, int idx, int class_noID) {
 		
 		RestaurantDTO dto = new RestaurantDTO();
@@ -243,8 +244,14 @@ public class RestaurantService {
 	}
 
 
-	public HashMap<String, String> commentDel(HashMap<String, String> params) {
-		return dao.commentDel(params);
+	public boolean commentDel(HashMap<String, String> params) {
+		boolean success = false;
+		int row = dao.commentDel(params);
+		if(row>0) {
+			success = true;
+		}
+		
+		return success;
 	}
 
 
@@ -407,10 +414,11 @@ public class RestaurantService {
 		return dao.CommentPhoto(comment_no);
 	}
 	
+	/*
 	public HashMap<String, String> commentPhotoDel(HashMap<String, String> params) {
 		return dao.commentPhotoDel(params);
 	}
-
+*/
 
 	public ArrayList<HashMap<String, String>> CommentLike(int comment_no) {
 		return dao.CommentLike(comment_no);
