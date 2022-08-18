@@ -1,6 +1,7 @@
 package com.jmt.main.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -55,13 +57,17 @@ public class NotiController extends HandlerInterceptorAdapter {
 	}
 	
 	//알림 리스트 불러오기
-	@RequestMapping("/notiList.do") 
-	public void notiList(Model model,HttpSession session) {
+	@RequestMapping("/notiList.ajax") 
+	@ResponseBody
+	public HashMap<String, Object> notiList(Model model,HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		String loginId = (String) session.getAttribute("loginId");
+		
 		//알림 여부 확인
 		ArrayList<NotiDTO> notiList = service.notiList(loginId);
-		model.addAttribute("notiList", notiList);
-		//return  "./commons/header";
+		//model.addAttribute("notiList", notiList);
+		map.put("notiList", notiList);
+		return map;
 	}
 	
 	

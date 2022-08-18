@@ -10,6 +10,8 @@ public interface NotiDAO {
 
 	ArrayList<NotiDTO> notiList(String loginId);
 
+	void notiStatusUpdate(String loginId);
+
 	
 
 }

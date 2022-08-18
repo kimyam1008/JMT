@@ -13,13 +13,16 @@
 
 <link rel="stylesheet" href="resources/css/common.css" type="text/css">
 <style>
-	table,th,td {
+	#lightningList {
 		border : 1px solid black;
 		border-collapse : collapse;
 		width : 600px;
 	}
 
-	th,td { 
+	#lightningList > th,td { 
+		border : 1px solid black;
+		border-collapse : collapse;
+		width : 600px;
 		padding : 5px 10px;
 	}
 	
@@ -29,6 +32,19 @@
 		height : 200px;
 	}
 
+	#loginMenu > #notiList{
+		display : none;
+		background-color: #ccc;
+		width : 100px;
+		height : 100px;
+	}
+	
+	
+	#notiContent{
+		border: 0.5px solid #dbdbdb;
+	 	 border-left: none;
+	  	border-right: none;
+	}
 </style>
 </head>
 <body>
@@ -69,7 +85,7 @@
 	</div>
 	
 	<table>
-		<thead>
+		<thead id="lightningList">
 			<tr>
 				<th>맛집 이름</th>
 				<th>음식 카테고리</th>

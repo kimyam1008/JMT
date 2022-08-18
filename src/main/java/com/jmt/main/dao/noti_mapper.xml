@@ -11,4 +11,7 @@
 		SELECT * FROM noti WHERE member_id = #{loginId}
 	</select>
 	
+	<update id="notiStatusUpdate" parameterType="String">
+			UPDATE noti SET noti_read="읽음" WHERE member_id = #{param1} AND noti_read = "안읽음"
+	</update>
 </mapper>
