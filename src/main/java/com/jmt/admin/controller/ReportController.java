@@ -264,5 +264,11 @@ public class ReportController {
 		
 	}
 	
+	@RequestMapping("/boot")
+	public String boot() {
+		
+		return "Report/boot";
+	}
+	
 	
 }
