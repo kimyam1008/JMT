@@ -1,11 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="resources/css/common.css" type="text/css">
+
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>JMT 번개모임 리스트 페이지 </title>
+		<link rel="shortcut icon" type="image/x-icon" href="../resources/mainResource/assets/img/pizza-slice.png">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+		 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!--   Core JS Files   -->
+    	<script src="../resources/etcResource/assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
+		<script src="../resources/etcResource/assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+		<!--  Charts Plugin -->
+		<script src="../resources/etcResource/assets/js/chartist.min.js"></script>
+
+    
+    	<!--  Notifications Plugin  : 없어도 되네  
+    	<script src="../resources/etcResource/assets/js/bootstrap-notify.js"></script>
+  -		-->
+  -		
+  
+    	<!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+		<script src="../resources/etcResource/assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
+		
+		<!-- CSS here 이게 없으면 알림 이모티콘이 안 보임 -->
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/bootstrap.min.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/owl.carousel.min.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/slicknav.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/flaticon.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/price_rangs.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/animate.min.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/magnific-popup.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/fontawesome-all.min.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/themify-icons.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/slick.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/nice-select.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/style.css">
+
+      
+            <!--알림 css-->
+            <link href="../resources/etcResource/assets/css/bootstrap.min.css" rel="stylesheet" />
+	</head>	
 <style>
 	table, td,th{
 		border: 1px solid black;
@@ -169,7 +206,6 @@
 		color : red;
 	}
 </style>
-</head>
 <body>
 <jsp:include page="../commons/header.jsp"/>
 	<a href="/lightningLeaderPage.go?lightning_no=${dto.lightning_no}" id="leaderPage">방장페이지</a>
@@ -529,4 +565,16 @@
 		window.open("/lightCmtReport.go?comment_no="+cno,"new","width=400, height=200, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 	}
 </script>
+<!--   Core JS Files   -->
+    <script src="../resources/etcResource/assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
+	<script src="../resources/etcResource/assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<!--  Charts Plugin -->
+	<script src="../resources/etcResource/assets/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="../resources/etcResource/assets/js/bootstrap-notify.js"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+	<script src="../resources/etcResource/assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
 </html>

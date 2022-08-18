@@ -17,24 +17,7 @@
 			</ul>
 		</li> 
 	 </ul>
-	<ul class="nav navbar-nav navbar-right">
-	 	<li>
-			<a href="jmtMain.html">
-			<p>Home</p>
-			</a>
-		</li>
-		<li>
-			<a href="mypage.html">
-			<p>마이페이지</p>
-			</a>
-		</li>
-		<li>
-			<a href="logout.do">
-			<p>Log out</p>
-			</a>
-		</li>
-		<li class="separator hidden-lg"></li>
-	</ul>
+	
 	
 </div> 
 

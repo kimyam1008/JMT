@@ -90,6 +90,7 @@
 		cursor : pointer;
 		color : red;
 	}
+	
 </style>
 </head>
 <body>
