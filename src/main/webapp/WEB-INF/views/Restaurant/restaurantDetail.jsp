@@ -231,8 +231,8 @@
 		window.open('restaurantUpdate.go?restaurant_no=${resDetail.restaurant_no}','','width=400, height=300');
 	}
 	
-	function report(){
-		window.open('resReport.go?comment_no=74','','width=400, height=300');
+	function report(rep){
+		window.open('resReport.go?comment_no='+rep,'','width=400, height=300');
 	}
 	
 	

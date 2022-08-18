@@ -24,8 +24,7 @@
 	</select>
 	
 	<sql id="selectedListSql">
-		<trim prefix="where" suffixOverrides="and">
-		
+	<trim prefix="where" suffixOverrides="and">
 			<if test = "search != null &amp;&amp; !search.equals('')">
 				d.dojang_title LIKE CONCAT('%',#{search}, '%') and
 			</if>
@@ -45,8 +44,7 @@
 			<if test = "gender!=null">
 				d.gender = #{gender} and 
 			</if>
-			
-		</trim>
+			</trim>
 	</sql>
 	
 	
