@@ -257,15 +257,14 @@ public class MypageController {
 			return "/Mypage/myBoardList";
 		}
 		
-		
-		
-		
-		
-		// 나의활동 첫 페이지 이동
-		@RequestMapping(value = "/myBoardList.go")
-		public String myBoardList() {
+		// 나의활동 첫 페이지 이동 - 게시글
+		@RequestMapping("/myBoardList.ajax")
+		@ResponseBody
+		public HashMap<String, Object> myBoardList(@RequestParam HashMap<String, String>params, HttpSession session) {
+			String loginId = (String) session.getAttribute("loginId");
+			params.put("loginId", loginId);
 			
-			return "/Mypage/myBoardList";
+			return service.myBoardList(params);
 		}
 		
 		

@@ -36,6 +36,12 @@ public class MypageDTO {
 	
 	private String dojang_title;
 	
+	private String grade_name;
+	
+	private int boardCount;
+	private int commentCount;
+	
+	private String photo_newFileName;
 	
 	public int getDojangPost_no() {
 		return dojangPost_no;
@@ -174,6 +180,30 @@ public class MypageDTO {
 	}
 	public void setDojang_title(String dojang_title) {
 		this.dojang_title = dojang_title;
+	}
+	public String getGrade_name() {
+		return grade_name;
+	}
+	public void setGrade_name(String grade_name) {
+		this.grade_name = grade_name;
+	}
+	public int getBoardCount() {
+		return boardCount;
+	}
+	public void setBoardCount(int boardCount) {
+		this.boardCount = boardCount;
+	}
+	public int getCommentCount() {
+		return commentCount;
+	}
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
+	public String getPhoto_newFileName() {
+		return photo_newFileName;
+	}
+	public void setPhoto_newFileName(String photo_newFileName) {
+		this.photo_newFileName = photo_newFileName;
 	}
 	
 	

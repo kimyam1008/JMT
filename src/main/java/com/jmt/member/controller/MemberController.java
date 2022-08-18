@@ -179,7 +179,8 @@ public class MemberController {
 		
 		//프로필 등록
 		@RequestMapping(value = "profileRegister.do")
-		public String profileRegister(Model model, MultipartFile[] photos, HttpSession session, @RequestParam HashMap<String, Object> params) {
+		public String profileRegister(Model model, MultipartFile[] photos, HttpSession session, 
+				@RequestParam HashMap<String, Object> params) {
 			logger.info("프로필 요청 값 {}: ",params);
 			logger.info("사진 : ",photos);
 			String loginId = (String) session.getAttribute("loginId"); //세션에 저장된 아이디 꺼내오기

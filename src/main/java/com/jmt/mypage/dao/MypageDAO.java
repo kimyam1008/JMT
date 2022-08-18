@@ -81,6 +81,22 @@ public interface MypageDAO {
 
 	ArrayList<MypageDTO> myDojangRoom(String loginId);
 
+	int dojangCount(String loginId);
+
+	int moimCount(String loginId);
+
+	int lightningCount(String loginId);
+
+	int dojangCommentCount(String loginId);
+
+	int moimCommentCount(String loginId);
+
+	int jmtCount(String loginId);
+
+	String grade(String loginId);
+
+	String photo_new(String loginId);
+
 
 
 	

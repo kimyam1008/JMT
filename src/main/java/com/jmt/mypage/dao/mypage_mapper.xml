@@ -162,5 +162,37 @@
 		SELECT dojang_title, dojang_no FROM dojanglist d WHERE leader_id = #{param1} LIMIT 1
 	</select>
 	
+	<select id="dojangCount" resultType="int">
+		SELECT COUNT(dojangPost_no) FROM dojangpost d WHERE member_id = #{param1}
+	</select>
+	
+	<select id="moimCount" resultType="int">
+		SELECT COUNT(groupReview_no) FROM groupreview g WHERE member_id = #{param1}
+	</select>
+	
+	<select id="lightningCount" resultType="int">
+		SELECT COUNT(comment_no) FROM comment c WHERE member_id = #{param1} AND class_no = '2'
+	</select>
+	
+	<select id="dojangCommentCount" resultType="int">
+		SELECT COUNT(comment_no) FROM comment c WHERE member_id = #{param1} AND class_no = '5'
+	</select>
+	
+	<select id="moimCommentCount" resultType="int">
+		SELECT COUNT(comment_no) FROM comment c WHERE member_id = #{param1} AND class_no = '7'
+	</select>
+	
+	<select id="jmtCount" resultType="int">
+		SELECT COUNT(comment_no) FROM comment c WHERE member_id = #{param1} AND class_no = '8'
+	</select>
+	
+	<select id="grade" resultType="String">
+		SELECT grade_name FROM grade g WHERE grade_no = (SELECT grade_no FROM profile p WHERE member_id = #{param1})
+	</select>
+	
+	<select id="photo_new" resultType="String">
+		SELECT photo_newFileName FROM photo p WHERE idx = (SELECT profile_no FROM profile p WHERE member_id = #{param1})
+	</select>
+	
 	
 </mapper>
