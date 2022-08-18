@@ -361,4 +361,26 @@ public class LeaderController {
 		return "./Main/main";
 	}
 	
+	
+	/*//번개모임 삭제
+	@RequestMapping("/leaderLightDelete.do")
+	public String leaderLightDelete(Model model,HttpSession session) {
+		String lightning_no = (String) session.getAttribute("lightning_no");
+		model.addAttribute("lightning_no", lightning_no);
+		logger.info("번개 삭제 요청 : "+lightning_no);
+		service.leaderLightDelete(lightning_no);
+		service.lightDelNoti(lightning_no);
+		return "./Main/main";
+	}
+	
+	//번개모임 삭제
+	@RequestMapping("/leaderDojangDelete.do")
+	public String leaderDojangDelete(Model model,HttpSession session) {
+		String dojang_no = (String) session.getAttribute("dojang_no");
+		model.addAttribute("dojang_no", dojang_no);
+		logger.info("도장깨기 삭제 요청 : "+dojang_no);
+		service.leaderDojangDelete(dojang_no);
+		return "./Main/main";
+	}
+	 */
 }
