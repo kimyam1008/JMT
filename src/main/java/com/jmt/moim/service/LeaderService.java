@@ -221,6 +221,17 @@ public class LeaderService {
 		int row = dao.leaderDojangDelete(dojang_no);
 	}
 
+	public void lightDelNoti(String lightning_no) {
+		logger.info("방장 페이지 - 번개 모임 삭제시 알림 서비스");
+		dao.lightDelNoti(lightning_no);
+		
+	}
+
+	public void DojangDelNoti(String dojang_no) {
+		logger.info("방장 페이지 - 도장 모임 삭제시 알림 서비스");
+		dao.DojangDelNoti(dojang_no);
+	}
+
 	
 
 

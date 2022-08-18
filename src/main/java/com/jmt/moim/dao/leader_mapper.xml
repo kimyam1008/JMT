@@ -243,4 +243,26 @@
 		UPDATE dojangList SET dojang_status = "삭제"
 		WHERE dojang_no = #{param1}
 	</update>
+	
+	<!-- 번개모임 삭제 알림  -->
+	<insert id="lightDelNoti" >
+		INSERT INTO noti(class_no,noti_content,idx,info,member_id)
+		SELECT 1
+				,"모임글이 삭제 됐습니다."
+				,#{param1}
+				,(select lightning_title from lightninglist where lightning_no = #{param1})
+				, member_id
+		FROM apply WHERE status IN("승인","대기") AND class_no = 1 AND idx=#{param1}
+	</insert>
+	
+	<!-- 도장모임 삭제 알림  -->
+	<insert id="DojangDelNoti" >
+		INSERT INTO noti(class_no,noti_content,idx,info,member_id)
+		SELECT 3
+				,"모임글이 삭제 됐습니다."
+				,#{param1}
+				,(select dojang_title from dojanglist where dojang_no = #{param1})
+				, member_id
+		FROM apply WHERE status IN("승인","대기") AND class_no = 3 AND idx=#{param1}
+	</insert>
 </mapper>
