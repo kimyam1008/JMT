@@ -350,6 +350,57 @@ public class DojangService {
 		  return success; 
 	}
 
+	public String postReported(String dojangPost_no) {
+		return dao.postReported(dojangPost_no);
+	}
+
+	public boolean dojangPostReport(HashMap<String, String> params) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		boolean success = false;
+		
+		if(dao.dojangPostReport(params)>0) {
+			success = true;
+		}
+		
+		result.put("success", success);
+		return success;
+	}
+
+	public boolean dojangPostDelete(String dojangPost_no) {
+		boolean success = true;
+		int row = dao.dojangPostDelete(dojangPost_no);
+		logger.info("뭐가문제니?::"+dojangPost_no+":"+row);
+
+		return success;
+		
+	}
+
+	public String dojangHomeMstatus(String dojang_no, String loginId) {
+		return dao.dojangHomeMstatus(dojang_no,loginId);
+	}
+
+	public boolean Mstatus(String dojang_no, String loginId) {
+		boolean success = false;
+		int row = dao.Mstatus(dojang_no,loginId);
+		
+		if(row>0) {
+			success = true;
+		}
+		logger.info("탈퇴확인::"+row);
+		return success;
+	}
+	
+	
+	public boolean dojangCmtReport(HashMap<String, String> params) {
+		logger.info("모임후기 댓글 신고하기 서비스 : " + params);
+		
+		boolean success = false;
+		int row = dao.dojangCmtReport(params);
+		if(row>0) {
+			success = true;
+		}
+		return success;
+	}
 	
 
 	

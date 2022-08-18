@@ -180,7 +180,7 @@
 	</select>
 	<!-- 블라인드 insert -->
 	<insert id="insertBlind" parameterType="map" >
-		INSERT INTO blind (member_id, report_no, admin_id, blind_reason, blind_status) VALUES(#{reported}, #{report_no}, 'admin1', #{reason}, #{report_status})
+		INSERT INTO blind (member_id, report_no, admin_id, blind_reason, blind_status) VALUES(#{reported}, #{report_no}, 'admin2', #{reason}, #{report_status})
 	</insert>
 	<select id="blindCount" parameterType="map" resultType="int">
 		select count(dd.blind_no) from 

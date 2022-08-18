@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="../../../resources/inc/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +25,7 @@
 	}
 </style>
 <body>
+<br>
 <h1>신고 리스트 입니다.</h1>
 <select name="report_status">
 	<option selected >전체</option>
@@ -32,7 +34,7 @@
 	<option value="blind">블라인드</option>
 </select>
 <select name="report_sort">
-	<option value= "title">IDX</option>
+	<option value= "idx">IDX</option>
 	<option value= "sort">분류</option>
 	<option value= "reporter">신고자</option>
 </select>
@@ -183,7 +185,6 @@ function drawList(list){
 /* 검색 */
 function searchClick(page){
 /* 검색 */
- 
 /* $('#searchBtn').on('click',function(){ */
 	
 	 var pagePerNum=5;
@@ -199,62 +200,75 @@ function searchClick(page){
 	let report_status =$('select[name=report_status]').val();
 	let report_sort = $('select[name=report_sort]').val();
 	let keyword = $('input[name=keyword]').val();
-
-	if(keyword.trim()==""){
+	 console.log("키워드 길이:"+keyword.trim().length);
+	
+	 if(keyword.trim().length==""){
 		alert('검색어를 입력해 주세요'); 
+		listCall(1);
 	}
-
-	$.ajax({
-		type:'get',
-		url:'/report/list.ajax',
-		async: false,
-		data:{
-			cnt:pagePerNum,
-			page:page,
-			report_status:report_status,
-			report_sort:report_sort,
-			keyword:keyword		
-		},
-		dataType:'json',
-		success:function(data){
-			console.log("검색결과"+data.list);
-			drawList(data.list);
-			//	subSearch(); 
-				//currPage = data.currPage;
-				//불러오기가 성공되면 플러그인 을 이용해 페이징 처리
-				$("#pagination").twbsPagination({
-					initiateStartPageClick: false,
-					startPage:data.currPage, //시작 페이지
-					totalPages: data.pages, // 총 페이지(전체 개시물 수 / 한 페이지에 보여줄 게시물 수)
-					visiblePages: 5, //한번에 보여줄 페이지 수 [1][2][3][4][5]
-					//href:'cliSearch.ajax?cnt='+pagePerNum+'&page='+currPage+'&searchType='+searchType+'&keyword='+keyword;
-					/* onPageClick:function(){
-						  //href:'?page={{number}}&searchcol='+$('#search_select').val()+'&searchval='+$('#searchval').val()
-						//href:'?cnt='+pagePerNum+'&page='+currPage+'&searchType='+searchType+'&keyword='+keyword;
-						 $('.page-link').on('click',function(){
-								console.log('s');
-								location.href='cliSearch.ajax?cnt='+pagePerNum+'&page='+currPage+'&searchType='+searchType+'&keyword='+keyword;
+	 
+	 else if (keyword.trim().length!=""){
+		  
+		 
+			$.ajax({
+				type:'get',
+				url:'/report/list.ajax',
+				async: false,
+				data:{
+					cnt:pagePerNum,
+					page:page,
+					report_status:report_status,
+					report_sort:report_sort,
+					keyword:keyword		
+				},
+				dataType:'json',
+				success:function(data){
+					console.log("검색결과"+data.list);
+					drawList(data.list);
+					//	subSearch(); 
+						//currPage = data.currPage;
+						//불러오기가 성공되면 플러그인 을 이용해 페이징 처리
+						$("#pagination").twbsPagination({
+							initiateStartPageClick: false,
+							startPage:data.currPage, //시작 페이지
+							totalPages: data.pages, // 총 페이지(전체 개시물 수 / 한 페이지에 보여줄 게시물 수)
+							visiblePages: 5, //한번에 보여줄 페이지 수 [1][2][3][4][5]
+							//href:'cliSearch.ajax?cnt='+pagePerNum+'&page='+currPage+'&searchType='+searchType+'&keyword='+keyword;
+							/* onPageClick:function(){
+								  //href:'?page={{number}}&searchcol='+$('#search_select').val()+'&searchval='+$('#searchval').val()
+								//href:'?cnt='+pagePerNum+'&page='+currPage+'&searchType='+searchType+'&keyword='+keyword;
+								 $('.page-link').on('click',function(){
+										console.log('s');
+										location.href='cliSearch.ajax?cnt='+pagePerNum+'&page='+currPage+'&searchType='+searchType+'&keyword='+keyword;
+									
+								 })
+								
+							} ,
+							  */
 							
-						 })
-						
-					} ,
-					  */
-					
-					
-			 		onPageClick:function(e,page){
-						//console.log(e);//클릭한 페이지와 관련된 이벤트 객체
-						console.log("정보"+page);//사용자가 클릭한 페이지
-						//currPage = page;
-					
-						searchClick(page);
-						 
-					}   
-				});			
-		},
-		error:function(e){
-			console.log(e);
-		}	
-	});
+							
+					 		onPageClick:function(e,page){
+								//console.log(e);//클릭한 페이지와 관련된 이벤트 객체
+								console.log("정보"+page);//사용자가 클릭한 페이지
+								//currPage = page;
+							
+								searchClick(page);
+								 
+							}   
+						});			
+				},
+				error:function(e){
+					console.log(e);
+				}	
+			});
+		 
+		 
+		 
+		 
+		 
+	 }
+
+
 }
 
 

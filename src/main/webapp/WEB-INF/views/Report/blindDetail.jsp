@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="../../../resources/inc/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,6 +33,7 @@
 	}
 </style>
 <body>
+<br>
 <h1>블라인드 상세보기</h1>
 
 <form action="blindUpdate.do" method="post" id="blindUpdate">	

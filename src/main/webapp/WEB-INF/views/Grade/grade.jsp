@@ -13,6 +13,9 @@
 
 	
 <h3>등급 관리</h3>
+
+ <p> 선택한 색상을 봐바^^</p>
+ 	<form action="grade" method="post" id="grade">
 <table>
 	<thead>
 		<tr>
@@ -22,10 +25,17 @@
          <th>댓글</th>
          <th>색상</th>
          <th>아이콘</th>
+         
       </tr>  
 	</thead>
-	<tbody id="list"></tbody>
+	<tbody id="list">
+		
+	</tbody>
 </table>
+
+		<!-- <input type="hidden" id="getColorCode" value=""/> -->
+	</form>
+	
 </body>
 <script>
 
@@ -43,18 +53,21 @@
 		}
 		
 	});
-
+	
 	
 	function list(list){
 		var content = '';
+		
 		list.forEach(function(item){
 			content += '<tr>';
 			content += '<td>'+item.grade_no+'</td>';
 			content += '<td><input type="text" class="'+item.grade_no+' grade_name" value="'+item.grade_name+'"</td>';
 			content += '<td><input type="text" class="'+item.grade_no+' grade_post" value="'+item.grade_post+'"</td>';
 			content += '<td><input type="text" class="'+item.grade_no+' grade_comment" value="'+item.grade_comment+'"</td>';
-			content += '<td>'+item.grade_color+'</td>';
+			content += '<td><input type="color" name="colorCode" value="#000000" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">'+'</td>'
 			content += '</tr>';
+			
+			
 		});
 		$('#list').empty();
 		$('#list').append(content);
@@ -72,7 +85,7 @@
 			}
 		});
 	}
-
+	
 	
 	function reqUpdate(obj) {
 		
@@ -98,9 +111,48 @@
 			}
 		});
 		
+	};
+	
+	
+	
+	let colorWell1;
+	console.log(colorWell1);
+    const defaultColor = "#0000ff";
+    
+    
+    window.addEventListener("load", startup, false);
+
+    function startup() {
+        colorWell = document.querySelector("#colorWell");
+        colorWell.value = defaultColor;
+        colorWell.addEventListener("input", updateFirst, false);
+        colorWell.addEventListener("change", updateAll, false);
+        colorWell.select();
+    };
+
+    function updateFirst(event) {
+    const p = document.querySelector("p");
+    if (p) {
+        p.style.color = event.target.value;
+    }
+    }
+
+    function updateAll(event) {
+    document.querySelectorAll("p").forEach((p) => {
+        p.style.color = event.target.value;
+    });
+    };
+
+	function sendCode(color) {
+		var colorCode = color;
+		$("colorCode").val(color);
+		$("#grade").submit();
+		console.log(colorCode);
 	}
-
-
+	
+	
+	
+	
 
 </script>
 </html>

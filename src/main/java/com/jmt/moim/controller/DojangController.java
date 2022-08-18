@@ -136,8 +136,10 @@ public class DojangController {
 			session.setAttribute("dojang_no", dojang_no);
 			String loginId = (String) session.getAttribute("loginId");
 			String dojangHomeLeader = service.reported(dojang_no);
+			String dojangHomeMstatus = service.dojangHomeMstatus(dojang_no,loginId);
 			model.addAttribute("leader",dojangHomeLeader);
 			model.addAttribute("loginId",loginId);
+			model.addAttribute("member",dojangHomeMstatus);
 			return "./Dojang/dojangHome";
 		}
 		
@@ -147,8 +149,10 @@ public class DojangController {
 			session.setAttribute("dojang_no", dojang_no);
 			String loginId = (String) session.getAttribute("loginId");
 			String dojangHomeLeader = service.reported(dojang_no);
+			String dojangHomeMstatus = service.dojangHomeMstatus(dojang_no,loginId);
 			model.addAttribute("leader",dojangHomeLeader);
 			model.addAttribute("loginId",loginId);
+			model.addAttribute("member",dojangHomeMstatus);
 			return "./Dojang/dojangHomeL";
 		}
 				
@@ -158,18 +162,39 @@ public class DojangController {
 			session.setAttribute("dojang_no", dojang_no);
 			String loginId = (String) session.getAttribute("loginId");
 			String dojangHomeLeader = service.reported(dojang_no);
+			String dojangHomeMstatus = service.dojangHomeMstatus(dojang_no,loginId);
 			model.addAttribute("leader",dojangHomeLeader);
 			model.addAttribute("loginId",loginId);
+			model.addAttribute("member",dojangHomeMstatus);
 			return "./Dojang/dojangHomeM";
 		}		
+		
+		//회원탈퇴
+		@RequestMapping("/dojangHome.ajaxtwo")
+		@ResponseBody HashMap<String, Object> Mstatus(HttpSession session) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			String dojang_no = (String) session.getAttribute("dojang_no");
+			String loginId = (String) session.getAttribute("loginId");
+			boolean Mstatus = service.Mstatus(dojang_no,loginId);
+			
+			map.put("Mstatus", Mstatus);
+			
+			return map;
+		}
 		
 		//도장깨기 전체 ajax
 		@RequestMapping("/dojangHome.ajax")
 		@ResponseBody
 		public HashMap<String, Object> dojangHome(@RequestParam HashMap<String, String> params, HttpSession session) {
 			String dojang_no = (String) session.getAttribute("dojang_no");
+			String loginId = (String) session.getAttribute("loginId");
 			int cnt = Integer.parseInt(params.get("cnt")); //현재 페이지에 리스트 갯수
 			int page = Integer.parseInt(params.get("page"));
+			
+			
+			//회원 탈퇴
+			//boolean Mstatus = service.Mstatus(dojang_no,loginId);
+			//logger.info("탈퇴회원 확인...:::" +dojang_no+loginId);
 			
 			logger.info("보여줄 페이지 :" + page);
 			
@@ -215,6 +240,7 @@ public class DojangController {
 			map.put("dojangHomeM", dojangHomeM);
 			map.put("dojangHomeLeader", dojangHomeLeader);
 			map.put("dojangHomeMember", dojangHomeMember);
+			//map.put("Mstatus", Mstatus);
 			logger.info("방장 아이디"+dojangHomeLeader);
 			
 			return map;
@@ -338,11 +364,29 @@ public class DojangController {
 		public String dojangHomeDetailGo(@RequestParam String dojangPost_no, Model model, HttpSession session) {
 			session.setAttribute("dojangPost_no", dojangPost_no);
 			String loginId = (String) session.getAttribute("loginId");
+			String dojang_no = (String) session.getAttribute("dojang_no");
+			
 			DojangDTO dojangHomeDetail = service.dojangHomeDetail(dojangPost_no);
+			String dojangHomeMstatus = service.dojangHomeMstatus(dojang_no,loginId);
+			
 				model.addAttribute("loginId",loginId);
 				model.addAttribute("list",dojangHomeDetail);
+				model.addAttribute("member",dojangHomeMstatus);
 			return "./Dojang/dojangHomeDetail";
 		}	
+		
+		//도장깨기 방 상세 글삭제
+		@RequestMapping("/dojangHomeDetail.ajaxtwo")
+		@ResponseBody HashMap<String, Object> dojangPostDelete(HttpSession session) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			String dojangPost_no = (String) session.getAttribute("dojangPost_no");
+			boolean success =  service.dojangPostDelete(dojangPost_no);
+			
+			map.put("success", success);
+			
+			return map;
+		}
+		
 		
 		//도장깨기 방 게시글 상세보기
 		@RequestMapping("/dojangHomeDetail.ajax")
@@ -353,7 +397,11 @@ public class DojangController {
 			
 				String dojangPost_no = (String) session.getAttribute("dojangPost_no");
 				String dojang_no = (String) session.getAttribute("dojang_no");
-				session.removeAttribute("dojangPost_no");
+				
+				//글삭제(숨김)
+				//boolean success =  service.dojangPostDelete(dojangPost_no);
+			    //map.put("success", success);
+			    //logger.info("숨김처리 제발::"+dojangPost_no);
 
 				ArrayList<DojangDTO> dojangHomeMember = service.dojangHomeMember(dojang_no);
 				DojangDTO dojangHomeDetail = service.dojangHomeDetail(dojangPost_no);
@@ -499,6 +547,61 @@ public class DojangController {
 				return "./Dojang/gpRestaurantSearch";
 		
 			}
+			
+			
+			
+			//도장깨기 방 게시글 신고 팝업
+			@RequestMapping("/dojangPostReport.go")
+			public String dojangPostReportGo(@RequestParam String dojangPost_no, HttpSession session) {
+				session.setAttribute("dojangPost_no", dojangPost_no);
+				logger.info("도장가입신청"+dojangPost_no+"로그인아이디::"+session.getAttribute("loginId"));
+				
+				//신고당한 ID
+				String postReported = service.postReported(dojangPost_no);
+				session.setAttribute("reported",postReported);
+				return"./Dojang/dojangPostReport";	
+			}
+			
+			
+			//도장깨기 방 게시글신고내용 
+				@RequestMapping("/dojangPostReport.ajax")
+				@ResponseBody
+				public HashMap<String, Object> dojangPostReport(@RequestParam HashMap<String, String> params,HttpSession session){
+					
+					HashMap<String, Object> map = new HashMap<String, Object>();
+					
+					boolean dojangPostReport = service.dojangPostReport(params);
+					map.put("dojangPostReport", dojangPostReport);
+
+					return map;
+				}
+				
+				
+				 //모임후기 댓글 신고 팝업 페이지 이동
+				   @RequestMapping("/dojangCmtReport.go")
+					public String dojangCmtReport(Model model,@RequestParam String comment_no) {
+						logger.info("모임 후기 댓글 신고 팝업 이동  : "+comment_no);
+						model.addAttribute("comment_no", comment_no);
+						return"./Dojang/dojangCmtReport";	
+					}
+				   
+				   //모임후기 댓글 신고 팝업
+				   @RequestMapping("/dojangCmtReport.ajax")
+					@ResponseBody
+					public HashMap<String, Object> dojangCmtReport(@RequestParam HashMap<String, String> params, HttpSession session) {
+						String loginId = (String) session.getAttribute("loginId");
+						params.put("loginId", loginId);
+							
+						logger.info("번개 모임 댓글 신고  : "+ params);
+						HashMap<String, Object> map = new HashMap<String, Object>();
+						boolean report = service.dojangCmtReport(params);
+						map.put("dojangCmtReport", report);
+						return map;	
+					}
+				
+				
+				
+			
 	
 	//도장모임 검색
 	/*
