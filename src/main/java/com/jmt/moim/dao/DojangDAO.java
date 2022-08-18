@@ -61,6 +61,10 @@ public interface DojangDAO {
 
 	int dojangPostDelete(String dojangPost_no);
 
+	String dojangHomeMstatus(String dojang_no, String loginId);
+
+	int Mstatus(String dojang_no, String loginId);
+
 
 
 

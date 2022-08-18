@@ -375,6 +375,21 @@ public class DojangService {
 		
 	}
 
+	public String dojangHomeMstatus(String dojang_no, String loginId) {
+		return dao.dojangHomeMstatus(dojang_no,loginId);
+	}
+
+	public boolean Mstatus(String dojang_no, String loginId) {
+		boolean success = false;
+		int row = dao.Mstatus(dojang_no,loginId);
+		
+		if(row>0) {
+			success = true;
+		}
+		logger.info("탈퇴확인::"+row);
+		return success;
+	}
+
 	
 
 	

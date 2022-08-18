@@ -18,8 +18,6 @@
 		FROM dojanglist d
 		JOIN food f ON d.food_no = f.food_no
 		
-		WHERE d.dojang_status IN ("모집중","모집마감")
-		
 		<include refid="selectedListSql"></include>
 		
 		ORDER BY d.dojang_no DESC limit #{cnt} OFFSET #{offset}
@@ -244,6 +242,14 @@
 		WHERE dojangPost_no = #{dojangPost_no}
 	</update>
 	
+	<select id="dojangHomeMstatus" resultType="String">
+		SELECT member_id FROM apply WHERE class_no = 3 AND status = '승인' AND idx = #{param1} AND member_id = #{param2}
+	</select>
+	
+	<update id="Mstatus">
+		UPDATE apply SET status = "탈퇴"
+		WHERE class_no = 3 AND idx = #{param1} AND member_id = #{param2}
+	</update>
 	
 	
 </mapper>
