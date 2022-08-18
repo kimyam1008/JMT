@@ -33,7 +33,7 @@
 				//console.log(item);
 				var date = new Date(item.noti_date);
 
-				content += '<li>'+ '<'+item.info + '> ' + item.noti_content;
+				content += '<li>'+ '['+item.info + '] ' + item.noti_content;
 				content += '<span class="notiDelBtn" onclick="notiDelBtn('+item.noti_no+')">X</span><br/>';
 				content += date.toLocaleDateString("ko-KR");
 				//content += '<hr>';
