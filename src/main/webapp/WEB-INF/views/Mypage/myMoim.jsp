@@ -25,25 +25,21 @@
 			작성글 : ${dto.boardCount}개
 			작성 댓글 : ${dto.commentCount}개
 	</div>
-	<a href="#">게시글</a>
-	<a href="./myComment.go">댓글단 글</a>
-	<a href="./myMoim.go">모임</a>
+	<a href="./myBoardList.go">게시글</a>
+	<a href=./myComment.go>댓글단 글</a>
+	<a href="#">모임</a>
 	<table>
         <thead>
             <tr>
-                <th>글번호</th>          
-                <th>카테고리</th>           
-                <th>제목</th>           
-                <th>작성일</th>       
+                <th>모임이름</th>          
+                <th>모임종류</th>           
             </tr>
         </thead>
         <tbody id=list>
 			<c:forEach items="${list}" var="list">
 				<tr>
-					<td>${list.groupReview_no }</td>
+					<td><a href="#">${list.lightning_title }</a></td>
 					<td>${list.category }</td>
-					<td><a href="#">${list.review_title }</a></td>
-					<td>${list.review_date }</td>
 				</tr>
 			</c:forEach>
 		</tbody>

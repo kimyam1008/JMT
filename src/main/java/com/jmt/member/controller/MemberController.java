@@ -83,7 +83,8 @@ public class MemberController {
 			if(match) { //암호화 된 비밀번호와 입려된 비밀번호가 일치한다면 로그인 진행
 				String loginId = service.login(id, hashText); //로그인 아이디 가져오기
 				session.setAttribute("loginId", loginId); //로그인 아이디 세션 저장
-				String member_status = service.getMember_status(id, hashText); //일반회원, 블랙리스트, 탈퇴회원인지 확인
+				String member_status = service.getMember_status(id, hashText); //관리자, 일반회원, 블랙리스트, 탈퇴회원인지 확인
+				session.setAttribute("member_", member_status);
 				logger.info("로그인 요청아이디 : "+loginId+" 회원 상태 : "+member_status);
 				if(loginId != null && member_status != null) {
 					String profileExist = service.profileExist(loginId); //로그인이 진행되면 프로필 생성 여부 확인
@@ -112,6 +113,7 @@ public class MemberController {
 			
 			return page; 
 		}
+		
 		
 		//id 찾기 페이지
 		@RequestMapping(value = "/Member/idFind.go")
@@ -179,21 +181,25 @@ public class MemberController {
 		
 		//프로필 등록
 		@RequestMapping(value = "profileRegister.do")
-		public String profileRegister(Model model, MultipartFile[] photos, HttpSession session, @RequestParam HashMap<String, Object> params) {
+		public String profileRegister(Model model, MultipartFile[] photos, HttpSession session, 
+				@RequestParam HashMap<String, Object> params) {
 			logger.info("프로필 요청 값 {}: ",params);
 			logger.info("사진 : ",photos);
 			String loginId = (String) session.getAttribute("loginId"); //세션에 저장된 아이디 꺼내오기
+			String member_status = (String) session.getAttribute("member_status");
 			params.put("loginId", loginId); //hashmap 타입으로 한번에 보내기 위해 params 에 넣기
-			if(params.get("gender") == null) { //입력되지 않은 값이 하나라도 있다면 경고창 띄우기
-				model.addAttribute("msg", "입려되지 않은 값이 있으면 이용에 제한 될 수 있습니다.");
-			}else if(params.get("job") == null) {
-				model.addAttribute("msg", "입려되지 않은 값이 있으면 이용에 제한 될 수 있습니다.");
-			}else if(params.get("speed") == null) {
-				model.addAttribute("msg", "입려되지 않은 값이 있으면 이용에 제한 될 수 있습니다.");
-			}else {
-				model.addAttribute("msg", "등록이 완료되었습니다.");
+			if(member_status.equals("일반회원")) {
+				if(params.get("gender") == null) { //입력되지 않은 값이 하나라도 있다면 경고창 띄우기
+					model.addAttribute("msg", "입려되지 않은 값이 있으면 이용에 제한 될 수 있습니다.");
+				}else if(params.get("job") == null) {
+					model.addAttribute("msg", "입려되지 않은 값이 있으면 이용에 제한 될 수 있습니다.");
+				}else if(params.get("speed") == null) {
+					model.addAttribute("msg", "입려되지 않은 값이 있으면 이용에 제한 될 수 있습니다.");
+				}else {
+					model.addAttribute("msg", "등록이 완료되었습니다.");
+				}
+				service.profileRegister(photos, params); //프로필 등록하기
 			}
-			service.profileRegister(photos, params); //프로필 등록하기
 			
 			return "/Main/main"; 
 		}

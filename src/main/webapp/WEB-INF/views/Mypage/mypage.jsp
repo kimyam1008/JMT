@@ -57,19 +57,19 @@
 			<ul>
 				<li>번개모임</li>
 				<c:forEach items="${myLightning}" var="myLightning">
-					<a href="">${myLightning.lightning_title }</a>
+					<a href="./myMoim.go">${myLightning.lightning_title }</a>
 				</c:forEach>
 				<li>도장깨기</li>
 				<c:forEach items="${myDojang}" var="myDojang">
-					<a href="">${myDojang.dojang_title }</a>
+					<a href="./myMoim.go">${myDojang.dojang_title }</a>
 				</c:forEach>
 				<li>내가 생성한 방 - 번개</li>
 				<c:forEach items="${myLightningRoom}" var="myLightningRoom">
-					<a href="">${myLightningRoom.lightning_title }</a>
+					<a href="#">${myLightningRoom.lightning_title }</a>
 				</c:forEach>
 				<li>내가 생성한 방 - 도장</li>
 				<c:forEach items="${myDojangRoom}" var="myDojangRoom">
-					<a href="">${myDojangRoom.dojang_title }</a>
+					<a href="#">${myDojangRoom.dojang_title }</a>
 				</c:forEach>
 			</ul>
 	</div>
