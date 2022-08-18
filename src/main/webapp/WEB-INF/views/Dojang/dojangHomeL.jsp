@@ -229,7 +229,7 @@ function memberStatus(){
 		} else {
 			$.ajax({
 				type:'get',
-				url:'dojangHome.ajaxtwo',
+				url:'dojangHome..ajax',
 				data:{
 					dojang_no:dojang_no,
 					loginId:loginId

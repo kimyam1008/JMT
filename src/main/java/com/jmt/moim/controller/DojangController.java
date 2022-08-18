@@ -170,7 +170,7 @@ public class DojangController {
 		}		
 		
 		//회원탈퇴
-		@RequestMapping("/dojangHome.ajaxtwo")
+		@RequestMapping("/dojangHome..ajax")
 		@ResponseBody HashMap<String, Object> Mstatus(HttpSession session) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			String dojang_no = (String) session.getAttribute("dojang_no");
@@ -376,7 +376,7 @@ public class DojangController {
 		}	
 		
 		//도장깨기 방 상세 글삭제
-		@RequestMapping("/dojangHomeDetail.ajaxtwo")
+		@RequestMapping("/dojangHomeDetail..ajax")
 		@ResponseBody HashMap<String, Object> dojangPostDelete(HttpSession session) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			String dojangPost_no = (String) session.getAttribute("dojangPost_no");

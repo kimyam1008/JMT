@@ -76,7 +76,6 @@ public class RestaurantController {
 		params.put("loginId", (String) session.getAttribute("loginId"));
 		
 		
-		
 		logger.info("맛집 상세보기 : "+ restaurant_no); 
 		service.resDetail(model, restaurant_no);
 		ArrayList<RestaurantDTO> lightninglist = service.lightninglist(model, restaurant_no);
@@ -206,15 +205,15 @@ public class RestaurantController {
 	// 댓글 삭제(얘가 진짜)
 	@RequestMapping(value = "/commentDel.ajax")
 	@ResponseBody
-	public HashMap<String, String> commentDel(HttpSession session, Model model, 
+	public HashMap<String, Object> commentDel(HttpSession session, Model model, 
 			@RequestParam HashMap<String, String> params) {
-		
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		logger.info(":"+params);
-		
-
+		boolean success =  service.commentDel(params);
+		map.put("success", success);
 			//service.commentPhotoDel(params);
 		
-		return service.commentDel(params);
+		return map;
 	}
 	
 	
