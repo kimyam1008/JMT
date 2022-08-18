@@ -23,10 +23,16 @@ public class CommentDTO {
 	private String grade_name;
 	
 	
+	private String grade_color;
 	
 	
 	
-	
+	public String getGrade_color() {
+		return grade_color;
+	}
+	public void setGrade_color(String grade_color) {
+		this.grade_color = grade_color;
+	}
 	public String getPhoto_newFileName() {
 		return photo_newFileName;
 	}

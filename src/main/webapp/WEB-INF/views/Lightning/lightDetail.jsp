@@ -82,26 +82,6 @@
 		padding : 5px;
 	}
 	
-	/*등급색상*/
-	.g1{
-		color :green;
-	}
-	
-	.g2{
-		color :brown;
-	}
-	
-	.g3{
-		color :lightblue;
-	}
-	
-	.g4{
-		color :gold;
-	}
-	
-	.g5{
-		color :purple;
-	}
 	
 	.top .utility {
 	  display: flex;
@@ -422,7 +402,8 @@
 				
 				content += '</div>';
 				content += '<div class="member_id"><a href="#" class="idatag">'+item.member_id+'</a></div>';
-				content += '<div class="grade_name g'+item.grade_no+'">'+item.grade_name+'</div>';
+				//content += '<div class="grade_name g'+item.grade_no+'">'+item.grade_name+'</div>';
+				content += '<div class="grade_name" style="color :'+item.grade_color+'">'+item.grade_name+'</div>';
 				content += '<div class="utility">';
 				
 				if(loginId == item.member_id){ //본인 댓글만 수정,삭제 보이게 

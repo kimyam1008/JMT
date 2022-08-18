@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
          
 	</body>
+	
 	<script>
 	/*onclick="notiChk()
 	
@@ -19,10 +20,8 @@
 	
  		
 	*/
-	
-	$('#notix').on("click",function(){
-		$("#notix").attr("src","resources/photo/noti.png");
-		$('#notiList').toggle();
+	$('.dropdown-toggle').on("click",function(){
+		
 		
 		$.ajax({
 			type: 'get',
@@ -42,27 +41,27 @@
 	});
 	
 	function drawNotiList(list){
+		console.log(list);
+		console.log(list.length);
 		var content = "";
 		if(list.length>0){					
 			list.forEach(function(item,idx){
 				//console.log(item);
 				var date = new Date(item.noti_date);
 
-				content += '<tr>';
-				content += '<td>'+item.info+' '+item.noti_content+'<span class="notiDelBtn">X</span>';
-				content += '<br/>';
-				content += date.toLocaleDateString("ko-KR")+'</td>';
-				content += '</tr>';
+				content += '<li>'+ '<'+item.info + '> ' + item.noti_content;
+				content += '<span class="notiDelBtn">X</span><br/>';
+				content += date.toLocaleDateString("ko-KR");
+				content += '<hr>';
+				content += '</li>';
 			});
 		//데이터가 없을 경우	
 		}else{
-			content += '<tr>';
-			content += '<td>도착한 알림이 없습니다.</td>';
-			content += '</tr>';
+			content += '<li>도착한 알림이 없습니다.</li>';
 		}
 		
-		$('#notiContent').empty();
-		$('#notiContent').append(content); 
+		$('.dropdown-menu').empty();
+		$('.dropdown-menu').append(content); 
 	}
 	
 	</script>
