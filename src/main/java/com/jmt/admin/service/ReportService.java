@@ -295,6 +295,16 @@ public class ReportService {
 		/* String string_class_no= String.valueOf(data); */
 		
 		int insert= dao.insertBlind(data); // 블라인드 insert 
+		
+		//알림
+		String blichk = (String) data.get("report_status");
+		String b_idx = (String) data.get("idx");
+		Integer idx = Integer.parseInt(b_idx);
+		String reported = (String) data.get("reported");
+		logger.info("블라인드 리스트 블라인드 설정 : "+blichk+idx+reported );
+		if(blichk.equals("블라인드")) {
+			dao.blindNoti(class_no,idx,reported);
+		}
 		// insert한 데이터를 update 해서 report 수정  
 		if(insert>0) {
 			uPdateTypeChecker(data, result, class_no);

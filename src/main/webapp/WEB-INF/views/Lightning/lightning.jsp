@@ -85,6 +85,12 @@
 	.dropdown-menu{
 		overflow : auto;
 	}
+	
+	.notiDelBtn:hover{
+		cursor : pointer;
+		color : red;
+	}
+	
 </style>
 </head>
 <body>

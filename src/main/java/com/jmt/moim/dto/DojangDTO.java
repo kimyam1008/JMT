@@ -40,7 +40,7 @@ public class DojangDTO {
 	private Date dojang_date;
 	private String dojangPost_status;
 	
-	private int restaurant_no;
+	private String restaurant_no;
 	private String restaurant_name;
 	private String restaurant_address;
 	private String food_name;
@@ -308,10 +308,10 @@ public class DojangDTO {
 	public void setDojangPost_status(String dojangPost_status) {
 		this.dojangPost_status = dojangPost_status;
 	}
-	public int getRestaurant_no() {
+	public String getRestaurant_no() {
 		return restaurant_no;
 	}
-	public void setRestaurant_no(int restaurant_no) {
+	public void setRestaurant_no(String restaurant_no) {
 		this.restaurant_no = restaurant_no;
 	}
 	public String getRestaurant_name() {

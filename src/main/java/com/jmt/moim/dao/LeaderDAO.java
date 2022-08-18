@@ -57,6 +57,14 @@ public interface LeaderDAO {
 
 	int leaderDojangDelete(String dojang_no);
 
+	void lightDelNoti(String lightning_no);
+
+	void DojangDelNoti(String dojang_no);
+
+	void lightGetOutNoti(HashMap<String, String> params);
+
+	void DojangGetOutNoti(HashMap<String, String> params);
+
 
 
 }

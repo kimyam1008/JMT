@@ -50,7 +50,7 @@ table {
 				if(data.memberDrop){
 					//팝업에서 닫기를 누르면 어떻게 다시 로그인 페이지로 보내지?
 					alert("이용해 주셔서 감사합니다.");
-					opener.parent.location.reload();
+					opener.parent.location.href="./";
 					window.close();
 				}else{
 					alert("탈퇴에 실패하였습니다. 비밀번호를 확인해주세요.");

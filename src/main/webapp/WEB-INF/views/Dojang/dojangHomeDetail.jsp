@@ -424,7 +424,7 @@ function dojangPostDel(){
 		} else {
 			$.ajax({
 				type:'get',
-				url:'dojangHomeDetail.ajaxtwo',
+				url:'dojangHomeDetail..ajax',
 				data:{
 					dojangPost_no:dojangPost_no
 				},
@@ -461,7 +461,7 @@ function memberStatus(){
 		} else {
 			$.ajax({
 				type:'get',
-				url:'dojangHome.ajaxtwo',
+				url:'dojangHome..ajax',
 				data:{
 					dojang_no:dojang_no,
 					loginId:loginId

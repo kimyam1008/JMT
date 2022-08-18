@@ -107,7 +107,7 @@ function listCall(page){
 
 
 $('#moimSearch').on('click',function(){
-	
+	$("#food_name option:eq(0)").prop("selected", true);
 	$("#pagination").twbsPagination('destroy');
 	resSearch(currPage);
 	
@@ -115,14 +115,10 @@ $('#moimSearch').on('click',function(){
 
 
 $('#food_name').on('change', function () {
-	
-	if($("#food_name option:selected").val() == 'all'){
-		$("#pagination").twbsPagination('destroy');
-		listCall(currPage);
-	}else{
 	$("#pagination").twbsPagination('destroy');
+	$('#moimSearch').val("");
 	resSearch(currPage);
-	}
+	
 });
 
 
@@ -189,6 +185,12 @@ function resSearch(page){
 
 function drawList(list){
 	var content = '';
+	if(list.length == 0){
+		content += '<tr>';
+		content += '<td colspan="4">'+"조회된 데이터가 없습니다."+'</td>';
+		content += '</tr>';
+	}
+	
 	list.forEach(function(item,restaurant_no){
 		
 		content += '<tr>';
@@ -206,7 +208,7 @@ function drawList(list){
 
 function darwName(food_name) {
 	var content = '';
-		content += '<option value="all">음식 카테고리</option>';
+		content += '<option value="">음식 카테고리</option>';
 		food_name.forEach(function(item){
 		content += '<option value="'+item.food_no+'">'+item.food_name+'</option>';
 	});
@@ -222,7 +224,7 @@ function food_nameCall() {
 	
 	$.ajax({
 		type:'get',
-		url:'foodname.do',
+		url:'foodname.ajax',
 		data : {},
 		dataType:'JSON',
 		success:function(data){

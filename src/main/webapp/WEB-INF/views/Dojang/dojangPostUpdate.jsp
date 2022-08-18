@@ -239,115 +239,108 @@ function dojangPostUpdate(){
 	formData.append("dojangPost_content", dojangPost_content);
 	formData.append("restaurant_no", restaurant_no);
 
-	if(dojangPost_subject == ""){
+	if (dojangPost_subject == "") {
 		alert("제목을 입력해주세요");
-	}else if($('img').length > 3) {
+	}else if(dojangPost_content == "") {
+		alert("내용을 입력해주세요.");
+	} else if ($('img').length > 3) {
 		alert('이미지 업로드 제한 갯수 3개를 초과했습니다.');
-	}else if(restaurant_no == ""){
-		var restaurant_no = $('#restaurant_no').val(320);
-	}else{
-	
-	
+	} else {
 		$.ajax({
-			type:'post',
-			url:'dojangPostUpdate.ajax',
-			data: formData,
-			contentType: false,
-			processData: false,
-			dataType:'JSON',
-			success:function(data){
+			type : 'post',
+			url : 'dojangPostUpdate.ajax',
+			data : formData,
+			contentType : false,
+			processData : false,
+			dataType : 'JSON',
+			success : function(data) {
 				console.log(data);
-				if(data.success){
-					location.href='dojangHome.go?dojang_no='+dojang_no;
-				}else{
+				if (data.success) {
+					location.href = 'dojangHome.go?dojang_no=' + dojang_no;
+				} else {
 					alert("등록 실패");
 				}
 			},
-			error:function(e){
+			error : function(e) {
 				console.log(e);
 			}
-				
-		});	
-	
+
+		});
+
 	}
-	
-}
 
+	}
 
+	function memberCall() {
 
-function memberCall(){
-	
-	
-	var dojang_no = $('#dojang_no').val();
-	
-	$.ajax({
-		type:'get',
-		url:'dojangMember.ajax',
-		data:{
-			dojang_no:dojang_no,
-		},
-		dataType:'JSON',
-		success:function(data){
+		var dojang_no = $('#dojang_no').val();
+
+		$.ajax({
+			type : 'get',
+			url : 'dojangMember.ajax',
+			data : {
+				dojang_no : dojang_no,
+			},
+			dataType : 'JSON',
+			success : function(data) {
 				$('#leader').html(data.dojangHomeLeader);
 				drawMember(data.dojangHomeMember);
-		},
-		error:function(e){
-			console.log(e);
-		}
-			
-	});	
-	
-}
+			},
+			error : function(e) {
+				console.log(e);
+			}
 
+		});
 
-function dojangfileUp(){
-	window.open('gpFileUploadForm.go','','width=400, height=100,left=550 ,top=300');
-}
-
-function restaurant_pop(){	
-	 window.open("/gpRestaurantSearch.go","new","width=800, height=600, left=350 ,top=500, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 	}
 
+	function dojangfileUp() {
+		window.open('gpFileUploadForm.go', '',
+				'width=400, height=100,left=550 ,top=300');
+	}
 
+	function restaurant_pop() {
+		window
+				.open(
+						"/gpRestaurantSearch.go",
+						"new",
+						"width=800, height=600, left=350 ,top=500, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	}
 
-function drawMember(member){
-	var content = '';
+	function drawMember(member) {
+		var content = '';
 
-	member.forEach(function(item){
-		content += '<li>'+item.member_id+'</li>';
-	});
-	$('#member').empty();
-	$('#member').append(content);
-}
+		member.forEach(function(item) {
+			content += '<li>' + item.member_id + '</li>';
+		});
+		$('#member').empty();
+		$('#member').append(content);
+	}
 
-
-//사진 삭제
-function del(elem){
-	console.log(elem);
-	//id에서 삭제할 파일명을 추출
-	var id = $(elem).attr("id");
-	var fileName = id.substring(id.lastIndexOf("/")+1);
-	console.log(fileName);
-	//해당 파일 삭제 요청
-	$.ajax({
-		url:'gpFileDelete.ajax',
-		type:'get',
-		data:{'fileName':fileName},
-		dataType:'json',
-		success:function(data){
-			console.log(data)
-			//a 태그를 포함한 img 태그를 삭제
-			$(elem).remove();
-		},
-		error:function(e){
-			console.log(e);
-		}
-	});
-}
-
-
-
-
-
+	//사진 삭제
+	function del(elem) {
+		console.log(elem);
+		//id에서 삭제할 파일명을 추출
+		var id = $(elem).attr("id");
+		var fileName = id.substring(id.lastIndexOf("/") + 1);
+		console.log(fileName);
+		//해당 파일 삭제 요청
+		$.ajax({
+			url : 'gpFileDelete.ajax',
+			type : 'get',
+			data : {
+				'fileName' : fileName
+			},
+			dataType : 'json',
+			success : function(data) {
+				console.log(data)
+				//a 태그를 포함한 img 태그를 삭제
+				$(elem).remove();
+			},
+			error : function(e) {
+				console.log(e);
+			}
+		});
+	}
 </script>
 </html>

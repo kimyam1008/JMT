@@ -231,7 +231,7 @@ public class DojangService {
 		try {
 			byte[] bytes = file.getBytes();//3. 파일 받아오기
 			//4. 파일 저장(java nio 사용)
-			Path filePath = Paths.get("C:/upload/" + newFileName);
+			Path filePath = Paths.get("C:/STUDY/SPRING_ADVANCE/JMT4/src/main/webapp/resources/photo/review/" + newFileName);
 			Files.write(filePath, bytes);
 			//5. DB에 저장(불가능 하다 - 아직 글을 쓰지도 않았으니까)
 			//그래서 세션에 임시 저장 한다.
@@ -269,7 +269,7 @@ public class DojangService {
 		dto.setDojangPost_subject(params.get("dojangPost_subject"));
 		dto.setDojangPost_content(params.get("dojangPost_content"));
 		dto.setDojang_no(Integer.parseInt(params.get("dojang_no")));
-		dto.setRestaurant_no(Integer.parseInt(params.get("restaurant_no")));
+		dto.setRestaurant_no(params.get("restaurant_no"));
 		dto.setMember_id(params.get("member_id"));
 		dto.setDojangPost_type(params.get("dojangPost_type"));
 		
@@ -280,7 +280,7 @@ public class DojangService {
 		
 		boolean success = true;
 		
-		if(params.get("restaurant_no") == "" || params.get("restaurant_no") != "") {
+		
 			
 		dao.dojangPostReg(dto);
 		
@@ -299,7 +299,7 @@ public class DojangService {
 
 			}
 		}
-		}
+		
 		result.put("success", success);
 		return success;
 	}
@@ -341,8 +341,8 @@ public class DojangService {
 
 	public boolean dojangPostUpdate(HashMap<String, String> params) {
 		boolean success =false;
-		int row = dao.dojangPostUpdate(params);
 		System.out.println("업데이트 데이터::{}"+params);
+		int row = dao.dojangPostUpdate(params);
 		  
 		  if (row > 0) { success = true; }
 		  logger.info("update success : " + success);

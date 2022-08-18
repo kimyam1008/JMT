@@ -31,7 +31,7 @@ public interface RestaurantDAO {
 
 	ArrayList<RestaurantDTO> lightninglist(int restaurant_no);
 
-	HashMap<String, String> commentDel(HashMap<String, String> params);
+	int commentDel(HashMap<String, String> params);
 
 	ArrayList<RestaurantDTO> photoDel(HashMap<String, String> params);
 

@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -263,6 +265,45 @@ public class MypageService {
 
 		return dao.myDojangRoom(loginId);
 	}
+	
+	public MypageDTO myBoardList(String loginId) {
+		
+		MypageDTO dto = new MypageDTO();
+		int dojangCount = dao.dojangCount(loginId); // 도장깨기 하위 게시글 갯수
+		int moimCount = dao.moimCount(loginId); // 모임후기 갯수
+		int boardCount = dojangCount+moimCount; // 나의 게시글 총 갯수
+		dto.setBoardCount(boardCount);; //dto 에 넣어주기
+		int lightningCount = dao.lightningCount(loginId);//번개모임 댓글 갯수
+		int dojangCommentCount = dao.dojangCommentCount(loginId); //도장깨기 댓글 갯수
+		int moimCommentCount = dao.moimCommentCount(loginId); //모임후기 댓글 갯수
+		int jmtCount = dao.jmtCount(loginId); //맛집리뷰 댓글 갯수
+		int commentCount = lightningCount+dojangCommentCount+moimCommentCount+jmtCount; //나의 댓글 총 갯수
+		dto.setCommentCount(commentCount); //dto 에 넣기
+		dto.setMember_id(loginId); //마이페이지에 뿌려줄 아이디 넣어주기
+		String grade_name = dao.grade(loginId); //마이페이지에 뿌려줄 등급 가져오기
+		dto.setGrade_name(grade_name); //dto 에 넣기
+		String photo_new = dao.photo_new(loginId); //마이페이지에 뿌려줄 프로필 사진 가져오기
+		dto.setPhoto_newFileName(photo_new); //dto 에 넣기
+
+		return dto;
+	}
+
+	public ArrayList<MypageDTO> myBoardArry(String loginId) {
+
+		return dao.myBoardArry(loginId);
+	}
+
+	public ArrayList<MypageDTO> myCommentArry(String loginId) {
+
+		return dao.myCommentArry(loginId);
+	}
+
+	public ArrayList<MypageDTO> myMoimArry(String loginId) {
+
+		return dao.myMoimArry(loginId);
+	}
+
+	
 
 
 
