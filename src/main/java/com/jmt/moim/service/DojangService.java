@@ -231,7 +231,7 @@ public class DojangService {
 		try {
 			byte[] bytes = file.getBytes();//3. 파일 받아오기
 			//4. 파일 저장(java nio 사용)
-			Path filePath = Paths.get("C:/upload/" + newFileName);
+			Path filePath = Paths.get("C:/STUDY/SPRING_ADVANCE/JMT4/src/main/webapp/resources/photo/review/" + newFileName);
 			Files.write(filePath, bytes);
 			//5. DB에 저장(불가능 하다 - 아직 글을 쓰지도 않았으니까)
 			//그래서 세션에 임시 저장 한다.
