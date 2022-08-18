@@ -194,11 +194,6 @@ function noHidden(){
 	
 memberCall()	
 	
-	
-console.log($('#dojang_no').val());
-var dojangPost_content = $('#dojangPost_content').val($('#editable').html());
-
-
 
 function dojangPostReg(){
 	
@@ -223,10 +218,10 @@ function dojangPostReg(){
 	
 	if(dojangPost_subject == ""){
 		alert("제목을 입력해주세요");
+	}else if(dojangPost_content == "") {
+		alert("내용을 입력해주세요.");
 	}else if($('img').length > 3) {
 		alert('이미지 업로드 제한 갯수 3개를 초과했습니다.');
-	}else if(restaurant_no == ""){
-		var restaurant_no = $('#restaurant_no').val(320);
 	}else{
 	
 	
