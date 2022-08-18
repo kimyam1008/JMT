@@ -187,7 +187,7 @@ public class ReportService {
 		Map<String, Object> data = new HashMap<String, Object>(); // 파라미터용
 		
 		data.put("status_option", status_option);
-		data.put("search_option", data);
+		data.put("search_option", search_option);
 		data.put("keyword", keyword);
 		
 		int allCnt = dao.blindCount(data);
