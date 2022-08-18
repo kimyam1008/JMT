@@ -25,13 +25,13 @@
 			작성글 : ${dto.boardCount}개
 			작성 댓글 : ${dto.commentCount}개
 	</div>
-	<a href="#">게시글</a>
-	<a href="./myComment.go">댓글단 글</a>
+	<a href="./myBoardList.go">게시글</a>
+	<a href="#">댓글단 글</a>
 	<a href="./myMoim.go">모임</a>
 	<table>
         <thead>
             <tr>
-                <th>글번호</th>          
+                <th>댓글번호</th>          
                 <th>카테고리</th>           
                 <th>제목</th>           
                 <th>작성일</th>       
@@ -40,10 +40,10 @@
         <tbody id=list>
 			<c:forEach items="${list}" var="list">
 				<tr>
-					<td>${list.groupReview_no }</td>
-					<td>${list.category }</td>
-					<td><a href="#">${list.review_title }</a></td>
-					<td>${list.review_date }</td>
+					<td>코</td>
+					<td>맨</td>
+					<td><a href="#">트</a></td>
+					<td>테스트</td>
 				</tr>
 			</c:forEach>
 		</tbody>

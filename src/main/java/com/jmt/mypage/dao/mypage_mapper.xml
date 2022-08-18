@@ -162,5 +162,58 @@
 		SELECT dojang_title, dojang_no FROM dojanglist d WHERE leader_id = #{param1} LIMIT 1
 	</select>
 	
+	<select id="dojangCount" resultType="int">
+		SELECT COUNT(dojangPost_no) FROM dojangpost d WHERE member_id = #{param1}
+	</select>
+	
+	<select id="moimCount" resultType="int">
+		SELECT COUNT(groupReview_no) FROM groupreview g WHERE member_id = #{param1}
+	</select>
+	
+	<select id="lightningCount" resultType="int">
+		SELECT COUNT(comment_no) FROM comment c WHERE member_id = #{param1} AND class_no = '2'
+	</select>
+	
+	<select id="dojangCommentCount" resultType="int">
+		SELECT COUNT(comment_no) FROM comment c WHERE member_id = #{param1} AND class_no = '5'
+	</select>
+	
+	<select id="moimCommentCount" resultType="int">
+		SELECT COUNT(comment_no) FROM comment c WHERE member_id = #{param1} AND class_no = '7'
+	</select>
+	
+	<select id="jmtCount" resultType="int">
+		SELECT COUNT(comment_no) FROM comment c WHERE member_id = #{param1} AND class_no = '8'
+	</select>
+	
+	<select id="grade" resultType="String">
+		SELECT grade_name FROM grade g WHERE grade_no = (SELECT grade_no FROM profile p WHERE member_id = #{param1})
+	</select>
+	
+	<select id="photo_new" resultType="String">
+		SELECT photo_newFileName FROM photo p WHERE idx = (SELECT profile_no FROM profile p WHERE member_id = #{param1})
+	</select>
+	
+	<select id="myBoardArry" resultType="mypage">
+		SELECT groupReview_no, review_title, review_date, (SELECT class_name  FROM codetable c WHERE class_no = '6') AS category FROM groupreview g2 
+			WHERE member_id = #{param1} AND groupReview_status = '노출'
+		UNION ALL
+		SELECT dojangPost_no , dojangPost_subject ,dojangPost_date, (SELECT class_name  FROM codetable c WHERE class_no = '3') AS category FROM dojangpost d 
+			WHERE member_id = #{param1} AND dojangPost_status = '공개' ORDER BY review_date DESC
+	</select>
+	
+	<!-- <select id="myCommentArry" resultType="mypage">
+	</select> -->
+	
+	<select id="myMoimArry" resultType="mypage">
+		SELECT lightning_title , (SELECT class_name  FROM codetable c WHERE class_no = '1') AS category FROM lightninglist l WHERE lightning_no = (SELECT idx FROM apply a 
+			WHERE member_id = #{param1} AND class_no = '1' AND status = '승인')
+		UNION ALL
+		SELECT dojang_title,(SELECT class_name  FROM codetable c WHERE class_no = '3') AS category FROM dojanglist d WHERE dojang_no = (SELECT idx FROM apply a 
+			WHERE member_id = #{param1} AND class_no = '3' and status = '승인')
+	</select>
+	
+	
+	
 	
 </mapper>

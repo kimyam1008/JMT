@@ -141,12 +141,6 @@ public class MemberService {
 			fileSave(photos, profile_no); //회원이 등록한 사진 넣기
 		}
 		
-		//String photoIdx = dao.photoIdx(profile_no); //회원이 등록한 사진이 있는지 조회해보기
-		//logger.info("photoIdx : "+photoIdx);
-		//if(photoIdx == null) { // 회원이 등록한 사진이 없다면 기본이미지 등록하기 (근데 잘 안됨,, 뷰에서 따로 이미지 보여주던 해야할듯)
-		//	dao.photoRegist(profile_no);
-		//}
-		
 	}
 	
 	public void fileSave(MultipartFile[] photos, int profile_no) { //photo, profile 테이블 idx를 알아야함
