@@ -4,22 +4,6 @@
 	</body>
 	
 	<script>
-	/*onclick="notiChk()
-	
- 		var notiChk = ${notiChk};
-	if(notiChk){
-		$("#notix").attr("src","resources/photo/noti4.png");
-	}
- 		
-	function notiChk(){
-			$("#notix").attr("src","resources/photo/noti.png");
-			//location.href='/notiList.do';
-			$('.notiList').toggle();
-			//$(".ballon").toggle();
-		}
-	
- 		
-	*/
 	$('.dropdown-toggle').on("click",function(){
 		$('.dropdown-toggle').css("color","black");
 		

@@ -158,6 +158,16 @@
  		height : 100%;
  		object-fit : cover;
  	} 	
+ 	
+ 	
+ 	.dropdown-menu{
+		overflow : auto;
+	}
+	
+	.notiDelBtn:hover{
+		cursor : pointer;
+		color : red;
+	}
 </style>
 </head>
 <body>
@@ -217,6 +227,7 @@
 	</div>
 	
 </body>
+<%@ include file="../../../resources/inc/footer.jsp" %>
 <script>
 	/*상세보기 들어왔을 때 댓글리스트 보여주기 */
 	var lightning_no =  ${dto.lightning_no};
