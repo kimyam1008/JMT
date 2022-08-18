@@ -171,42 +171,7 @@
 		UPDATE report SET report_proc_status ='블라인드', report_proc_date = now() WHERE report_no =#{idx}
 	</update>
 	
-	<!-- 블라인드 리스트 -->
-	<select id="blindList" parameterType="map" resultType="com.jmt.admin.dto.ReportDTO">
-	select b.blind_no ,r.class_no ,r.report_no,r.idx,r.reporter ,r.reported ,r.report_proc_status ,r.report_proc_date  ,(select l.lightning_title from lightninglist l  where l.lightning_no =r.idx and r.class_no =l.class_no  )as mb_ligntning_title 
-		,(select c.comment_content  from comment c  where c.comment_no  =r.idx  and r.class_no =c.class_no  )as mb_comment
-		,(select d.dojang_title  from  dojanglist d  where d.dojang_no  =r.idx and r.class_no  =d.class_no   )as mb_dojang_title
-		,(select d2.dojangPost_subject  from  dojangpost d2  where d2.dojangPost_no  =r.idx and r.class_no = d2.class_no  )as mb_dojang_post
-		,(select g.review_title  from groupreview g where g.groupReview_no = r.idx and r.class_no = g.class_no  )as mb_groupreview
-		from blind b  left outer join report r on r.report_no = b.report_no  
-		<where>
-			<if test="status_option!= null ">
-				<if test="status_option.equals('블라인드')">
-			 		 r.report_proc_status  ='블라인드' 
-			 	</if>
-			 	<if test="status_option.equals('해제')">
-			 		 r.report_proc_status  ='해제' 
-			 	</if>
-			</if>	
-			<if test="search_option != null ">
-			
-			  	<if test="search_option.equals('reporterID')">
-					 r.reporter LIKE concat('%',#{keyword},'%') 
-				</if>
-			  	<if test="search_option.equals('reportedID')">
-					 r.reported LIKE concat('%',#{keyword},'%') 
-				</if>
-			</if>		
-		</where>
-		  group by r.class_no , r.idx 
-		  <if test="search_option!= null and  search_option.equals('post_title')">
-				having mb_ligntning_title LIKE concat ('%',#{keyword},'%') 
-				|| mb_dojang_title LIKE concat('%',#{keyword},'%')  || mb_comment LIKE concat('%',#{keyword},'%') 
-				|| mb_dojang_post LIKE concat('%',#{keyword},'%')  ||mb_groupreview  LIKE concat('%',#{keyword},'%') 
-		   </if>
-		
-		ORDER BY r.report_proc_date DESC limit #{cnt} offset #{offset}
-	</select>
+	
 	
 	
 	
@@ -218,7 +183,87 @@
 		INSERT INTO blind (member_id, report_no, admin_id, blind_reason, blind_status) VALUES(#{reported}, #{report_no}, 'admin1', #{reason}, #{report_status})
 	</insert>
 	<select id="blindCount" parameterType="map" resultType="int">
-		select count(dd.blind_no) from (select b.blind_no from blind b  left outer join report r ON r.report_no = b.report_no  group by r.class_no , r.idx) as dd
+		select count(dd.blind_no) from 
+		(select b.blind_no
+		 ,(select l.lightning_title from lightninglist l  where l.lightning_no =r.idx and r.class_no =l.class_no  )as mb_ligntning_title 
+		,(select c.comment_content  from comment c  where c.comment_no  =r.idx  and r.class_no =c.class_no  )as mb_comment
+		,(select d.dojang_title  from  dojanglist d  where d.dojang_no  =r.idx and r.class_no  =d.class_no   )as mb_dojang_title
+		,(select d2.dojangPost_subject  from  dojangpost d2  where d2.dojangPost_no  =r.idx and r.class_no = d2.class_no  )as mb_dojang_post
+		,(select g.review_title  from groupreview g where g.groupReview_no = r.idx and r.class_no = g.class_no  )as mb_groupreview
+	
+		 from blind b  left outer join report r ON r.report_no = b.report_no 
+		
+		
+		<where>
+			<if test="status_option!= null ">
+				<if test="status_option.equals('blind')">
+			 		 r.report_proc_status  ='블라인드' 
+			 	</if>
+			 	<if test="status_option.equals('end')">
+			 		 r.report_proc_status  ='해제' 
+			 	</if>
+			</if>	
+			
+			<if test="search_option != null ">
+	  			<if test="search_option.equals('reporterID')">
+					AND r.reporter LIKE concat('%',#{keyword},'%') 
+				</if>
+			  	<if test="search_option.equals('reportedID')">
+					AND r.reported LIKE concat('%',#{keyword},'%') 
+				</if>
+			</if>
+			
+		</where>
+		
+		 group by r.class_no , r.idx
+		 <if test="search_option!= null and  search_option.equals('post_title')">
+				having mb_ligntning_title LIKE concat ('%',#{keyword},'%') 
+				|| mb_dojang_title LIKE concat('%',#{keyword},'%')  || mb_comment LIKE concat('%',#{keyword},'%') 
+				|| mb_dojang_post LIKE concat('%',#{keyword},'%')  ||mb_groupreview  LIKE concat('%',#{keyword},'%') 
+		   </if>) as dd
+	
+	
+	</select>
+	
+	
+	
+	
+<!-- 블라인드 리스트 -->
+	<select id="blindList" parameterType="map" resultType="com.jmt.admin.dto.ReportDTO">
+	select b.blind_no ,r.class_no ,r.report_no,r.idx,r.reporter ,r.reported ,r.report_proc_status ,r.report_proc_date  ,(select l.lightning_title from lightninglist l  where l.lightning_no =r.idx and r.class_no =l.class_no  )as mb_ligntning_title 
+		,(select c.comment_content  from comment c  where c.comment_no  =r.idx  and r.class_no =c.class_no  )as mb_comment
+		,(select d.dojang_title  from  dojanglist d  where d.dojang_no  =r.idx and r.class_no  =d.class_no   )as mb_dojang_title
+		,(select d2.dojangPost_subject  from  dojangpost d2  where d2.dojangPost_no  =r.idx and r.class_no = d2.class_no  )as mb_dojang_post
+		,(select g.review_title  from groupreview g where g.groupReview_no = r.idx and r.class_no = g.class_no  )as mb_groupreview
+		from blind b  left outer join report r on r.report_no = b.report_no  
+		<where>
+			<if test="status_option!= null ">
+				<if test="status_option.equals('blind')">
+			 		 r.report_proc_status  ='블라인드' 
+			 	</if>
+			 	<if test="status_option.equals('end')">
+			 		 r.report_proc_status  ='해제' 
+			 	</if>
+			</if>	
+			
+			<if test="search_option != null ">
+	  			<if test="search_option.equals('reporterID')">
+					AND r.reporter LIKE concat('%',#{keyword},'%') 
+				</if>
+			  	<if test="search_option.equals('reportedID')">
+					AND r.reported LIKE concat('%',#{keyword},'%') 
+				</if>
+			</if>
+			
+		</where>
+		  group by r.class_no , r.idx 
+		  <if test="search_option!= null and  search_option.equals('post_title')">
+				having mb_ligntning_title LIKE concat ('%',#{keyword},'%') 
+				|| mb_dojang_title LIKE concat('%',#{keyword},'%')  || mb_comment LIKE concat('%',#{keyword},'%') 
+				|| mb_dojang_post LIKE concat('%',#{keyword},'%')  ||mb_groupreview  LIKE concat('%',#{keyword},'%') 
+		   </if>
+		
+		ORDER BY r.report_proc_date DESC limit #{cnt} offset #{offset}
 	</select>
 	
 	
@@ -285,11 +330,11 @@
 		from member m left outer  join profile f on m.member_id = f.member_id
 		left outer join grade g on f.grade_no  = g.grade_no
 		<where>
-			<if test="list_option !=null">
-				<if test="list_option.equals('블랙')">
+			<if test='list_option !=null'>
+				<if test='list_option.equals("블랙")'>
 					member_status ='블랙리스트'
 				</if>
-				<if test="list_option.equals('탈퇴')">
+				<if test='list_option.equals("탈퇴")'>
 					member_status ='탈퇴'
 				</if>
 			</if>
