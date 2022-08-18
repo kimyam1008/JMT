@@ -54,7 +54,7 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="jmtMain.html" class="simple-text">
+                <a href="/" class="simple-text">
                     JMT
                 </a>
             </div>
@@ -132,7 +132,7 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="jmtMain.html">
+                            <a href="/">
                                 <p>Home</p>
                              </a>
                          </li>

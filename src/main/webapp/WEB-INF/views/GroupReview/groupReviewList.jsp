@@ -25,18 +25,40 @@
             <link rel="stylesheet" href="../resources/mainResource/assets/css/nice-select.css">
             <link rel="stylesheet" href="../resources/mainResource/assets/css/style.css">
         <style>
-            table,th,td {
+            /* table,th,td {
                 border:1px solid black;
                 border-collapse:collapse;
             }
             th,td {
                 padding:5px 10px;
-            }
+            } */
              .table-caption th {
 				text-align:center;
 			}
-			body {
+			/* body {
 				font-size:17px;
+			} */
+			
+			table {
+			  border-collapse: separate;
+			  border-spacing: 1px;
+			  text-align: left;
+			  line-height: 1.5;
+			  border-top: 1px solid #ccc;
+			  margin : 20px 10px;
+			}
+			table th {
+			  width: 150px;
+			  padding: 10px;
+			  font-weight: bold;
+			  vertical-align: top;
+			  border-bottom: 1px solid #ccc;
+			}
+			table td {
+			  width: 350px;
+			  padding: 10px;
+			  vertical-align: top;
+			  border-bottom: 1px solid #ccc;
 			}
         </style>
     </head>
@@ -63,7 +85,7 @@
                             <!-- Logo -->
                             <div class="col-xl-2 col-lg-2 col-md-1">
                                 <div class="logo">
-                                  <a href="jmtMain.html"><img src="../resources/mainResource/assets/img/logo/logo.png" width="80px" alt=""></a>
+                                  <a href="/"><img src="../resources/mainResource/assets/img/logo/logo.png" width="80px" alt=""></a>
                                 </div>
                             </div>
                             <div class="col-xl-10 col-lg-10 col-md-8">
@@ -71,7 +93,7 @@
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">                                                                                                                                     
-                                            <li><a href="jmtMain.html">Home</a></li>
+                                            <li><a href="/">Home</a></li>
                                             <li><a href="#">모임</a>
                                                 <ul class="submenu">
                                                     <li><a href="lightList.go">번개</a></li>
@@ -143,18 +165,6 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <table style="margin:0 auto; text-align:center;">
-                            <!--<tr>
-                                <td>섹션1</td>
-                                <td>섹션2</td>
-                            </tr>
-                            <tr>
-                                <td>섹션3</td>
-                                <td>섹션4</td>
-                            </tr>
-                            <tr>
-                                <td>섹션5</td>
-                                <td>섹션6</td>
-                            </tr>-->
                             <thead>
                                 <tr class="table-caption">
                                     <th>글번호</th>
@@ -195,7 +205,7 @@
                                 <div class="single-footer-caption mb-30">
                                     <!-- logo -->
                                     <div class="footer-logo">
-                                        <a href="jmtMain.html"><img src="../resources/mainResource/assets/img/logo/logo.png" width="100px" alt=""></a>
+                                        <a href="/"><img src="../resources/mainResource/assets/img/logo/logo.png" width="100px" alt=""></a>
                                     </div>
                                 </div>
                             </div>
@@ -205,7 +215,7 @@
                                 <div class="footer-tittle">
                                     <h4>Quick Link</h4>
                                     <ul>
-                                        <li><a href="jmtMain.html">Home</a></li>
+                                        <li><a href="/">Home</a></li>
                                         <li><a href="lightList.go">번개</a></li>
                                         <li><a href="dojang.go">도장깨기</a></li>
                                         <li><a href="restaurant">맛집</a></li>
