@@ -12,4 +12,20 @@
 			WHERE grade_no = #{param3}
 	</update>
 	
+	
+	<select id="dojang_no"  parameterType="string" resultType="int">
+		select count(dojang_no) from dojanglist d where d.leader_id = #{param1}
+	</select>
+	
+	<select id="dojang_no2"  parameterType="string" resultType="int">
+		select count(dojangPost_no) from dojangpost d where d.member_id = #{param1}
+	</select>
+	
+	<select id="il_no"  parameterType="string" resultType="int">
+		select count(lightning_no) from lightninglist l where l.leader_id = #{param1};
+	</select>
+	
+	
+	
+	
 </mapper>
