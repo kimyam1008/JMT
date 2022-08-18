@@ -265,4 +265,24 @@
 				, member_id
 		FROM apply WHERE status IN("승인","대기") AND class_no = 3 AND idx=#{param1}
 	</insert>
+	
+	<!-- 번개 모임 추방 알림 -->
+	<insert id="lightGetOutNoti" parameterType="hashmap">	
+		INSERT INTO noti(class_no,noti_content,idx,info,member_id)
+		values(1
+				,CONCAT("모임에서 강퇴되었습니다. 사유: ",#{reason})
+				,#{lightning_no}
+				,(select lightning_title from lightninglist where lightning_no = #{lightning_no})
+				,#{member_id})
+	</insert>
+	
+	<!-- 도장 모임 추방 알림 -->
+	<insert id="DojangGetOutNoti" parameterType="hashmap">
+		INSERT INTO noti(class_no,noti_content,idx,info,member_id)
+		values(3
+				,CONCAT("모임에서 강퇴되었습니다. 사유: ",#{reason})
+				,#{dojang_no}
+				,(select dojang_title from dojanglist where dojang_no = #{dojang_no})
+				,#{member_id})
+	</insert>
 </mapper>

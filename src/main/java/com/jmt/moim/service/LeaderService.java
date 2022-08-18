@@ -154,6 +154,8 @@ public class LeaderService {
 		if (row>0) {
 			success=true;
 		}
+		//도장 모임 추방시 알림 
+		dao.DojangGetOutNoti(params);
 		return success;
 	}
 
@@ -208,6 +210,8 @@ public class LeaderService {
 		if (row>0) {
 			success=true;
 		}
+		//번개 모임 추방시 알림 
+		dao.lightGetOutNoti(params);
 		return success;
 	}
 

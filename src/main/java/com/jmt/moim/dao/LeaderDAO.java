@@ -61,6 +61,10 @@ public interface LeaderDAO {
 
 	void DojangDelNoti(String dojang_no);
 
+	void lightGetOutNoti(HashMap<String, String> params);
+
+	void DojangGetOutNoti(HashMap<String, String> params);
+
 
 
 }
