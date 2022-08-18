@@ -1,158 +1,453 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>모임 후기 상세보기</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<style>
-	table,th,td {
-		border:1px solid black;
-		border-collapse:collapse;
-	}
-	th,td {
-		padding:5px 10px;
-	}
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!doctype html>
+<html class="no-js" lang="zxx">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>JMT - 모임 후기 상세보기</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="manifest" href="site.webmanifest">
+		<link rel="shortcut icon" type="image/x-icon" href="../resources/mainResource/assets/img/pizza-slice.png">
+        <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-pen.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<!-- CSS here -->
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/bootstrap.min.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/owl.carousel.min.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/slicknav.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/flaticon.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/animate.min.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/magnific-popup.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/fontawesome-all.min.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/themify-icons.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/slick.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/nice-select.css">
+            <link rel="stylesheet" href="../resources/mainResource/assets/css/style.css">
+    <style>
+       table,th,td {
+           border:1px solid black;
+           border-collapse:collapse;
+       }
+       th,td {
+           padding:5px 10px;
+       }
+       tr th {
+       		text-align:center;
+       }
+
+       /*댓글 작성 폼 */
+       .comment-form {
+       display: flex;
+       flex-direction: column;
+       width : 515px;
+       height : 80px;
+       margin : 10px 0px;
+       }
+       .comment-form textarea {
+       resize: none;
+       border: 1px solid #dbdbdb;
+       padding: 15px 20px;
+       outline: none;
+       }
+       .comment-form .submit {
+       border: 1px solid #8f8f8f;
+       background-color: #8f8f8f;
+       color: #fff;
+       padding: 5px;
+       margin-bottom:15px;
+       cursor: pointer;
+       }
+       
+       
+       
+       /*댓글 리스트 */
+       /* 레이아웃 - 댓글 */
+       .comments {
+       border: 0.5px solid #dbdbdb;
+       border-left: none;
+       border-right: none;
+       width : 510px;
+       }
+       .comments .comment {
+       border-bottom: 1px solid #dbdbdb;
+       padding: 15px;
+       }
+       .comments .comment:last-child {
+       border-bottom: none;
+       }
+
+       /* 상단 메뉴 */
+       .top {
+       display: flex;
+       flex-direction: row;
+       align-items: center;
+       }
+       .top .member_id {
+       font-weight: bold;
+       font-size : 13px;
+       }
+       
+       .top .grade_name{
+           font-size : 15px;
+           padding : 5px;
+       }
+       
+       .content {
+           padding : 5px;
+       }
+       
+       /*등급색상*/
+       .g1{
+           color :green;
+       }
+       
+       .g2{
+           color :brown;
+       }
+       
+       .g3{
+           color :lightblue;
+       }
+       
+       .g4{
+           color :gold;
+       }
+       
+       .g5{
+           color :purple;
+       }
+       
+       .top .utility {
+       display: flex;
+       flex-direction: row;
+       margin-left: auto;
+       }
+
+       p {
+           font-size : 15px;
+       }
+       
+       /* 하단 메뉴 */
+       .bottom {
+       display: flex;
+       flex-direction: row;
+       align-items: center;
+       list-style: none;
+       padding: 0;
+       margin: 0;
+       text-transform: uppercase;
+       letter-spacing: -0.5px;
+       font-weight: bold;
+       font-size: 15px;
+       }
+       .bottom .divider {
+       width: 1px;
+       height: 15px;
+       background-color: #dbdbdb;
+       margin: 0 20px;
+       }
+       .bottom .menu {
+       margin: 0;
+       padding: 0;
+       color: #bebebe;
+       font-size: 15px;
+       }
+       .bottom .menu.report:hover {
+           color : #333;
+           cursor : pointer;
+       }
+       
+       /*수정*/
+       #updtextarea{
+           width : 380px;
+           height : 40px;
+           resize : none;
+       }
+       
+       
+       /*버튼*/
+       .btn1{
+           margin : 3px;
+           padding : 5px;
+           border-radius : 5px;
+           border : 1px black;
+           background-color: #lightgrey;
+       }
+       
+       .btn1:hover{
+           background-color: #bebebe;
+       }
+       
+       /*프로필 사진*/
+       .img{
+           width : 35px;
+           height : 35px;
+           margin : 0 7 5 0px;
+           border-radius : 70%;
+           overflow : hidden;
+       }
+       
+       .profileImg {
+           width : 100%;
+           height : 100%;
+           object-fit : cover;
+       } 
+      </style>
+    </head>
+
+   <body>
+    <!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="../resources/mainResource/assets/img/logo/logo.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <header>
+        <!-- Header Start -->
+       <div class="header-area header-transparent">
+            <div class="main-header">
+               <div class="header-bottom  header-sticky">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <!-- Logo -->
+                            <div class="col-xl-2 col-lg-2 col-md-1">
+                                <div class="logo">
+                                  <a href="jmtMain.html"><img src="../resources/mainResource/assets/img/logo/logo.png" width="80px" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-xl-10 col-lg-10 col-md-8">
+                                <!-- Main-menu -->
+                                <div class="main-menu f-right d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">                                                                                                                                     
+                                            <li><a href="jmtMain.html">Home</a></li>
+                                            <li><a href="#">모임</a>
+                                                <ul class="submenu">
+                                                    <li><a href="lightList.go">번개</a></li>
+                                                    <li><a href="dojang.go">도장깨기</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="resList.html">맛집</a></li>
+                                            <li><a href="groupReviewList">후기</a></li>
+                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <!-- Mobile Menu -->
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+       </div>
+        <!-- Header End -->
+    </header>
+    <main>
+        <!-- Hero Start-->
+        <div class="hero-area2  slider-height2 hero-overly2 d-flex align-items-center ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap text-center pt-50">
+                            <h2>후기</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Hero End -->
+        <!-- Categories Area Start -->
+        <!--내용-->
+        <div class="categories-area section-padding30">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Section Tittle -->
+                        <div class="section-tittle text-center mb-80">
+                            <span>Group Review</span>
+                            <h2>후기 목록</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!--검색창-->
+                <!-- <div class="row">
+                    <div class="col-lg-12">
+                        <fieldset>
+                            <select id="searchCate">
+                                <option value="lightning">번개모임</option>
+                                <option value="dojang">도장깨기</option>
+                            </select>
+                            <input type="text" id="keyword" value="" placeholder="모임 이름을 입력해주세요"/>
+                            <button id="reviewSearch">검색</button>
+                        </fieldset>
+                    </div>
+                </div>
+                <button onclick="location.href='grRegisterForm.go'">글쓰기</button><br/> -->
+                <!--표-->
+                <input type="hidden" id="groupReview_no" value="${dto.groupReview_no}"/>
+                <input type="hidden" id="groupReview_status" value="${dto.groupReview_status}"/>
+                <input type="hidden" id="member_id" value="${dto.member_id}"/>
+                <input type="hidden" id="login_id" value="${dto.login_id}"/>
+                <input type="hidden" id="lightning_title" value="${dto.lightning_title}"/>
+                <input type="hidden" id="dojang_title" value="${dto.dojang_title}"/>
+                <input type="hidden" id="lightning_no" value="${dto.lightning_no}"/>
+                <input type="hidden" id="dojang_no" value="${dto.dojang_no}"/>
+                <input type="hidden" id="class_no" value="${dto.class_no}"/>
+                <input type="hidden" id="dojang_class_no" value="${dto.dojang_class_no}"/>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table style="margin:0 auto;">
+                            <tr>
+                                <th>글 제목</th>
+                                <td colspan="3" id="">${dto.review_title}</td>
+                            </tr>
+                            <tr>
+                                <th>작성자</th>
+                                <td>${dto.member_name}</td>
+                                <th>작성일</th>
+                                <td>${dto.review_date}</td>
+                            </tr>
+                            <tr>
+                                <th>모임 이름</th>
+                                <td>${dto.lightning_title} ${dto.dojang_title}</td>
+                                <th>모임 종류</th>
+                                <td>${dto.class_name}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    ${dto.review_content}
+                                        <button onclick="groupReviewDel()">삭제</button>
+                                        <button onclick="grReviewReport_pop()">신고하기</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="4">
+                                    <input type="button" value="수정" onclick="groupReviewUpdateForm()"/>
+                                    <input type="button" value="목록" onclick="location.href='groupReviewList.go'"/>
+                                </th>
+                            </tr>
+                        </table>
+                        
+                        
+                  
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6" style="margin:0 auto;">
+                    	<div class="comment-box" style="width:50%; display:inline-block; margin:0 auto;">
+	                        <div class="comment-form">
+	                            <textarea  id="cmtInput" placeholder="댓글을 작성하세요."></textarea>
+	                            <button type="button" class="submit" id="cmtWrite">댓글 쓰기</button>
+		                    </div>
+		                    <div id="cmtList">
+		                    </div>
+	                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+    </main>
+    <footer>
+        <!-- Footer Start-->
+        <div class="footer-area">
+            <div class="container">
+               <div class="footer-top footer-padding">
+                    <div class="row justify-content-between">
+                        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                            <div class="single-footer-caption mb-50">
+                                <div class="single-footer-caption mb-30">
+                                    <!-- logo -->
+                                    <div class="footer-logo">
+                                        <a href="jmtMain.html"><img src="../resources/mainResource/assets/img/logo/logo.png" width="100px" alt=""></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>Quick Link</h4>
+                                    <ul>
+                                        <li><a href="jmtMain.html">Home</a></li>
+                                        <li><a href="lightList.go">번개</a></li>
+                                        <li><a href="dojang.go">도장깨기</a></li>
+                                        <li><a href="restaurant">맛집</a></li>
+                                        <li><a href="groupReviewList">후기</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+               </div>
+                <div class="footer-bottom">
+                    <div class="row d-flex justify-content-between align-items-center">
+                        <div class="col-xl-9 col-lg-8">
+                            <div class="footer-copy-right">
+                                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            </div>
+                        </div>
+                        
+                    </div>
+               </div>
+            </div>
+        </div>
+        <!-- Footer End-->
+    </footer>
+    <!-- Scroll Up -->
+    <div id="back-top" >
+        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+    </div>
 
 
- 	/*댓글 작성 폼 */
-	 .comment-form {
-	  display: flex;
-	  flex-direction: column;
-	}
-	.comment-form textarea {
-	  resize: none;
-	  border: 1px solid #dbdbdb;
-	  padding: 15px 20px;
-	  outline: none;
-	}
-	.comment-form .submit {
-	  border: 1px solid #8f8f8f;
-	  background-color: #8f8f8f;
-	  color: #fff;
-	  padding: 5px;
-	  cursor: pointer;
-	}
- 	
- 	
- 	
- 	/*댓글 리스트 */
- 	/* 레이아웃 - 댓글 */
-	.comments {
-	  border: 1px solid #dbdbdb;
-	}
-	.comments .comment {
-	  border-bottom: 1px solid #dbdbdb;
-	  padding: 20px;
-	}
-	.comments .comment:last-child {
-	  border-bottom: none;
-	}
+    <!-- JS here -->
+		<!-- All JS Custom Plugins Link Here here -->
+        <script src="../resources/mainResource/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+		<!-- Jquery, Popper, Bootstrap -->
+		<script src="../resources/mainResource/assets/js/vendor/jquery-1.12.4.min.js"></script>
+        <script src="../resources/mainResource/assets/js/popper.min.js"></script>
+        <script src="../resources/mainResource/assets/js/bootstrap.min.js"></script>
+	    <!-- Jquery Mobile Menu -->
+        <script src="../resources/mainResource/assets/js/jquery.slicknav.min.js"></script>
 
-	/* 상단 메뉴 */
-	.top {
-	  display: flex;
-	  flex-direction: row;
-	  align-items: center;
-	}
-	.top .member_id {
-	  font-weight: bold;
-	}
-	.top .utility {
-	  display: flex;
-	  flex-direction: row;
-	  margin-left: auto;
-	}
+		<!-- Jquery Slick , Owl-Carousel Plugins -->
+        <script src="../resources/mainResource/assets/js/owl.carousel.min.js"></script>
+        <script src="../resources/mainResource/assets/js/slick.min.js"></script>
+		<!-- One Page, Animated-HeadLin -->
+        <script src="../resources/mainResource/assets/js/wow.min.js"></script>
+		<script src="../resources/mainResource/assets/js/animated.headline.js"></script>
+        <script src="../resources/mainResource/assets/js/jquery.magnific-popup.js"></script>
 
-	/* 하단 메뉴 */
-	.bottom {
-	  display: flex;
-	  flex-direction: row;
-	  align-items: center;
-	  list-style: none;
-	  padding: 0;
-	  margin: 0;
-	  text-transform: uppercase;
-	  letter-spacing: -0.5px;
-	  font-weight: bold;
-	  font-size: 14px;
-	}
-	.bottom .divider {
-	  width: 1px;
-	  height: 20px;
-	  background-color: #dbdbdb;
-	  margin: 0 20px;
-	}
-	.bottom .menu {
-	  margin: 0;
-	  padding: 0;
-	  color: #bebebe;
-	}
-	.bottom .menu.report {
-	  color: #333;
-	}
-	
-</style>
-</head>
-<body>
-	<div>
-	 ${sessionScope.loginId} 님 환영합니다, <a href="logout.do">로그아웃</a>
-	</div>
-	<h3>모임 후기 상세보기</h3>
-	<input type="hidden" id="groupReview_no" value="${dto.groupReview_no}"/>
-	<input type="hidden" id="groupReview_status" value="${dto.groupReview_status}"/>
-	<input type="hidden" id="member_id" value="${dto.member_id}"/>
-	<input type="hidden" id="login_id" value="${dto.login_id}"/>
-	<input type="hidden" id="lightning_title" value="${dto.lightning_title}"/>
-	<input type="hidden" id="dojang_title" value="${dto.dojang_title}"/>
-	<input type="hidden" id="lightning_no" value="${dto.lightning_no}"/>
-	<input type="hidden" id="dojang_no" value="${dto.dojang_no}"/>
-	<input type="hidden" id="class_no" value="${dto.class_no}"/>
-	<input type="hidden" id="dojang_class_no" value="${dto.dojang_class_no}"/>
-	<table>
-		<tr>
-			<th>글 제목</th>
-			<td colspan="3" id="">${dto.review_title}</td>
-		</tr>
-		<tr>
-			<th>작성자</th>
-			<td>${dto.member_name}</td>
-			<th>작성일</th>
-			<td>${dto.review_date}</td>
-		</tr>
-		<tr>
-			<th>모임 이름</th>
-			<td>${dto.lightning_title} ${dto.dojang_title}</td>
-			<th>모임 종류</th>
-			<td>${dto.class_name}</td>
-		</tr>
-		<tr>
-			<td colspan="4">
-				${dto.review_content}
-					<button onclick="groupReviewDel()">삭제</button>
-					<button onclick="grReviewReport_pop()">신고하기</button>
-			</td>
-		</tr>
-		<tr>
-			<th colspan="4">
-				<input type="button" value="수정" onclick="groupReviewUpdateForm()"/>
-				<input type="button" value="목록" onclick="location.href='groupReviewList.go'"/>
-			</th>
-		</tr>
-	</table>
+		<!-- Nice-select, sticky -->
+        <script src="../resources/mainResource/assets/js/jquery.nice-select.min.js"></script>
+		<script src="../resources/mainResource/assets/js/jquery.sticky.js"></script>
+        
+        <!-- contact js -->
+        <script src="../resources/mainResource/assets/js/contact.js"></script>
+        <script src="../resources/mainResource/assets/js/jquery.form.js"></script>
+        <script src="../resources/mainResource/assets/js/jquery.validate.min.js"></script>
+        <script src="../resources/mainResource/assets/js/mail-script.js"></script>
+        <script src="../resources/mainResource/assets/js/jquery.ajaxchimp.min.js"></script>
+        
+		<!-- Jquery Plugins, main Jquery -->	
+        <script src="../resources/mainResource/assets/js/plugins.js"></script>
+        <script src="../resources/mainResource/assets/js/main.js"></script>
 
-	
-	<div class="comment-form">
-  		<textarea  id="cmtInput" placeholder="댓글을 작성하세요."></textarea>
-  		<button type="button" class="submit" id="cmtWrite">댓글 쓰기</button>
-	</div>
-	<div id="cmtList">
-	</div>
-
-	
-</body>
+        
+    </body>
 <script>
 //상세보기 눌렀을 때 댓글리스트 보여주기 
 var groupReview_no =  ${dto.groupReview_no};
@@ -287,8 +582,8 @@ function drawCmt(list){
 			content += '<div class="utility">';
 			
 			if(loginId == item.member_id){ //본인 댓글만 수정,삭제 보이게 
-			content += '<button class="btn" id="updBtn'+item.comment_no+'" onclick="updBtn('+item.comment_no+   ","     +  "\'" +  str   +"\'"  + ')">수정</button>';
-			content += '<button class="btn" id="delBtn'+item.comment_no+'" onclick="cmtDel('+item.comment_no+')">삭제</button>';
+			content += '<button class="btn1" id="updBtn'+item.comment_no+'" onclick="updBtn('+item.comment_no+   ","     +  "\'" +  str   +"\'"  + ')">수정</button>';
+			content += '<button class="btn1" id="delBtn'+item.comment_no+'" onclick="cmtDel('+item.comment_no+')">삭제</button>';
 			}
 			
 			content += '</div>';
