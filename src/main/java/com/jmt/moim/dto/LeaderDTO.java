@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import org.apache.ibatis.type.Alias;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Alias("leader")
 public class LeaderDTO {
 	//member
@@ -58,6 +60,12 @@ public class LeaderDTO {
 	private String review_title;
 	private Date review_date;
 	
+	//comment
+	private String comment_content;
+	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
+	private Date comment_date;
+	private int comment_no;
+	
 	//etc
 	private String leaderName;
 	private int member_count;
@@ -65,6 +73,24 @@ public class LeaderDTO {
 	private int comment_count;
 	private String photo_newFileName;
 	
+	public int getComment_no() {
+		return comment_no;
+	}
+	public void setComment_no(int comment_no) {
+		this.comment_no = comment_no;
+	}
+	public String getComment_content() {
+		return comment_content;
+	}
+	public void setComment_content(String comment_content) {
+		this.comment_content = comment_content;
+	}
+	public Date getComment_date() {
+		return comment_date;
+	}
+	public void setComment_date(Date comment_date) {
+		this.comment_date = comment_date;
+	}
 	public int getPost_count() {
 		return post_count;
 	}

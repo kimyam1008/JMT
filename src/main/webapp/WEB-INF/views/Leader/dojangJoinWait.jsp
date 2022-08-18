@@ -40,7 +40,7 @@
 							${dojangJoinWait.member_id}
 						</td>
 						<td>
-							<select id="status" value="">
+							<select id="status">
 								<option value="대기중" selected>대기중</option>
 								<option value="승인">승인</option>
 								<option value="거절">거절</option>
@@ -62,10 +62,10 @@
 //처리 완료
 function JoinWaitSaveD(){
 	var dojang_no = $('#dojang_no').val();
-	var status = $('#status').val();
+	var status = $('#status option:selected').val();
 	var member_id = $('input[type="checkbox"]:checked').val();
 	
-	var result confirm("가입 대기 회원의 상태를 수정하시겠습니까?");
+	var result = confirm("가입 대기 회원의 상태를 수정하시겠습니까?");
 	if(result == true){
 		$.ajax({
 			type:'get',
@@ -77,7 +77,7 @@ function JoinWaitSaveD(){
 			},
 			dataType:'JSON',
 			success:function(data){
-				if (data.dojangJoinWaitUp) {
+				if(data.dojangJoinWaitUp){
 					alert("수정이 완료되었습니다.");
 					opener.parent.location.reload();
 					window.close();
@@ -85,7 +85,7 @@ function JoinWaitSaveD(){
 					alert("수정에 실패했습니다.");
 				}
 			},
-			error:fuction(e){
+			error:function(e){
 				console.log(e);
 			}
 		});

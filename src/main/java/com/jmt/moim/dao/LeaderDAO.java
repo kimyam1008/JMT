@@ -15,11 +15,11 @@ public interface LeaderDAO {
 	
 	ArrayList<LeaderDTO> dojangRecentPost(String dojang_no);
 
-	LeaderDTO lightJoinWait(String lightning_no);
+	ArrayList<LeaderDTO> lightJoinWait(String lightning_no);
 	
-	LeaderDTO dojangJoinWait(String dojang_no);
+	ArrayList<LeaderDTO> dojangJoinWait(String dojang_no);
 
-	void lightJoinWaitUpdate(HashMap<String, String> params);
+	int lightJoinWaitUp(HashMap<String, String> params);
 	
 	int dojangJoinWaitUp(HashMap<String, String> params);
 
@@ -34,10 +34,12 @@ public interface LeaderDAO {
 	//ArrayList<LeaderDTO> myGroupPostSettingD(int cnt, int offset);
 
 	LeaderDTO myGroupEtcD(String loginId, String dojang_no);
+	
+	LeaderDTO myGroupEtcL(String loginId, String lightning_no);
 
 	ArrayList<LeaderDTO> myGroupMemberSettingD(int cnt, int offset);
 
-	int allCount2();
+	int allCount2(HashMap<String, Object> postSort);
 
 	ArrayList<LeaderDTO> myGroupPostSettingD(HashMap<String, Object> postSort);
 
@@ -45,10 +47,16 @@ public interface LeaderDAO {
 
 	int memberGetOutD(HashMap<String, String> params);
 
-	
+	ArrayList<LeaderDTO> myGroupPostSettingL(HashMap<String, Object> postSort2);
 
-	
+	ArrayList<LeaderDTO> lightMember(String lightning_no);
 
-	
+	int memberGetOutL(HashMap<String, String> params);
+
+	int leaderLightDelete(String lightning_no);
+
+	int leaderDojangDelete(String dojang_no);
+
+
 
 }

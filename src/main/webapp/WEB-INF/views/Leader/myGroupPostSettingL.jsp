@@ -26,6 +26,9 @@
 		border:1px solid black;
 		margin-bottom:20px;
 	}
+	.title, .post-count, .comment-count{
+		/*float:left;*/
+	}
 	
 	#test {
 	  list-style-type: none;
@@ -60,20 +63,20 @@
 	<input type="hidden" id="loginId" value="${sessionScope.loginId}"/>
  	${sessionScope.loginId} 님 환영합니다, <a href="logout.do">로그아웃</a>
 	<h3>모임 관리</h3>
-	<input type="hidden" id="dojang_no" value="${sessionScope.dojang_no}"/>
+	<input type="hidden" id="lightning_no" value="${sessionScope.lightning_no}"/>
 	<div id="test">
 		<ul>
-			<li><a href="dojangLeaderPage.go?dojang_no=${sessionScope.dojang_no}">방장 페이지</a></li>
-			<li><a href="myGroupPostSettingD.go?dojang_no=${sessionScope.dojang_no}">나의 모임 관리</a></li>
+			<li><a href="lightningLeaderPage.go?lightning_no=${sessionScope.lightning_no}">방장 페이지</a></li>
+			<li><a href="myGroupPostSettingL.go?lightning_no=${sessionScope.lightning_no}">나의 모임 관리</a></li>
 		</ul>
 	</div>
 	<div id="centered">
 		<div class="top-section">
 			<a href="#"><img src ="/photo/${dto.photo_newFileName}" class="profileImg"></a>
-			<p>${dto.dojang_title}</p>
-			<p>작성글 : ${dto.post_count}</p><p>작성 댓글 : ${dto.comment_count}</p>
+			<p class="title">${dto.lightning_title}</p>
+			<p class="post-count">작성글 : ${dto.post_count}</p><p class="comment-count">작성 댓글 : ${dto.comment_count}</p>
 		</div>
-		<a href="javascript:location.reload()">게시글</a> <a href="/myGroupMemberSettingD.go?dojang_no=${dto.dojang_no}">회원</a>
+		<a href="javascript:location.reload()">댓글</a> <a href="/myGroupMemberSettingL.go?lightning_no=${dto.lightning_no}">회원</a>
 		<table>
 			<thead>
 				<tr>
@@ -103,24 +106,24 @@ var currPage = 1;
 
 listCall(currPage);
 
-console.log($('#dojang_no').val());
+console.log($('#lightning_no').val());
 
 //페이징
 function listCall(page){
 	var pagePerNum = 10;
-	var dojang_no = $('#dojang_no').val();
+	var lightning_no = $('#lightning_no').val();
 	
 	$.ajax({
 		type:'get',
-		url:'myGroupPostSettingD.ajax',
+		url:'myGroupPostSettingL.ajax',
 		data:{
 			cnt : pagePerNum,
 			page : page,
-			dojang_no : dojang_no
+			lightning_no : lightning_no
 		},
 		dataType:'JSON',
 		success:function(data){
-			drawList(data.myGroupPostSettingD);
+			drawList(data.myGroupPostSettingL);
 			currPage=data.currPage;
 			console.log(currPage);
 			
@@ -144,16 +147,16 @@ function listCall(page){
 
 
 //리스트 그리기
-function drawList(myGroupPostSettingD){
+function drawList(myGroupPostSettingL){
 	
 	var content ="";
 	
-	myGroupPostSettingD.forEach(function(item,dojangPost_no){
+	myGroupPostSettingL.forEach(function(item,comment_no){
 		
 		content += '<tr>';
-		content += '<td>'+item.dojangPost_no+'</td>';
-		content += '<td><a href="dojangDetail.do?dojangPost_no='+item.dojangPost_no+'">'+item.dojangPost_subject+'</a></td>';
-		content += '<td>'+item.dojangPost_date+'</td>';
+		content += '<td>'+item.idx+'</td>';
+		content += '<td><a href="lightDetail.go?lightning_no='+item.idx+'">'+item.comment_content+'</a></td>';
+		content += '<td>'+item.comment_date+'</td>';
 		content += '</tr>';
 	});
 	
