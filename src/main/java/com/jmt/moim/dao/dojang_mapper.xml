@@ -140,14 +140,14 @@
 		SELECT leader_id,d.dojang_no,d.dojangPost_subject,d.dojangPost_content,d.member_id,d.dojangPost_date,d.dojangPost_no,d.dojangPost_type,r.restaurant_name
 			FROM dojangpost d LEFT OUTER JOIN restaurant r ON r.restaurant_no = d.restaurant_no 
 			JOIN dojanglist t ON t.dojang_no = d.dojang_no
-			WHERE d.dojang_no = #{dojang_no} ORDER BY dojangPost_no DESC limit #{cnt} OFFSET #{offset}
+			WHERE d.dojang_no = #{dojang_no} AND d.dojangPost_status = "공개" ORDER BY dojangPost_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
 	<select id="dojangHomeL" resultType="dojang" parameterType="hashmap">
 		SELECT leader_id,d.dojang_no,d.dojangPost_subject,d.dojangPost_content,d.member_id,d.dojangPost_date,d.dojangPost_no,d.dojangPost_type,r.restaurant_name
 			FROM dojangpost d LEFT OUTER JOIN restaurant r ON r.restaurant_no = d.restaurant_no 
 			JOIN dojanglist t ON t.dojang_no = d.dojang_no
-			WHERE d.dojang_no = #{dojang_no} AND dojangPost_type ="공지게시판"
+			WHERE d.dojang_no = #{dojang_no} AND dojangPost_type ="공지게시판" AND d.dojangPost_status = "공개"
 			ORDER BY dojangPost_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
@@ -155,7 +155,7 @@
 	SELECT leader_id,d.dojang_no,d.dojangPost_subject,d.dojangPost_content,d.member_id,d.dojangPost_date,d.dojangPost_no,d.dojangPost_type,r.restaurant_name
 			FROM dojangpost d LEFT OUTER JOIN restaurant r ON r.restaurant_no = d.restaurant_no 
 			JOIN dojanglist t ON t.dojang_no = d.dojang_no
-			WHERE d.dojang_no = #{dojang_no} AND dojangPost_type ="일반게시판"
+			WHERE d.dojang_no = #{dojang_no} AND dojangPost_type ="일반게시판" AND d.dojangPost_status = "공개"
 			ORDER BY dojangPost_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
@@ -226,6 +226,24 @@
 					,dojangPost_type = #{dojangPost_type}
 					WHERE dojangPost_no = #{dojangPost_no}
 	</update>
+	
+	<select id="postReported" resultType="String">
+		SELECT member_id FROM dojangpost WHERE dojangPost_no = #{param1}
+	</select>
+	
+	<insert id="dojangPostReport" parameterType="hashmap">
+		INSERT INTO report (report_reason,class_no,idx,reporter,reported)
+			VALUES(
+			<if test="!report_reason.equals('기타')">#{report_reason}</if>
+			<if test="report_reason.equals('기타')">#{report_text}</if>
+			,4,#{dojangPost_no},#{reporter},#{reported})
+	</insert>
+	
+	<update id="dojangPostDelete" parameterType="String">
+		UPDATE dojangpost SET dojangPost_status = "숨김"
+		WHERE dojangPost_no = #{dojangPost_no}
+	</update>
+	
 	
 	
 </mapper>

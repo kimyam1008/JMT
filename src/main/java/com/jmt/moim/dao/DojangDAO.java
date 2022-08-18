@@ -55,6 +55,12 @@ public interface DojangDAO {
 
 	int dojangPostUpdate(HashMap<String, String> params);
 
+	String postReported(String dojangPost_no);
+
+	int dojangPostReport(HashMap<String, String> params);
+
+	int dojangPostDelete(String dojangPost_no);
+
 
 
 

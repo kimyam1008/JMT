@@ -354,6 +354,10 @@ public class DojangController {
 				String dojangPost_no = (String) session.getAttribute("dojangPost_no");
 				String dojang_no = (String) session.getAttribute("dojang_no");
 				session.removeAttribute("dojangPost_no");
+				
+				boolean success =  service.dojangPostDelete(dojangPost_no);
+			    map.put("success", success);
+			    logger.info("숨김처리 제발::"+dojangPost_no);
 
 				ArrayList<DojangDTO> dojangHomeMember = service.dojangHomeMember(dojang_no);
 				DojangDTO dojangHomeDetail = service.dojangHomeDetail(dojangPost_no);
@@ -499,6 +503,48 @@ public class DojangController {
 				return "./Dojang/gpRestaurantSearch";
 		
 			}
+			
+			
+			
+			//도장깨기 방 게시글 신고 팝업
+			@RequestMapping("/dojangPostReport.go")
+			public String dojangPostReportGo(@RequestParam String dojangPost_no, HttpSession session) {
+				session.setAttribute("dojangPost_no", dojangPost_no);
+				logger.info("도장가입신청"+dojangPost_no+"로그인아이디::"+session.getAttribute("loginId"));
+				
+				//신고당한 ID
+				String postReported = service.postReported(dojangPost_no);
+				session.setAttribute("reported",postReported);
+				return"./Dojang/dojangPostReport";	
+			}
+			
+			
+			//도장깨기 방 게시글신고내용 
+				@RequestMapping("/dojangPostReport.ajax")
+				@ResponseBody
+				public HashMap<String, Object> dojangPostReport(@RequestParam HashMap<String, String> params,HttpSession session){
+					
+					HashMap<String, Object> map = new HashMap<String, Object>();
+					
+					boolean dojangPostReport = service.dojangPostReport(params);
+					map.put("dojangPostReport", dojangPostReport);
+
+					return map;
+				}
+				
+				
+				  //삭제(숨김)
+				   @RequestMapping("/dojangPostDelete.ajax")
+				   @ResponseBody
+				   public HashMap<String, Object> groupReviewDelete(HttpSession session){
+					  HashMap<String, Object> map = new HashMap<String, Object>();
+					  String dojangPost_no = (String) session.getAttribute("dojangPost_no");
+				      String dojang_no = (String) session.getAttribute("dojang_no");
+				      
+				      logger.info("삭제(숨김)요청 : "+dojangPost_no);
+				      return map;
+				   }
+			
 	
 	//도장모임 검색
 	/*

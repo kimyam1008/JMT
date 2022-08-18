@@ -71,6 +71,8 @@ td a {
 </head>
 <body>
  ${sessionScope.loginId} 님 환영합니다, <a href="logout.do">로그아웃</a>
+ <input type="hidden" id="dojangPost_no" value="${sessionScope.dojangPost_no}"/>
+  <input type="hidden" id="dojang_no" value="${sessionScope.dojang_no}"/>
 <div id="test">
 <h3>도장 격파원</h3>
 <div id="test2">
@@ -100,9 +102,15 @@ td a {
 
 <div id="list">
 <h1>게시글 상세</h1>
-<c:if test="${list.member_id ==loginId}">
-<input type="button" value="수정하기" onclick="dojangPostUpdate()"/>
-</c:if>
+	<c:choose>
+		<c:when test="${list.member_id ==loginId}">
+			<input type="button" value="수정하기" onclick="dojangPostUpdate()"/>
+			<input type="button" value="삭제하기" onclick="dojangPostDel()"/>
+		</c:when>
+		<c:otherwise>
+			<input type="button" value="신고하기" onclick="dojangPostReport()"/>
+		</c:otherwise>
+	</c:choose>
 <table>
 	<tr id="dojangPost_no_tr">
 		<th>글번호</th>
@@ -150,6 +158,7 @@ td a {
 <script>
 $('#dojangPost_no_tr').attr('style', "display:none;");
 
+
 	
 	$.ajax({
 		type:'get',
@@ -195,7 +204,47 @@ function dojangPostUpdate(){
 }
 
 
+//신고하기 팝업
+function dojangPostReport(){
+	var dojangPost_no = $('#dojangPost_no').html();
+	window.open("/dojangPostReport.go?dojangPost_no="+dojangPost_no,"new","width=600, height=400, left=450 ,top=200, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+}
 
+//삭제(숨김처리)
+function dojangPostDel(){
+	
+	var dojangPost_no = $('#dojangPost_no').html();
+	var dojang_no = $('#dojang_no').val();
+	
+		if (!confirm("정말로 삭제하시겠습니까?")) {
+			alert("삭제가 취소되었습니다.");
+			window.location.reload();
+		} else {
+			$.ajax({
+				type:'get',
+				url:'dojangHomeDetail.ajax',
+				data:{
+					dojangPost_no:dojangPost_no
+				},
+				dataType:'JSON',
+				success:function(data){
+					console.log(data);
+					if(data.success){
+						console.log(data.success)
+						alert("삭제가 완료됐습니다.")
+						location.href='/dojangHome.go?dojang_no='+dojang_no;
+					}else{
+						alert("삭제 실패");
+					}
+				},
+				error:function(e){
+					console.log(e);
+				}
+			});
+		
+		}
+	
+}
 
 
 </script>

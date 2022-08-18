@@ -350,6 +350,31 @@ public class DojangService {
 		  return success; 
 	}
 
+	public String postReported(String dojangPost_no) {
+		return dao.postReported(dojangPost_no);
+	}
+
+	public boolean dojangPostReport(HashMap<String, String> params) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		boolean success = false;
+		
+		if(dao.dojangPostReport(params)>0) {
+			success = true;
+		}
+		
+		result.put("success", success);
+		return success;
+	}
+
+	public boolean dojangPostDelete(String dojangPost_no) {
+		boolean success = true;
+		int row = dao.dojangPostDelete(dojangPost_no);
+		logger.info("뭐가문제니?::"+dojangPost_no+":"+row);
+
+		return success;
+		
+	}
+
 	
 
 	
