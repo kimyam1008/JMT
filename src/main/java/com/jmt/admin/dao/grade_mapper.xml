@@ -3,14 +3,14 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jmt.admin.dao.GradeDAO">
 	
-	<select id="gradeList" resultType="grade" parameterType="hashmap" >
+	<!-- <select id="gradeList" resultType="grade" parameterType="hashmap" >
 		select * from grade g
 	</select>
 	 
 	<update id="update" parameterType="String">
 		UPDATE grade SET ${param1} = #{param2}
 			WHERE grade_no = #{param3}
-	</update>
+	</update> -->
 	
 	
 	<select id="dojang_no"  parameterType="string" resultType="int">
@@ -24,6 +24,22 @@
 	<select id="il_no"  parameterType="string" resultType="int">
 		select count(lightning_no) from lightninglist l where l.leader_id = #{param1};
 	</select>
+	
+	<select id="list" resultType="hashmap">
+		select * from grade g
+	</select>
+	
+	<update id="gradeUpdate" parameterType="Hashmap">
+		update grade set
+			  grade_post = #{grade_post}
+			, grade_comment = #{grade_comment}
+			, grade_color = #{grade_color}
+			, grade_name = #{grade_name}
+		where 
+			grade_no = #{grade_no}
+	</update>
+	
+	
 	
 	
 	
