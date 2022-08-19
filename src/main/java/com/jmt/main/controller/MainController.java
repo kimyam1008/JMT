@@ -1,6 +1,8 @@
 package com.jmt.main.controller;
 
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,9 @@ public class MainController {
 	@Autowired MainService service;
 
 	@RequestMapping(value = "/")
-	public String main(Model model) {
-		
+	public String main(Model model,HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+	    model.addAttribute("loginId", loginId);
 		return "./Main/main";
 	}
 	

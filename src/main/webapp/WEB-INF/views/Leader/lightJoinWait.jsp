@@ -39,7 +39,7 @@
 						<td>${lightJoinWait.member_id}</td>
 						<td>
 							<select id="status">
-								<option value="대기중" selected>대기중</option>
+								<option value="대기">대기</option>
 								<option value="승인">승인</option>
 								<option value="거절">거절</option>
 							</select>
