@@ -171,7 +171,7 @@
 	</select>
 	
 	<select id="CommentPhoto" resultType="hashmap" parameterType="int">
-		select * from photo p where idx = #{comment_no}
+		select * from photo p left outer join comment c on p.idx = c.comment_no  where c.comment_status in ('공개','해제') AND p.idx = #{comment_no}
 	</select>
 	
 	<select id="CommentLike" resultType="hashmap" parameterType="int">

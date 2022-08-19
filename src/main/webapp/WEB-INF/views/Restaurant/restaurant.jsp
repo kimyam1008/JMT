@@ -194,7 +194,12 @@ function drawList(list){
 	list.forEach(function(item,restaurant_no){
 		
 		content += '<tr>';
-		content += '<td><img src="/photo/'+item.photo_newFileName+'" height="100"/></td>';
+		if(item.photo_newFileName != null){
+		content += item.comment_status =="공개" || item.comment_status =="해제"?'<td><img src="/photo/'+item.photo_newFileName+'" height="100"/></td>' : '<td><img src="/photo/test.png" height="100"/></td>';
+		}else{//댓글리뷰사진 없을경우
+		content += '<td><img src="/photo/test.png" height="100"/></td>';
+		}
+
 		content += '<td class="resDetailTitle"><a href="resDetail.do?restaurant_no='+item.restaurant_no+'">'+item.restaurant_name+'</a></td>';
 		content += '<td>'+item.food_name+'</td>';
 		content += '<td>'+item.restaurant_address+'</td>';

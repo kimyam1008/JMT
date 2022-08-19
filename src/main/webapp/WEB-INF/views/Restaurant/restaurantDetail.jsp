@@ -30,9 +30,7 @@
 	</div>
 	<div>
 	<c:forEach items="${CommentPhoto}" var="p">
-	
 		<img src="/photo/${p.photo_newFileName}" height="250"/>
-	
 	</c:forEach>
 	</div>
 	</br>
@@ -80,8 +78,7 @@
      </ul>
 	</div>
 	<div>
-		<h3>리뷰</h3>
-	<input type="button" value="리뷰쓰기" onclick="reviewWrite()"/>
+		 <a href="./reviewWrite?restaurant_no=${resDetail.restaurant_no}">[리뷰 쓰기]</a>            
 	<br/>
 	</div>
 	<div>
@@ -308,18 +305,8 @@ console.log("식당번호 확인::",restaurant_no);
 	      
 	} 
 	
-	
-	//리뷰쓰기 팝업
-	
-	function reviewWrite(){
-		window.open('reviewWrite?restaurant_no=${resDetail.restaurant_no}','','width=400, height=300');
-	}
-	
-	
-	
-	
-	
-	
+
+
 	
 	
 	
