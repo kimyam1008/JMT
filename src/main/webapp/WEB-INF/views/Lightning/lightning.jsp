@@ -1,33 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<html class="no-js" lang="en">
+ 
+ <!doctype html>
+<html class="no-js" lang="zxx">
     <head>
         <meta charset="utf-8">
-        <title>JMT 번개모임 리스트 페이지 </title>
+       
+        <title>JMT 번개 모임 리스트 페이지</title>
+  		 <meta http-equiv="x-ua-compatible" content="ie=edge">
+         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" type="image/x-icon" href="../resources/mainResource/assets/img/pizza-slice.png">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-		 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-		
-		<!-- 페이징 -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- 페이징 -->
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-	
-		<!--   Core JS Files   -->
-    	<script src="../resources/etcResource/assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
-		<script src="../resources/etcResource/assets/js/bootstrap.min.js" type="text/javascript"></script>
-
-		<!--  Charts Plugin -->
-		<script src="../resources/etcResource/assets/js/chartist.min.js"></script>
-
-    	<!--  Notifications Plugin  : 없어도 되네  
-    	<script src="../resources/etcResource/assets/js/bootstrap-notify.js"></script>
-  -		-->
-  
-    	<!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
-		<script src="../resources/etcResource/assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
-	
-
-			<!-- CSS here 이게 없으면 알림 이모티콘이 안 보임 -->
+		
+        <!-- CSS here -->
             <link rel="stylesheet" href="../resources/mainResource/assets/css/bootstrap.min.css">
             <link rel="stylesheet" href="../resources/mainResource/assets/css/owl.carousel.min.css">
             <link rel="stylesheet" href="../resources/mainResource/assets/css/slicknav.css">
@@ -40,47 +27,33 @@
             <link rel="stylesheet" href="../resources/mainResource/assets/css/slick.css">
             <link rel="stylesheet" href="../resources/mainResource/assets/css/nice-select.css">
             <link rel="stylesheet" href="../resources/mainResource/assets/css/style.css">
-
-      
-            <!--알림 css-->
-            <link href="../resources/etcResource/assets/css/bootstrap.min.css" rel="stylesheet" />
    </head>
-   <!-- 
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> 
-<script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
-
-<link rel="stylesheet" href="resources/css/common.css" type="text/css">
-
-	<jsp:include page="../commons/header.jsp"/>
-    -->
-
-
-<style>
-	#lightningList {
-		border : 1px solid black;
-		border-collapse : collapse;
-		width : 600px;
+   <style>
+   
+	 .table-caption th {
+				text-align:center;
 	}
-
-	#lightningList > th,td { 
-		border : 1px solid black;
-		border-collapse : collapse;
-		width : 600px;
-		padding : 5px 10px;
-	}
-	
-
-	#searchBar{
-		float : left;
-		height : 200px;
-	}
+	table {
+			  border-collapse: separate;
+			  border-spacing: 1px;
+			  text-align: left;
+			  line-height: 1.5;
+			  border-top: 1px solid #ccc;
+			 width : 1000px;
+			}
+			table th {
+			  width: 150px;
+			  padding: 10px;
+			  font-weight: bold;
+			  vertical-align: top;
+			  border-bottom: 1px solid #ccc;
+			}
+			table td {
+			  width: 350px;
+			  padding: 10px;
+			  vertical-align: top;
+			  border-bottom: 1px solid #ccc;
+			}
 	
 	.dropdown-menu{
 		overflow : auto;
@@ -90,77 +63,315 @@
 		cursor : pointer;
 		color : red;
 	}
-	
-</style>
-</head>
-<body>
-	<jsp:include page="../commons/header.jsp"/>
+    </style>
+   <body>
+    <!--알림 헤더
+    <jsp:include page="../commons/header.jsp"/>-->
+    
+    <!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="../resources/mainResource/assets/img/logo/logo.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+    <header>
+        <!-- Header Start -->
+       <div class="header-area header-transparent">
+            <div class="main-header">
+               <div class="header-bottom  header-sticky">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <!-- Logo -->
+                            <div class="col-xl-2 col-lg-2 col-md-1">
+                                <div class="logo">
+                                  <a href="jmtMain.html"><img src="../resources/mainResource/assets/img/logo/logo.png" width="80px" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-xl-10 col-lg-10 col-md-8">
+                                <!-- Main-menu -->
+                                <div class="main-menu f-right d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">                                                                                                                                     
+                                            <li><a href="jmtMain.html">Home</a></li>
+                                            <li><a href="#">모임</a>
+                                                <ul class="submenu">
+                                                    <li><a href="lightningList.html">번개</a></li>
+                                                    <li><a href="dojangList.html">도장깨기</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="resList.html">맛집</a></li>
+                                            <li><a href="moimReviewList.html">후기</a></li>
+                                            <li class="add-list"><a href="login.html"><i class="ti-user"></i>로그인</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <!-- Mobile Menu -->
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+       </div>
+        <!-- Header End -->
+    </header>
+    <main>
 
-	<div id="searchBar">
-		<button onclick="lightCreateChk()">번개 생성하기</button>
-		<br/>
-		<input type="text" id="lightning_title" placeholder="모임 이름을 입력해주세요"
-		 onKeypress="javascript:if(event.keyCode==13) {enterkey()}"/>
-		<button id="search">검색</button><br/>
-		
-		<select id="food_no">
-			<option value="">음식카테고리</option>
-				<c:forEach items="${foodList}" var="foodList">
-					<option value="${foodList.food_no}">${foodList.food_name}</option>
-				</c:forEach>
-		</select>
-		<br/>
-		<select id="eat_speed">
-			<option value="">식사속도</option>
-			<option value="느림">느림</option>
-			<option value="보통">보통</option>
-			<option value="빠름">빠름</option>
-			<option value="상관없음">상관없음</option>
-		</select>
-		<br/>
-		<select id="job">
-			<option value="">직업</option>
-			<option value="직장인">직장인</option>
-			<option value="취준생">취준생</option>
-			<option value="학생">학생</option>
-			<option value="상관없음">상관없음</option>
-		</select>
-		<br/>
-		<input type="radio" name ="gender" id="gender" value="남자"/>남자
-		<input type="radio" name ="gender" id="gender" value="여자"/>여자
-		<input type="radio" name ="gender" id="gender" value="상관없음"/>상관없음
-	</div>
-	
-	<table>
-		<thead id="lightningList">
-			<tr>
-				<th>맛집 이름</th>
-				<th>음식 카테고리</th>
-				<th>방장 ID</th>
-				<th>모임 이름</th>
-				<th>모임 날짜</th>
-				<th>인원</th>
-				<th>상태</th>
-				<th>참여여부</th>
-			</tr>
-		</thead>
-		<tbody id="list">
-		</tbody>
-			<tr>
-				<td colspan="8" id="paging">
-					<!-- plugin 사용법  -->
-					<div class="container">
-						<nav arial-label="Page navigation" style="text-align:center">
-							<ul class="pagination" id="pagination"></ul>
-						</nav>
-					</div>
-				</td>
-			</tr>
-	</table>
+        <!-- Hero Start-->
+        <div class="hero-area3 hero-overly2 d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                   
+                </div>
+            </div>
+        </div>
+        <!--Hero End -->
+        <!-- listing Area Start -->
+        <div class="listing-area pt-120 pb-120">
+            <div class="container">
+                <div class="row">
+                    <!-- Left content -->
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="row">
+                            <div class="col-12">
+                                    <div class="small-section-tittle2 mb-45">
+                                    <h4 class="searchName">번개를 찾아보세요</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Job Category Listing start -->
+                        <div class="category-listing mb-50">
+                            <!-- single one -->
+                            <div class="single-listing">
+                                <!-- input -->
+                                <div class="input-form">
+                                    <input type="text" id="lightning_title" placeholder="모임 이름을 입력해주세요"
+		                                onKeypress="javascript:if(event.keyCode==13) {enterkey()}"/>
+                                </div>
+                                <!-- Select job items start -->
+                                <div class="select-job-items1">
+                                    <select id="food_no">
+                                        <option value="">음식카테고리</option>
+                                            <c:forEach items="${foodList}" var="foodList">
+                                                <option value="${foodList.food_no}">${foodList.food_name}</option>
+                                            </c:forEach>
+                                    </select>
+                                </div>
+                                <!--  Select job items End-->
+                                <!-- Select job items start -->
+                                <div class="select-job-items2">
+                                    <select id="eat_speed" class="selectpicker">
+                                        <option value="">식사속도</option>
+                                        <option value="느림">느림</option>
+                                        <option value="보통">보통</option>
+                                        <option value="빠름">빠름</option>
+                                        <option value="상관없음">상관없음</option>
+                                    </select>
+                                </div>
+                                <!--  Select job items End-->
+                                 <!-- Select job items start -->
+                                 <div class="select-job-items2">
+                                    <select id="job">
+                                        <option value="">직업</option>
+                                        <option value="직장인">직장인</option>
+                                        <option value="취준생">취준생</option>
+                                        <option value="학생">학생</option>
+                                        <option value="상관없음">상관없음</option>
+                                    </select>
+                                </div>
+                                <!--  Select job items End-->
+                                <!-- select-Categories start -->
+                               
+                                <!-- select-Categories End -->
+                                <!-- Select job items start -->
+                                <input type="radio" name ="gender" id="gender" value="남자"/>남자
+		                        <input type="radio" name ="gender" id="gender" value="여자"/>여자
+		                        <input type="radio" name ="gender" id="gender" value="상관없음"/>상관없음
+                                <!--  Select job items End-->
+                            </div>
 
-<%@ include file="../../../resources/inc/footer.jsp" %>		
-<script>
-	var loginId = "${loginId}";
+                            <div class="single-listing">
+                                 <button id="search "class="btn list-btn mt-20">검색</button>
+                            </div>
+                        </div>
+                        <!-- Job Category Listing End -->
+                    </div>
+                    <!-- Right content -->
+                    <div class="col-xl-8 col-lg-8 col-md-6">
+                        <!-- listing Details Stat-->
+                        <!--리스트 시작-->
+                       
+                        <div class="listing-details-area">
+                            <div class="container">
+                                <div class="row">
+                                    <!--넣을 내용 입력-->
+                                    <div class="col-lg-6 ">
+                                        <table style="margin:0 auto; text-align:center;">
+	                                        <colgroup>
+			  									<col width="50"></col>
+												<col width="40"></col>
+												<col width="20"></col>
+												<col width="*"></col>
+												<col width="30"></col>
+												<col width="20"></col>
+												<col width="20"></col>
+												<col width="20"></col>
+											</colgroup>
+                                            <thead id="lightningList">
+                                                <tr class="table-caption">
+                                                    <th>맛집 이름</th>
+                                                    <th>음식 카테고리</th>
+                                                    <th>방장 ID</th>
+                                                    <th>모임 이름</th>
+                                                    <th>모임 날짜</th>
+                                                    <th>인원</th>
+                                                    <th>상태</th>
+                                                    <th>참여여부</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="list">
+                                            </tbody>
+                                                <tr>
+                                                    <td colspan="8" id="paging">
+                                                        <!-- plugin 사용법  -->
+                                                        <div class="container">
+                                                            <nav arial-label="Page navigation" style="text-align:center">
+                                                                <ul class="pagination" id="pagination"></ul>
+                                                            </nav>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                        </table>    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- listing Details End -->
+                        <!--Pagination Start  -->
+                        <!--페이징 자리인데 뭐 봐서..
+                        
+                            <div class="pagination-area pt-70 text-center">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="single-wrap d-flex justify-content-center">
+                                                <nav aria-label="Page navigation example">
+                                                    <ul class="pagination justify-content-start">
+                                                        <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">02</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">03</a></li>
+                                                    <li class="page-item"><a class="page-link" href="#"><span class="ti-angle-right"></span></a></li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            Pagination End  -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- listing-area Area End -->
+
+    </main>
+    <footer>
+        <!-- Footer Start-->
+        <div class="footer-area">
+            <div class="container">
+               <div class="footer-top footer-padding">
+                    <div class="row justify-content-between">
+                        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                            <div class="single-footer-caption mb-50">
+                                <div class="single-footer-caption mb-30">
+                                    <!-- logo -->
+                                    <div class="footer-logo">
+                                        <a href="jmtMain.html"><img src="../resources/mainResource/assets/img/logo/logo.png" width="100px" alt=""></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>Quick Link</h4>
+                                    <ul>
+                                        <li><a href="jmtMain.html">Home</a></li>
+                                        <li><a href="lightningList.html">번개</a></li>
+                                        <li><a href="dojangList.html">도장깨기</a></li>
+                                        <li><a href="resList.html">맛집</a></li>
+                                        <li><a href="moimReviewList.html">후기</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+                <div class="footer-bottom">
+                    <div class="row d-flex justify-content-between align-items-center">
+                        <div class="col-xl-9 col-lg-8">
+                            <div class="footer-copy-right">
+                                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            </div>
+                        </div>
+                        
+                    </div>
+               </div>
+            </div>
+        </div>
+        <!-- Footer End-->
+    </footer>
+    <!-- Scroll Up -->
+    <div id="back-top" >
+        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+    </div>
+</body>
+    <!-- footer   file="../../../resources/inc/footer.jsp"		-->
+        <!-- JS here -->
+		<!-- All JS Custom Plugins Link Here here -->
+        <script src="../resources/mainResource/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+		<!-- Jquery, Popper, Bootstrap -->
+		<script src="../resources/mainResource/assets/js/vendor/jquery-1.12.4.min.js"></script>
+        <script src="../resources/mainResource/assets/js/popper.min.js"></script>
+        <script src="../resources/mainResource/assets/js/bootstrap.min.js"></script>
+	    <!-- Jquery Mobile Menu -->
+        <script src="../resources/mainResource/assets/js/jquery.slicknav.min.js"></script>
+
+		<!-- Jquery Slick , Owl-Carousel Plugins -->
+        <script src="../resources/mainResource/assets/js/owl.carousel.min.js"></script>
+        <script src="../resources/mainResource/assets/js/slick.min.js"></script>
+		<!-- One Page, Animated-HeadLin    <script src="../resources/mainResource/assets/js/price-range.js"></script> -->
+        <script src="../resources/mainResource/assets/js/wow.min.js"></script>
+		<script src="../resources/mainResource/assets/js/animated.headline.js"></script>
+        <script src="../resources/mainResource/assets/js/jquery.magnific-popup.js"></script>
+
+		<!-- Nice-select, sticky -->
+        <script src="../resources/mainResource/assets/js/jquery.nice-select.min.js"></script>
+		<script src="../resources/mainResource/assets/js/jquery.sticky.js"></script>
+        
+        <!-- contact js -->
+        <!-- <script src="../resources/mainResource/assets/js/contact.js"></script> -->
+        <script src="../resources/mainResource/assets/js/jquery.form.js"></script>
+        <script src="../resources/mainResource/assets/js/jquery.validate.min.js"></script>
+        <script src="../resources/mainResource/assets/js/mail-script.js"></script>
+        <script src="../resources/mainResource/assets/js/jquery.ajaxchimp.min.js"></script>
+        
+		<!-- Jquery Plugins, main Jquery -->	
+        <script src="../resources/mainResource/assets/js/plugins.js"></script>
+        <script src="../resources/mainResource/assets/js/main.js"></script>
+    <script>
+    var loginId = "${loginId}";
 	var currpage = 1;
 	listCall(currpage);
 
@@ -196,12 +407,26 @@
 		}
 	}
 
-	//셀렉트박스 값이 변경될 때 
-	$("select").on("change", function(){ 
+	/*셀렉트박스 값이 변경될 때 
+	$("div select").on("change", function(){ 
+		console.log("왜?");
 		$("#pagination").twbsPagination('destroy');
 		listCall(currpage);
 	});
+	*/
+	
+	$(function() {
 
+		  $('select').on('change', function(e){
+		    console.log(this.value,
+		                this.options[this.selectedIndex].value,
+		                $(this).find("option:selected").val(),);
+		  });
+		  
+		});
+
+	
+	
 	//radio 값이 변경될 때
 	$("input[name='gender']:radio").on("change",function(){
 		$("#pagination").twbsPagination('destroy');
@@ -315,24 +540,11 @@
 			alert("프로필 생성 후 이용 가능합니다.");
 		}
 	}
-
-</script>
- <!--   Core JS Files   -->
-    <script src="../resources/etcResource/assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
-	<script src="../resources/etcResource/assets/js/bootstrap.min.js" type="text/javascript"></script>
-
-	<!--  Charts Plugin -->
-	<script src="../resources/etcResource/assets/js/chartist.min.js"></script>
-
-    <!--  Notifications Plugin    -->
-    <script src="../resources/etcResource/assets/js/bootstrap-notify.js"></script>
-
-    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
-	<script src="../resources/etcResource/assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
-	
-	<!--  페이징  -->
-  	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> 
-	<script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
-
+    </script>
+    
+        
+        <!--  페이징  -->
+  	    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  	    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> 
+	    <script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
 </html>
