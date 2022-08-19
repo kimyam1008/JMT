@@ -25,6 +25,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<input type="hidden" id="loginId" value="${sessionScope.loginId}"/>
 	<div>
 	<h3>${sessionScope.loginId}</h3>
 	<h3>맛집 상세보기</h3>
@@ -188,8 +189,15 @@ console.log("식당번호 확인::",restaurant_no);
 	
 	function like(comment_no) { 
 	      var commentID = $(comment_no).attr("commentID");
-	      /* var loginID = $(comment_no).attr("loginID"); */
 	      console.log(commentID);
+			
+	      
+	      var loginId = $("#loginId").val();
+	      console.log(loginId);
+	      
+	      if(loginId == ""){
+	    	  alert("로그인 후 이용 가능합니다.");
+	      }else{
 	      
 	         $.ajax({
 	               type:'get',
@@ -208,7 +216,7 @@ console.log("식당번호 확인::",restaurant_no);
 	               }
 	            });
 	      
-	      
+	      }
 	} 
 	
 	function likeDel(comment_no) { 
