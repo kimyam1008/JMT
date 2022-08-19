@@ -89,6 +89,7 @@ public interface ReportDAO {
 	ArrayList<TestDto> spoonList();
 
 	void levelUp(Map<String, Object> data);
+	void gradeNoti(Map<String, Object> data);
 
 	int chkGrade(String loginId);
 
@@ -103,6 +104,7 @@ public interface ReportDAO {
 	void blindNoti(Integer class_no, Integer idx, String reported);
 
 	void blackUPdate(HashMap<String, String> params);
+
 
 
 
