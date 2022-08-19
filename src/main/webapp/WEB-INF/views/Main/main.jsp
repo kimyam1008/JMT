@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!doctype html>
+<!DOCTYPE HTML>
 <html class="no-js" lang="zxx">
     <head>
-        <meta charset="utf-8">
+        <meta charset="UTF-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>JMT </title>
         <meta name="description" content="">
@@ -27,6 +27,7 @@
    </head>
 
    <body>
+   <input type="hidden" id="loginId" value="${sessionScope.loginId}"/>
     <!-- 로고 시작 -->
     <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
@@ -66,12 +67,16 @@
                                             </li>
                                             <li><a href="restaurant">맛집</a></li>
                                             <li><a href="groupReviewList">후기</a></li>
-                                            <c:if test="${sessionScope.loginId} != null">
-                                            	<li id="logoutDo"><a href="logout.do">로그아웃</a></li>
-                                            	<li class="add-list"><a href="./mypage.go"><i class="ti-user"></i>마이페이지</a></li>
-                                            </c:if>
+                                            <c:choose>
+                                            	<c:when test="${loginId != null}">
+	                                            	<li id="logoutDo"><a href="logout.do">로그아웃</a></li>
+	                                            	<li class="add-list"><a href="./mypage.go"><i class="ti-user"></i>마이페이지</a></li>
+                                            	</c:when>
+                                            	<c:otherwise>
+		                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
+                                            	</c:otherwise>
+                                            </c:choose>
                                             <!-- <li id="mypageGo"><a href="./mypage.go">마이페이지</a></li> -->
-                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -139,7 +144,80 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6">
+               
+               <!-- 번개목록 -->
+              <c:forEach items="${lightDto}" var="lightDto" begin="0" end="2">
+                	<div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-location mb-30">
+                            <div class="location-img">
+                            	<%-- <c:choose> --%>
+                            		<c:if test="${lightDto.food_no eq 1}">
+                            			 <a href=""><img src="../resources/photo/food_no/1.jpg" alt=""></a>
+                            		</c:if>
+                            		<c:if test="${lightDto.food_no eq 2}">
+                            			 <a href=""><img src="../resources/photo/food_no/2.jpg" alt=""></a>
+                            		</c:if>
+                            		<c:if test="${lightDto.food_no eq 3}">
+                            			 <a href=""><img src="../resources/photo/food_no/3.jpg" alt=""></a>
+                            		</c:if>
+                            		<c:if test="${lightDto.food_no eq 4}">
+                            			 <a href=""><img src="../resources/photo/food_no/4.jpg" alt=""></a>
+                            		</c:if>
+                            		<c:if test="${lightDto.food_no eq 5}">
+                            			 <a href=""><img src="../resources/photo/food_no/5.jpg" alt=""></a>
+                            		</c:if>
+                            		<c:if test="${lightDto.food_no eq 6}">
+                            			 <a href=""><img src="../resources/photo/food_no/6.jpg" alt=""></a>
+                            		</c:if>
+                            	<%-- </c:choose> --%>
+                               <!--  <img src="../resources/mainResource/assets/img/gallery/hamburger.jpg" alt=""> -->
+                            </div>
+                            <div class="location-details">
+                                <p>${lightDto.lightning_title}</p>
+                                <a href="#" class="location-btn"><i class="ti-bolt-alt"></i> 번개</a>
+                            </div>
+                        </div>
+                    </div>
+               </c:forEach>
+               <!-- 번개목록 끝 -->
+                
+                <!-- 도장깨기 목록 -->
+                <c:forEach items="${dojangDto}" var="dojangDto" begin="0" end="2">
+                	<div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-location mb-30">
+                            <div class="location-img">
+                            	<%-- <c:choose> --%>
+                            		<c:if test="${dojangDto.food_no eq 1}">
+                            			 <a href=""><img src="../resources/photo/food_no/1.jpg" alt=""></a>
+                            		</c:if>
+                            		<c:if test="${dojangDto.food_no eq 2}">
+                            			 <a href=""><img src="../resources/photo/food_no/2.jpg" alt=""></a>
+                            		</c:if>
+                            		<c:if test="${dojangDto.food_no eq 3}">
+                            			 <a href=""><img src="../resources/photo/food_no/3.jpg" alt=""></a>
+                            		</c:if>
+                            		<c:if test="${dojangDto.food_no eq 4}">
+                            			 <a href=""><img src="../resources/photo/food_no/4.jpg" alt=""></a>
+                            		</c:if>
+                            		<c:if test="${dojangDto.food_no eq 5}">
+                            			 <a href=""><img src="../resources/photo/food_no/5.jpg" alt=""></a>
+                            		</c:if>
+                            		<c:if test="${dojangDto.food_no eq 6}">
+                            			 <a href=""><img src="../resources/photo/food_no/6.jpg" alt=""></a>
+                            		</c:if>
+                            	<%-- </c:choose> --%>
+                               <!--  <img src="../resources/mainResource/assets/img/gallery/hamburger.jpg" alt=""> -->
+                            </div>
+                            <div class="location-details">
+                                <p>${dojangDto.dojang_title}</p>
+                                <a href="#" class="location-btn"><i class="ti-hummer"></i> 도장깨기</a>
+                            </div>
+                        </div>
+                    </div>
+               </c:forEach>
+               <!-- 도장깨기 목록 끝 -->
+                
+                    <!-- <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-location mb-30">
                             <div class="location-img">
                                 <img src="../resources/mainResource/assets/img/gallery/hamburger.jpg" alt="">
@@ -150,6 +228,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-location mb-30">
                             <div class="location-img">
@@ -161,6 +240,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-location mb-30">
                             <div class="location-img">
@@ -171,8 +251,9 @@
                                 <a href="#" class="location-btn"><i class="ti-hummer"></i> 도장깨기</a>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
+                    </div> -->
+                    
+                    <!-- <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-location mb-30">
                             <div class="location-img">
                                 <img src="../resources/mainResource/assets/img/gallery/pizza.jpg" alt="">
@@ -183,6 +264,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-location mb-30">
                             <div class="location-img">
@@ -194,6 +276,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-location mb-30">
                             <div class="location-img">
@@ -204,7 +287,7 @@
                                 <a href="#" class="location-btn"><i class="ti-hummer"></i> 도장깨기</a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- More Btn -->
                 <!--더보기 버튼-->
@@ -421,4 +504,11 @@
         <script src="../resources/mainResource/assets/js/main.js"></script>
         
     </body>
+    
+    <script>
+    	//var loginId = ${loginId};
+    	//console.log(loginId);
+    	
+    	console.log($('#loginId').val());
+    </script>
 </html>

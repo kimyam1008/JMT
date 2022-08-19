@@ -475,7 +475,8 @@ public class ReportService {
 
 	public void levelUp(Map<String, Object> data) {
 		dao.levelUp(data);
-	
+		//등급 변경 시 알림
+		dao.gradeNoti(data);
 	}
 
 	public void levelUp(String loginId, String level_0) {

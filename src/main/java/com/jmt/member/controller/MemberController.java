@@ -174,7 +174,7 @@ public class MemberController {
 			session.removeAttribute("mb_class");
 			model.addAttribute("msg", "로그아웃 되었습니다");
 				
-			return "/Member/login"; 
+			return "/Main/main"; 
 		}
 		
 		

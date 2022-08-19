@@ -9,17 +9,14 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <style>
+
 	.rest table,tr,th{
 		border: 1px solid black;
 		border-collapse: collapse;
 		padding: 5px;
 		text-align: center;
 	}
-	
-	.nonono{
-	display:none;}
 
-.btn {cursor:pointer;}
 
 </style>
 <title>Insert title here</title>

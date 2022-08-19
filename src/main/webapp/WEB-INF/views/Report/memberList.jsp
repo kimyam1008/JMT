@@ -53,11 +53,12 @@
 	
 
 	.active{
+		cursor: pointer;
 		color:#943bea;
 		font: bold;
 		text-decoration: underline;
 	}
-	#option_list{ text-align:center;  margin:20px 0px;}
+	#option_list{ text-align:center;  margin:20px 0px;  cursor: pointer;}
 	#option_list span{font-size: 20px; margin:20px 20px;}
 	#search{
 		text-align:center; 
@@ -175,7 +176,7 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="jmtMain.html" class="simple-text">
+                <a href="/" class="simple-text">
                     JMT
                 </a>
             </div>
@@ -212,7 +213,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/restaurant">
+                   <a href="/resUpdateList.go">
                         <i class="pe-7s-pen"></i>
                         <p>맛집 수정</p>
                     </a>

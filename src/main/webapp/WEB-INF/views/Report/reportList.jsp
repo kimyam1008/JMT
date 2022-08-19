@@ -138,7 +138,7 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="jmtMain.html" class="simple-text">
+                <a href="/" class="simple-text">
                     JMT
                 </a>
             </div>
@@ -175,7 +175,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/restaurant">
+                    <a href="/resUpdateList.go">
                         <i class="pe-7s-pen"></i>
                         <p>맛집 수정</p>
                     </a>
