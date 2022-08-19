@@ -259,6 +259,7 @@
   		<textarea  id="cmtInput" placeholder="댓글을 작성하세요 (최대 300자)"></textarea>
   		<button type="button" class="submit" id="cmtWrite">댓글 쓰기</button>
 	</div>
+	
 	<div id="cmtList">
 	</div>
 	
