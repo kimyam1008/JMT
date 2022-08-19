@@ -27,7 +27,7 @@ public interface RestaurantDAO {
 
 	ArrayList<RestaurantDTO> photoList(int restaurant_no);
 
-	ArrayList<RestaurantDTO> resCommet(int restaurant_no);
+	ArrayList<RestaurantDTO> resCommet(String loginId, int restaurant_no);
 
 	ArrayList<RestaurantDTO> lightninglist(int restaurant_no);
 
@@ -41,11 +41,11 @@ public interface RestaurantDAO {
 
 	int reviewReLoad(RestaurantDTO dto);
 
-	HashMap<String, String> like(HashMap<String, String> params);
+	int like(HashMap<String, String> params);
 
 	HashMap<String, String> findLike(HashMap<String, String> params);
 
-	HashMap<String, String> likeDel(HashMap<String, String> params);
+	int likeDel(HashMap<String, String> params);
 
 	ArrayList<RestaurantDTO> resUpdateList(HashMap<String, Object> searchResult);
 

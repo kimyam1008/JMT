@@ -159,15 +159,16 @@
 		and c.class_no = 8
 	</select> -->
 	
-	<select id="resCommet" resultType="res" parameterType="hashmap" >	
+	<select id="resCommet" resultType="res">	
 		select c.comment_no
 				, c.comment_content 
 				, c.comment_date 
 				, c.comment_status 
 				, c.member_id
 				, (select count(like_no) from likes l where c.comment_no = l.comment_no) as likeNo
+				, (select l.member_id from likes l where c.comment_no = l.comment_no and l.member_id = #{param1}) as likeMember
 			from comment c
-			where idx = #{restaurant_no}
+			where idx = #{param2}
 	</select>
 	
 	<select id="CommentPhoto" resultType="hashmap" parameterType="int">
