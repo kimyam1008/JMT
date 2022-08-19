@@ -29,8 +29,10 @@
 		resize : none;
 	}
 </style>
+
 </head>
 <body>
+
 	<form action="lightCreate.do" method="post" onsubmit="return chkCreate()">
 		<table>
 		    <tr>
