@@ -17,9 +17,14 @@
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
 <link href="${path}/resources/etcResource/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 <link rel="icon" type="image/png" href="${path}/resources/mainResource/assets/img/pizza-slice.png">
+
+
+
+
+
 </head>
 <style>
-<style>
+
 	body{
 	width: 100%;	
 	}
@@ -27,12 +32,7 @@
 		width: 100%;		
 	}
 	
-	table,th,td{
-		border: 1px solid black;
-		border-collapse: collapse;
-		padding: 5px;
-	}
-	
+
 	.active{
 		color:pink;
 		font: bold;
@@ -43,31 +43,166 @@
 	#search{
 		text-align:center; 
 	}
+	#search{ 
+	display:flex;
+	 justify-content: center;
+	}
+	
+	#searchbar{width:500px;}
 </style>
-<body>
 
+<body>
+ <!--상단바 시작-->
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">신고 목록 페이지</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <!-- <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-dashboard"></i>
+								<p class="hidden-lg hidden-md">Dashboard</p>
+                            </a>
+                        </li> -->
+                        <!--누르면 알림창같은거 조그맣게 뜸-->
+                        <!-- <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-globe"></i>
+                                    <b class="caret hidden-lg hidden-md"></b>
+									<p class="hidden-lg hidden-md">
+										5 Notifications
+										<b class="caret"></b>
+									</p>
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">Notification 1</a></li>
+                                <li><a href="#">Notification 2</a></li>
+                                <li><a href="#">Notification 3</a></li>
+                                <li><a href="#">Notification 4</a></li>
+                                <li><a href="#">Another notification</a></li>
+                              </ul>
+                        </li> -->
+                        <!-- <li>
+                           <a href="">
+                                <i class="fa fa-search"></i>
+								<p class="hidden-lg hidden-md">Search</p>
+                            </a>
+                        </li> -->
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="jmtMain.html">
+                                <p>Home</p>
+                             </a>
+                         </li>
+                        <li>
+                           <a href="mypage.html">
+                               <p>마이페이지</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <p>Log out</p>
+                            </a>
+                        </li>
+						<li class="separator hidden-lg"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--상단바 끝-->
 <br>
 
 
 <!-- 클릭 옵션 -->
 <div id="option_list" >
 	<span class="active"  onclick="listCall(1)">전체</span>
-	<span onclick="listCall(1 ,'블랙')" data-value="블랙">블랙리스트</span>
+	<span onclick="listCall(1 ,'블랙리스트')" data-value="블랙리스트">블랙리스트</span>
 	<span onclick="listCall(1 ,'탈퇴')" data-value="탈퇴">탈퇴</span>
 </div>
 
 <!-- 검색 옵션  -->
-<div id="search">
-	<select name="memberSearch">
+<div id="search"  class="input-group"  >
+	<select name="memberSearch" class="custom-select-sm">
 		<option value="memberID">회원ID</option>
 		<option value="grade">등급</option>
 	</select>
-	<input type="text" name="keyword" placeholder="검색어를 입력해 주세요">
-	<button  onclick="searchClick()">검색</button>
+	<input  id="searchbar" class="form-control"type="text" name="keyword"  placeholder="검색어를 입력해 주세요">
+	<button  class="btn btn-default" onclick="searchClick()">검색</button>
 	
 </div>
 
-	<table id="memberTable">
+    <!--사이드바 시작-->
+ <div class="wrapper">
+     <div class="sidebar" data-color="purple">
+
+        <!--
+
+            Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+            Tip 2: you can also add an image using data-image tag
+
+        -->
+
+    	<div class="sidebar-wrapper">
+            <div class="logo">
+                <a href="jmtMain.html" class="simple-text">
+                    JMT
+                </a>
+            </div>
+            <ul class="nav">
+                <!--유저 사진, 이름-->
+                <li class="dojangParty">
+                    <a class="leaderProfile">
+                        <img class="avatar border-gray" src="${path}/resources/etcResource/assets/img/faces/face-0.jpg" alt="..."/>
+                        <h4 class="title">Admin</h4>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="reportList.html">
+                        <i class="pe-7s-comment"></i>
+                        <p>신고 목록</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="blindList.html">
+                        <i class="pe-7s-config"></i>
+                        <p>블라인드</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="memberManage.html">
+                        <i class="pe-7s-users"></i>
+                        <p>회원 관리</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="gradeList.html">
+                        <i class="pe-7s-note"></i>
+                        <p>등급 관리</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="resUpdateReqList.html">
+                        <i class="pe-7s-pen"></i>
+                        <p>맛집 수정</p>
+                    </a>
+                </li>
+            </ul>
+    	</div>
+    </div>
+    <!--사이드바 끝-->
+
+	<table id="memberTable" class="table table-hover table-striped">
 		<thead>
 			<tr>
 				<th>ID</th>

@@ -397,10 +397,12 @@ public class ReportService {
 	
 	
 	
-	
+	@Transactional
 	public Map<String, Object> blackReg(HashMap<String, String> params) {
 		Map<String, Object> data  = new HashMap<String, Object>();
 		 int result = dao.blackReg(params);
+		dao.blackUPdate(params);
+		 
 		String msg =""; 
 		if(result >0 ) {
 			msg="처리가 완료되었습니다."; 

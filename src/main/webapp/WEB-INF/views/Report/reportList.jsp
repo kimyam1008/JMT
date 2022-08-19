@@ -10,37 +10,50 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/resources/js/jquery.twbsPagination.js"></script>
 
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+ <link href="${path}/resources/etcResource/assets/css/animate.min.css" rel="stylesheet"/>
+<link href="${path}/resources/etcResource/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
+<link href="/http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+<link href="${path}/resources/etcResource/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+<link rel="icon" type="image/png" href="${path}/resources/mainResource/assets/img/pizza-slice.png">
 
 </head>
 <style>
-	table{
-		width: 100%;		
+
+	
+		#search{
+		text-align:center; 
+	}
+	#search{ 
+	display:flex;
+	 justify-content: center;
 	}
 	
-	table,th,td{
-		border: 1px solid black;
-		border-collapse: collapse;
-		padding: 5px;
-	}
+	#searchbar{width:500px;}
 </style>
 <body>
 <br>
 <h1>신고 리스트 입니다.</h1>
-<select name="report_status">
-	<option selected >전체</option>
-	<option value="wait">처리대기</option>
-	<option value="end">처리완료</option>
-	<option value="blind">블라인드</option>
-</select>
-<select name="report_sort">
-	<option value= "idx">IDX</option>
-	<option value= "sort">분류</option>
-	<option value= "reporter">신고자</option>
-</select>
-<input type="text" name="keyword" placeholder="검색어를 입력해 주세요"/>
-<button type="button" onclick="searchClick()">검색</button>
-<button type="button" onclick="blind()">블라인드</button>
-<table>
+
+<div id="search"  class="input-group" >
+	<select name="report_status" class="custom-select-sm">
+		<option selected >전체</option>
+		<option value="wait">처리대기</option>
+		<option value="end">처리완료</option>
+		<option value="blind">블라인드</option>
+	</select>
+	<select name="report_sort" class="custom-select-sm">
+		<option value= "idx">IDX</option>
+		<option value= "sort">분류</option>
+		<option value= "reporter">신고자</option>
+	</select>
+	<input type="text" name="keyword" placeholder="검색어를 입력해 주세요"  id="searchbar" class="form-control"/>
+	<button type="button" onclick="searchClick()">검색</button>
+	<button class="btn btn-default" type="button" onclick="blind()">블라인드</button>
+
+</div>
+<table class="table table-hover table-striped">
 		<thead>
 			<tr>
 				<th><input type="checkbox" id="all"/></th>
