@@ -13,17 +13,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.jmt.admin.dto.Grade_DTO;
-import com.jmt.admin.dto.TestDTO222;
 import com.jmt.admin.dto.TestDto;
 import com.jmt.admin.service.GradeService;
 import com.jmt.admin.service.ReportService;
@@ -58,11 +52,11 @@ public class GradeController extends HandlerInterceptorAdapter{
 	
 	
 	@RequestMapping(value = "/grade")
-	public String gradeUpdate(Model model, HttpSession session,@ModelAttribute ArrayList<Grade_DTO> params) {
+	public String gradeUpdate(Model model, HttpSession session, @RequestParam HashMap<String, String> params) {
 		
 	logger.info("aaaaaa::::"+params);
 		
-	//	service.gradeUpdate(params);
+		service.gradeUpdate(params);
 		return "redirect:/grade.go";
 		
 	}
