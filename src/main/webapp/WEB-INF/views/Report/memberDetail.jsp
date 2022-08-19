@@ -22,6 +22,8 @@
 <link rel="icon" type="image/png" href="${path}/resources/mainResource/assets/img/pizza-slice.png">
 </head>
 <style>
+
+
 	.pagination>.active>a,
 	.pagination>.active>a:focus, 
 	.pagination>.active>a:hover,
@@ -55,6 +57,7 @@
 	} */
 
 	.active{
+		cursor: pointer;
 		color:#943bea;
 		font: bold;
 		text-decoration: underline;
@@ -66,7 +69,7 @@
 	
 	
 	
-	#option_list{ text-align:center;  margin:20px 0px;}
+	#option_list{ text-align:center;  margin:20px 0px;  cursor: pointer;}
 	#option_list span{font-size: 20px; margin:20px 20px;}
 	textarea{
 		resize:none;width:95%;height:150px;
@@ -295,7 +298,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/restaurant">
+                  <a href="/resUpdateList.go">
                         <i class="pe-7s-pen"></i>
                         <p>맛집 수정</p>
                     </a>

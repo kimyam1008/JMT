@@ -40,7 +40,11 @@ public class NotiController extends HandlerInterceptorAdapter {
 		String loginId = (String) request.getSession().getAttribute("loginId");
 		boolean notiChk = service.notiChk(loginId);
 		logger.info("안읽은 알림이 있는가 ? : " +notiChk );
-		mav.addObject("notiChk",notiChk); //true or false
+		if(notiChk) {
+			mav.addObject("notiChk","true");
+		}else {
+			mav.addObject("notiChk","false"); //true or false
+		}
 	}
 
 	
