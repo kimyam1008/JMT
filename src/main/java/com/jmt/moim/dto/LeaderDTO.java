@@ -39,6 +39,7 @@ public class LeaderDTO {
 	private String job;
 	private Date lightning_date;
 	private String lightning_content;
+	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date lightning_create;
 	
 	//dojangList

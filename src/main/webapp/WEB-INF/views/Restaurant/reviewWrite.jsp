@@ -27,7 +27,7 @@
                 <td><input type="file" name="photos" multiple="multiple"/></td>
             </tr>
         </table> 
-	        <input type="submit" value="리뷰 작성" onclick="window.close()"/>
+	        <input type="submit" value="리뷰 작성"/>
 			<input class="backBtn" type="button" value="돌아가기" onclick="back()"/>
 	</form>
 </body>
@@ -49,15 +49,12 @@
 		self.close();
 	}
 
-	function reviewWrite(){
-		
-		window.close();
-	}
+
 	
 	
 	
 	function back() {
-	  window.close();
+	     history.go(-1);
 	 }
 </script>
 

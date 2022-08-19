@@ -9,17 +9,19 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
-<c:set var="path" value="${pageContext.request.contextPath}"/>
-
-<link href="${path}/resources/etcResource/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+ <link href="${path}/resources/etcResource/assets/css/animate.min.css" rel="stylesheet"/>
+<link href="${path}/resources/etcResource/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
+<link href="/http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
 <link href="${path}/resources/etcResource/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
-
+<link rel="icon" type="image/png" href="${path}/resources/mainResource/assets/img/pizza-slice.png">
 
 </head>
 <style>
-
+table{width:100%;}
 	textarea{
 		resize:none;width:95%;height:150px;
 	}
@@ -36,6 +38,11 @@
 	 }
 </style>
 <body>
+
+
+
+
+
 	<form action="reportUpdate.do" method="post">
 		<input type="hidden" name="report_no" value="${detailDto.report_no}"/>
 		<input type="hidden" name="idx" value="${detailDto.idx}"/>

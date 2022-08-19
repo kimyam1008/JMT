@@ -34,7 +34,7 @@
 				<c:forEach items="${dojangJoinWait}" var="dojangJoinWait">
 					<tr>
 						<td>
-							<input type="checkbox" id="member_id" value="${dojangJoinWait.member_id}"/>
+							<input type="radio" name="member_id" id="member_id" value="${dojangJoinWait.member_id}"/>
 						</td>
 						<td>${dojangJoinWait.member_id}</td>
 						<td>
@@ -49,7 +49,7 @@
 				<tr>
 					<th colspan="3">
 						<input type="button" value="처리 완료" onclick="JoinWaitSaveD()"/>
-						<input type="button" value="취소" onclick="JoinWaitCloseD()"/>
+						<input type="button" value="닫기" onclick="JoinWaitCloseD()"/>
 					</th>
 				</tr>
 			</tbody>
@@ -60,33 +60,44 @@
 //처리 완료
 function JoinWaitSaveD(){
 	var dojang_no = $('#dojang_no').val();
-	var status = $('#status option:selected').val();
-	var member_id = $('input[type="checkbox"]:checked').val();
+	var status = $('input[type="radio"]:checked').parent().next().next().children().val();
+	var member_id = $('input[type="radio"]:checked').val();
+	console.log(member_id);
+	console.log(status);
 	
 	var result = confirm("가입 대기 회원의 상태를 수정하시겠습니까?");
 	if(result == true){
-		$.ajax({
-			type:'get',
-			url:'dojangJoinWaitUp.ajax',
-			data:{
-				'dojang_no':dojang_no,
-				'member_id':member_id,
-				'status':status
-			},
-			dataType:'JSON',
-			success:function(data){
-				if(data.dojangJoinWaitUp){
-					alert("수정이 완료되었습니다.");
-					opener.parent.location.reload();
-					window.close();
-				} else {
-					alert("수정에 실패했습니다.");
+		
+		if($('input[type="radio"]:checked').is(":checked") == false){
+			alert("대기상태를 변경할 회원을 선택해 주세요.");
+		} else {
+			
+			$.ajax({
+				type:'get',
+				url:'dojangJoinWaitUp.ajax',
+				data:{
+					'dojang_no':dojang_no,
+					'member_id':member_id,
+					'status':status
+				},
+				dataType:'JSON',
+				success:function(data){
+					if(data.dojangJoinWaitUp){
+						alert("수정이 완료되었습니다.");
+						//opener.parent.location.reload();
+						//window.close();
+						window.location.reload();
+					} else {
+						alert("수정에 실패했습니다.");
+					}
+				},
+				error:function(e){
+					console.log(e);
 				}
-			},
-			error:function(e){
-				console.log(e);
-			}
-		});
+			});
+			
+		}
+		
 		
 		
 
