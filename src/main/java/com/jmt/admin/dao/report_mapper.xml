@@ -432,6 +432,18 @@
 	<update id="levelUp" parameterType="map">
 		update profile f set f.grade_no  = #{level_no} where f.member_id = #{loginId}
 	</update>
+	
+	<!--  등급 변경시 알림 -->
+	<insert id="gradeNoti" parameterType="map">
+		INSERT INTO noti(class_no,noti_content,idx,info,member_id)
+		values(9
+				  ,"등급으로 변경되었습니다."
+				  ,(select profile_no from profile where member_id=#{loginId})
+				  ,(select grade_name from grade where grade_no = #{level_no})
+				  ,#{loginId})		
+	</insert>
+	
+	
 	<select id="chkGrade" resultType="int" parameterType="String"> 
 		select p.grade_no  from profile p join grade g ON p.grade_no =g.grade_no  where p.member_id =#{loginId};
 	</select>
