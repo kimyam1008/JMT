@@ -410,7 +410,7 @@ public class RestaurantService {
 
 
 	public ArrayList<HashMap<String, String>> CommentPhoto(int comment_no) {
-		
+		logger.info("번호확인:::" + comment_no);
 		return dao.CommentPhoto(comment_no);
 	}
 	
