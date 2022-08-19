@@ -20,21 +20,178 @@
 
 </head>
 <style>
-
-	
-		#search{
-		text-align:center; 
+	.pagination>.active>a,
+	.pagination>.active>a:focus, 
+	.pagination>.active>a:hover,
+ 	.pagination>.active>span,
+   .pagination>.active>span:focus, 
+   .pagination>.active>span:hover{
+		background-color: #943bea;
+			border-color:#943bea;
+			
+		}
+		
+ .pagination>li>a{
+	color:#943bea;
 	}
+
+
+
+
+	#sidebar{ 
+	position:Relative; 
+	top:60px;
+	}
+	
 	#search{ 
 	display:flex;
 	 justify-content: center;
+	 text-align:center; 
 	}
 	
 	#searchbar{width:500px;}
 </style>
 <body>
+
+ <!--상단바 시작-->
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">신고 목록 페이지</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <!-- <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-dashboard"></i>
+								<p class="hidden-lg hidden-md">Dashboard</p>
+                            </a>
+                        </li> -->
+                        <!--누르면 알림창같은거 조그맣게 뜸-->
+                        <!-- <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-globe"></i>
+                                    <b class="caret hidden-lg hidden-md"></b>
+									<p class="hidden-lg hidden-md">
+										5 Notifications
+										<b class="caret"></b>
+									</p>
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">Notification 1</a></li>
+                                <li><a href="#">Notification 2</a></li>
+                                <li><a href="#">Notification 3</a></li>
+                                <li><a href="#">Notification 4</a></li>
+                                <li><a href="#">Another notification</a></li>
+                              </ul>
+                        </li> -->
+                        <!-- <li>
+                           <a href="">
+                                <i class="fa fa-search"></i>
+								<p class="hidden-lg hidden-md">Search</p>
+                            </a>
+                        </li> -->
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">
+                                <p>Home</p>
+                             </a>
+                         </li>
+                        <li>
+                           <a href="/mypage.go">
+                               <p>마이페이지</p>
+                            </a>
+                        </li>
+                        <li>
+                              <a href="/logout.do">
+                                <p>Log out</p>
+                            </a>
+                        </li>
+						<li class="separator hidden-lg"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--상단바 끝-->
+
+
+
+  <!--사이드바 시작-->
+ <div class="wrapper">
+     <div class="sidebar" data-color="purple">
+
+        <!--
+
+            Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+            Tip 2: you can also add an image using data-image tag
+
+        -->
+
+    	<div class="sidebar-wrapper">
+            <div class="logo">
+                <a href="jmtMain.html" class="simple-text">
+                    JMT
+                </a>
+            </div>
+            <ul id="sidebar" class="nav">
+                <!--유저 사진, 이름-->
+               <%--  <li class="dojangParty">
+                    <a class="leaderProfile">
+                        <img class="avatar border-gray" src="${path}/resources/etcResource/assets/img/faces/face-0.jpg" alt="..."/>
+                        <h4 class="title">${loginId}</h4>
+                    </a>
+                </li> --%>
+                <li>
+                    <a href="/report/">
+                        <i class="pe-7s-comment"></i>
+                        <p>신고 목록</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/report/blind.go"">
+                        <i class="pe-7s-config"></i>
+                        <p>블라인드</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/report/memberList.go">
+                        <i class="pe-7s-users"></i>
+                        <p>회원 관리</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/grade.go"">
+                        <i class="pe-7s-note"></i>
+                        <p>등급 관리</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/restaurant">
+                        <i class="pe-7s-pen"></i>
+                        <p>맛집 수정</p>
+                    </a>
+                </li>
+            </ul>
+    	</div>
+    </div>
+    <!--사이드바 끝-->
+
+
+
+
+
+
 <br>
-<h1>신고 리스트 입니다.</h1>
+
 
 <div id="search"  class="input-group" >
 	<select name="report_status" class="custom-select-sm">
@@ -50,13 +207,13 @@
 	</select>
 	<input type="text" name="keyword" placeholder="검색어를 입력해 주세요"  id="searchbar" class="form-control"/>
 	<button type="button" onclick="searchClick()">검색</button>
-	<button class="btn btn-default" type="button" onclick="blind()">블라인드</button>
+<!-- 	<button class="btn btn-default" type="button" onclick="blind()">블라인드</button> -->
 
 </div>
 <table class="table table-hover table-striped">
 		<thead>
 			<tr>
-				<th><input type="checkbox" id="all"/></th>
+				<!-- <th><input type="checkbox" id="all"/></th> -->
 				<th>분류</th>
 				<th>IDX</th>
 				<th>신고사유</th>
@@ -71,7 +228,7 @@
 		
 		</tbody>
 		 <tr>
-			<td colspan="9" id="paging">
+			<td colspan="8" id="paging">
 				
 				<div class="container">
 					<nav arial-label="Page navigation" style="text-align:center">
@@ -175,7 +332,7 @@ function drawList(list){
 		
 		//console.log(item);
 		content += '<tr>';
-		content += '<td> <input type="checkbox" value='+item.report_no+'></td>';	
+		/* content += '<td> <input type="checkbox" value='+item.report_no+'></td>';	 */
 		/* content += '<td>'+'<a href=/report/detail.go?report_no='+item.report_no+'&class_no='+item.class_no+'&idx='+item.idx+'>'+mb_ligntning_title + mb_comment+mb_dojang_title+mb_dojang_post+ mb_group_review + '<a/></td>';  */
 		/* content += '<td>'+'<a href=report/detail?report_no='+item.report_no+'>'+item.report_title+'<a/></td>'; */
 		content += '<td>'+item.class_name+'</td>';

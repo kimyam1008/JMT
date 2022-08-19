@@ -151,18 +151,13 @@
 	
 	<!-- 나의 모임 관리 (댓글) / 번개 -->
 	<select id="myGroupPostSettingL" parameterType="hashmap" resultType="leader">
-		SELECT c.comment_no
-			,c.comment_content
-			,c.comment_date
-			,c.idx
-		FROM comment c
-		WHERE c.class_no=2 AND c.idx = #{lightning_no}
-		ORDER BY comment_no DESC limit #{cnt} OFFSET #{offset}
+		SELECT l.lightning_no,l.lightning_title,l.lightning_create FROM lightningList l WHERE lightning_no = #{lightning_no}
+		ORDER BY lightning_no DESC limit #{cnt} OFFSET #{offset}
 	</select>
 	
 	<select id="allCount2" parameterType="hashmap" resultType="int">
-		SELECT COUNT(comment_no) FROM comment c
-		WHERE c.class_no=2 AND c.idx = #{lightning_no}
+		SELECT COUNT(lightning_no) FROM lightningList l
+		WHERE lightning_no = #{lightning_no}
 	</select>
 	
 	<select id="myGroupEtcL" parameterType="String" resultType="leader">

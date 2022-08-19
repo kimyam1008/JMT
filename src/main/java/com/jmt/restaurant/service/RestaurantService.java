@@ -234,8 +234,8 @@ public class RestaurantService {
 	}
 
 
-	public ArrayList<RestaurantDTO> resCommet(Model model, int restaurant_no) {
-		return dao.resCommet(restaurant_no);
+	public ArrayList<RestaurantDTO> resCommet(String loginId, int restaurant_no) {
+		return dao.resCommet(loginId,restaurant_no);
 	}
 
 
@@ -297,18 +297,25 @@ public class RestaurantService {
 	}
 
 
-	public HashMap<String, String> like(HashMap<String, String> params) {
+	public boolean like(HashMap<String, String> params) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		 boolean success = false;
 		
 		RestaurantDTO dto = new RestaurantDTO();
-		
 		dto.setMember_id(params.get("loginId"));
 		
-		return dao.like(params);
+		if(dao.like(params) > 0) {
+			success = true;
+		}
+		
+		result.put("success", success);
+		
+		return success;
 	}
 
 
-	public HashMap<String, String> likeDel(HashMap<String, String> params) {	
-		return dao.likeDel(params);
+	public void likeDel(HashMap<String, String> params) {	
+		 int likeDel = dao.likeDel(params);
 	}
 
 
@@ -410,7 +417,7 @@ public class RestaurantService {
 
 
 	public ArrayList<HashMap<String, String>> CommentPhoto(int comment_no) {
-		
+		logger.info("번호확인:::" + comment_no);
 		return dao.CommentPhoto(comment_no);
 	}
 	
