@@ -152,22 +152,22 @@
                             <div class="location-img">
                             	<%-- <c:choose> --%>
                             		<c:if test="${lightDto.food_no eq 1}">
-                            			 <img src="../resources/photo/food_no/1.jpg" alt="">
+                            			 <a href=""><img src="../resources/photo/food_no/1.jpg" alt=""></a>
                             		</c:if>
                             		<c:if test="${lightDto.food_no eq 2}">
-                            			 <img src="../resources/photo/food_no/2.jpg" alt="">
+                            			 <a href=""><img src="../resources/photo/food_no/2.jpg" alt=""></a>
                             		</c:if>
                             		<c:if test="${lightDto.food_no eq 3}">
-                            			 <img src="../resources/photo/food_no/3.jpg" alt="">
+                            			 <a href=""><img src="../resources/photo/food_no/3.jpg" alt=""></a>
                             		</c:if>
                             		<c:if test="${lightDto.food_no eq 4}">
-                            			 <img src="../resources/photo/food_no/4.jpg" alt="">
+                            			 <a href=""><img src="../resources/photo/food_no/4.jpg" alt=""></a>
                             		</c:if>
                             		<c:if test="${lightDto.food_no eq 5}">
-                            			 <img src="../resources/photo/food_no/5.jpg" alt="">
+                            			 <a href=""><img src="../resources/photo/food_no/5.jpg" alt=""></a>
                             		</c:if>
                             		<c:if test="${lightDto.food_no eq 6}">
-                            			 <img src="../resources/photo/food_no/6.jpg" alt="">
+                            			 <a href=""><img src="../resources/photo/food_no/6.jpg" alt=""></a>
                             		</c:if>
                             	<%-- </c:choose> --%>
                                <!--  <img src="../resources/mainResource/assets/img/gallery/hamburger.jpg" alt=""> -->
@@ -179,30 +179,31 @@
                         </div>
                     </div>
                </c:forEach>
+               <!-- 번개목록 끝 -->
                 
-                
+                <!-- 도장깨기 목록 -->
                 <c:forEach items="${dojangDto}" var="dojangDto" begin="0" end="2">
                 	<div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-location mb-30">
                             <div class="location-img">
                             	<%-- <c:choose> --%>
                             		<c:if test="${dojangDto.food_no eq 1}">
-                            			 <img src="../resources/photo/food_no/1.jpg" alt="">
+                            			 <a href=""><img src="../resources/photo/food_no/1.jpg" alt=""></a>
                             		</c:if>
                             		<c:if test="${dojangDto.food_no eq 2}">
-                            			 <img src="../resources/photo/food_no/2.jpg" alt="">
+                            			 <a href=""><img src="../resources/photo/food_no/2.jpg" alt=""></a>
                             		</c:if>
                             		<c:if test="${dojangDto.food_no eq 3}">
-                            			 <img src="../resources/photo/food_no/3.jpg" alt="">
+                            			 <a href=""><img src="../resources/photo/food_no/3.jpg" alt=""></a>
                             		</c:if>
                             		<c:if test="${dojangDto.food_no eq 4}">
-                            			 <img src="../resources/photo/food_no/4.jpg" alt="">
+                            			 <a href=""><img src="../resources/photo/food_no/4.jpg" alt=""></a>
                             		</c:if>
                             		<c:if test="${dojangDto.food_no eq 5}">
-                            			 <img src="../resources/photo/food_no/5.jpg" alt="">
+                            			 <a href=""><img src="../resources/photo/food_no/5.jpg" alt=""></a>
                             		</c:if>
                             		<c:if test="${dojangDto.food_no eq 6}">
-                            			 <img src="../resources/photo/food_no/6.jpg" alt="">
+                            			 <a href=""><img src="../resources/photo/food_no/6.jpg" alt=""></a>
                             		</c:if>
                             	<%-- </c:choose> --%>
                                <!--  <img src="../resources/mainResource/assets/img/gallery/hamburger.jpg" alt=""> -->
@@ -214,7 +215,7 @@
                         </div>
                     </div>
                </c:forEach>
-                
+               <!-- 도장깨기 목록 끝 -->
                 
                     <!-- <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-location mb-30">
