@@ -308,7 +308,7 @@
 					m.member_status ='블랙리스트'
 				</if>
 				<if test="list_option.equals('탈퇴')">
-					m.member_status ='탈퇴'
+					m.member_status ='탈퇴회원'
 				</if>
 			</if>
 			
@@ -335,7 +335,7 @@
 					member_status ='블랙리스트'
 				</if>
 				<if test='list_option.equals("탈퇴")'>
-					member_status ='탈퇴'
+					member_status ='탈퇴회원'
 				</if>
 			</if>
 			

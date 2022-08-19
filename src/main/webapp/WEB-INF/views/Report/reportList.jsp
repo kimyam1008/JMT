@@ -20,14 +20,33 @@
 
 </head>
 <style>
-
-	
-		#search{
-		text-align:center; 
+	.pagination>.active>a,
+	.pagination>.active>a:focus, 
+	.pagination>.active>a:hover,
+ 	.pagination>.active>span,
+   .pagination>.active>span:focus, 
+   .pagination>.active>span:hover{
+		background-color: #943bea;
+			border-color:#943bea;
+			
+		}
+		
+ .pagination>li>a{
+	color:#943bea;
 	}
+
+
+
+
+	#sidebar{ 
+	position:Relative; 
+	top:60px;
+	}
+	
 	#search{ 
 	display:flex;
 	 justify-content: center;
+	 text-align:center; 
 	}
 	
 	#searchbar{width:500px;}
@@ -83,17 +102,17 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="jmtMain.html">
+                            <a href="/">
                                 <p>Home</p>
                              </a>
                          </li>
                         <li>
-                           <a href="mypage.html">
+                           <a href="/mypage.go">
                                <p>마이페이지</p>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                              <a href="/logout.do">
                                 <p>Log out</p>
                             </a>
                         </li>
@@ -105,7 +124,8 @@
         <!--상단바 끝-->
 
 
-    <!--사이드바 시작-->
+
+  <!--사이드바 시작-->
  <div class="wrapper">
      <div class="sidebar" data-color="purple">
 
@@ -118,44 +138,44 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="jmtMain.html" class="simple-text">
+                <a href="/" class="simple-text">
                     JMT
                 </a>
             </div>
-            <ul class="nav">
+            <ul id="sidebar" class="nav">
                 <!--유저 사진, 이름-->
-                <li class="dojangParty">
+               <%--  <li class="dojangParty">
                     <a class="leaderProfile">
                         <img class="avatar border-gray" src="${path}/resources/etcResource/assets/img/faces/face-0.jpg" alt="..."/>
-                        <h4 class="title">Admin</h4>
+                        <h4 class="title">${loginId}</h4>
                     </a>
-                </li>
-                <li class="active">
-                    <a href=><c:url value="report"/> 
+                </li> --%>
+                <li>
+                    <a href="/report/">
                         <i class="pe-7s-comment"></i>
                         <p>신고 목록</p>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value="/report/blind.go"/>">
+                    <a href="/report/blind.go"">
                         <i class="pe-7s-config"></i>
                         <p>블라인드</p>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value="/report/memberList.go"/>">
+                    <a href="/report/memberList.go">
                         <i class="pe-7s-users"></i>
                         <p>회원 관리</p>
                     </a>
                 </li>
                 <li>
-                    <a href=<c:url value="/report/"/>>
+                    <a href="/grade.go"">
                         <i class="pe-7s-note"></i>
                         <p>등급 관리</p>
                     </a>
                 </li>
                 <li>
-                    <a href=<c:url value="/report/"/>>
+                    <a href="/resUpdateList.go">
                         <i class="pe-7s-pen"></i>
                         <p>맛집 수정</p>
                     </a>
@@ -187,13 +207,13 @@
 	</select>
 	<input type="text" name="keyword" placeholder="검색어를 입력해 주세요"  id="searchbar" class="form-control"/>
 	<button type="button" onclick="searchClick()">검색</button>
-	<button class="btn btn-default" type="button" onclick="blind()">블라인드</button>
+<!-- 	<button class="btn btn-default" type="button" onclick="blind()">블라인드</button> -->
 
 </div>
 <table class="table table-hover table-striped">
 		<thead>
 			<tr>
-				<th><input type="checkbox" id="all"/></th>
+				<!-- <th><input type="checkbox" id="all"/></th> -->
 				<th>분류</th>
 				<th>IDX</th>
 				<th>신고사유</th>
@@ -208,7 +228,7 @@
 		
 		</tbody>
 		 <tr>
-			<td colspan="9" id="paging">
+			<td colspan="8" id="paging">
 				
 				<div class="container">
 					<nav arial-label="Page navigation" style="text-align:center">
@@ -312,7 +332,7 @@ function drawList(list){
 		
 		//console.log(item);
 		content += '<tr>';
-		content += '<td> <input type="checkbox" value='+item.report_no+'></td>';	
+		/* content += '<td> <input type="checkbox" value='+item.report_no+'></td>';	 */
 		/* content += '<td>'+'<a href=/report/detail.go?report_no='+item.report_no+'&class_no='+item.class_no+'&idx='+item.idx+'>'+mb_ligntning_title + mb_comment+mb_dojang_title+mb_dojang_post+ mb_group_review + '<a/></td>';  */
 		/* content += '<td>'+'<a href=report/detail?report_no='+item.report_no+'>'+item.report_title+'<a/></td>'; */
 		content += '<td>'+item.class_name+'</td>';

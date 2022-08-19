@@ -4,10 +4,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>맛집 수정요청 목록</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
+
+<link rel="icon" type="image/png" href="../resources/mainResource/assets/img/pizza-slice.png">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap core CSS     -->
+    <link href="../resources/etcResource/assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Animation library for notifications   -->
+    <link href="../resources/etcResource/assets/css/animate.min.css" rel="stylesheet"/>
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="../resources/etcResource/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="../resources/etcResource/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
 <style>
 	body{
 	width: 100%;
@@ -37,15 +59,207 @@
 <title>Insert title here</title>
 </head>
 <body>
-        <h3>맛집 수정요청 목록</h3>
-       
-	<div id="option_list" >
+        
+     <!--사이드바 시작-->
+    <div class="wrapper">
+     <div class="sidebar" data-color="purple">
+
+        <!--
+
+            Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+            Tip 2: you can also add an image using data-image tag
+
+        -->
+
+    	<div class="sidebar-wrapper">
+            <div class="logo">
+                <a href="/" class="simple-text">
+                    JMT
+                </a>
+            </div>
+            <ul class="nav">
+                <!--유저 사진, 이름-->
+                <li class="dojangParty">
+                    <a class="leaderProfile">
+                        <img class="avatar border-gray" src="etcResource/assets/img/faces/face-0.jpg" alt="..."/>
+                        <h4 class="title">Admin</h4>
+                    </a>
+                </li>
+                <li>
+                    <a href="reportList">
+                        <i class="pe-7s-comment"></i>
+                        <p>신고 목록</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="blind.go">
+                        <i class="pe-7s-config"></i>
+                        <p>블라인드</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/memberList.go">
+                        <i class="pe-7s-users"></i>
+                        <p>회원 관리</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="grade.go">
+                        <i class="pe-7s-note"></i>
+                        <p>등급 관리</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="resUpdateList.go">
+                        <i class="pe-7s-pen"></i>
+                        <p>맛집 수정</p>
+                    </a>
+                </li>
+            </ul>
+    	</div>
+    </div>
+    <!--사이드바 끝-->
+    
+   
+    
+    <!--상단바 시작-->
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">맛집 수정</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <!-- <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-dashboard"></i>
+								<p class="hidden-lg hidden-md">Dashboard</p>
+                            </a>
+                        </li> -->
+                        <!--누르면 알림창같은거 조그맣게 뜸-->
+                        <!-- <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-globe"></i>
+                                    <b class="caret hidden-lg hidden-md"></b>
+									<p class="hidden-lg hidden-md">
+										5 Notifications
+										<b class="caret"></b>
+									</p>
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">Notification 1</a></li>
+                                <li><a href="#">Notification 2</a></li>
+                                <li><a href="#">Notification 3</a></li>
+                                <li><a href="#">Notification 4</a></li>
+                                <li><a href="#">Another notification</a></li>
+                              </ul>
+                        </li> -->
+                        <!-- <li>
+                           <a href="">
+                                <i class="fa fa-search"></i>
+								<p class="hidden-lg hidden-md">Search</p>
+                            </a>
+                        </li> -->
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">
+                                <p>Home</p>
+                             </a>
+                         </li>
+                        <li>
+                           <a href="mypage.go">
+                               <p>마이페이지</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <p>Log out</p>
+                            </a>
+                        </li>
+						<li class="separator hidden-lg"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--상단바 끝-->   
+        
+         <div id="option_list" >
 		<span class="active" onclick="listCall(1)">전체</span>
 		<span onclick="listCall(1 ,'처리대기')">처리대기</span>
 		<span onclick="listCall(1 ,'처리완료')">처리완료</span>
-	</div>
+		</div>
+        
+        <!--컨텐츠영역 시작-->
+        <div class="content">
+            <div class="container-fluid">
+                <!--여기에 <div class="row">로 시작해서 내용을 넣어주세요 -->
+                <div class="row">
+                    <!--표 시작-->
+                    <div class="col-md-12">
+                        <div class="card">
+                            <!-- <table style="margin:0 auto; text-align:center;">
+                                <tr>
+                                    <td>섹션1</td>
+                                    <td>섹션2</td>
+                                </tr>
+                                <tr>
+                                    <td>섹션3</td>
+                                    <td>섹션4</td>
+                                </tr>
+                                <tr>
+                                    <td>섹션4</td>
+                                    <td>섹션5</td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <td>섹션1</td>
+                                    <td>섹션2</td>
+                                </tr>
+                                <tr>
+                                    <td>섹션3</td>
+                                    <td>섹션4</td>
+                                </tr>
+                                <tr>
+                                    <td>섹션4</td>
+                                    <td>섹션5</td>
+                                </tr>
+                            </table> -->
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <th></th>
+                                    	<th>회원 아이디</th>
+                                    	<th>식당이름</th>
+                                    	<th>신청날짜</th>
+                                    	<th>사유</th>
+                                    	<th>처리여부</th>
+                                    </thead>
+                                     <tbody id="list">
+      								</tbody>
+                                </table>
 
-   <table>
+                            </div>
+                        </div>
+                    </div>
+                   <!--표 끝-->
+                </div>
+        </div>
+      </div>
+        
+       
+	
+
+   <!-- <table>
       <thead>
       <tr>
       	<td></td>
@@ -68,7 +282,7 @@
       </thead>
       <tbody id="list">
       </tbody>
-   </table>
+   </table> -->
 	<tr>
       <td colspan="6" id="paging">
          <!-- plugin 사용법 (twbsPagination)-->

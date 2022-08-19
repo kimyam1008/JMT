@@ -230,7 +230,16 @@ public class RestaurantDTO {
 	
 	private String likeNo;
 
+	private String likeMember;
+	
+	
 
+	public String getLikeMember() {
+		return likeMember;
+	}
+	public void setLikeMember(String likeMember) {
+		this.likeMember = likeMember;
+	}
 	public String getLikeNo() {
 		return likeNo;
 	}

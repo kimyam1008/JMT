@@ -9,21 +9,20 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <style>
-	table,th,td{
+
+	.rest table,tr,th{
 		border: 1px solid black;
 		border-collapse: collapse;
 		padding: 5px;
 		text-align: center;
 	}
-	
-	.nonono{
-	display:none;}
-	
+
 
 </style>
 <title>Insert title here</title>
 </head>
 <body>
+<input type="hidden" id="loginId" value="${sessionScope.loginId}"/>
 	<div>
 	<h3>${sessionScope.loginId}</h3>
 	<h3>맛집 상세보기</h3>
@@ -38,7 +37,7 @@
       	<img src="/photo/${path.photo_newFileName}" height="100"/>
      </c:forEach> --%>
     <div style="float: left; margin-right:40px;">
-	<table width="500" height="300">
+	<table class="rest" width="500" height="300">
 	         <tr>
 	         	<th colspan="2" id="restaurant_name">
 	         		${resDetail.restaurant_name}
@@ -77,134 +76,64 @@
      </c:forEach>
      </ul>
 	</div>
+	<h3>리뷰</h3>
 	<div>
 		 <a href="./reviewWrite?restaurant_no=${resDetail.restaurant_no}">[리뷰 쓰기]</a>            
 	<br/>
 	</div>
 	<div>
-     <table>
 	 <c:forEach items="${resCommet}" var="comment" >
-	 <tr>
-		
+	 <table>
 		<c:if test="${comment.comment_status eq '공개'}">
 			<input type="hidden" name="idx" value="${comment.comment_no}" />
-			<td>${comment.member_id}</td>
-			<td>${comment.comment_content}</td>
-			<td>${comment.comment_date}</td>
+			<tr>
+				<td width="50;">${comment.member_id}</td>
+				<td  width="300;"></td>
+				<td colspan="2">${comment.comment_date}</td>
+			</tr>
 			
-			<%-- <c:forEach items="${memberPhoto}" var="p2">
-			<c:if test="${p2.profile_no eq p2.idx}">
-				<c:if test="${comment.member_id eq p2.member_id}">
-					<img src="/photo/${p2.photo_newFileName}" height="100"/>
-				</c:if>
-			</c:if>
-			</c:forEach>
-			<td> --%>
-
-			
-			<%-- <c:forEach items="${CommentLike}" var="like">
-				<c:choose>
-				<c:if test="${comment.member_id eq like.member_id}">
-					<c:when test="${like.member_id eq sessionScope.loginId}">
-						<td>
-							<button class="likeDelBtn" onclick="likeDel(this)"
-							commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-							♥</button>
-						</td>
-					</c:when>
-				</c:if>	
-					<c:otherwise>
-						<td>
-							<button class="likeBtn" onclick="like(this)"
-							commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-							♡</button>
-						</td>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach> --%>
-			
-			
-			<%-- <c:choose>
-				<c:when test="${comment.comment_no ne null}">
-					<td>
-						<button class="likeDelBtn" onclick="likeDel(this)"
-						commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-						♥</button>
-					</td>	
-				</c:when>
-				<c:otherwise>
-					<td>
-						<button class="likeBtn" onclick="like(this)"
-						commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-						♡</button>
-					</td>
-				</c:otherwise>
-			</c:choose>
-			
-			
-			<c:choose>
-				<c:when test="${comment.comment_no ne null}">
-					<td>
-						<button class="likeBtn" onclick="like(this)"
-						commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-						♡</button>
-					</td>
-				</c:when>
-				<c:otherwise>
-					
-				</c:otherwise>
-			</c:choose> --%>
-			
-			
-			
-			
-				<td>
-					<button class="likeDelBtn" onclick="likeDel(this)" 
-					commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-					♥</button>
-					
-					<button class="likeBtn" onclick="like(this)"
-					commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-					♡</button>
-				</td>
-					
-			 
-			
-			
-			<td>
-			<c:if test="${comment.member_id eq sessionScope.loginId}">
-				<input type="hidden" name="ID" value="${comment.member_id}" />
-				<button class="delBtn" onclick="commentDel(this)" commentID="${comment.comment_no}">삭제</button>
-				<a href="./reviewUpdate?comment_no=${comment.comment_no}">수정</a>
-			</c:if>
-			</td>
-			<td>
-			${comment.likeNo}
-			</td>
-			<c:if test="${comment.member_id ne sessionScope.loginId}">
-				<td>		
-					<input type="hidden" value="${comment.comment_no}">
-					<button type="button" resID="${comment.comment_no}"
-					memberID="${sessionScope.loginId}" onclick="report(${comment.comment_no})">신고하기</button>
-				</td>					
-			</c:if>
-			<td>
+			<tr height="150;">
+			<td></td>
+			<td>${comment.comment_content} </br>
 			<c:forEach items="${CommentPhoto}" var="p">
 				<c:if test="${comment.comment_no eq p.idx}">
 				<img src="/photo/${p.photo_newFileName}" height="100"/>
 				</c:if>
 			</c:forEach>
-			</td> 
-			 
+			</td>
+			
+			<td width="100;">
+			<c:choose>
+		 		<c:when test="${comment.member_id eq sessionScope.loginId}">
+					<input type="hidden" name="ID" value="${comment.member_id}" />
+					<button class="delBtn" onclick="commentDel(this)" commentID="${comment.comment_no}">삭제</button>
+					<a href="./reviewUpdate?comment_no=${comment.comment_no}">수정</a>
+				</c:when>
+				<c:otherwise>
+					<input type="hidden" value="${comment.comment_no}">
+					<button type="button" resID="${comment.comment_no}"
+						memberID="${sessionScope.loginId}" onclick="report(${comment.comment_no})">신고하기</button>
+				</c:otherwise>
+			</c:choose>
+				</br>
+				
+				<c:choose>
+		 		<c:when test="${comment.likeMember == null or sessionScope.loginId == null}">
+					<img src="/photo/heart.png" height="13" style="cursor: pointer;" onclick="like(this)" commentID="${comment.comment_no}" loginID="${sessionScope.loginId}"/>	
+					${comment.likeNo}
+				</c:when>
+				<c:otherwise>
+					<img src="/photo/fullheart.png" height="13" style="cursor: pointer;" onclick="likeDel(this)" commentID="${comment.comment_no}" loginID="${sessionScope.loginId}"/>	
+					${comment.likeNo}
+				</c:otherwise>
+			</c:choose>
+				</td>
+
+			</tr>
 		</c:if>	
-		</tr>
+		</table>
      </c:forEach>
-    </table>
     </div>
-   
-    
-    
-    
 </body>
 
 <script>
@@ -257,8 +186,15 @@ console.log("식당번호 확인::",restaurant_no);
 	
 	function like(comment_no) { 
 	      var commentID = $(comment_no).attr("commentID");
-	      /* var loginID = $(comment_no).attr("loginID"); */
 	      console.log(commentID);
+			
+	      
+	      var loginId = $("#loginId").val();
+	      console.log(loginId);
+	      
+	      if(loginId == ""){
+	    	  alert("로그인 후 이용 가능합니다.");
+	      }else{
 	      
 	         $.ajax({
 	               type:'get',
@@ -269,14 +205,15 @@ console.log("식당번호 확인::",restaurant_no);
 	               },
 	               dataType:'JSON',
 	               success:function(data) {
-	                  alert(data.msg);
+	                  console.log(data.likes);
+	                  location.href="resDetail.do?restaurant_no="+restaurant_no;
 	               },
 	               error:function(e) {
 	                  console.log(e);
 	               }
 	            });
 	      
-	      
+	      }
 	} 
 	
 	function likeDel(comment_no) { 
@@ -295,7 +232,7 @@ console.log("식당번호 확인::",restaurant_no);
 	               },
 	               dataType:'JSON',
 	               success:function(data) {
-	                  alert(data.msg);
+	                  location.href="resDetail.do?restaurant_no="+restaurant_no;
 	               },
 	               error:function(e) {
 	                  console.log(e);

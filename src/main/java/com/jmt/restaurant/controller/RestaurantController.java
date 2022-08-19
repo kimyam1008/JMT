@@ -75,6 +75,8 @@ public class RestaurantController {
 		
 		params.put("loginId", (String) session.getAttribute("loginId"));
 		
+		//좋아요 한사람 로그인 비교
+		String loginId = (String) session.getAttribute("loginId");
 		
 		logger.info("맛집 상세보기 : "+ restaurant_no); 
 		service.resDetail(model, restaurant_no);
@@ -82,7 +84,7 @@ public class RestaurantController {
 		model.addAttribute("lightninglist", lightninglist);
 		ArrayList<RestaurantDTO> photoList = service.photoList(model, restaurant_no);
 		model.addAttribute("photoList", photoList);
-		ArrayList<RestaurantDTO> resCommet = service.resCommet(model, restaurant_no);
+		ArrayList<RestaurantDTO> resCommet = service.resCommet(loginId, restaurant_no);
 		ArrayList<HashMap<String, String>> CommentPhoto = null;
 		ArrayList<HashMap<String, String>> CommentPhoto2 = new ArrayList<HashMap<String,String>>() ;
 		for (RestaurantDTO restaurantDTO : resCommet) {
@@ -256,22 +258,31 @@ public class RestaurantController {
 	// 좋다 아니 안 좋다 아니 하기 싫다
 	@RequestMapping(value = "/like.ajax")
 	@ResponseBody
-	public HashMap<String, String> like(HttpSession session, Model model, 
+	public HashMap<String, Object> like(HttpSession session, Model model, 
 			@RequestParam HashMap<String, String> params) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		params.put("loginId", (String) session.getAttribute("loginId"));
 		logger.info(":"+params);
-		return service.like(params);
+		boolean like = service.like(params);
+		
+		map.put("likes", like);
+		
+		return map;
 	}
 	
 	
 	// 좋아요 삭제
 	@RequestMapping(value = "/likeDel.ajax")
 	@ResponseBody
-	public HashMap<String, String> likeDel(HttpSession session, Model model, 
+	public HashMap<String, Object> likeDel(HttpSession session, Model model, 
 			@RequestParam HashMap<String, String> params) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		params.put("loginId", (String) session.getAttribute("loginId"));
 		logger.info(":"+params);
-		return service.likeDel(params);
+		service.likeDel(params);
+		map.put("likeDel", "좋아요 취소");
+		
+		return map;
 	}
 	
 	

@@ -20,7 +20,7 @@ public interface GradeDAO {
 
 	ArrayList<HashMap<String, Object>> list();
 
-	Grade_DTO gradeUpdate(Grade_DTO dto);
+	void gradeUpdate(Grade_DTO dto);
 
 	
 
