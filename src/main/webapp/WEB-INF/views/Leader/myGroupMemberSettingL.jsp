@@ -177,7 +177,7 @@
                 </div>
                 <!--게시글 양식 끝-->
 
-                <h4><a href="/myGroupPostSettingL.go?lightning_no=${dto.lightning_no}">댓글</a> <a href="javascript:location.reload()">회원</a></h4>
+                <h4><a href="/myGroupPostSettingL.go?lightning_no=${dto.lightning_no}">게시글</a> <a href="javascript:location.reload()">회원</a></h4>
 
                 <!--여기에 <div class="row">로 시작해서 내용을 넣어주세요 -->
                 <div class="row">

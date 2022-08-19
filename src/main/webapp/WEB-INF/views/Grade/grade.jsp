@@ -6,6 +6,22 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
+
+
+table {
+        margin-bottom: 0px;
+
+    }
+
+	table,th,td{
+		border: 1px solid black;
+		border-collapse: collapse;
+		padding: 5px;
+		text-align: center;
+	}
+	
+	
+	
 </style>
 </head>
 <body>
@@ -15,75 +31,145 @@
 <h3>등급 관리</h3>
 
 
- 	<form action="grade" method="post" id="grade">
+ 	<form action="grade" method="post" id="grade" style="margin-bottom: 0px">
 		<table>
 			<thead>
-				<tr>
-				 <th></th>
-		         <th>등급 이름</th>
-		         <th>게시글</th>
-		         <th>댓글</th>
-		         <th>색상</th>
-		         <th>아이콘</th>
-		         
-		      </tr>  
+				<tr>	
+					<th></th>
+			        <th>등급 이름</th>
+			        <th>게시글</th>
+			        <th>댓글</th>
+			        <th>색상</th>
+		      	</tr>  
 			</thead>
 			<tbody>
-				<c:forEach items="${list}" var="grade">
-					<tr>
-						<td>
-							${grade.grade_no}
-						</td>
-						<td>
-							<input type="hidden" name="grade_no" value="${grade.grade_no}">
-							<input type="text" name="grade_name" value="${grade.grade_name}">
-						</td>
-						<td>
-							<input type="text" name="grade_post" value="${grade.grade_post}">
-						</td>
-						<td>
-							<input type="text" name="grade_comment" value="${grade.grade_comment}">
-						</td>
-						<td>
-							<input type="color" name="grade_color" value="${grade.grade_color}" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">
-						</td>
-						<td>
-						<input id="${grade.grade_no}" name="${grade.grade_no}" onclick="this()" value="저장" type="submit"/>
-						<input type="button" value="저장" onclick='mySubmit(${grade.grade_no})' />
-						</td>
-					</tr>
-				</c:forEach>
-				
-  				
-  				
+				<tr>
+					<td>
+						${list[0].grade_no}
+					</td>
+					<td>
+						<input type="hidden" name="grade_no" value="1">
+						<input type="text" name="grade_name" value="${list[0].grade_name}">
+					</td>
+					<td>
+						<input type="text" name="grade_post" value="${list[0].grade_post}">
+					</td>
+					<td>
+						<input type="text" name="grade_comment" value="${list[0].grade_comment}">
+					</td>
+					<td>
+						<input type="color" name="grade_color" value="${list[0].grade_color}" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">
+					</td>
+					<td>
+						<input value="저장" type="submit"/>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	</form>
+	  
 	
-	<form action="h" method="post">
+	<form action="grade" method="post" style="margin-bottom: 0px">
 		<table>
-			<tr>
-				<td>
-					${grade.grade_no}
-				</td>
-				<td>
-					<input type="hidden" name="grade_no" value="${grade.grade_no}">
-					<input type="text" name="grade_name" value="${grade.grade_name}">
-				</td>
-				<td>
-					<input type="text" name="grade_post" value="${grade.grade_post}">
-				</td>
-				<td>
-					<input type="text" name="grade_comment" value="${grade.grade_comment}">
-				</td>
-				<td>
-					<input type="color" name="grade_color" value="${grade.grade_color}" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">
-				</td>
-				<td>
-				<input id="${grade.grade_no}" name="${grade.grade_no}" onclick="this()" value="저장" type="submit"/>
-				<input type="button" value="저장" onclick='mySubmit(${grade.grade_no})' />
-				</td>
-			</tr>
+				<tr>
+					<td>
+						${list[1].grade_no}
+					</td>
+					<td>
+						<input type="hidden" name="grade_no" value="2">
+						<input type="text" name="grade_name" value="${list[1].grade_name}">
+					</td>
+					<td>
+						<input type="text" name="grade_post" value="${list[1].grade_post}">
+					</td>
+					<td>
+						<input type="text" name="grade_comment" value="${list[1].grade_comment}">
+					</td>
+					<td>
+						<input type="color" name="grade_color" value="${list[1].grade_color}" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">
+					</td>
+					<td>
+					<input value="저장" type="submit"/>
+					</td>
+				</tr>
+		</table>
+	</form>
+	
+	<form action="grade" method="post" style="margin-bottom: 0px" >
+		<table>
+				<tr>
+					<td>
+						${list[2].grade_no}
+					</td>
+					<td>
+						<input type="hidden" name="grade_no" value="3">
+						<input type="text" name="grade_name" value="${list[2].grade_name}">
+					</td>
+					<td>
+						<input type="text" name="grade_post" value="${list[2].grade_post}">
+					</td>
+					<td>
+						<input type="text" name="grade_comment" value="${list[2].grade_comment}">
+					</td>
+					<td>
+						<input type="color" name="grade_color" value="${list[2].grade_color}" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">
+					</td>
+					<td>
+						<input value="저장" type="submit"/>
+					</td>
+				</tr>
+		</table>
+	</form>
+	
+	<form action="grade" method="post" style="margin-bottom: 0px">
+		<table>
+				<tr>
+					<td>
+						${list[3].grade_no}
+					</td>
+					<td>
+						<input type="hidden" name="grade_no" value="4">
+						<input type="text" name="grade_name" value="${list[3].grade_name}">
+					</td>
+					<td>
+						<input type="text" name="grade_post" value="${list[3].grade_post}">
+					</td>
+					<td>
+						<input type="text" name="grade_comment" value="${list[3].grade_comment}">
+					</td>
+					<td>
+						<input type="color" name="grade_color" value="${list[3].grade_color}" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">
+					</td>
+					<td>
+						<input value="저장" type="submit"/>
+					</td>
+				</tr>
+		</table>
+	</form>
+	
+	<form action="grade" method="post">
+		<table>
+				<tr>
+					<td>
+						${list[4].grade_no}
+					</td>
+					<td>
+						<input type="hidden" name="grade_no" value="5">
+						<input type="text" name="grade_name" value="${list[4].grade_name}">
+					</td>
+					<td>
+						<input type="text" name="grade_post" value="${list[4].grade_post}">
+					</td>
+					<td>
+						<input type="text" name="grade_comment" value="${list[4].grade_comment}">
+					</td>
+					<td>
+						<input type="color" name="grade_color" value="${list[4].grade_color}" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">
+					</td>
+					<td>
+						<input value="저장" type="submit"/>
+					</td>
+				</tr>
 		</table>
 	</form>
 			
