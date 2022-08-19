@@ -73,7 +73,7 @@ table {
                         <h4 class="title">Admin</h4>
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="reportList">
                         <i class="pe-7s-comment"></i>
                         <p>신고 목록</p>
@@ -91,7 +91,7 @@ table {
                         <p>회원 관리</p>
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="grade.go">
                         <i class="pe-7s-note"></i>
                         <p>등급 관리</p>
@@ -176,6 +176,7 @@ table {
                 </div>
             </div>
         </nav>
+       </div>
         <!--상단바 끝-->
 
 	
@@ -219,11 +220,13 @@ table {
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
-                                        <th></th>
-                                    	<th>등급 이름</th>
-                                    	<th>게시글</th>
-                                    	<th>댓글</th>
-                                    	<th>색상</th>
+	                                    <tr>
+	                                        <th></th>
+	                                    	<th>등급 이름</th>
+	                                    	<th>게시글</th>
+	                                    	<th>댓글</th>
+	                                    	<th>색상</th>
+	                                    </tr>
                                     </thead>
                                     <tbody>
                                        <form action="grade" method="post">
@@ -349,8 +352,8 @@ table {
                     </div>
                    <!--표 끝-->
                 </div>
-
-
+			</div>
+		</div>
 
 
  	<%-- <form action="grade" method="post" id="grade" style="margin-bottom: 0px">

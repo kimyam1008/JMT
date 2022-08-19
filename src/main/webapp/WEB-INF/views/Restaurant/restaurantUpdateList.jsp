@@ -8,7 +8,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
 
 <link rel="icon" type="image/png" href="../resources/mainResource/assets/img/pizza-slice.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -30,6 +29,7 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="../resources/etcResource/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
 <style>
 	body{
 	width: 100%;
@@ -85,7 +85,7 @@
                         <h4 class="title">Admin</h4>
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="reportList">
                         <i class="pe-7s-comment"></i>
                         <p>신고 목록</p>
@@ -109,7 +109,7 @@
                         <p>등급 관리</p>
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="resUpdateList.go">
                         <i class="pe-7s-pen"></i>
                         <p>맛집 수정</p>
@@ -133,7 +133,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">맛집 수정요청 목록</a>
+                    <a class="navbar-brand" href="#">맛집 수정</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
@@ -253,8 +253,8 @@
                     </div>
                    <!--표 끝-->
                 </div>
-        
-        
+        </div>
+      </div>
         
        
 	
