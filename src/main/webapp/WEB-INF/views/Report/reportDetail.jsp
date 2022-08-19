@@ -181,7 +181,7 @@ table{width:100%;}
                     </a>
                 </li>
                 <li>
-                    <a href="/restaurant">
+                    <a href="/resUpdateList.go">
                         <i class="pe-7s-pen"></i>
                         <p>맛집 수정</p>
                     </a>

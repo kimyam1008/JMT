@@ -3,8 +3,30 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>등급 수정</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<meta charset="utf-8" />
+	<link rel="icon" type="image/png" href="../resources/mainResource/assets/img/pizza-slice.png">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap core CSS     -->
+    <link href="../resources/etcResource/assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Animation library for notifications   -->
+    <link href="../resources/etcResource/assets/css/animate.min.css" rel="stylesheet"/>
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="../resources/etcResource/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="../resources/etcResource/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
 <style>
 
 
@@ -25,13 +47,316 @@ table {
 </style>
 </head>
 <body>
-지수님 파이팅 ^_^
+	
+	<!--사이드바 시작-->
+    <div class="wrapper">
+     <div class="sidebar" data-color="purple">
+
+        <!--
+
+            Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+            Tip 2: you can also add an image using data-image tag
+
+        -->
+
+    	<div class="sidebar-wrapper">
+            <div class="logo">
+                <a href="/" class="simple-text">
+                    JMT
+                </a>
+            </div>
+            <ul class="nav">
+                <!--유저 사진, 이름-->
+                <li class="dojangParty">
+                    <a class="leaderProfile">
+                        <img class="avatar border-gray" src="etcResource/assets/img/faces/face-0.jpg" alt="..."/>
+                        <h4 class="title">Admin</h4>
+                    </a>
+                </li>
+                <li>
+                    <a href="reportList">
+                        <i class="pe-7s-comment"></i>
+                        <p>신고 목록</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="blind.go">
+                        <i class="pe-7s-config"></i>
+                        <p>블라인드</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/memberList.go">
+                        <i class="pe-7s-users"></i>
+                        <p>회원 관리</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="grade.go">
+                        <i class="pe-7s-note"></i>
+                        <p>등급 관리</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="resUpdateList.go">
+                        <i class="pe-7s-pen"></i>
+                        <p>맛집 수정</p>
+                    </a>
+                </li>
+            </ul>
+    	</div>
+    </div>
+    <!--사이드바 끝-->
+    
+    <!--상단바 시작-->
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">등급 수정</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <!-- <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-dashboard"></i>
+								<p class="hidden-lg hidden-md">Dashboard</p>
+                            </a>
+                        </li> -->
+                        <!--누르면 알림창같은거 조그맣게 뜸-->
+                        <!-- <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-globe"></i>
+                                    <b class="caret hidden-lg hidden-md"></b>
+									<p class="hidden-lg hidden-md">
+										5 Notifications
+										<b class="caret"></b>
+									</p>
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">Notification 1</a></li>
+                                <li><a href="#">Notification 2</a></li>
+                                <li><a href="#">Notification 3</a></li>
+                                <li><a href="#">Notification 4</a></li>
+                                <li><a href="#">Another notification</a></li>
+                              </ul>
+                        </li> -->
+                        <!-- <li>
+                           <a href="">
+                                <i class="fa fa-search"></i>
+								<p class="hidden-lg hidden-md">Search</p>
+                            </a>
+                        </li> -->
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">
+                                <p>Home</p>
+                             </a>
+                         </li>
+                        <li>
+                           <a href="mypage.go">
+                               <p>마이페이지</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <p>Log out</p>
+                            </a>
+                        </li>
+						<li class="separator hidden-lg"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+       </div>
+        <!--상단바 끝-->
 
 	
-<h3>등급 관리</h3>
+		
+        <!--컨텐츠영역 시작-->
+        <div class="content">
+            <div class="container-fluid">
+                <!--여기에 <div class="row">로 시작해서 내용을 넣어주세요 -->
+                <div class="row">
+                    <!--표 시작-->
+                    <div class="col-md-12">
+                        <div class="card">
+                            <!-- <table style="margin:0 auto; text-align:center;">
+                                <tr>
+                                    <td>섹션1</td>
+                                    <td>섹션2</td>
+                                </tr>
+                                <tr>
+                                    <td>섹션3</td>
+                                    <td>섹션4</td>
+                                </tr>
+                                <tr>
+                                    <td>섹션4</td>
+                                    <td>섹션5</td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <td>섹션1</td>
+                                    <td>섹션2</td>
+                                </tr>
+                                <tr>
+                                    <td>섹션3</td>
+                                    <td>섹션4</td>
+                                </tr>
+                                <tr>
+                                    <td>섹션4</td>
+                                    <td>섹션5</td>
+                                </tr>
+                            </table> -->
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+	                                    <tr>
+	                                        <th></th>
+	                                    	<th>등급 이름</th>
+	                                    	<th>게시글</th>
+	                                    	<th>댓글</th>
+	                                    	<th>색상</th>
+	                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                       <form action="grade" method="post">
+                                            <tr>
+                                                <td>
+                                                    ${list[0].grade_no}
+                                                </td>
+                                                <td>
+                                                    <input type="hidden" name="grade_no" value="1">
+                                                    <input type="text" name="grade_name" value="${list[0].grade_name}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="grade_post" value="${list[0].grade_post}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="grade_comment" value="${list[0].grade_comment}">
+                                                </td>
+                                                <td>
+                                                    <input type="color" name="grade_color" value="${list[0].grade_color}" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">
+                                                </td>
+                                                <td>
+                                                    <input value="저장" type="submit"/>
+                                                </td>
+                                            </tr>
+                                        </form>
+                                        <form action="grade" method="post" style="margin-bottom: 0px">
+                                                <tr>
+                                                    <td>
+                                                        ${list[1].grade_no}
+                                                    </td>
+                                                    <td>
+                                                        <input type="hidden" name="grade_no" value="2">
+                                                        <input type="text" name="grade_name" value="${list[1].grade_name}">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="grade_post" value="${list[1].grade_post}">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="grade_comment" value="${list[1].grade_comment}">
+                                                    </td>
+                                                    <td>
+                                                        <input type="color" name="grade_color" value="${list[1].grade_color}" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">
+                                                    </td>
+                                                    <td>
+                                                    <input value="저장" type="submit"/>
+                                                    </td>
+                                                </tr>
+                                        </form>
+                                        <form action="grade" method="post" style="margin-bottom: 0px" >
+                                            <tr>
+                                                <td>
+                                                    ${list[2].grade_no}
+                                                </td>
+                                                <td>
+                                                    <input type="hidden" name="grade_no" value="3">
+                                                    <input type="text" name="grade_name" value="${list[2].grade_name}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="grade_post" value="${list[2].grade_post}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="grade_comment" value="${list[2].grade_comment}">
+                                                </td>
+                                                <td>
+                                                    <input type="color" name="grade_color" value="${list[2].grade_color}" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">
+                                                </td>
+                                                <td>
+                                                    <input value="저장" type="submit"/>
+                                                </td>
+                                            </tr> 
+                                        </form>
+                                        <form action="grade" method="post" style="margin-bottom: 0px">
+                                            <tr>
+                                                <td>
+                                                    ${list[3].grade_no}
+                                                </td>
+                                                <td>
+                                                    <input type="hidden" name="grade_no" value="4">
+                                                    <input type="text" name="grade_name" value="${list[3].grade_name}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="grade_post" value="${list[3].grade_post}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="grade_comment" value="${list[3].grade_comment}">
+                                                </td>
+                                                <td>
+                                                    <input type="color" name="grade_color" value="${list[3].grade_color}" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">
+                                                </td>
+                                                <td>
+                                                    <input value="저장" type="submit"/>
+                                                </td>
+                                            </tr>
+                                        </form>
+                                        <form action="grade" method="post">
+                                            <tr>
+                                                <td>
+                                                    ${list[4].grade_no}
+                                                </td>
+                                                <td>
+                                                    <input type="hidden" name="grade_no" value="5">
+                                                    <input type="text" name="grade_name" value="${list[4].grade_name}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="grade_post" value="${list[4].grade_post}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="grade_comment" value="${list[4].grade_comment}">
+                                                </td>
+                                                <td>
+                                                    <input type="color" name="grade_color" value="${list[4].grade_color}" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">
+                                                </td>
+                                                <td>
+                                                    <input value="저장" type="submit"/>
+                                                </td>
+                                            </tr>
+                                        </form>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                   <!--표 끝-->
+                </div>
+			</div>
+		</div>
 
 
- 	<form action="grade" method="post" id="grade" style="margin-bottom: 0px">
+ 	<%-- <form action="grade" method="post" id="grade" style="margin-bottom: 0px">
 		<table>
 			<thead>
 				<tr>	
@@ -171,7 +496,7 @@ table {
 					</td>
 				</tr>
 		</table>
-	</form>
+	</form> --%>
 			
 		</body>
 <script>

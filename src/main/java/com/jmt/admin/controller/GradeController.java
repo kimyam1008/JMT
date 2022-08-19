@@ -65,7 +65,7 @@ public class GradeController extends HandlerInterceptorAdapter{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 	
-		logger.info("테스트 인터셉터 입니다. ");
+		logger.info("등급 확인 합니다.");
 		
 		HttpSession session = request.getSession(false);
 	

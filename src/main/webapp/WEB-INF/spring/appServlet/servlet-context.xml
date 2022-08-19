@@ -16,15 +16,20 @@
 	<resources mapping="/resources/**" location="/resources/" />
 
 	 
-	<!-- <interceptors>
+	<interceptors>
 		<interceptor>
-			 <mapping path="/**"/>
+			 <mapping path="/*"/>
 			<exclude-mapping path="/login.*"/>
 			<exclude-mapping path="/"/>
 			<exclude-mapping path="/Member/join*"/>
-			 <beans:bean id="testController" class="com.jmt.admin.controller.TestController"/>
+			<exclude-mapping path="/grade.*"/>
+			<exclude-mapping path="/Grade/*"/>
+			<exclude-mapping path="/restaurant"/>
+			<exclude-mapping path="/resDetail.do*"/>
+			<exclude-mapping path="/reviewWrite?*"/>
+			<beans:bean id="GradeController" class="com.jmt.admin.controller.GradeController"/>
 		</interceptor>
-	</interceptors> -->
+	</interceptors>
 	
  
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
