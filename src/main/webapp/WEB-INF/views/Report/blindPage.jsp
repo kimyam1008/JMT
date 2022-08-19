@@ -21,7 +21,28 @@
 <link rel="icon" type="image/png" href="${path}/resources/mainResource/assets/img/pizza-slice.png">
 </head>
 <style>
+	.pagination>.active>a,
+	.pagination>.active>a:focus, 
+	.pagination>.active>a:hover,
+ 	.pagination>.active>span,
+   .pagination>.active>span:focus, 
+   .pagination>.active>span:hover{
+		background-color: #943bea;
+			border-color:#943bea;
+			
+		}
+		
+ .pagination>li>a{
+	color:#943bea;
+	}
 
+
+
+
+		#sidebar{ 
+	position:Relative; 
+	top:100px;
+	}
 	
 	#search{
 		text-align:center; 
@@ -51,7 +72,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">신고 목록 페이지</a>
+                    <a class="navbar-brand" href="#">블라인드 목록 페이지</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
@@ -89,17 +110,17 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="jmtMain.html">
+                            <a href="/">
                                 <p>Home</p>
                              </a>
                          </li>
                         <li>
-                           <a href="mypage.html">
+                           <a href="/mypage.go">
                                <p>마이페이지</p>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                         <a href="/logout.do">
                                 <p>Log out</p>
                             </a>
                         </li>
@@ -124,44 +145,44 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="jmtMain.html" class="simple-text">
+                <a href="/" class="simple-text">
                     JMT
                 </a>
             </div>
-            <ul class="nav">
+            <ul id="sidebar" class="nav">
                 <!--유저 사진, 이름-->
-                <li class="dojangParty">
+         <%--        <li class="dojangParty">
                     <a class="leaderProfile">
                         <img class="avatar border-gray" src="${path}/resources/etcResource/assets/img/faces/face-0.jpg" alt="..."/>
-                        <h4 class="title">Admin</h4>
+                        <h4 class="title">${loginId}</h4>
                     </a>
-                </li>
-                <li class="active">
-                    <a href="reportList.html">
+                </li> --%>
+                <li>
+                    <a href="/report/">
                         <i class="pe-7s-comment"></i>
                         <p>신고 목록</p>
                     </a>
                 </li>
                 <li>
-                    <a href="blindList.html">
+                    <a href="/report/blind.go"">
                         <i class="pe-7s-config"></i>
                         <p>블라인드</p>
                     </a>
                 </li>
                 <li>
-                    <a href="memberManage.html">
+                    <a href="/report/memberList.go">
                         <i class="pe-7s-users"></i>
                         <p>회원 관리</p>
                     </a>
                 </li>
                 <li>
-                    <a href="gradeList.html">
+                    <a href="/grade.go"">
                         <i class="pe-7s-note"></i>
                         <p>등급 관리</p>
                     </a>
                 </li>
                 <li>
-                    <a href="resUpdateReqList.html">
+                    <a href="/restaurant">
                         <i class="pe-7s-pen"></i>
                         <p>맛집 수정</p>
                     </a>
