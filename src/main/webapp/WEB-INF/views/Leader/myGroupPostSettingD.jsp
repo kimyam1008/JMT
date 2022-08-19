@@ -138,7 +138,7 @@
                              </a>
                          </li>
                         <li>
-                           <a href="mypage.html">
+                           <a href="./mypage.go">
                                <p>마이페이지</p>
                             </a>
                         </li>
