@@ -34,6 +34,13 @@
     .table-caption th {
 		text-align:center;
 	}
+	
+	.comment-content {
+		width:70px; 
+		white-space : nowrap; 
+		overflow : hidden; 
+		text-overflow : ellipsis;
+	}
     </style>
 </head>
 <body>
@@ -175,7 +182,7 @@
                 </div>
                 <!--게시글 양식 끝-->
 
-                <h4><a href="javascript:location.reload()">댓글</a> <a href="/myGroupMemberSettingL.go?lightning_no=${dto.lightning_no}">회원</a></h4>
+                <h4><a href="javascript:location.reload()">게시글</a> <a href="/myGroupMemberSettingL.go?lightning_no=${dto.lightning_no}">회원</a></h4>
 
                 <!--여기에 <div class="row">로 시작해서 내용을 넣어주세요 -->
                 <div class="row">
@@ -287,12 +294,12 @@ function drawList(myGroupPostSettingL){
 	
 	var content ="";
 	
-	myGroupPostSettingL.forEach(function(item,comment_no){
+	myGroupPostSettingL.forEach(function(item,lightning_no){
 		
 		content += '<tr>';
-		content += '<td>'+item.idx+'</td>';
-		content += '<td><a href="lightDetail.go?lightning_no='+item.idx+'">'+item.comment_content+'</a></td>';
-		content += '<td>'+item.comment_date+'</td>';
+		content += '<td>'+item.lightning_no+'</td>';
+		content += '<td><a href="lightDetail.go?lightning_no='+item.lightning_no+'" class="comment-content">'+item.lightning_title+'</a></td>';
+		content += '<td>'+item.lightning_create+'</td>';
 		content += '</tr>';
 	});
 	
