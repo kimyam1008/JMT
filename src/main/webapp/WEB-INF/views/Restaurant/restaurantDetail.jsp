@@ -18,7 +18,8 @@
 	
 	.nonono{
 	display:none;}
-	
+
+.btn {cursor:pointer;}
 
 </style>
 <title>Insert title here</title>
@@ -91,83 +92,18 @@
 			<td>${comment.member_id}</td>
 			<td>${comment.comment_content}</td>
 			<td>${comment.comment_date}</td>
-			
-			<%-- <c:forEach items="${memberPhoto}" var="p2">
-			<c:if test="${p2.profile_no eq p2.idx}">
-				<c:if test="${comment.member_id eq p2.member_id}">
-					<img src="/photo/${p2.photo_newFileName}" height="100"/>
-				</c:if>
-			</c:if>
-			</c:forEach>
-			<td> --%>
-
-			
-			<%-- <c:forEach items="${CommentLike}" var="like">
-				<c:choose>
-				<c:if test="${comment.member_id eq like.member_id}">
-					<c:when test="${like.member_id eq sessionScope.loginId}">
-						<td>
-							<button class="likeDelBtn" onclick="likeDel(this)"
-							commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-							♥</button>
-						</td>
-					</c:when>
-				</c:if>	
-					<c:otherwise>
-						<td>
-							<button class="likeBtn" onclick="like(this)"
-							commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-							♡</button>
-						</td>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach> --%>
-			
-			
-			<%-- <c:choose>
-				<c:when test="${comment.comment_no ne null}">
-					<td>
-						<button class="likeDelBtn" onclick="likeDel(this)"
-						commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-						♥</button>
-					</td>	
+			<c:choose>
+		 		<c:when test="${comment.likeMember == null or sessionScope.loginId == null}">
+				<td>
+					<img src="/photo/heart.png" height="13" style="cursor: pointer;" onclick="like(this)" commentID="${comment.comment_no}" loginID="${sessionScope.loginId}"/>	
+				</td>
 				</c:when>
 				<c:otherwise>
-					<td>
-						<button class="likeBtn" onclick="like(this)"
-						commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-						♡</button>
-					</td>
+				<td>
+					<img src="/photo/fullheart.png" height="13" style="cursor: pointer;" onclick="likeDel(this)" commentID="${comment.comment_no}" loginID="${sessionScope.loginId}"/>	
+				</td>
 				</c:otherwise>
 			</c:choose>
-			
-			
-			<c:choose>
-				<c:when test="${comment.comment_no ne null}">
-					<td>
-						<button class="likeBtn" onclick="like(this)"
-						commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-						♡</button>
-					</td>
-				</c:when>
-				<c:otherwise>
-					
-				</c:otherwise>
-			</c:choose> --%>
-			
-			
-			
-			
-				<td>
-					<button class="likeDelBtn" onclick="likeDel(this)" 
-					commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-					♥</button>
-					
-					<button class="likeBtn" onclick="like(this)"
-					commentID="${comment.comment_no}" loginID="${sessionScope.loginId}">
-					♡</button>
-				</td>
-					
 			 
 			
 			
@@ -269,7 +205,8 @@ console.log("식당번호 확인::",restaurant_no);
 	               },
 	               dataType:'JSON',
 	               success:function(data) {
-	                  alert(data.msg);
+	                  console.log(data.likes);
+	                  location.href="resDetail.do?restaurant_no="+restaurant_no;
 	               },
 	               error:function(e) {
 	                  console.log(e);
@@ -295,7 +232,8 @@ console.log("식당번호 확인::",restaurant_no);
 	               },
 	               dataType:'JSON',
 	               success:function(data) {
-	                  alert(data.msg);
+	                  alert(data.likeDel);
+	                  location.href="resDetail.do?restaurant_no="+restaurant_no;
 	               },
 	               error:function(e) {
 	                  console.log(e);
