@@ -182,6 +182,7 @@
                     <!--표 시작-->
                     <div class="col-md-12">
                         <div class="card">
+                        	<input type="button" value="추방하기" onclick="getOut()"/>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
