@@ -193,7 +193,7 @@ textarea{ resize:none;width:100%;height:150px;}
                     </a>
                 </li>
                 <li>
-                    <a href="/restaurant">
+                  <a href="/resUpdateList.go">
                         <i class="pe-7s-pen"></i>
                         <p>맛집 수정</p>
                     </a>
