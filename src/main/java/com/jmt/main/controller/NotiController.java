@@ -36,14 +36,16 @@ public class NotiController extends HandlerInterceptorAdapter {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView mav) throws Exception {
 		
-		logger.info("컨트롤러 진입 후 ... " );
 		String loginId = (String) request.getSession().getAttribute("loginId");
-		boolean notiChk = service.notiChk(loginId);
-		logger.info("안읽은 알림이 있는가 ? : " +notiChk );
-		if(notiChk) {
-			mav.addObject("notiChk","true");
-		}else {
-			mav.addObject("notiChk","false"); //true or false
+		if(loginId != null) {
+			logger.info("컨트롤러 진입 후 ... " );
+			boolean notiChk = service.notiChk(loginId);
+			logger.info("안읽은 알림이 있는가 ? : " +notiChk );
+			if(notiChk) {
+				mav.addObject("notiChk","true");
+			}else {
+				mav.addObject("notiChk","false"); //true or false
+			}
 		}
 	}
 
