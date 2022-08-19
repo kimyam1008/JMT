@@ -14,32 +14,101 @@
 	
 <h3>등급 관리</h3>
 
- <p> 선택한 색상을 봐바^^</p>
- 	<form action="grade" method="post" id="grade">
-<table>
-	<thead>
-		<tr>
-		 <th></th>
-         <th>등급 이름</th>
-         <th>게시글</th>
-         <th>댓글</th>
-         <th>색상</th>
-         <th>아이콘</th>
-         
-      </tr>  
-	</thead>
-	<tbody id="list">
-		
-	</tbody>
-</table>
 
-		<!-- <input type="hidden" id="getColorCode" value=""/> -->
+ 	<form action="grade" method="post" id="grade">
+		<table>
+			<thead>
+				<tr>
+				 <th></th>
+		         <th>등급 이름</th>
+		         <th>게시글</th>
+		         <th>댓글</th>
+		         <th>색상</th>
+		         <th>아이콘</th>
+		         
+		      </tr>  
+			</thead>
+			<tbody>
+				<c:forEach items="${list}" var="grade">
+					<tr>
+						<td>
+							${grade.grade_no}
+						</td>
+						<td>
+							<input type="hidden" name="grade_no" value="${grade.grade_no}">
+							<input type="text" name="grade_name" value="${grade.grade_name}">
+						</td>
+						<td>
+							<input type="text" name="grade_post" value="${grade.grade_post}">
+						</td>
+						<td>
+							<input type="text" name="grade_comment" value="${grade.grade_comment}">
+						</td>
+						<td>
+							<input type="color" name="grade_color" value="${grade.grade_color}" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">
+						</td>
+						<td>
+						<input id="${grade.grade_no}" name="${grade.grade_no}" onclick="this()" value="저장" type="submit"/>
+						<input type="button" value="저장" onclick='mySubmit(${grade.grade_no})' />
+						</td>
+					</tr>
+				</c:forEach>
+				
+  				
+  				
+			</tbody>
+		</table>
 	</form>
 	
-</body>
+	<form action="h" method="post">
+		<table>
+			<tr>
+				<td>
+					${grade.grade_no}
+				</td>
+				<td>
+					<input type="hidden" name="grade_no" value="${grade.grade_no}">
+					<input type="text" name="grade_name" value="${grade.grade_name}">
+				</td>
+				<td>
+					<input type="text" name="grade_post" value="${grade.grade_post}">
+				</td>
+				<td>
+					<input type="text" name="grade_comment" value="${grade.grade_comment}">
+				</td>
+				<td>
+					<input type="color" name="grade_color" value="${grade.grade_color}" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">
+				</td>
+				<td>
+				<input id="${grade.grade_no}" name="${grade.grade_no}" onclick="this()" value="저장" type="submit"/>
+				<input type="button" value="저장" onclick='mySubmit(${grade.grade_no})' />
+				</td>
+			</tr>
+		</table>
+	</form>
+			
+		</body>
 <script>
+/* 
+	function mySubmit(index) {
+	    if (index == 1) {
+	      document.myForm.action = $("#grade").submit();
+	    }
+	    if (index == 2) {
+	      document.myForm.action='ok2.html';
+	    }
+	    document.myForm.submit();
+	  } */
 
-	$.ajax({
+	function sendCode(color) {
+	var grade_color = color;
+	$("grade_color").val(color);
+	//$("#grade").submit();
+	console.log(grade_color);
+	
+	
+	}
+	/* $.ajax({
 		type:'get',
 		url:'gradeList.ajax',
 		data : {},
@@ -64,7 +133,7 @@
 			content += '<td><input type="text" class="'+item.grade_no+' grade_name" value="'+item.grade_name+'"</td>';
 			content += '<td><input type="text" class="'+item.grade_no+' grade_post" value="'+item.grade_post+'"</td>';
 			content += '<td><input type="text" class="'+item.grade_no+' grade_comment" value="'+item.grade_comment+'"</td>';
-			content += '<td><input type="color" name="colorCode" value="#000000" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">'+'</td>'
+			content += '<td><input type="color" name="colorCode" value="#001100" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">'+'</td>'
 			content += '</tr>';
 			
 			
@@ -143,12 +212,8 @@
     });
     };
 
-	function sendCode(color) {
-		var colorCode = color;
-		$("colorCode").val(color);
-		$("#grade").submit();
-		console.log(colorCode);
-	}
+	
+	} */
 	
 	
 	
