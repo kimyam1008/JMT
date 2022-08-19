@@ -359,6 +359,7 @@
 	                            <textarea  id="cmtInput" placeholder="댓글을 작성하세요."></textarea>
 	                            <button type="button" class="submit" id="cmtWrite">댓글 쓰기</button>
 		                    </div>
+		                    <br/>
 		                    <div id="cmtList">
 		                    </div>
 	                    </div>
