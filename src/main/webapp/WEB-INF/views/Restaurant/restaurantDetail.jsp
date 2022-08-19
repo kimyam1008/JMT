@@ -235,7 +235,6 @@ console.log("식당번호 확인::",restaurant_no);
 	               },
 	               dataType:'JSON',
 	               success:function(data) {
-	                  alert(data.likeDel);
 	                  location.href="resDetail.do?restaurant_no="+restaurant_no;
 	               },
 	               error:function(e) {
