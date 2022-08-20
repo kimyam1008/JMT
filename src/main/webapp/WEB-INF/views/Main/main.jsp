@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!doctype html>
+<!DOCTYPE HTML>
 <html class="no-js" lang="zxx">
     <head>
-        <meta charset="utf-8">
+        <meta charset="UTF-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>JMT </title>
         <meta name="description" content="">
@@ -27,6 +27,7 @@
    </head>
 
    <body>
+   <input type="hidden" id="loginId" value="${sessionScope.loginId}"/>
     <!-- 로고 시작 -->
     <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
@@ -66,12 +67,16 @@
                                             </li>
                                             <li><a href="restaurant">맛집</a></li>
                                             <li><a href="groupReviewList">후기</a></li>
-                                            <c:if test="${sessionScope.loginId} != null">
-                                            	<li id="logoutDo"><a href="logout.do">로그아웃</a></li>
-                                            	<li class="add-list"><a href="./mypage.go"><i class="ti-user"></i>마이페이지</a></li>
-                                            </c:if>
+                                            <c:choose>
+                                            	<c:when test="${loginId != null}">
+	                                            	<li id="logoutDo"><a href="logout.do">로그아웃</a></li>
+	                                            	<li class="add-list"><a href="./mypage.go"><i class="ti-user"></i>마이페이지</a></li>
+                                            	</c:when>
+                                            	<c:otherwise>
+		                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
+                                            	</c:otherwise>
+                                            </c:choose>
                                             <!-- <li id="mypageGo"><a href="./mypage.go">마이페이지</a></li> -->
-                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -139,7 +144,80 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6">
+               
+               <!-- 번개목록 -->
+              <c:forEach items="${lightDto}" var="lightDto" begin="0" end="2">
+                	<div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-location mb-30">
+                            <div class="location-img">
+                            	<c:choose>
+                            		<c:when test="${lightDto.food_no eq 1}">
+                            			 <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}"><img src="../resources/photo/food_no/1.jpg" alt=""></a>
+                            		</c:when>
+                            		<c:when test="${lightDto.food_no eq 2}">
+                            			 <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}"><img src="../resources/photo/food_no/2.jpg" alt=""></a>
+                            		</c:when>
+                            		<c:when test="${lightDto.food_no eq 3}">
+                            			 <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}"><img src="../resources/photo/food_no/3.jpg" alt=""></a>
+                            		</c:when>
+                            		<c:when test="${lightDto.food_no eq 4}">
+                            			 <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}"><img src="../resources/photo/food_no/4.jpg" alt=""></a>
+                            		</c:when>
+                            		<c:when test="${lightDto.food_no eq 5}">
+                            			 <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}"><img src="../resources/photo/food_no/5.jpg" alt=""></a>
+                            		</c:when>
+                            		<c:otherwise>
+                            			 <a href=""><img src="../resources/photo/food_no/6.jpg" alt=""></a>
+                            		</c:otherwise>
+                            	</c:choose>
+                               <!--  <img src="../resources/mainResource/assets/img/gallery/hamburger.jpg" alt=""> -->
+                            </div>
+                            <div class="location-details">
+                                <p><a href="lightDetail.go?lightning_no=${lightDto.lightning_no}" style="color:white">${lightDto.lightning_title}</a></p>
+                                <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}" class="location-btn"><i class="ti-bolt-alt"></i> 번개</a>
+                            </div>
+                        </div>
+                    </div>
+               </c:forEach>
+               <!-- 번개목록 끝 -->
+                
+                <!-- 도장깨기 목록 -->
+                <c:forEach items="${dojangDto}" var="dojangDto" begin="0" end="2">
+                	<div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-location mb-30">
+                            <div class="location-img">
+                            	<c:choose>
+                            		<c:when test="${dojangDto.food_no eq 1}">
+                            			 <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}"><img src="../resources/photo/food_no/1.jpg" alt=""></a>
+                            		</c:when>
+                            		<c:when test="${dojangDto.food_no eq 2}">
+                            			 <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}"><img src="../resources/photo/food_no/2.jpg" alt=""></a>
+                            		</c:when>
+                            		<c:when test="${dojangDto.food_no eq 3}">
+                            			 <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}"><img src="../resources/photo/food_no/3.jpg" alt=""></a>
+                            		</c:when>
+                            		<c:when test="${dojangDto.food_no eq 4}">
+                            			 <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}"><img src="../resources/photo/food_no/4.jpg" alt=""></a>
+                            		</c:when>
+                            		<c:when test="${dojangDto.food_no eq 5}">
+                            			 <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}"><img src="../resources/photo/food_no/5.jpg" alt=""></a>
+                            		</c:when>
+                            		<c:otherwise>
+                            			 <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}"><img src="../resources/photo/food_no/6.jpg" alt=""></a>
+                            		</c:otherwise>
+                            	</c:choose>
+                               <!--  <img src="../resources/mainResource/assets/img/gallery/hamburger.jpg" alt=""> -->
+                            </div>
+                            <div class="location-details">
+                                <p><a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}" style="color:white">${dojangDto.dojang_title}</a></p>
+                                <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}" class="location-btn"><i class="ti-hummer"></i> 도장깨기</a>
+                            </div>
+                        </div>
+                    </div>
+               </c:forEach>
+               <!-- 도장깨기 목록 끝 -->
+                
+                    <!-- <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-location mb-30">
                             <div class="location-img">
                                 <img src="../resources/mainResource/assets/img/gallery/hamburger.jpg" alt="">
@@ -150,6 +228,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-location mb-30">
                             <div class="location-img">
@@ -161,6 +240,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-location mb-30">
                             <div class="location-img">
@@ -171,8 +251,9 @@
                                 <a href="#" class="location-btn"><i class="ti-hummer"></i> 도장깨기</a>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
+                    </div> -->
+                    
+                    <!-- <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-location mb-30">
                             <div class="location-img">
                                 <img src="../resources/mainResource/assets/img/gallery/pizza.jpg" alt="">
@@ -183,6 +264,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-location mb-30">
                             <div class="location-img">
@@ -194,6 +276,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="single-location mb-30">
                             <div class="location-img">
@@ -204,7 +287,7 @@
                                 <a href="#" class="location-btn"><i class="ti-hummer"></i> 도장깨기</a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- More Btn -->
                 <!--더보기 버튼-->
@@ -230,7 +313,30 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                
+                <c:forEach items="${resDto}" var="resDto" begin="0" end="2">
+                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-team mb-30">
+                            <div class="team-img">
+                            	<c:choose>
+                            		<c:when test="${resDto.photo_newFileName eq null}">
+                            			<a href="resDetail.do?restaurant_no=${resDto.restaurant_no}"><img src="../resources/photo/food_no/restaurant.jpg" alt=""></a>
+                            		</c:when>
+                            		<c:otherwise>
+                            			<a href="resDetail.do?restaurant_no=${resDto.restaurant_no}"><img src="/photo/${resDto.photo_newFileName}" alt=""></a>
+                            		</c:otherwise>
+                            	</c:choose>  
+                            </div>
+                            <div class="team-caption">
+                                <span>용산구</span>
+                                <h3><a href="resDetail.do?restaurant_no=${resDto.restaurant_no}" style="color: #fff;">${resDto.restaurant_name}</a></h3>
+                                <p style="color: #f4e700;">${resDto.restaurant_address}</p>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+                
+                    <!-- <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                         <div class="single-team mb-30">
                             <div class="team-img">
                                 <img src="../resources/mainResource/assets/img/gallery/home_blog1.png" alt="">
@@ -242,6 +348,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                         <div class="single-team mb-30">
                             <div class="team-img">
@@ -265,7 +372,7 @@
                                 <p style="color: #f4e700;">October 6, 2020 by Steve</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -287,33 +394,49 @@
                 <div class="row align-items-center">
                     <div class="col-lg-11 col-md-11">
                         <div class="h1-testimonial-active">
-                            <!-- Single Testimonial -->
-                            <div class="single-testimonial text-center">
-                                <!-- Testimonial Content -->
-                                <div class="testimonial-caption ">
-                                    <div class="testimonial-top-cap">
-                                        <p>헤어질 결심 본 사람이 아무도 없었어요</p>
-                                    </div>
-                                    <!-- founder -->
-                                    <div class="testimonial-founder d-flex align-items-center justify-content-center mb-30">
-                                        <div class="founder-img">
-                                            <img src="../resources/mainResource/assets/img/testmonial/Homepage_testi.png" alt="">
-                                        </div>
-                                        <div class="founder-text">
-                                            <span>이준호</span>
-                                            <p>밥먹을 결심</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Single Testimonial -->
-                            <div class="single-testimonial text-center">
-                                <!-- Testimonial Content -->
+                            
+                           
+                          <c:forEach items="${grDto}" var="grDto" begin="0" end="4">
+	                            <div class="single-testimonial text-center">
+	                                <div class="testimonial-caption ">
+	                                    <div class="testimonial-top-cap">
+	                                        <p><a href="groupReviewDetail.do?groupReview_no=${grDto.groupReview_no}">${grDto.review_title}</a></p>
+	                                    </div>
+	                                    <div class="testimonial-founder d-flex align-items-center justify-content-center mb-30">
+	                                        <div class="founder-img">
+	                                        	<c:choose>
+	                                        		<c:when test="${grDto.photo_newFileName eq null}">
+	                                        			 <img src="../resources/etcResource/assets/img/default-avatar.png" alt="" style="weight:82px; height:82px; border-radius:50%;">
+	                                        		</c:when>
+	                                        		<c:otherwise>
+	                                        			<img src="/photo/${grDto.photo_newFileName}" alt="" style="weight:82px; height:82px; border-radius:50%;">
+	                                        		</c:otherwise>
+	                                        	</c:choose>                     
+	                                        </div>
+	                                        <div class="founder-text">
+	                                            <span>${grDto.member_name}</span>
+	                                            <c:choose>
+	                                            	<c:when test="${grDto.lightning_title eq null}">
+	                                            		<p>${grDto.dojang_title}</p>
+	                                            	</c:when>
+	                                            	<c:otherwise>
+	                                            		<p>${grDto.lightning_title}</p>
+	                                            	</c:otherwise>
+	                                            </c:choose>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+                            </c:forEach>
+                            
+
+                           <!--  <div class="single-testimonial text-center">
+
                                 <div class="testimonial-caption ">
                                     <div class="testimonial-top-cap">
                                         <p>채식인데도 맛있게 잘 먹었어요</p>
                                     </div>
-                                    <!-- founder -->
+ 
                                     <div class="testimonial-founder d-flex align-items-center justify-content-center mb-30">
                                         <div class="founder-img">
                                             <img src="../resources/mainResource/assets/img/testmonial/Homepage_testi.png" alt="">
@@ -325,6 +448,26 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div class="single-testimonial text-center">
+
+                                <div class="testimonial-caption ">
+                                    <div class="testimonial-top-cap">
+                                        <p>채식인데도 맛있게 잘 먹었어요</p>
+                                    </div>
+ 
+                                    <div class="testimonial-founder d-flex align-items-center justify-content-center mb-30">
+                                        <div class="founder-img">
+                                            <img src="../resources/mainResource/assets/img/testmonial/Homepage_testi.png" alt="">
+                                        </div>
+                                        <div class="founder-text">
+                                            <span>김준호</span>
+                                            <p>풀만 먹는 사람들</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            
                         </div>
                     </div>
                 </div>
@@ -345,7 +488,7 @@
                                 <div class="single-footer-caption mb-30">
                                     <!-- logo -->
                                     <div class="footer-logo">
-                                        <a href="jmtMain.html"><img src="../resources/mainResource/assets/img/logo/logo.png" width="100px" alt=""></a>
+                                        <a href="/"><img src="../resources/mainResource/assets/img/logo/logo.png" width="100px" alt=""></a>
                                     </div>
                                 </div>
                             </div>
@@ -355,11 +498,11 @@
                                 <div class="footer-tittle">
                                     <h4>Quick Link</h4>
                                     <ul>
-                                        <li><a href="jmtMain.html">Home</a></li>
-                                        <li><a href="lightningList.html">번개</a></li>
-                                        <li><a href="dojangList.html">도장깨기</a></li>
-                                        <li><a href="resList.html">맛집</a></li>
-                                        <li><a href="moimReviewList.html">후기</a></li>
+                                        <li><a href="/">Home</a></li>
+                                        <li><a href="lightList.go">번개</a></li>
+                                        <li><a href="dojang.go">도장깨기</a></li>
+                                        <li><a href="restaurant">맛집</a></li>
+                                        <li><a href="groupReviewList">후기</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -421,4 +564,11 @@
         <script src="../resources/mainResource/assets/js/main.js"></script>
         
     </body>
+    
+    <script>
+    	//var loginId = ${loginId};
+    	//console.log(loginId);
+    	
+    	console.log($('#loginId').val());
+    </script>
 </html>

@@ -90,6 +90,16 @@
 		AND a.member_id = #{member_id}
 	</update>
 	
+	<!-- 번개 가입 대기상태 변경 시 알림 -->
+	<insert id="JoinStatusChangeNoti" parameterType="hashmap">
+		INSERT INTO noti(class_no,noti_content,idx,info,member_id)
+		values(1
+				,CONCAT("모임 가입 ", #{status},"되었습니다.")
+				,#{lightning_no}
+				,(select lightning_title from lightninglist where lightning_no = #{lightning_no})
+				,#{member_id})
+	</insert>
+	
 	<!-- 도장깨기 가입 대기상태 수정 -->
 	<update id="dojangJoinWaitUp" parameterType="hashmap">
 		<!-- UPDATE apply a
@@ -103,6 +113,17 @@
 		WHERE a.class_no = 3 AND a.idx = #{dojang_no} 
 		AND a.member_id = #{member_id}
 	</update>
+	
+	<!-- 도장 가입 대기상태 변경 시 알림 -->
+	<insert id="JoinStatusChangeNotiD" parameterType="hashmap">
+		INSERT INTO noti(class_no,noti_content,idx,info,member_id)
+			values(3
+					,CONCAT("모임 가입 ", #{status},"되었습니다.")
+					,#{dojang_no}
+					,(select dojang_title from dojanglist where dojang_no = #{dojang_no})
+					,#{member_id})
+	</insert>
+	
 	
 	<!-- 번개모임 수정 -->
 	<update id="leaderLightEdit" parameterType="hashmap">

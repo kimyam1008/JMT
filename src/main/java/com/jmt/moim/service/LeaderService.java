@@ -58,6 +58,8 @@ public class LeaderService {
 		if(row>0) {
 			success=true;
 		}
+		
+		dao.JoinStatusChangeNoti(params);
 		return success;
 	}
 	
@@ -69,6 +71,8 @@ public class LeaderService {
 		if(row>0) {
 			success=true;
 		}
+		
+		dao.JoinStatusChangeNotiD(params);
 		return success;
 	}
 	
