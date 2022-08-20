@@ -2,6 +2,7 @@ package com.jmt.main.controller;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.condition.ParamsRequestCondition;
 
+import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
 import com.jmt.main.dto.MainDTO;
 import com.jmt.main.service.MainService;
 
@@ -29,6 +33,16 @@ public class MainController {
 	public String main(Model model,HttpSession session) {
 		String loginId = (String) session.getAttribute("loginId");
 	    model.addAttribute("loginId", loginId);
+	    
+	    if (loginId != null) {
+			//번개 모임 추천
+	    	ArrayList<MainDTO> lightReco = service.lightReco(loginId);
+		    model.addAttribute("lightReco", lightReco);
+		    
+		    //도장 모임 추천
+		    ArrayList<MainDTO> dojangReco = service.dojangReco(loginId);
+		    model.addAttribute("dojangReco", dojangReco);
+		}
 	    
 	    //번개 가져오기
 	    ArrayList<MainDTO> lightDto = service.lightDto();
@@ -54,20 +68,35 @@ public class MainController {
 	    
 		return "./Main/main";
 	}
-
-	//메인페이지에서 검색
-	@RequestMapping(value = "/goSearch")
-	public String goSearch(Model model, @RequestParam String keyword, @RequestParam String select) {
-		logger.info("검색창에서 넘어온 값 : "+select+"/"+keyword);
-		
-		if (select == "맛집") {
-			
-		} else if(select == "번개") {
-			
-		} else {
-			
-		}
-		
+	
+	//맛집 검색
+	@RequestMapping(value = "/searchRes.ajax")
+	@ResponseBody
+	public String searchRes(Model model,@RequestParam String keyword) throws InterruptedException {
+		logger.info("keyword : "+keyword);
+		String url = "http://localhost:8080/restaurant";
+		service.goRest(url,keyword);
 		return "./Main/main";
 	}
+	
+	//번개 검색
+	@RequestMapping(value = "/searchLight.ajax")
+	@ResponseBody
+	public String searchLight(Model model,@RequestParam String keyword) throws InterruptedException {
+		logger.info("keyword : "+keyword);
+		String url = "http://localhost:8080/lightList.go";
+		service.goLight(url,keyword);
+		return "./Main/main";
+	}
+	
+	//도장깨기 검색
+	@RequestMapping(value = "/searchDojang.ajax")
+	@ResponseBody
+	public String searchDojang(Model model,@RequestParam String keyword) throws InterruptedException {
+		logger.info("keyword : "+keyword);
+		String url = "http://localhost:8080/dojang.go";
+		service.goDojang(url,keyword);
+		return "./Main/main";
+	}
+
 }

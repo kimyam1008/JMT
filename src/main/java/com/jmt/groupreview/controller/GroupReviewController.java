@@ -127,7 +127,7 @@ public class GroupReviewController {
    public String grReviewReportPopup(Model model,@RequestParam String groupReview_no) {
       logger.info("번개 모임 신고 팝업 이동  : "+groupReview_no);
       model.addAttribute("lightning_no", groupReview_no);
-      return"./Lightning/lightReport";   
+      return"./GroupReview/grReviewReport";   
    }
    
    @RequestMapping("/grReviewReport.ajax")

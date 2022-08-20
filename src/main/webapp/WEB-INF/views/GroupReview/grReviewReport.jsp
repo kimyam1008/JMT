@@ -113,7 +113,7 @@
 	
 
 	function grReviewReportclose() {
-		opener.parent.location.reload();
+		//opener.parent.location.reload();
 		window.close();
 	}
 

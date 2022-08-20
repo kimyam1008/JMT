@@ -14,4 +14,8 @@ public interface MainDAO {
 
 	ArrayList<MainDTO> grDto();
 
+	ArrayList<MainDTO> lightReco(String loginId);
+
+	ArrayList<MainDTO> dojangReco(String loginId);
+
 }

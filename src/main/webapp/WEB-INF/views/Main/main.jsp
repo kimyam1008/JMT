@@ -106,7 +106,7 @@
                                 <h1>세상에서 가장 맛있는 만남, JMT</h1>
                             </div>
                             <!--Hero form -->
-                            <form action="goSearch" method="post" class="search-box">
+                            <form class="search-box">
                                 <div class="input-form">
                                     <input id="keyword" name="keyword" type="text" placeholder="검색어를 입력하세요" value=""/>
                                 </div>
@@ -120,7 +120,7 @@
                                     </div>
                                 </div>
                                 <div class="search-form">
-                                    <button id="main-search" type="button" onclick="goSearch()">Search</button>
+                                    <a onclick="goSearch()" id="main-search">Search</a>
                                 </div>	
                             </form>	
                         </div>
@@ -145,80 +145,159 @@
                 </div>
                 <div class="row">
                
-               <!-- 번개목록 -->
-              <c:forEach items="${lightDto}" var="lightDto" begin="0" end="2">
-                	<div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-location mb-30">
-                            <div class="location-img">
-                            	<c:choose>
-                            		<c:when test="${lightDto.food_no eq 1}">
-                            			 <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}"><img src="../resources/photo/food_no/1.jpg" alt=""></a>
-                            		</c:when>
-                            		<c:when test="${lightDto.food_no eq 2}">
-                            			 <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}"><img src="../resources/photo/food_no/2.jpg" alt=""></a>
-                            		</c:when>
-                            		<c:when test="${lightDto.food_no eq 3}">
-                            			 <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}"><img src="../resources/photo/food_no/3.jpg" alt=""></a>
-                            		</c:when>
-                            		<c:when test="${lightDto.food_no eq 4}">
-                            			 <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}"><img src="../resources/photo/food_no/4.jpg" alt=""></a>
-                            		</c:when>
-                            		<c:when test="${lightDto.food_no eq 5}">
-                            			 <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}"><img src="../resources/photo/food_no/5.jpg" alt=""></a>
-                            		</c:when>
-                            		<c:otherwise>
-                            			 <a href=""><img src="../resources/photo/food_no/6.jpg" alt=""></a>
-                            		</c:otherwise>
-                            	</c:choose>
-                               <!--  <img src="../resources/mainResource/assets/img/gallery/hamburger.jpg" alt=""> -->
-                            </div>
-                            <div class="location-details">
-                                <p><a href="lightDetail.go?lightning_no=${lightDto.lightning_no}" style="color:white">${lightDto.lightning_title}</a></p>
-                                <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}" class="location-btn"><i class="ti-bolt-alt"></i> 번개</a>
-                            </div>
-                        </div>
-                    </div>
-               </c:forEach>
-               <!-- 번개목록 끝 -->
-                
-                <!-- 도장깨기 목록 -->
-                <c:forEach items="${dojangDto}" var="dojangDto" begin="0" end="2">
-                	<div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-location mb-30">
-                            <div class="location-img">
-                            	<c:choose>
-                            		<c:when test="${dojangDto.food_no eq 1}">
-                            			 <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}"><img src="../resources/photo/food_no/1.jpg" alt=""></a>
-                            		</c:when>
-                            		<c:when test="${dojangDto.food_no eq 2}">
-                            			 <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}"><img src="../resources/photo/food_no/2.jpg" alt=""></a>
-                            		</c:when>
-                            		<c:when test="${dojangDto.food_no eq 3}">
-                            			 <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}"><img src="../resources/photo/food_no/3.jpg" alt=""></a>
-                            		</c:when>
-                            		<c:when test="${dojangDto.food_no eq 4}">
-                            			 <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}"><img src="../resources/photo/food_no/4.jpg" alt=""></a>
-                            		</c:when>
-                            		<c:when test="${dojangDto.food_no eq 5}">
-                            			 <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}"><img src="../resources/photo/food_no/5.jpg" alt=""></a>
-                            		</c:when>
-                            		<c:otherwise>
-                            			 <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}"><img src="../resources/photo/food_no/6.jpg" alt=""></a>
-                            		</c:otherwise>
-                            	</c:choose>
-                               <!--  <img src="../resources/mainResource/assets/img/gallery/hamburger.jpg" alt=""> -->
-                            </div>
-                            <div class="location-details">
-                                <p><a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}" style="color:white">${dojangDto.dojang_title}</a></p>
-                                <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}" class="location-btn"><i class="ti-hummer"></i> 도장깨기</a>
-                            </div>
-                        </div>
-                    </div>
-               </c:forEach>
-               <!-- 도장깨기 목록 끝 -->
-                </div>
-                <!-- More Btn -->
-                <!--더보기 버튼-->
+               
+               <c:choose>
+               		<c:when test="${loginId != null and lightReco.size() !=0 and dojangReco.size() !=0}">
+           			 <!-- 로그인 했을 때 모임 추천 -->
+               			<!-- 번개 추천목록 -->
+			              <c:forEach items="${lightReco}" var="lightReco" begin="0" end="2">
+			                	<div class="col-lg-4 col-md-6 col-sm-6">
+			                        <div class="single-location mb-30">
+			                            <div class="location-img">
+			                            	<%-- <c:choose> --%>
+			                            		<c:if test="${lightReco.food_no eq 1}">
+			                            			 <a href="lightDetail.go?lightning_no=${lightReco.lightning_no}"><img src="../resources/photo/food_no/1.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${lightReco.food_no eq 2}">
+			                            			 <a href="lightDetail.go?lightning_no=${lightReco.lightning_no}"><img src="../resources/photo/food_no/2.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${lightReco.food_no eq 3}">
+			                            			 <a href="lightDetail.go?lightning_no=${lightReco.lightning_no}"><img src="../resources/photo/food_no/3.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${lightReco.food_no eq 4}">
+			                            			 <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}"><img src="../resources/photo/food_no/4.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${lightReco.food_no eq 5}">
+			                            			 <a href="lightDetail.go?lightning_no=${lightReco.lightning_no}"><img src="../resources/photo/food_no/5.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${lightReco.food_no eq 6}">
+			                            			 <a href="lightDetail.go?lightning_no=${lightReco.lightning_no}"><img src="../resources/photo/food_no/6.jpg" alt=""></a>
+			                            		</c:if>
+			                            	<%-- </c:choose> --%>
+			                            </div>
+			                            <div class="location-details">
+			                                <p><a href="lightDetail.go?lightning_no=${lightReco.lightning_no}" style="color:white">${lightReco.lightning_title}</a></p>
+			                                <a href="lightDetail.go?lightning_no=${lightReco.lightning_no}" class="location-btn"><i class="ti-bolt-alt"></i> 번개</a>
+			                            </div>
+			                        </div>
+			                    </div>
+			               </c:forEach>
+			               <!-- 번개 추천목록 끝 -->
+			                
+			                <!-- 도장깨기 추천목록 -->
+			                <c:forEach items="${dojangReco}" var="dojangReco" begin="0" end="2">
+			                	<div class="col-lg-4 col-md-6 col-sm-6">
+			                        <div class="single-location mb-30">
+			                            <div class="location-img">
+			                            	<%-- <c:choose> --%>
+			                            		<c:if test="${dojangReco.food_no eq 1}">
+			                            			 <a href="dojangDetail.do?dojang_no=${dojangReco.dojang_no}"><img src="../resources/photo/food_no/1.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${dojangReco.food_no eq 2}">
+			                            			 <a href="dojangDetail.do?dojang_no=${dojangReco.dojang_no}"><img src="../resources/photo/food_no/2.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${dojangReco.food_no eq 3}">
+			                            			 <a href="dojangDetail.do?dojang_no=${dojangReco.dojang_no}"><img src="../resources/photo/food_no/3.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${dojangReco.food_no eq 4}">
+			                            			 <a href="dojangDetail.do?dojang_no=${dojangReco.dojang_no}"><img src="../resources/photo/food_no/4.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${dojangReco.food_no eq 5}">
+			                            			 <a href="dojangDetail.do?dojang_no=${dojangReco.dojang_no}"><img src="../resources/photo/food_no/5.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${dojangReco.food_no eq 6}">
+			                            			 <a href="dojangDetail.do?dojang_no=${dojangReco.dojang_no}"><img src="../resources/photo/food_no/6.jpg" alt=""></a>
+			                            		</c:if>
+			                            	<%-- </c:choose> --%>
+			                            </div>
+			                            <div class="location-details">
+			                                <p><a href="dojangDetail.do?dojang_no=${dojangReco.dojang_no}" style="color:white">${dojangReco.dojang_title}</a></p>
+			                                <a href="dojangDetail.do?dojang_no=${dojangReco.dojang_no}" class="location-btn"><i class="ti-hummer"></i> 도장깨기</a>
+			                            </div>
+			                        </div>
+			                    </div>
+			               </c:forEach>
+			               <!-- 도장깨기 목록 끝 -->
+               		</c:when>
+               		
+               		<c:otherwise>
+               		<!-- 로그인 안하거나 추천목록이 없을 때 -->
+               			 <!-- 번개목록 -->
+			              <c:forEach items="${lightDto}" var="lightDto" begin="0" end="2">
+			                	<div class="col-lg-4 col-md-6 col-sm-6">
+			                        <div class="single-location mb-30">
+			                            <div class="location-img">
+			                            	<%-- <c:choose> --%>
+			                            		<c:if test="${lightDto.food_no eq 1}">
+			                            			 <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}"><img src="../resources/photo/food_no/1.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${lightDto.food_no eq 2}">
+			                            			 <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}"><img src="../resources/photo/food_no/2.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${lightDto.food_no eq 3}">
+			                            			 <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}"><img src="../resources/photo/food_no/3.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${lightDto.food_no eq 4}">
+			                            			 <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}"><img src="../resources/photo/food_no/4.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${lightDto.food_no eq 5}">
+			                            			 <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}"><img src="../resources/photo/food_no/5.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${lightDto.food_no eq 6}">
+			                            			 <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}"><img src="../resources/photo/food_no/6.jpg" alt=""></a>
+			                            		</c:if>
+			                            	<%-- </c:choose> --%>
+			                            </div>
+			                            <div class="location-details">
+			                                <p><a href="lightDetail.go?lightning_no=${lightDto.lightning_no}" style="color:white">${lightDto.lightning_title}</a></p>
+			                                <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}" class="location-btn"><i class="ti-bolt-alt"></i> 번개</a>
+			                            </div>
+			                        </div>
+			                    </div>
+			               </c:forEach>
+			               <!-- 번개목록 끝 -->
+			                
+			                <!-- 도장깨기 목록 -->
+			                <c:forEach items="${dojangDto}" var="dojangDto" begin="0" end="2">
+			                	<div class="col-lg-4 col-md-6 col-sm-6">
+			                        <div class="single-location mb-30">
+			                            <div class="location-img">
+			                            	<%-- <c:choose> --%>
+			                            		<c:if test="${dojangDto.food_no eq 1}">
+			                            			 <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}"><img src="../resources/photo/food_no/1.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${dojangDto.food_no eq 2}">
+			                            			 <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}"><img src="../resources/photo/food_no/2.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${dojangDto.food_no eq 3}">
+			                            			 <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}"><img src="../resources/photo/food_no/3.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${dojangDto.food_no eq 4}">
+			                            			 <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}"><img src="../resources/photo/food_no/4.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${dojangDto.food_no eq 5}">
+			                            			 <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}"><img src="../resources/photo/food_no/5.jpg" alt=""></a>
+			                            		</c:if>
+			                            		<c:if test="${dojangDto.food_no eq 6}">
+			                            			 <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}"><img src="../resources/photo/food_no/6.jpg" alt=""></a>
+			                            		</c:if>
+			                            	<%-- </c:choose> --%>
+			                            </div>
+			                            <div class="location-details">
+			                                <p><a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}" style="color:white">${dojangDto.dojang_title}</a></p>
+			                                <a href="dojangDetail.do?dojang_no=${dojangDto.dojang_no}" class="location-btn"><i class="ti-hummer"></i> 도장깨기</a>
+			                            </div>
+			                        </div>
+			                    </div>
+			               <!-- 도장깨기 목록 끝 -->
+			               </c:forEach>
+               		</c:otherwise>
+               </c:choose>
+               
+               
+             </div>
+             <!-- More Btn -->
+             <!--더보기 버튼-->
                 <div class="row justify-content-center">
                     <div class="room-btn pt-20">
                         <a href="lightList.go" class="btn view-btn1">더 많은 모임 찾기</a>
@@ -422,6 +501,8 @@
     	
     	console.log($('#loginId').val());
     	
+    	
+    	//크롤링
     	function goSearch(){
  			var keyword = $('#keyword').val();
     		
@@ -430,14 +511,53 @@
 				console.log($('#select1 option:selected').val());
     			
    				if($('#select1 option:selected').val() == '맛집'){
-   					$('form').submit();
-    				//location.href="/searchRes";
+
+   					$.ajax({
+   						type:'get',
+   						url:'searchRes.ajax',
+   						data:{keyword:keyword},
+   						dataType:'JSON',
+   						success:function(data){
+   							console.log(data);
+   						},
+   						error:function(e){
+   							console.log(e);
+   						}
+   						
+   					});
+   					
     			} else if($('#select1 option:selected').val() == '번개') {
-   					$('form').submit();
-    				//location.href="/searchLight";
+    				
+    				$.ajax({
+   						type:'get',
+   						url:'searchLight.ajax',
+   						data:{keyword:keyword},
+   						dataType:'JSON',
+   						success:function(data){
+   							console.log(data);
+   						},
+   						error:function(e){
+   							console.log(e);
+   						}
+   						
+   					});
+    				
     			} else {
-   					$('form').submit();
-    				//location.href="/searchDojang";
+    				
+    				$.ajax({
+   						type:'get',
+   						url:'searchDojang.ajax',
+   						data:{keyword:keyword},
+   						dataType:'JSON',
+   						success:function(data){
+   							console.log(data);
+   						},
+   						error:function(e){
+   							console.log(e);
+   						}
+   						
+   					});
+    				
     			}
    				
     			
