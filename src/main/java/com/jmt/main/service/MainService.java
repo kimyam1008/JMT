@@ -16,6 +16,10 @@ public class MainService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired MainDAO dao;
+	
+	//크롤링
+	String driver_id = "webdriver.chrome.driver";
+	String driver_path = "C:/STUDY/SPRING_Advanced/JMT4/src/main/webapp/resources/photo/food_no/chromedriver.exe";
 
 	public ArrayList<MainDTO> lightDto() {
 		logger.info("메인페이지 번개리스트 요청");
@@ -35,6 +39,11 @@ public class MainService {
 	public ArrayList<MainDTO> grDto() {
 		logger.info("메인페이지 모임후기 리스트 요청");
 		return dao.grDto();
+	}
+	
+	public MainService() {
+		//시스템 속성에 사용할 드라이버 등록
+		System.setProperty(driver_id, driver_path);
 	}
 
 }

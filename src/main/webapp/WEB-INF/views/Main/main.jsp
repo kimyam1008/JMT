@@ -106,21 +106,21 @@
                                 <h1>세상에서 가장 맛있는 만남, JMT</h1>
                             </div>
                             <!--Hero form -->
-                            <form action="#" class="search-box">
+                            <form action="goSearch" method="post" class="search-box">
                                 <div class="input-form">
-                                    <input type="text" placeholder="검색어를 입력하세요">
+                                    <input id="keyword" name="keyword" type="text" placeholder="검색어를 입력하세요" value=""/>
                                 </div>
                                 <div class="select-form">
                                     <div class="select-itms">
                                         <select name="select" id="select1">
-                                            <option value="">맛집</option>
-                                            <option value="">번개</option>
-                                            <option value="">도장깨기</option>
+                                            <option value="맛집">맛집</option>
+                                            <option value="번개">번개</option>
+                                            <option value="도장깨기">도장깨기</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="search-form">
-                                    <a href="#">Search</a>
+                                    <button id="main-search" type="button" onclick="goSearch()">Search</button>
                                 </div>	
                             </form>	
                         </div>
@@ -216,78 +216,6 @@
                     </div>
                </c:forEach>
                <!-- 도장깨기 목록 끝 -->
-                
-                    <!-- <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-location mb-30">
-                            <div class="location-img">
-                                <img src="../resources/mainResource/assets/img/gallery/hamburger.jpg" alt="">
-                            </div>
-                            <div class="location-details">
-                                <p>햄버거 먹을 사람 급구</p>
-                                <a href="#" class="location-btn"><i class="ti-bolt-alt"></i> 번개</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-location mb-30">
-                            <div class="location-img">
-                                <img src="../resources/mainResource/assets/img/gallery/brunch.jpg" alt="">
-                            </div>
-                            <div class="location-details">
-                                <p>브런치먹자</p>
-                                <a href="#" class="location-btn"><i class="ti-bolt-alt"></i> 번개</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-location mb-30">
-                            <div class="location-img">
-                                <img src="../resources/mainResource/assets/img/gallery/salad.jpg" alt="">
-                            </div>
-                            <div class="location-details">
-                                <p>풀만 먹는 사람들</p>
-                                <a href="#" class="location-btn"><i class="ti-hummer"></i> 도장깨기</a>
-                            </div>
-                        </div>
-                    </div> -->
-                    
-                    <!-- <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-location mb-30">
-                            <div class="location-img">
-                                <img src="../resources/mainResource/assets/img/gallery/pizza.jpg" alt="">
-                            </div>
-                            <div class="location-details">
-                                <p>파파존스 먹을래?</p>
-                                <a href="#" class="location-btn"><i class="ti-bolt-alt"></i> 번개</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-location mb-30">
-                            <div class="location-img">
-                                <img src="../resources/mainResource/assets/img/gallery/bread.jpg" alt="">
-                            </div>
-                            <div class="location-details">
-                                <p>따따베 좋아하는 사람 다 모여!!</p>
-                                <a href="#" class="location-btn"><i class="ti-hummer"></i> 도장깨기</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-location mb-30">
-                            <div class="location-img">
-                                <img src="../resources/mainResource/assets/img/gallery/toast.jpg" alt="">
-                            </div>
-                            <div class="location-details">
-                                <p>토스트 한달먹기</p>
-                                <a href="#" class="location-btn"><i class="ti-hummer"></i> 도장깨기</a>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
                 <!-- More Btn -->
                 <!--더보기 버튼-->
@@ -335,44 +263,6 @@
                         </div>
                     </div>
                 </c:forEach>
-                
-                    <!-- <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-team mb-30">
-                            <div class="team-img">
-                                <img src="../resources/mainResource/assets/img/gallery/home_blog1.png" alt="">
-                            </div>
-                            <div class="team-caption">
-                                <span>금천구</span>
-                                <h3><a href="blog.html" style="color: #fff;">윤셰프</a></h3>
-                                <p style="color: #f4e700;">October 6, 2020 by Steve</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-team mb-30">
-                            <div class="team-img">
-                                <img src="../resources/mainResource/assets/img/gallery/home_blog2.png" alt="">
-                            </div>
-                            <div class="team-caption">
-                                <span>금천구</span>
-                                <h3><a href="blog.html" style="color: #fff;">김가네</a></h3>
-                                <p style="color: #f4e700;">October 6, 2020by Steve</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-team mb-30">
-                            <div class="team-img">
-                                <img src="../resources/mainResource/assets/img/gallery/home_blog3.png" alt="">
-                            </div>
-                            <div class="team-caption">
-                                <span>금천구</span>
-                                <h3><a href="blog.html" style="color: #fff;">국수나무</a></h3>
-                                <p style="color: #f4e700;">October 6, 2020 by Steve</p>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -428,45 +318,6 @@
 	                                </div>
 	                            </div>
                             </c:forEach>
-                            
-
-                           <!--  <div class="single-testimonial text-center">
-
-                                <div class="testimonial-caption ">
-                                    <div class="testimonial-top-cap">
-                                        <p>채식인데도 맛있게 잘 먹었어요</p>
-                                    </div>
- 
-                                    <div class="testimonial-founder d-flex align-items-center justify-content-center mb-30">
-                                        <div class="founder-img">
-                                            <img src="../resources/mainResource/assets/img/testmonial/Homepage_testi.png" alt="">
-                                        </div>
-                                        <div class="founder-text">
-                                            <span>김준호</span>
-                                            <p>풀만 먹는 사람들</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="single-testimonial text-center">
-
-                                <div class="testimonial-caption ">
-                                    <div class="testimonial-top-cap">
-                                        <p>채식인데도 맛있게 잘 먹었어요</p>
-                                    </div>
- 
-                                    <div class="testimonial-founder d-flex align-items-center justify-content-center mb-30">
-                                        <div class="founder-img">
-                                            <img src="../resources/mainResource/assets/img/testmonial/Homepage_testi.png" alt="">
-                                        </div>
-                                        <div class="founder-text">
-                                            <span>김준호</span>
-                                            <p>풀만 먹는 사람들</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
                             
                         </div>
                     </div>
@@ -570,5 +421,30 @@
     	//console.log(loginId);
     	
     	console.log($('#loginId').val());
+    	
+    	function goSearch(){
+ 			var keyword = $('#keyword').val();
+    		
+    		if(keyword != ''){
+				console.log(keyword);
+				console.log($('#select1 option:selected').val());
+    			
+   				if($('#select1 option:selected').val() == '맛집'){
+   					$('form').submit();
+    				//location.href="/searchRes";
+    			} else if($('#select1 option:selected').val() == '번개') {
+   					$('form').submit();
+    				//location.href="/searchLight";
+    			} else {
+   					$('form').submit();
+    				//location.href="/searchDojang";
+    			}
+   				
+    			
+    		} else {
+    			alert("검색어를 입력해주세요.");
+    			//lacation.reload();
+    		}
+    	}
     </script>
 </html>
