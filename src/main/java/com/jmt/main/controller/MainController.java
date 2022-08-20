@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jmt.main.dto.MainDTO;
 import com.jmt.main.service.MainService;
@@ -53,5 +54,20 @@ public class MainController {
 	    
 		return "./Main/main";
 	}
-	
+
+	//메인페이지에서 검색
+	@RequestMapping(value = "/goSearch")
+	public String goSearch(Model model, @RequestParam String keyword, @RequestParam String select) {
+		logger.info("검색창에서 넘어온 값 : "+select+"/"+keyword);
+		
+		if (select == "맛집") {
+			
+		} else if(select == "번개") {
+			
+		} else {
+			
+		}
+		
+		return "./Main/main";
+	}
 }

@@ -46,6 +46,19 @@
 		  vertical-align: top;
 		  border-bottom: 1px solid #ccc;
 		}
+		
+		input[type='button']{
+			color:#fff;
+			background:orange;
+			border:none;
+		}
+		input[type='button']:focus{
+			outline:0;
+		}
+		input[type='button']:hover{
+			background:#ff3d1c;
+			cursor:pointer;
+		}
        /*댓글 작성 폼 */
        .comment-form {
        display: flex;
@@ -245,7 +258,15 @@
                                             </li>
                                             <li><a href="restaurant">맛집</a></li>
                                             <li><a href="groupReviewList">후기</a></li>
-                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
+                                            <c:choose>
+                                            	<c:when test="${loginId != null}">
+	                                            	<li id="logoutDo"><a href="logout.do">로그아웃</a></li>
+	                                            	<li class="add-list"><a href="./mypage.go"><i class="ti-user"></i>마이페이지</a></li>
+                                            	</c:when>
+                                            	<c:otherwise>
+		                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
+                                            	</c:otherwise>
+                                            </c:choose>
                                         </ul>
                                     </nav>
                                 </div>
@@ -336,14 +357,18 @@
                             <tr>
                                 <td colspan="4">
                                     ${dto.review_content}
-                                        <button onclick="groupReviewDel()">삭제</button>
-                                        <button onclick="grReviewReport_pop()">신고하기</button>
+                                        <button onclick="groupReviewDel()" style="float:right; border:none;">삭제</button>
+                                        <button onclick="grReviewReport_pop()" style="float:right; margin-right:5px; border:none;">신고하기</button>
                                 </td>
                             </tr>
                             <tr>
                                 <th colspan="4">
-                                    <input type="button" value="수정" onclick="groupReviewUpdateForm()"/>
-                                    <input type="button" value="목록" onclick="location.href='groupReviewList.go'"/>
+                                	<div style="display:block;">
+                                	<span style="text-align:center; display:block; margin: 0 auto;">
+                                    	<input type="button" value="수정" onclick="groupReviewUpdateForm()"/>
+                                    	<input type="button" value="목록" onclick="location.href='groupReviewList.go'"/>
+                                	</span>
+                                	</div>
                                 </th>
                             </tr>
                         </table>

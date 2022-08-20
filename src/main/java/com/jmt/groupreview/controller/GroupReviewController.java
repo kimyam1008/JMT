@@ -28,7 +28,9 @@ public class GroupReviewController {
    
    //리스트 호출
    @RequestMapping(value = "/groupReviewList")
-   public String groupReviewMain(){
+   public String groupReviewMain(HttpSession session,Model model){
+	  String loginId = (String) session.getAttribute("loginId");
+	  model.addAttribute("loginId", loginId);
       String page ="./GroupReview/groupReviewList";
       return page;
    }
@@ -90,8 +92,9 @@ public class GroupReviewController {
    
    //모임 후기글 작성(저장)
    @RequestMapping(value = "/groupReviewRegister")
-   public ModelAndView groupReviewRegister(@RequestParam HashMap<String, String> params, HttpSession session) {
+   public ModelAndView groupReviewRegister(@RequestParam HashMap<String, String> params, HttpSession session,Model model) {
       String loginId = (String) session.getAttribute("loginId");
+	  model.addAttribute("loginId", loginId);
       logger.info("글쓰기 요청"+params,loginId);
       return service.groupReviewRegister(params,session,loginId);
    }
