@@ -7,7 +7,7 @@
 		<meta charset="UTF-8">
 		<title>JMT 도장 깨기 리스트 페이지</title>
 		
-		  <title>JMT 번개 모임 리스트 페이지</title>
+
   		 <meta http-equiv="x-ua-compatible" content="ie=edge">
          <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" type="image/x-icon" href="../resources/mainResource/assets/img/pizza-slice.png">
@@ -163,9 +163,7 @@
 	                        <div class="row">
 	                            <div class="col-12">
 	                                    <div class="small-section-tittle2 mb-45">
-	                                    <div  style="width:80px;">
-										<input type="button" value="도장깨기 생성" onclick="location.href='dojangReg.go'"/>
-										</div >
+										<input type="button" value="도장깨기 생성" class="btn list-btn mt-20" onclick="location.href='dojangReg.go'"/>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -175,13 +173,17 @@
 		                            <div class="single-listing">
 		                                <!-- input -->
 		                                <div class="input-form">
-		                                    <input type="text" id="lightning_title"  name="lightning_title" placeholder="모임 이름을 입력해주세요"
+		                                    <input type="text" id="search" placeholder="모임 이름을 입력해주세요"
 				                                onKeypress="javascript:if(event.keyCode==13) {enterkey()}"/>
 		                                </div>
 							<!-- Select job items start -->
                              <div class="select-job-items1">
-                                 <select id="food_name" name="food_no">
-                                 </select>
+                                 <select id="food_no" name="food_no">
+                                        <option value="">음식카테고리</option>
+                                            <c:forEach items="${foodList}" var="foodList">
+                                                <option value="${foodList.food_no}">${foodList.food_name}</option>
+                                            </c:forEach>
+                                    </select>
                              </div>
                             <!--  Select job items End-->
                              <!-- Select job items start -->
@@ -219,7 +221,7 @@
                             </div>
 
                             <div class="single-listing">
-                                 <button id="search" class="btn list-btn mt-20">검색</button>
+                                 <button id="moimSearch" class="btn list-btn mt-20">검색</button>
                             </div>
                         </div>
                         <!-- Job Category Listing End -->
@@ -389,7 +391,7 @@
 
 <br/>
 		<input type="text" id="search" placeholder="모임이름을 검색해주세요">
-		<button id="moimSearch">검색</button>
+
 
 
 <script>
@@ -404,7 +406,7 @@ function listCall(page){
 	var pagePerNum = 10;
 	
 	var search = $("#search").val();
-	var foodname = $("#food_name option:selected").val();
+	var foodname = $("#food_no option:selected").val();
 	var eat_speed = $("#eat_speed option:selected").val();
 	var job = $("#job option:selected").val();
 	var gender = $("input:radio[name='gender']:checked").val();
@@ -447,10 +449,12 @@ function listCall(page){
 	});	
 }
 
+//moimSearch == search
+//search == lightning_title
 
 $('#moimSearch').on('click',function(){
 	if($("#search").val() != ""){
-		$("#food_name").val("");
+		$("#food_no").val("");
 		$("#eat_speed").val("");
 		$("#job").val("");
 		$("input:radio[name='gender']:checked").prop("checked",false);
@@ -566,21 +570,20 @@ function drawList(list){
 
 
 
-function darwName(food_name) {
+function darwName(food_no) {
 	var content = '';
 		content += '<option value="">음식 카테고리</option>';
-		food_name.forEach(function(item){
+		food_no.forEach(function(item){
 		content += '<option value="'+item.food_no+'">'+item.food_name+'</option>';
 	});
-	$('#food_name').empty();
-	$('#food_name').append(content);
+	$('#food_no').empty();
+	$('#food_no').append(content);
 	
 }
 
 
-food_nameCall();
 
-function food_nameCall() {
+function food_noCall() {
 	
 	$.ajax({
 		type:'get',
