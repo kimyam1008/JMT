@@ -19,6 +19,7 @@
 				<mvc:exclude-mapping path="/logout.do"/>
 				<mvc:exclude-mapping path="/*.ajax"/>
 				<mvc:exclude-mapping path="/report*"/>
+				<mvc:exclude-mapping path="/grade.go"/>
 				<bean class="com.jmt.main.controller.NotiController"/>
 			</mvc:interceptor>
 		</mvc:interceptors>
