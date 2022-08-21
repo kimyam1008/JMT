@@ -63,6 +63,10 @@
 		cursor : pointer;
 		color : red;
 	}
+	
+	.fa,.fab,.fad,.fal,.far,.fas{
+	font-weight: 900 !important;
+	}
     </style>
    <body>
     <!--알림 헤더
@@ -161,6 +165,7 @@
                             <div class="col-12">
                                     <div class="small-section-tittle2 mb-45">
                                     <h4 class="searchName">번개를 찾아보세요</h4>
+                                    <button onclick="location.href='/lightCreate.go'"><i class="fa fa-solid fa-bolt"></i>번개 생성하기</button>
                                 </div>
                             </div>
                         </div>
