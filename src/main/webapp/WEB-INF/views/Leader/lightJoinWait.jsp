@@ -8,7 +8,7 @@
 <title>번개 모임 가입 대기 회원 목록</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-	body {
+	body,select {
 		font-family: 'GmarketSansMedium';
 	}
 	table {
@@ -67,6 +67,9 @@
 				</tr>
 			</thead>
 			<tbody>
+				<c:if test = "${lightJoinWait.size() == 0}">
+                    <th colspan="3" style="text-align:center;">가입 신청한 회원이 없습니다.</th>
+                </c:if>
 				<c:forEach items="${lightJoinWait}" var="lightJoinWait">
 					<tr>
 						<td>

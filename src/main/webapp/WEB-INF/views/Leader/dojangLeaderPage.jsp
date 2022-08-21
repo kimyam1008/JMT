@@ -242,9 +242,9 @@
                               <a style="text-decoration:none; float:right; font-size:16px;" onclick="joinWait()">회원보기</a><br/>
                               <!-- <input type="button" value="회원보기" onclick="joinWait()"/> -->
                               <ul>
-                              	<c:if test = "${dojangJoinWait.size() == 0}">
+                              	  <c:if test = "${dojangJoinWait.size() == 0}">
 	                                     <p style="text-align:center;">가입 신청한 회원이 없습니다.</p>
-	                                </c:if>
+                                  </c:if>
                                   <c:forEach items="${dojangJoinWait}" var="dojangJoinWait">
                                       <li style="text-align:left; font-size:17px;">${dojangJoinWait.member_id}</li>
                                   </c:forEach>

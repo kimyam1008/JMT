@@ -8,7 +8,7 @@
 <title>회원 추방</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-	body {
+	body,textarea {
 		font-family: 'GmarketSansMedium';
 	}
 	table {
@@ -39,6 +39,10 @@
 		font-weight: normal;
 		font-style: normal;
 	}
+	input[type='text']{
+		font-family: 'GmarketSansMedium';
+		border:none;
+	}
 	input[type='button']{
 		font-family: 'GmarketSansMedium';
 		color:#fff;
@@ -67,10 +71,17 @@
 		</tr>
 		<tr>
 			<th>사유</th>
-			<td><textarea name="reason" id="reason"></textarea></td>
+			<td><textarea name="reason" id="reason" style="width:90%"></textarea></td>
 		</tr>
 		<tr>
-			<th colspan="2"><input type="button" value="추방" onclick="getOutSave()"/></th>
+			<th colspan="2">
+				<div style="display:block;">
+	            <span style="text-align:center; display:block; margin: 0 auto;">
+					<input type="button" value="추방" onclick="getOutSave()"/>
+					<input type="button" value="취소" onclick="Close()"/>
+				</span>
+				</div>
+			</th>
 		</tr>
 	</table>
 </body>
@@ -135,6 +146,11 @@ function getOutSave(){
 	}
 	
 
+}
+
+//취소
+function Close(){
+	window.close();
 }
 </script>
 </html>

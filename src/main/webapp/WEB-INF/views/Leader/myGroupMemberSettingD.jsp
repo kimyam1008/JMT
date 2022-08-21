@@ -191,7 +191,7 @@
                     <!--표 시작-->
                     <div class="col-md-12">
                         <div class="card">
-                        	<input type="button" value="추방하기" style="float:left; margin:15px 15px; border:none;" onclick="getOut()"/>
+                        	<input id="getoutBtn" type="button" value="추방하기" style="float:left; margin:15px 15px; border:none;" onclick="getOut()"/>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
@@ -202,6 +202,9 @@
                                         </tr>
                                     </thead>
                                     <tbody id="list">
+                                    	<c:if test = "${dojangMember.size() == 0}">
+						                    <th colspan="3" style="text-align:center;">모임에 가입한 회원이 없습니다.</th>
+						                </c:if>
                                         <c:forEach items="${dojangMember}" var="dojangMember">
                                         <tr>			
                                             <td><input type="radio" name="member_id" id="member_id" value="${dojangMember.member_id}"/></td>
@@ -248,7 +251,7 @@ function getOut(){
 	if($('input[type="radio"]:checked').is(":checked") == false){
 		alert("추방할 회원을 선택해 주세요.");
 	} else {
-		window.open("/memberGetOutD.go?member_id="+member_id,"new","width=500, height=500, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+		window.open("/memberGetOutD.go?member_id="+member_id,"new","width=500, height=250, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 		//openWin.document.getElementById("member_id").value = document.getElementById("member_id").value;
 	}
 }
