@@ -103,6 +103,8 @@ public interface MypageDAO {
 
 	ArrayList<MypageDTO> myMoimArry(String loginId);
 
+	String proCon(String loginId);
+
 
 
 	

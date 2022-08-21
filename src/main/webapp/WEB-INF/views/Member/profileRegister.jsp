@@ -64,6 +64,11 @@
 		alert("프로필을 등록하지 않으면 이용에 제한 될 수 있습니다.")
 		location.href='./';
 	}
+	
+	var msg = "${msg}";
+	if (msg != "") {
+		alert(msg);
+	}
 
 </script>
 </html>

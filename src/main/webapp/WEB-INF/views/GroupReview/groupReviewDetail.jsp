@@ -109,6 +109,7 @@
        .top .member_id {
        font-weight: bold;
        font-size : 13px;
+       padding-left : 5px;
        }
        
        .top .grade_name{
