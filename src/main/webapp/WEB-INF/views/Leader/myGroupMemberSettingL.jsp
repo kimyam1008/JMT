@@ -33,8 +33,17 @@
     <link href="../resources/etcResource/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 
     <style>
-        caption,th {
+    caption,th {
 		text-align:center;
+	}
+	
+	/* #getoutBtn:focus{
+		outline:0;
+	} */
+	
+	#getoutBtn:hover{
+		background:yellowgreen;
+		cursor:pointer;
 	}
     </style>
 </head>
@@ -184,7 +193,7 @@
                     <!--표 시작-->
                     <div class="col-md-12">
                         <div class="card">
-                            <input type="button" value="추방하기" onclick="getOut()"/>
+                            <input id="getoutBtn" type="button" value="추방하기" style="float:left; margin:15px 15px; border:none;" onclick="getOut()"/>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
