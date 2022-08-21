@@ -8,7 +8,7 @@
 <title>도장깨기 가입 대기 회원 목록</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-	body {
+	body,select {
 		font-family: 'GmarketSansMedium';
 	}
 	table {
@@ -56,7 +56,7 @@
 </style>
 </head>
 <body>
-	<h3>도장깨기 가입 대기 회원</h3>
+	<h3 style="text-align:center;">도장깨기 가입 대기 회원</h3>
 		<input type="hidden" id="dojang_no" value="${sessionScope.dojang_no}"/>
 		<table>
 			<thead>
@@ -67,6 +67,9 @@
 				</tr>
 			</thead>
 			<tbody>
+				<c:if test = "${dojangJoinWait.size() == 0}">
+                    <th colspan="3" style="text-align:center;">가입 신청한 회원이 없습니다.</th>
+                </c:if>
 				<c:forEach items="${dojangJoinWait}" var="dojangJoinWait">
 					<tr>
 						<td>

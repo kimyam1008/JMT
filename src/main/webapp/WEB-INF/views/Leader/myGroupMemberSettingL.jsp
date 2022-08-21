@@ -208,6 +208,9 @@
                                         </tr>
                                     </thead>
                                     <tbody id="list">
+                                    	<c:if test = "${lightMember.size() == 0}">
+						                    <th colspan="3" style="text-align:center;">모임에 가입한 회원이 없습니다.</th>
+						                </c:if>
                                         <c:forEach items="${lightMember}" var="lightMember">
                                         <tr>			
                                             <td><input type="radio" name="member_id" id="member_id" value="${lightMember.member_id}"/></td>
@@ -256,7 +259,7 @@ function getOut(){
 	if($('input[type="radio"]:checked').is(":checked") == false){
 		alert("추방할 회원을 선택해 주세요.");
 	} else {
-		window.open("/memberGetOutL.go?member_id="+member_id,"new","width=500, height=500, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+		window.open("/memberGetOutL.go?member_id="+member_id,"new","width=500, height=250, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 		//openWin.document.getElementById("member_id").value = document.getElementById("member_id").value;
 	}
 }

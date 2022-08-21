@@ -25,6 +25,7 @@
 		font-weight: bold;
 		vertical-align: top;
 		border-bottom: 1px solid #ccc;
+		text-align:center;
 	}
 	table td {
 		width: 350px;
@@ -56,52 +57,57 @@
 	select,option,textarea {
 		font-family: 'GmarketSansMedium';
 	}
+	textarea {
+	    width: 100%;
+	    height: 6.25em;
+	    border: none;
+	    resize: none;
+	}
 </style>
 </head>
 <body>
 	<h3 style="text-align:center;">도장깨기 수정</h3>
-	<!-- <form action="leaderDojangEdit" method="post"> -->
-		<input type="hidden" id="class_no" value="${dojangDto.class_no}"/>
-		<input type="hidden" id="dojang_no" value="${dojangDto.dojang_no}"/>
-		<table>
-			<tr>
-				<th>이름</th>
-				<td>${dojangDto.dojang_title}</td>
-			</tr>
-			<tr>
-				<th>정원</th>
-				<td>
-					<input name="people_num" type="range" id="people_num" min="0" max="30" step="1" value="${dojangDto.people_num}" oninput="document.getElementById('people_num').innerHTML=this.value;"/>
-					<div id="ex-out"></div>
-				</td>
-			</tr>
-			<tr>
-				<th>모집 상태</th>
-				<td>
-					<select id="dojang_status" value="${dojangDto.dojang_status}">
-						<option value="모집 중">모집중</option>
-						<option value="모집 마감">모집 마감</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<th>소개글</th>
-				<td>
-					<textarea id="dojang_content" style="width:100%;">${dojangDto.dojang_content}</textarea>
-				</td>
-			</tr>
-			<tr>
-				<th colspan="2">
-					<div style="display:block;">
+	<input type="hidden" id="class_no" value="${dojangDto.class_no}"/>
+	<input type="hidden" id="dojang_no" value="${dojangDto.dojang_no}"/>
+	<input type="hidden" id="member_count" value="${dojangDto.member_count}"/>
+	<table>
+		<tr>
+			<th>이름</th>
+			<td>${dojangDto.dojang_title}</td>
+		</tr>
+		<tr>
+			<th>정원</th>
+			<td>
+				<input name="people_num" type="range" id="people_num" min="0" max="30" step="1" value="${dojangDto.people_num}" oninput="document.getElementById('people_num').innerHTML=this.value;"/>
+				<div id="ex-out"></div>
+			</td>
+		</tr>
+		<tr>
+			<th>모집 상태</th>
+			<td>
+				<select id="dojang_status" value="${dojangDto.dojang_status}">
+					<option value="모집 중">모집중</option>
+					<option value="모집 마감">모집 마감</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>소개글</th>
+			<td>
+				<textarea id="dojang_content">${dojangDto.dojang_content}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<th colspan="2">
+				<div style="display:block;">
                     <span style="text-align:center; display:block; margin: 0 auto;">
 						<input type="button" value="저장" onclick="dojangGroupUpd()"/>
 						<input type="button" value="취소" onclick="dojangGroupEditClose()"/>
 					</span>
-					</div>
-				</th>
-			</tr>
-		</table>
-	<!-- </form> -->
+				</div>
+			</th>
+		</tr>
+	</table>
 </body>
 <script>
 document.querySelector('#people_num').addEventListener('input',e=>{
@@ -125,6 +131,8 @@ function dojangGroupUpd(){
 			alert("인원수는 0 이상이어야 합니다.");
 		} else if ($('#dojang_content').val() == ''){
 			alert("소개글의 내용을 입력해주세요.");
+		} else if ($('#people_num').val() < $('#member_count').val()){
+			alert("현재 가입된 회원의 수보다 정원을 적게 설정할 수 없습니다.");
 		} else {
 			$.ajax({
 				type:'get',
@@ -159,7 +167,6 @@ function dojangGroupUpd(){
 
 //취소
 function dojangGroupEditClose(){
-	opener.parent.location.reload();
 	window.close();
 }
 </script>
