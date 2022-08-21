@@ -55,10 +55,6 @@ li a:hover {
   color: #fff;
 }
 
-#list {
-  margin-left: 260px;
-}
-
 table {
 			  border-collapse: separate;
 			  border-spacing: 1px;
@@ -66,6 +62,8 @@ table {
 			  line-height: 1.5;
 			  border-top: 1px solid #ccc;
 			 width : 1000px;
+			 margin-left:auto; 
+    		margin-right:auto;
 			}
 			table th {
 			  width: 150px;
@@ -141,23 +139,52 @@ td a {
                     </c:forEach>
                 </li>
                 <li class="active">
-                    <a href="dojangAll.html">
+                    <a href="dojangHome.go?dojang_no=${sessionScope.dojang_no}">
                         <i class="pe-7s-news-paper"></i>
                         <p>전체 게시판</p>
                     </a>
                 </li>
                 <li>
-                    <a href="dojangNotice.html">
+                    <a href="dojangHomeL.go?dojang_no=${sessionScope.dojang_no}">
                         <i class="pe-7s-speaker"></i>
                         <p>공지 게시판</p>
                     </a>
                 </li>
                 <li>
-                    <a href="dojangNomal.html">
+                    <a href="dojangHomeM.go?dojang_no=${sessionScope.dojang_no}">
                         <i class="pe-7s-note2"></i>
                         <p>일반 게시판</p>
                     </a>
+                 </li>
+                  <li>
+                    <a href="dojangPostReg.go">
+                        <i class="pe-7s-star"></i>
+                        <p>글쓰기</p>
+                    </a>
                 </li>
+                </li>
+                  <li>
+                    <a href="groupReviewList">
+                        <i class="pe-7s-star"></i>
+                        <p>모임후기 작성</p>
+                    </a>
+                </li>
+                <c:if test="${leader == loginId}">
+                <li>
+                    <a href="dojangLeaderPage.go?dojang_no=${sessionScope.dojang_no}">
+                        <i class="pe-7s-star"></i>
+                        <p>방장 페이지</p>
+                    </a>
+                </li>
+                </c:if>
+                <c:if test="${member == loginId}">
+                <li>
+                    <a href="#" onclick="memberStatus(); return false;">
+                        <i class="pe-7s-hammer"></i>
+                        <p>도장깨기 회원 탈퇴</p>
+                    </a>
+                </li>
+                </c:if>
             </ul>
     	</div>
     </div>
@@ -174,7 +201,7 @@ td a {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">도장깨기 전체 게시판</a>
+                    <a class="navbar-brand" href="#">${dojangTitle}</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
@@ -212,17 +239,17 @@ td a {
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                           <a href="mypage.html">
+                           <a href="./mypage.go">
                                <p>${sessionScope.loginId} 님의 마이페이지</p>
                             </a>
                         </li>
                         <li>
-                            <a href="jmtMain.html">
+                            <a href="/">
                                 <p>Home</p>
                              </a>
                          </li>
                         <li>
-                            <a href="#">
+                            <a href="logout.do">
                                 <p>Log out</p>
                             </a>
                         </li>
@@ -233,8 +260,9 @@ td a {
         </nav>
         <!--상단바 끝-->
         <br/>
+        <div style="left: 200px;">
+        </div>
         <div>
-		<input type="button" value="글쓰기" onclick="location.href='dojangPostReg.go'"/>
 		</div>
         <!--컨텐츠영역 시작-->
         <div class="content">
@@ -272,7 +300,10 @@ td a {
                                     <td>섹션5</td>
                                 </tr>
                             </table> -->
-                            <div class="content table-responsive table-full-width" id="list">       
+                            <div class="content table-responsive table-full-width" >
+                            <h2>전체 게시판</h2>
+                            <div id="list">
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -297,49 +328,9 @@ td a {
 </div>
 
 
-
-
-
-
-
-
 <input type="hidden" id="loginId" value="${sessionScope.loginId}"/>
-<a href="logout.do">로그아웃</a>
 <input type="hidden" id="dojang_no" value="${sessionScope.dojang_no}"/>
 <input type="hidden" id="loginId" value="${sessionScope.loginId}"/>
-<div id="test">
-<h3>도장 격파원</h3>
-<div id="test2">
-
-</div>
-<br/>
-<h3>게시판</h3>
-<ul id="post_type">
-  <li class="post"><a href="dojangHome.go?dojang_no=${sessionScope.dojang_no}">전체게시판</a></li>
-  <li class="post"><a href="dojangHomeL.go?dojang_no=${sessionScope.dojang_no}">공지게시판</a></li>
-  <li class="post"><a href="dojangHomeM.go?dojang_no=${sessionScope.dojang_no}">일반게시판</a></li>
-  <c:if test="${leader == loginId}">
-  <li><a href="dojangLeaderPage.go?dojang_no=${sessionScope.dojang_no}">방장페이지</a></li>
-	</c:if>
-</ul>
-
-<div  id="review">
-<input type="button" value="모임후기 작성하러 가기" onclick="location.href='groupReviewList'"/>
-</div>
-<br/>
-<c:if test="${member == loginId}">
-<div id="review2">
-<input type="button" value="도장깨기 회원 탈퇴" onclick="memberStatus()"/>
-</div>
-</c:if>
-</div>
-
-
-<div id="list">
-	
-</div>
-
-
 </body>
 
 <!--   Core JS Files   -->
