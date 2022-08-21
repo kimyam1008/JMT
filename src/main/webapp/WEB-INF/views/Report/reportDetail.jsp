@@ -197,7 +197,7 @@ table{width:100%;}
 
 
 
-	<form action="reportUpdate.do" method="post">
+	<form id="form_" action="reportUpdate.do" method="post">
 		<input type="hidden" name="report_no" value="${detailDto.report_no}"/>
 		<input type="hidden" name="idx" value="${detailDto.idx}"/>
 		<input type="hidden" name="class_no" value="${detailDto.class_no}"/>
@@ -259,7 +259,7 @@ table{width:100%;}
 			</tr>
 			<tr>
 			<td colspan="4" id="twobutton">
-				<input  class="btn btn-outline-secondary" type="submit" value="등록" >  
+				<button type="button"  class="btn btn-outline-secondary"  onclick="blind_submit()"> 등록 </button>
 				<button class="btn btn-outline-secondary" type="button" onclick="returnList()" >목록</button>
 			</td>
 			</tr>	
@@ -276,6 +276,16 @@ if(msg!= null && msg!=""){
 function returnList(){ 
 	location.href="/report/"; 
 /* 	history.go(-1); */
+}
+
+function blind_submit(){
+	
+	if(report_status=='블라인드'){
+		alert('블라인드 페이지에서 수정가능합니다.');
+		return false;
+	}
+	$('#form_').submit();
+	
 }
  
 var report_status = $('select[name=report_status]').val();
