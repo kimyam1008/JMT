@@ -8,55 +8,106 @@
 <title>번개 모임 수정 팝업</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-	table,th,td {
-		border:1px solid black;
-		border-collapse:collapse;
+	body {
+		font-family: 'GmarketSansMedium';
 	}
-	th,td {
+	table {
+		border-collapse: separate;
+		border-spacing: 1px;
+		text-align: left;
+		line-height: 1.5;
+		border-top: 1px solid #ccc;
+		margin : 20px 10px;
+	}
+	table th {
+		width: 150px;
+		padding: 10px;
+		font-weight: bold;
+		vertical-align: top;
+		border-bottom: 1px solid #ccc;
+		text-align:center;
+	}
+	table td {
+		width: 350px;
+		padding: 10px;
+		vertical-align: top;
+		border-bottom: 1px solid #ccc;
+	}
+	
+	@font-face {
+		font-family: 'GmarketSansMedium';
+		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+	}
+	input[type='button']{
+		font-family: 'GmarketSansMedium';
+		color:#fff;
+		background:orange;
+		border:none;
 		padding:5px 10px;
 	}
+	input[type='button']:focus{
+		outline:0;
+	}
+	input[type='button']:hover{
+		background:#ff3d1c;
+		cursor:pointer;
+	}
+	select,option,textarea {
+		font-family: 'GmarketSansMedium';
+	}
+	textarea {
+	    width: 100%;
+	    height: 6.25em;
+	    border: none;
+	    resize: none;
+  	}
 </style>
 </head>
 <body>
-	<h3>번개 모임 수정</h3>
-	<!-- <form action="lightEdit" method="post"> -->
-		<input type="hidden" id="class_no" value="${lightDto.class_no}"/>
-		<input type="hidden" id="lightning_no" value="${lightDto.lightning_no}"/>
-		<table>
-			<tr>
-				<th>이름</th>
-				<td>${lightDto.lightning_title}</td>
-			</tr>
-			<tr>
-				<th>정원</th>
-				<td>
-					<input name="member_num" type="range" id="member_num" min="2" max="6" step="1" value="${lightDto.member_num}" oninput="document.getElementById('member_num').innerHTML=this.value;"/>
-					<div id="ex-out"></div>
-				</td>
-			</tr>
-			<tr>
-				<th>모집 상태</th>
-				<td>
-					<select id="lightning_status" value="${lightDto.lightning_status}">
-						<option value="모집중">모집중</option>
-						<option value="모집 마감">모집 마감</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<th>소개글</th>
-				<td>
-					<textarea id="lightning_content">${lightDto.lightning_content}</textarea>
-				</td>
-			</tr>
-			<tr>
-				<th colspan="2">
-					<input type="button" value="수정 완료" onclick="lightGroupUpd()"/>
-					<input type="button" value="취소" onclick="lightGroupEditClose()"/>
-				</th>
-			</tr>
-		</table>
-	<!-- </form> -->
+	<h3 style="text-align:center;">번개 모임 수정</h3>
+	<input type="hidden" id="class_no" value="${lightDto.class_no}"/>
+	<input type="hidden" id="lightning_no" value="${lightDto.lightning_no}"/>
+	<input type="hidden" id="member_count" value="${lightDto.member_count}"/>
+	<table>
+		<tr>
+			<th>이름</th>
+			<td>${lightDto.lightning_title}</td>
+		</tr>
+		<tr>
+			<th>정원</th>
+			<td>
+				<input name="member_num" type="range" id="member_num" min="2" max="6" step="1" value="${lightDto.member_num}" oninput="document.getElementById('member_num').innerHTML=this.value;"/>
+				<div id="ex-out"></div>
+			</td>
+		</tr>
+		<tr>
+			<th>모집 상태</th>
+			<td>
+				<select id="lightning_status" value="${lightDto.lightning_status}">
+					<option value="모집중">모집중</option>
+					<option value="모집 마감">모집 마감</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>소개글</th>
+			<td>
+				<textarea id="lightning_content">${lightDto.lightning_content}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<th colspan="2">
+				<div style="display:block;">
+                   <span style="text-align:center; display:block; margin: 0 auto;">
+						<input type="button" value="저장" onclick="lightGroupUpd()"/>
+						<input type="button" value="취소" onclick="lightGroupEditClose()"/>
+				</span>
+				</div>
+			</th>
+		</tr>
+	</table>
 </body>
 <script>
 document.querySelector('#member_num').addEventListener('input',e=>{
@@ -77,6 +128,8 @@ function lightGroupUpd(){
 			alert("인원수는 0 이상이어야 합니다.");
 		} else if ($('#lightning_content').val() == ''){
 			alert("소개글의 내용을 입력해주세요.");
+		} else if ($('#member_num').val() < $('#member_count').val()){
+			alert("현재 가입된 회원의 수보다 정원을 적게 설정할 수 없습니다.");
 		} else {
 			$.ajax({
 				type:'get',
@@ -117,7 +170,6 @@ function lightGroupUpd(){
 
 //취소
 function lightGroupEditClose(){
-	opener.parent.location.reload();
 	window.close();
 }
 </script>
