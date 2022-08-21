@@ -3,14 +3,71 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>번개 모임 댓글 신고</title>
+<title>모임 후기 댓글 신고</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-	table {
+	/* table {
 	    width:70%; 
 	    margin-left:auto; 
 	    margin-right:auto;
 	    position: static;
+	} */
+	body,textarea {
+		font-family: 'GmarketSansMedium';
+	}
+	table {
+		border-collapse: separate;
+		border-spacing: 1px;
+		text-align: left;
+		line-height: 1.5;
+		border-top: 1px solid #ccc;
+		margin : 20px 10px;
+	}
+	table th {
+		width: 150px;
+		padding: 10px;
+		font-weight: bold;
+		vertical-align: top;
+		border-bottom: 1px solid #ccc;
+		text-align:center;
+	}
+	table td {
+		width: 350px;
+		padding: 10px;
+		vertical-align: top;
+		border-bottom: 1px solid #ccc;
+	}
+	
+	@font-face {
+		font-family: 'GmarketSansMedium';
+		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+	}
+	input[type='text']{
+		font-family: 'GmarketSansMedium';
+		border:none;
+	}
+	input[type='button']{
+		font-family: 'GmarketSansMedium';
+		color:#fff;
+		background:orange;
+		border:none;
+		padding:5px 10px;
+	}
+	input[type='button']:focus{
+		outline:0;
+	}
+	input[type='button']:hover{
+		background:#ff3d1c;
+		cursor:pointer;
+	}
+	textarea {
+		font-family: 'GmarketSansMedium';
+		width: 100%;
+	    height: 6.25em;
+	    border: none;
+	    resize: none;
 	}
 </style>
 </head>
@@ -39,8 +96,12 @@
 			</tr>
 			<tr>
 				<th>
-					<input type="button" value="취소" onclick="grCmtReportclose()"/>
-					<input type="button" value="신고" onclick="checkCmtReport()"/>
+					<div style="display:block;">
+	            		<span style="text-align:center; display:block; margin: 0 auto;">
+							<input type="button" value="취소" onclick="grCmtReportclose()"/>
+							<input type="button" value="신고" onclick="checkCmtReport()"/>
+						</span>
+					</div>
 				</th>
 			</tr>
 		</table>
@@ -108,7 +169,7 @@
 	
 
 	function grCmtReportclose() {
-		opener.parent.location.reload();
+		//opener.parent.location.reload();
 		window.close();
 	}
 

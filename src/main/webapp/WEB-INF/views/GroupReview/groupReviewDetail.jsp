@@ -497,7 +497,7 @@ var loginId = "${loginId}"; //댓글에서 쓸거
 
 //신고창 팝업
 function grReviewReport_pop(){
-	window.open("/grReviewReport.go?groupReview_no="+${dto.groupReview_no},"new","width=400, height=200, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	window.open("/grReviewReport.go?groupReview_no="+${dto.groupReview_no},"new","width=400, height=350, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 }
 
 //업데이트폼 이동
@@ -727,7 +727,7 @@ function updCmt(cno){
 
 //댓글 신고 팝업
 function lightCmtReport_pop(cno){
-	window.open("/grCmtReport.go?comment_no="+cno,"new","width=400, height=200, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	window.open("/grCmtReport.go?comment_no="+cno,"new","width=400, height=350, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 }
 </script>
 </html>

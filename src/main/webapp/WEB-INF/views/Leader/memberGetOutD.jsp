@@ -59,6 +59,10 @@
 	}
 	textarea {
 		font-family: 'GmarketSansMedium';
+		width: 100%;
+	    height: 6.25em;
+	    border: none;
+	    resize: none;
 	}
 </style>
 </head>
@@ -71,7 +75,7 @@
 		</tr>
 		<tr>
 			<th>사유</th>
-			<td><textarea name="reason" id="reason" style="width:90%"></textarea></td>
+			<td><textarea name="reason" id="reason"></textarea></td>
 		</tr>
 		<tr>
 			<th colspan="2">

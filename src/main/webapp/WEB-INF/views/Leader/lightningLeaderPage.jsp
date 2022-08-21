@@ -72,7 +72,7 @@
             <ul class="nav">
                 <!--방장 사진, 이름-->
                 <li class="dojangParty">
-                    <a class="leaderProfile">
+                    <a class="leaderProfile" href="./mypage.go">
                         <img class="avatar border-gray" src="/photo/${lightDto.photo_newFileName}" alt="..."/>
                         <h4 class="title">${sessionScope.loginId}</h4>
                     </a>
@@ -227,7 +227,7 @@
 	                                    <p style="text-align:center;">등록된 글이 없습니다.</p>
 	                                </c:if>
 	                                <c:forEach items="${lightRecentPost}" var="lightRecentPost" begin="0" end="4">			
-	                                    <li style="text-align:left; font-size:17px;">${lightRecentPost.comment_content}</li>
+	                                    <li style="text-align:left; font-size:17px;">${lightRecentPost.lightning_title}</li>
 	                                </c:forEach>
 	                            </ul>
                             </div>

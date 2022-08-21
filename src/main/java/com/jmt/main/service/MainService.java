@@ -3,6 +3,7 @@ package com.jmt.main.service;
 import java.util.ArrayList;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
@@ -53,16 +54,17 @@ public class MainService {
 	public void goRest(String url, String keyword) throws InterruptedException {
 		//1.셀레니움에서 사용할 브라우저 띄우기
 		WebDriver driver = new ChromeDriver();
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		
 		//2.URL 의 페이지 호출
 		driver.get(url);
 		//창 최대크기로(반응형일 경우 창 크기에 따라 요소가 변할 수 있음)
 		driver.manage().window().maximize();
-		
 		driver.findElement(By.cssSelector("input[type='text']")).click(); //input 검색창 클릭
 		driver.findElement(By.cssSelector("input[type='text']")).sendKeys(keyword); //input 검색창에 파라메터 입력
 		Thread.sleep(2000); //2초 기다렸다가 아래 코드 실행
 		driver.findElement(By.cssSelector("#moimSearch")).click(); //검색 버튼 클릭
+		js.executeScript("window.scrollBy(0,500)"); //스크롤 아래로 내리기
 	
 	}
 
@@ -88,11 +90,11 @@ public class MainService {
 		//2.URL 의 페이지 호출
 		driver.get(url);
 		driver.manage().window().maximize();
-		
-		driver.findElement(By.cssSelector("#dojang_title")).click(); //번개 검색창 클릭
-		driver.findElement(By.cssSelector("#dojang_title")).sendKeys(keyword); //파라메터 입력
+		Thread.sleep(5000);
+		driver.findElement(By.cssSelector("#search")).click(); //도장깨기 검색창 클릭
+		driver.findElement(By.cssSelector("#search")).sendKeys(keyword); //파라메터 입력
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("#search")).click(); //검색
+		driver.findElement(By.cssSelector("#moimSearch")).click(); //검색
 	}
 
 	public ArrayList<MainDTO> lightReco(String loginId) {

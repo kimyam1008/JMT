@@ -34,7 +34,7 @@ public class MainController {
 		String loginId = (String) session.getAttribute("loginId");
 	    model.addAttribute("loginId", loginId);
 	    
-	    if (loginId != null) {
+		if (loginId != null) {
 			//번개 모임 추천
 	    	ArrayList<MainDTO> lightReco = service.lightReco(loginId);
 		    model.addAttribute("lightReco", lightReco);
@@ -42,7 +42,7 @@ public class MainController {
 		    //도장 모임 추천
 		    ArrayList<MainDTO> dojangReco = service.dojangReco(loginId);
 		    model.addAttribute("dojangReco", dojangReco);
-		}
+			}
 	    
 	    //번개 가져오기
 	    ArrayList<MainDTO> lightDto = service.lightDto();
