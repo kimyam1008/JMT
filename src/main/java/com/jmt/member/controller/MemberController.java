@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jmt.member.dto.MemberDTO;
 import com.jmt.member.service.MemberService;
@@ -168,13 +169,12 @@ public class MemberController {
 		}
 		
 		// 로그아웃
-		@RequestMapping(value = "logout.do")
-		public String logout(Model model,HttpSession session) {
+		@RequestMapping(value = "/logout.do")
+		public String logout(RedirectAttributes ra ,HttpSession session) {
 			session.removeAttribute("loginId");
 			session.removeAttribute("mb_class");
-			model.addAttribute("msg", "로그아웃 되었습니다");
-				
-			return "./Main/main"; 
+			ra.addFlashAttribute("msg", "로그아웃 되었습니다");
+			return "redirect:/"; 
 		}
 		
 		
