@@ -30,29 +30,37 @@
 
 <style>
 		
-	table,th,td{
-		border: 1px solid black;
-		border-collapse: collapse;
-		padding: 5px;
-	}
+
 	
 	
 	
-	
-	
+	/* 
 	@media (max-width: 991px)
 	.table-responsive {
     width: 80%;
+    margin-bottom: 15px;
     overflow-x: scroll;
     overflow-y: hidden;
-	}
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    -webkit-overflow-scrolling: touch;
+	} */
 	
 	#res1 {
+<<<<<<< HEAD
 		height: 200px;
-		width: 100px;
+		width: 600px;
+=======
+		height: 400px;
+		width: 70%;
+>>>>>>> e37caad0d21db261377ceb900f60ceb2ad1fc595
 		
 	}
-
+	.card .content {
+    padding: 15px 15px 10p 15px;
+    margin: auto;
+    height: 200px;
+		width: 600px;
+	}
 	textarea{
 		resize:none;
 		width:100%;
@@ -61,10 +69,7 @@
 
 	
 		
-	.card .content {
-    padding: 15px 15px 10p 15px;
-    margin: auto;
-	}
+
 </style>
 <title>맛집 수정</title>
 </head>
@@ -238,12 +243,12 @@
                                     <td>섹션5</td>
                                 </tr>
                             </table> -->
-                            <div class="content table-responsive table-full-width">
+                            <div id="res1" class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
                                        
                                     </thead>
-                                     <tbody id="res1">
+                                     <tbody >
                                      		<form action="Reporthandling.do" method="post">
 												<tr>
 													<td>

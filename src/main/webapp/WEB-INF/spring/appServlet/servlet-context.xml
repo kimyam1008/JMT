@@ -29,6 +29,7 @@
 			<exclude-mapping path="/resDetail.do*"/>
 			<exclude-mapping path="/reviewWrite?*"/>
 			<exclude-mapping path="/report*"/>
+			<exclude-mapping path="/*.ajax"/>
 			<beans:bean id="GradeController" class="com.jmt.admin.controller.GradeController"/>
 		</interceptor>
 	</interceptors>
