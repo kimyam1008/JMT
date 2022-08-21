@@ -17,7 +17,7 @@
 </style>
 </head>
 <body>
-	<h3>나의활동 : 게시글</h3>
+	<h3>나의활동 : 댓글단 글</h3>
 	<div class="top">
 			<img src="/photo/${dto.photo_newFileName}" width="150" height="100"/>
 			${dto.member_id }님 반갑습니다. <br/>
