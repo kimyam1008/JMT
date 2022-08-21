@@ -137,12 +137,12 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="jmtMain.html">
+                            <a href="/">
                                 <p>Home</p>
                              </a>
                          </li>
                         <li>
-                           <a href="mypage.html">
+                           <a href="./mypage.go">
                                <p>마이페이지</p>
                             </a>
                         </li>

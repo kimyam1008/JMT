@@ -60,6 +60,42 @@
 			  vertical-align: top;
 			  border-bottom: 1px solid #ccc;
 			}
+			input {
+				width:350px;
+				height:38px;
+				margin:10px 10px;
+				border:none;
+				background:#f2f2f2;
+				border-radius:3px;
+				outline:none;
+			}
+			input:focus::placeholder {
+				color:transparent;
+			}
+			input::placeholer{
+				color:#222;
+				transition: color 0.3s ease;
+			}
+			/*검색, 글쓰기 버튼*/
+			#reviewSearch{
+				color:#fff;
+				background:orange;
+				border:none;
+			}
+			#writeBtn {
+				border:none;
+				border-radius:20px;
+				background:orange;
+				padding:5px 13px;
+				color:#fff;
+			}
+			#reviewSearch:focus,#writeBtn:focus{
+				outline:0;
+			}
+			#reviewSearch:hover,#writeBtn:hover{
+				background:#ff3d1c;
+				cursor:pointer;
+			}
         </style>
     </head>
 
@@ -102,7 +138,15 @@
                                             </li>
                                             <li><a href="restaurant">맛집</a></li>
                                             <li><a href="groupReviewList">후기</a></li>
-                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
+                                            <c:choose>
+                                            	<c:when test="${loginId != null}">
+	                                            	<li id="logoutDo"><a href="logout.do">로그아웃</a></li>
+	                                            	<li class="add-list"><a href="./mypage.go"><i class="ti-user"></i>마이페이지</a></li>
+                                            	</c:when>
+                                            	<c:otherwise>
+		                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
+                                            	</c:otherwise>
+                                            </c:choose>
                                         </ul>
                                     </nav>
                                 </div>
@@ -148,19 +192,19 @@
 
                 <!--검색창-->
                 <div class="row">
-                    <div class="col-lg-12">
-                        <fieldset>
+                    <div class="col-lg-6" style="margin:auto">
+                        <div>
                             <!-- <input type="hidden" id="searchCate" value="idx"/> -->
                             <select id="searchCate">
                                 <option value="lightning">번개모임</option>
                                 <option value="dojang">도장깨기</option>
                             </select>
                             <input type="text" id="keyword" value="" placeholder="모임 이름을 입력해주세요"/>
-                            <button id="reviewSearch">검색</button>
-                        </fieldset>
+                            <button id="reviewSearch" style="margin:5px; padding:6px 10px;">검색</button>
+                        </div>
                     </div>
                 </div>
-                <button onclick="location.href='grRegisterForm.go'">글쓰기</button><br/>
+                <button id="writeBtn" onclick="location.href='grRegisterForm.go'" style="margin:30px 5px 10px 5px">글쓰기</button><br/>
                 <!--표-->
                 <div class="row">
                     <div class="col-lg-12">

@@ -21,12 +21,14 @@
 			 <mapping path="/*"/>
 			<exclude-mapping path="/login.*"/>
 			<exclude-mapping path="/"/>
+			<exclude-mapping path="/logout.do"/>
 			<exclude-mapping path="/Member/join*"/>
 			<exclude-mapping path="/grade.*"/>
 			<exclude-mapping path="/Grade/*"/>
 			<exclude-mapping path="/restaurant"/>
 			<exclude-mapping path="/resDetail.do*"/>
 			<exclude-mapping path="/reviewWrite?*"/>
+			<exclude-mapping path="/report*"/>
 			<beans:bean id="GradeController" class="com.jmt.admin.controller.GradeController"/>
 		</interceptor>
 	</interceptors>

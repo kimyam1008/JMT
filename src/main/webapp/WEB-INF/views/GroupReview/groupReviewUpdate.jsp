@@ -48,8 +48,21 @@
 			}
 
             table, input[type='text'] {
-			width:100%;
+				width:100%;
 		    }
+		    
+		    button {
+		    	color:#fff;
+				background:orange;
+				border:none;
+		    }
+		    button:focus{
+				outline:0;
+			}
+			button:hover{
+				background:#ff3d1c;
+				cursor:pointer;
+			}
                 
             textarea {
                 width: 100%;
@@ -116,7 +129,15 @@
                                             </li>
                                             <li><a href="resList.html">맛집</a></li>
                                             <li><a href="groupReviewList">후기</a></li>
-                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
+                                            <c:choose>
+                                            	<c:when test="${loginId != null}">
+	                                            	<li id="logoutDo"><a href="logout.do">로그아웃</a></li>
+	                                            	<li class="add-list"><a href="./mypage.go"><i class="ti-user"></i>마이페이지</a></li>
+                                            	</c:when>
+                                            	<c:otherwise>
+		                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
+                                            	</c:otherwise>
+                                            </c:choose>
                                         </ul>
                                     </nav>
                                 </div>
@@ -186,27 +207,11 @@
                                                     <input type="hidden" name="class_no" value="${groupList.class_no}"><br/>
                                             </c:forEach>
                                         </fieldset>
-                                    
-                    
-                                        <%-- <c:forEach items="${groupList}" var="groupList">
-                                            <input type="radio" name="idx" value="${groupList.group_no}" <c:if test="${dto.group_no eq groupList.group_no}">checked</c:if>/>
-                                                ${groupList.title} (${groupList.class_name}) 
-                                            <input type="hidden" name="class_no" value="${groupList.class_no}"><br/>
-                                        </c:forEach> --%>
-                        
-                                        <%-- <input type="text" id="title" style="width:30%" placeholder="검색버튼을 눌러주세요" readonly/>
-                                        <!-- <p id="groupName"></p> -->
-                                        ${joinGroup.title}
-                                        <!-- <input type="button" value="검색" id="groupSearch"/> -->
-                                        <input type="hidden" id="lightning_no" name="" value=""/>
-                                        <input type="hidden" id="dojang_no" name="" value=""/>
-                                        <input type="button" value="검색" onclick="groupSearchPop()"/>
-                                        <!-- <input type="button" value="초기화" id="groupReset" onclick="groupReset()"/> --> --%>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>작성자</th>
-                                    <td><input type="text" name="member_id" value="${sessionScope.loginId}" style="width:20%" readonly/></td>
+                                    <td><input type="text" name="member_id" value="${sessionScope.loginId}" style="width:20%; border:none;" readonly/></td>
                                 </tr>
                                 <tr>
                                     <th>글 제목</th>
