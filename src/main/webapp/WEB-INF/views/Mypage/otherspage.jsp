@@ -179,14 +179,14 @@
                             <div class="content" style="height:350px">
                                     <div class="typo-line" style="float:left;">
                                     <h5><p class="category">${list.member_id}의 게시글</p>
-                                    	<c:forEach items="${myboard }" var="list">
+                                    	<c:forEach items="${otherBoard }" var="list">
 											<ul>
 												<li>${list.review_title }</li>
 											</ul>
 										</c:forEach>
                                     </h5>
                                     <h5><p class="category">${list.member_id}의 쓴 댓글의 게시글</p>
-                                    <c:forEach items="${mycomment}" var="board">
+                                    <c:forEach items="${otherCom}" var="board">
 										<ul>
 											<li>${board.lightning_title}</li>
 										</ul>
