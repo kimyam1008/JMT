@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jmt.main.dao.MainDAO">
 	<select id="lightDto" resultType="main">
-		SELECT l.lightning_no
+		SELECT DISTINCT l.lightning_no
 			,l.lightning_title
 			,c.class_name
 			,l.food_no
@@ -14,7 +14,7 @@
 	</select>
 	
 	<select id="dojangDto" resultType="main">
-		SELECT d.dojang_no
+		SELECT DISTINCT d.dojang_no
 			,d.dojang_title
 			,c.class_name
 			,d.food_no
@@ -24,20 +24,46 @@
 	</select>
 	
 	<select id="resDto" resultType="main">
-		SELECT r.restaurant_name
+		SELECT DISTINCT r.restaurant_name
 			,r.restaurant_address
 			,p.photo_newFileName
+			,restaurant_no
 		FROM restaurant r
 		LEFT OUTER JOIN comment c ON r.restaurant_no = c.idx 
 		LEFT OUTER JOIN photo p ON p.idx = c.comment_no 
 		JOIN food f ON r.food_no = f.food_no
-		WHERE restaurant_info = "영업중"
+		WHERE restaurant_info = "영업중" ORDER BY RAND()
 	</select>
 	
 	<select id="grDto" resultType="main">
-		SELECT g.review_title,g.review_content,m.member_name
+		SELECT DISTINCT g.review_title,g.review_content,m.member_name,groupReview_no
 			,(SELECT photo_newFileName FROM photo p WHERE p.class_no=9 AND p.idx = (SELECT profile_no FROM profile f WHERE f.member_id =g.member_id)) AS photo_newFileName
+			,l.lightning_title
+			,d.dojang_title
 		FROM groupReview g
-		LEFT OUTER JOIN member m ON g.member_id = m.member_id
+		JOIN codeTable c ON g.class_no = c.class_no
+		LEFT OUTER JOIN lightningList l ON l.class_no = c.class_no
+		LEFT OUTER JOIN dojangList d ON d.class_no = c.class_no
+		LEFT OUTER JOIN member m ON g.member_id = m.member_id ORDER BY RAND()
+	</select>
+	
+	<select id="lightReco" resultType="main">
+		SELECT m.member_id, l.lightning_title, c.class_name, l.food_no, l.eat_speed, l.lightning_no
+		FROM `member` m
+		LEFT OUTER JOIN profile p ON m.member_id = p.member_id
+		LEFT OUTER JOIN food f ON p.food_no = f.food_no
+		LEFT OUTER JOIN lightningList l ON f.food_no = l.food_no
+		LEFT OUTER JOIN codeTable c ON l.class_no = c.class_no
+		WHERE l.food_no = p.food_no AND m.member_id = #{param1} ORDER BY RAND();
+	</select>
+	
+	<select id="dojangReco" resultType="main">
+		SELECT m.member_id, d.dojang_title, c.class_name, d.food_no, d.eat_speed, d.dojang_no
+		FROM `member` m
+		LEFT OUTER JOIN profile p ON m.member_id = p.member_id
+		LEFT OUTER JOIN food f ON p.food_no = f.food_no
+		LEFT OUTER JOIN dojangList d ON f.food_no = d.food_no
+		LEFT OUTER JOIN codeTable c ON d.class_no = c.class_no
+		WHERE d.food_no = p.food_no AND m.member_id = #{param1} ORDER BY RAND()		
 	</select>
 </mapper>

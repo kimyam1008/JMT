@@ -196,15 +196,6 @@
                                                 <input type="hidden" name="class_no" value="${groupList.class_no}"><br/>
                                         </c:forEach>
                                     </fieldset>
-                        
-                                        <%-- <input type="text" id="title" style="width:30%" placeholder="검색버튼을 눌러주세요" readonly/>
-                                        <!-- <p id="groupName"></p> -->
-                                        ${joinGroup.title}
-                                        <!-- <input type="button" value="검색" id="groupSearch"/> -->
-                                        <input type="hidden" id="lightning_no" name="" value=""/>
-                                        <input type="hidden" id="dojang_no" name="" value=""/>
-                                        <input type="button" value="검색" onclick="groupSearchPop()"/>
-                                        <!-- <input type="button" value="초기화" id="groupReset" onclick="groupReset()"/> --> --%>
                                     </td>
                                 </tr>
                                 <tr>
