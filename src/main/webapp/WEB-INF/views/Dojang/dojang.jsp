@@ -602,6 +602,11 @@ function food_noCall() {
 
 }
 
+var msg = "${msg}";
+if(msg != ""){
+	alert(msg);
+}
+
 </script>
  		<!--  페이징  -->
   	    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

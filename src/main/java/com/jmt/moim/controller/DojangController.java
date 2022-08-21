@@ -93,9 +93,20 @@ public class DojangController {
 	
 	//도장깨기 생성 페이지
 	@RequestMapping("/dojangReg.go")
-	public String dojangRegGo() {
+	public String dojangRegGo(HttpSession session,Model model) {
+		String page= "./Dojang/dojang";
+		
+		if(session.getAttribute("loginId") != null) {
+			page="./Dojang/dojangReg";
+			ArrayList<LightningDTO> foodList = servicelig.foodList();
+				model.addAttribute("foodList", foodList);
+
+			
+		}else {
+			model.addAttribute("msg", "로그인이 필요한 서비스 입니다");
+		}
 		logger.info("도장깨기 생성");
-		return "./Dojang/dojangReg";
+		return page;
 	}
 	
 	//도장깨기 생성
