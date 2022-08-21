@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-	<link rel="icon" type="image/png" href="mainResource/assets/img/pizza-slice.png">
+	<link rel="icon" type="image/png" href="../resources/mainResource/assets/img/pizza-slice.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<title>JMT 도장깨기방 : 게시글 쓰기</title>
@@ -52,6 +52,20 @@ table {
 			  vertical-align: top;
 			  border-bottom: 1px solid #ccc;
 			}
+table,th,td {
+				border : 1px solid #ccc;
+		        border-left: none;
+		        border-right: none;
+				border-collapse : collapse;
+			}
+		    th {
+			background-color: #f9f9f9;
+		    text-align: center;
+			}
+		
+			th,td { 
+				padding : 5px 10px;
+			}			
 	
 #review{
 	display: flex;
@@ -461,7 +475,7 @@ function dojangfileUp(){
 }
 
 function restaurant_pop(){	
-	 window.open("/gpRestaurantSearch.go","new","width=800, height=600, left=350 ,top=500, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	 window.open("/gpRestaurantSearch.go","new","width=700, height=500, left=350 ,top=500, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 	}
 
 

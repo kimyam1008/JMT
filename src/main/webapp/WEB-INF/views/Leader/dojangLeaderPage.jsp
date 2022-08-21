@@ -77,7 +77,7 @@
             <ul class="nav">
                 <!--방장 사진, 이름-->
                 <li class="dojangParty">
-                    <a class="leaderProfile">
+                    <a class="leaderProfile" href="./mypage.go">
                         <img class="avatar border-gray" src="/photo/${dojangDto.photo_newFileName}" alt="..."/>
                         <h4 class="title">${sessionScope.loginId}</h4>
                     </a>

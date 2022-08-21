@@ -12,7 +12,7 @@
          <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" type="image/x-icon" href="../resources/mainResource/assets/img/pizza-slice.png">
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-		
+		<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-pen.css" rel="stylesheet">
 		
         <!-- 페이징 -->
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -93,7 +93,7 @@
                             <!-- Logo -->
                             <div class="col-xl-2 col-lg-2 col-md-1">
                                 <div class="logo">
-                                  <a href="jmtMain.html"><img src="../resources/mainResource/assets/img/logo/logo.png" width="80px" alt=""></a>
+                                  <a href="/"><img src="../resources/mainResource/assets/img/logo/logo.png" width="80px" alt=""></a>
                                 </div>
                             </div>
                             <div class="col-xl-10 col-lg-10 col-md-8">
@@ -101,15 +101,16 @@
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav>
 		                              <ul id="navigation">
-                                            <li><a href="jmtMain.html">Home</a></li>
+                                            <li><a href="/">Home</a></li>
                                             <li><a href="#">모임</a>
                                                 <ul class="submenu">
-                                                    <li><a href="lightningList.html">번개</a></li>
-                                                    <li><a href="dojangList.html">도장깨기</a></li>
+                                                    <li><a href="lightList.go">번개</a></li>
+                                                    <li><a href="dojang.go">도장깨기</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="resList.html">맛집</a></li>
-                                            <li><a href="moimReviewList.html">후기</a></li>
+<
+                                            <li><a href="restaurant">맛집</a></li>
+                                            <li><a href="groupReviewList">후기</a></li>
                                          <c:choose>
 		                                          <c:when test="${loginId != null}">
 			                                            		<!-- 알림 -->
@@ -156,8 +157,12 @@
         <!-- Hero Start-->
         <div class="hero-area3 hero-overly2 d-flex align-items-center">
             <div class="container">
-                <div class="row justify-content-center">
-                   
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap text-center pt-50">
+                            <h2>도장깨기</h2>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -182,7 +187,7 @@
 		                            <div class="single-listing">
 		                                <!-- input -->
 		                                <div class="input-form">
-		                                    <input type="text" id="search" placeholder="모임 이름을 입력해주세요"
+		                                    <input type="text" id="search" name="search" placeholder="모임 이름을 입력해주세요"
 				                                onKeypress="javascript:if(event.keyCode==13) {enterkey()}"/>
 		                                </div>
 							<!-- Select job items start -->
@@ -314,7 +319,7 @@
                                 <div class="single-footer-caption mb-30">
                                     <!-- logo -->
                                     <div class="footer-logo">
-                                        <a href="jmtMain.html"><img src="../resources/mainResource/assets/img/logo/logo.png" width="100px" alt=""></a>
+                                        <a href="/"><img src="../resources/mainResource/assets/img/logo/logo.png" width="100px" alt=""></a>
                                     </div>
                                 </div>
                             </div>
@@ -399,7 +404,7 @@
 
 
 <br/>
-		<input type="text" id="search" placeholder="모임이름을 검색해주세요">
+		<!-- <input type="text" id="search" placeholder="모임이름을 검색해주세요"> -->
 
 
 
@@ -609,6 +614,11 @@ function food_noCall() {
 		
 	});
 
+}
+
+var msg = "${msg}";
+if(msg != ""){
+	alert(msg);
 }
 
 </script>
