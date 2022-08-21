@@ -9,6 +9,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" type="image/x-icon" href="../resources/mainResource/assets/img/pizza-slice.png">
+		<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-pen.css" rel="stylesheet">
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- CSS here -->
@@ -77,7 +78,7 @@ table {
                             <!-- Logo -->
                             <div class="col-xl-2 col-lg-2 col-md-1">
                                 <div class="logo">
-                                  <a href="jmtMain.html"><img src="../resources/mainResource/assets/img/logo/logo.png" width="80px" alt=""></a>
+                                  <a href="/"><img src="../resources/mainResource/assets/img/logo/logo.png" width="80px" alt=""></a>
                                 </div>
                             </div>
                             <div class="col-xl-10 col-lg-10 col-md-8">
@@ -85,16 +86,40 @@ table {
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">                                                                                                                                     
-                                            <li><a href="jmtMain.html">Home</a></li>
+                                            <li><a href="/">Home</a></li>
                                             <li><a href="#">모임</a>
                                                 <ul class="submenu">
-                                                    <li><a href="lightningList.html">번개</a></li>
-                                                    <li><a href="dojangList.html">도장깨기</a></li>
+                                                    <li><a href="lightList.go">번개</a></li>
+                                                    <li><a href="dojang.go">도장깨기</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="resList.html">맛집</a></li>
-                                            <li><a href="moimReviewList.html">후기</a></li>
-                                            <li class="add-list"><a href="login.html"><i class="ti-user"></i>로그인</a></li>
+                                            <li><a href="restaurant">맛집</a></li>
+                                            <li><a href="groupReviewList">후기</a></li>
+                                            <c:if test="${loginId != null}">
+                                        <c:choose>
+                                        	<c:when test="${notiChk=='true'}"><!--안읽은 알림있을 때  -->
+		                                            <li><a href="#"><img  id="notidrop" src="resources/photo/noti4.png"  style="width:30px; height:25px;"/></a>
+		                                               	<ul class="submenu notidrop_menu" style="width : 300px;  display : none;">
+		                                               	</ul>
+		                                            </li>
+                                            </c:when>
+                                        	<c:otherwise>
+	                                            <li><a href="#"><img id="notidrop"  src="resources/photo/bnoti4.png"  style="width:30px; height:25px;"/></a>
+	                                            	<ul class="submenu notidrop_menu" style="width : 300px; display : none;">
+		                                               	</ul>
+	                                            </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        </c:if>
+                                              <c:choose>
+                                            	<c:when test="${loginId != null}">
+	                                            	<li id="logoutDo"><a href="logout.do">로그아웃</a></li>
+	                                            	<li class="add-list"><a href="./mypage.go"><i class="ti-user"></i>마이페이지</a></li>
+                                            	</c:when>
+                                            	<c:otherwise>
+		                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
+                                            	</c:otherwise>
+                                            </c:choose>
                                         </ul>
                                     </nav>
                                 </div>
@@ -115,8 +140,12 @@ table {
         <!-- Hero Start-->
         <div class="hero-area3 hero-overly2 d-flex align-items-center">
             <div class="container">
-                <div class="row justify-content-center">
-                   
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap text-center pt-50">
+                            <h2>도장깨기 생성</h2>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -227,7 +256,7 @@ table {
                                 <div class="single-footer-caption mb-30">
                                     <!-- logo -->
                                     <div class="footer-logo">
-                                        <a href="jmtMain.html"><img src="../resources/mainResource/assets/img/logo/logo.png" width="100px" alt=""></a>
+                                        <a href="/"><img src="../resources/mainResource/assets/img/logo/logo.png" width="100px" alt=""></a>
                                     </div>
                                 </div>
                             </div>

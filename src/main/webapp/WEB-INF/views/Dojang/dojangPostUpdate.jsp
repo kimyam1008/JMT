@@ -53,6 +53,20 @@ table {
 			  vertical-align: top;
 			  border-bottom: 1px solid #ccc;
 			}
+table,th,td {
+				border : 1px solid #ccc;
+		        border-left: none;
+		        border-right: none;
+				border-collapse : collapse;
+			}
+		    th {
+			background-color: #f9f9f9;
+		    text-align: center;
+			}
+		
+			th,td { 
+				padding : 5px 10px;
+			}			
 	
 #review{
 	display: flex;
