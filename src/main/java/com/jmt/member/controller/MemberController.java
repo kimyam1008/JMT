@@ -89,7 +89,7 @@ public class MemberController {
 				if(loginId != null && member_status != null) {
 					String profileExist = service.profileExist(loginId); //로그인이 진행되면 프로필 생성 여부 확인
 					if(profileExist != null) { //프로필이 생성 되어있다면 메인페이지(테스트페이지)로 이동
-						page="/Main/main"; // 테스트용 페이지 만들어서 로그아웃 기능 확인
+						page="./Main/main"; // 테스트용 페이지 만들어서 로그아웃 기능 확인
 					}else { //프로필을 생성하지 않았다면 프로필 생성 페이지로 이동
 						ArrayList<MemberDTO> foodList = service.foodList(); //음식카테고리 가져오기
 						model.addAttribute("foodList", foodList);
@@ -174,7 +174,7 @@ public class MemberController {
 			session.removeAttribute("mb_class");
 			model.addAttribute("msg", "로그아웃 되었습니다");
 				
-			return "/Main/main"; 
+			return "./Main/main"; 
 		}
 		
 		
@@ -201,7 +201,7 @@ public class MemberController {
 				}
 			}
 			
-			return "/Main/main"; 
+			return "./Main/main"; 
 		}
 		
 		

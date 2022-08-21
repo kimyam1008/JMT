@@ -20,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jmt.moim.dto.DojangDTO;
+import com.jmt.moim.dto.LightningDTO;
+import com.jmt.moim.service.LightningService;
 import com.jmt.restaurant.dto.RestaurantDTO;
 import com.jmt.restaurant.service.RestaurantService;
 
@@ -29,13 +31,19 @@ public class RestaurantController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired  RestaurantService service;
-	
+	@Autowired LightningService servicelig;
 	
 	// 맛집 페이지 이동
 	@RequestMapping(value = "/restaurant", method = RequestMethod.GET)
-	public ModelAndView restaurant() {
+	public ModelAndView restaurant(Model model) {
 		logger.info("맛집 페이지 이동");
 		ModelAndView mav = new ModelAndView("Restaurant/restaurant");
+		
+		ArrayList<LightningDTO> foodList = servicelig.foodList();
+		if(foodList.size()>0) {
+			model.addAttribute("foodList", foodList);
+		}
+		
 		return mav;
 	}
 	
@@ -98,16 +106,16 @@ public class RestaurantController {
 		} 
 		
 		
-		ArrayList<HashMap<String, String>> CommentLike = null;
-		ArrayList<HashMap<String, String>> CommentLike2 = new ArrayList<HashMap<String,String>>() ;
-		for (RestaurantDTO restaurantDTO : resCommet) {
-			CommentLike = service.CommentLike(restaurantDTO.getComment_no());
-			
-			CommentLike2.addAll(CommentLike);
-		for (HashMap<String, String> hashMap : CommentLike2) {
-				
-			}
-		}
+//		ArrayList<HashMap<String, String>> CommentLike = null;
+//		ArrayList<HashMap<String, String>> CommentLike2 = new ArrayList<HashMap<String,String>>() ;
+//		for (RestaurantDTO restaurantDTO : resCommet) {
+//			CommentLike = service.CommentLike(restaurantDTO.getComment_no());
+//			
+//			CommentLike2.addAll(CommentLike);
+//		for (HashMap<String, String> hashMap : CommentLike2) {
+//				
+//			}
+//		}
 		
 //		ArrayList<HashMap<String, String>> memberPhoto = null;
 //		ArrayList<HashMap<String, String>> memberPhoto2 = new ArrayList<HashMap<String,String>>() ;
@@ -121,7 +129,7 @@ public class RestaurantController {
 //		}
 		
 	
-		model.addAttribute("CommentLike", CommentLike2);
+		//model.addAttribute("CommentLike", CommentLike2);
 		model.addAttribute("CommentPhoto", CommentPhoto2);
 		model.addAttribute("resCommet", resCommet);
 		

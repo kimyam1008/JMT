@@ -29,18 +29,11 @@
 
 <style>
 
-
 table {
-        margin-bottom: 0px;
+    width: 80%;
+    height: 200px;
+  }
 
-    }
-
-	table,th,td{
-		border: 1px solid black;
-		border-collapse: collapse;
-		padding: 5px;
-		text-align: center;
-	}
 	
 	
 	
@@ -48,20 +41,16 @@ table {
 </head>
 <body>
 	
-	<!--사이드바 시작-->
+	
+        
+        <!--사이드바 시작-->
     <div class="wrapper">
      <div class="sidebar" data-color="purple">
 
-        <!--
-
-            Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
-            Tip 2: you can also add an image using data-image tag
-
-        -->
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="/" class="simple-text">
+                <a href="jmtMain.html" class="simple-text">
                     JMT
                 </a>
             </div>
@@ -74,31 +63,31 @@ table {
                     </a>
                 </li>
                 <li>
-                    <a href="reportList">
+                    <a href="/report/">
                         <i class="pe-7s-comment"></i>
                         <p>신고 목록</p>
                     </a>
                 </li>
                 <li>
-                    <a href="blind.go">
+                    <a href="/report/blind.go">
                         <i class="pe-7s-config"></i>
                         <p>블라인드</p>
                     </a>
                 </li>
                 <li>
-                    <a href="/memberList.go">
+                    <a href="/report/memberList.go">
                         <i class="pe-7s-users"></i>
                         <p>회원 관리</p>
                     </a>
                 </li>
                 <li class="active">
-                    <a href="grade.go">
+                    <a href="/grade.go">
                         <i class="pe-7s-note"></i>
                         <p>등급 관리</p>
                     </a>
                 </li>
                 <li>
-                    <a href="resUpdateList.go">
+                    <a href="/resUpdateList.go">
                         <i class="pe-7s-pen"></i>
                         <p>맛집 수정</p>
                     </a>
@@ -107,7 +96,7 @@ table {
     	</div>
     </div>
     <!--사이드바 끝-->
-    
+
     <!--상단바 시작-->
     <div class="main-panel">
         <nav class="navbar navbar-default navbar-fixed">
@@ -119,40 +108,11 @@ table {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">등급 수정</a>
+                    <a class="navbar-brand" href="#">신고 목록 페이지</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
-                        <!-- <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-dashboard"></i>
-								<p class="hidden-lg hidden-md">Dashboard</p>
-                            </a>
-                        </li> -->
-                        <!--누르면 알림창같은거 조그맣게 뜸-->
-                        <!-- <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret hidden-lg hidden-md"></b>
-									<p class="hidden-lg hidden-md">
-										5 Notifications
-										<b class="caret"></b>
-									</p>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
-                              </ul>
-                        </li> -->
-                        <!-- <li>
-                           <a href="">
-                                <i class="fa fa-search"></i>
-								<p class="hidden-lg hidden-md">Search</p>
-                            </a>
-                        </li> -->
+                       
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
@@ -162,12 +122,12 @@ table {
                              </a>
                          </li>
                         <li>
-                           <a href="mypage.go">
+                           <a href="myPage.go">
                                <p>마이페이지</p>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="/logout.do">
                                 <p>Log out</p>
                             </a>
                         </li>
@@ -176,12 +136,10 @@ table {
                 </div>
             </div>
         </nav>
-       </div>
         <!--상단바 끝-->
-
-	
-		
-        <!--컨텐츠영역 시작-->
+        
+        
+        
         <div class="content">
             <div class="container-fluid">
                 <!--여기에 <div class="row">로 시작해서 내용을 넣어주세요 -->
@@ -189,68 +147,39 @@ table {
                     <!--표 시작-->
                     <div class="col-md-12">
                         <div class="card">
-                            <!-- <table style="margin:0 auto; text-align:center;">
-                                <tr>
-                                    <td>섹션1</td>
-                                    <td>섹션2</td>
-                                </tr>
-                                <tr>
-                                    <td>섹션3</td>
-                                    <td>섹션4</td>
-                                </tr>
-                                <tr>
-                                    <td>섹션4</td>
-                                    <td>섹션5</td>
-                                </tr>
-                            </table>
-                            <table>
-                                <tr>
-                                    <td>섹션1</td>
-                                    <td>섹션2</td>
-                                </tr>
-                                <tr>
-                                    <td>섹션3</td>
-                                    <td>섹션4</td>
-                                </tr>
-                                <tr>
-                                    <td>섹션4</td>
-                                    <td>섹션5</td>
-                                </tr>
-                            </table> -->
+                           
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
-	                                    <tr>
-	                                        <th></th>
-	                                    	<th>등급 이름</th>
-	                                    	<th>게시글</th>
-	                                    	<th>댓글</th>
-	                                    	<th>색상</th>
-	                                    </tr>
+                                        <th></th>
+                                    	<th>등급 이름</th>
+                                    	<th>게시글</th>
+                                    	<th>댓글</th>
+                                    	<th>색상</th>
                                     </thead>
                                     <tbody>
-                                       <form action="grade" method="post">
-                                            <tr>
-                                                <td>
-                                                    ${list[0].grade_no}
-                                                </td>
-                                                <td>
-                                                    <input type="hidden" name="grade_no" value="1">
-                                                    <input type="text" name="grade_name" value="${list[0].grade_name}">
-                                                </td>
-                                                <td>
-                                                    <input type="text" name="grade_post" value="${list[0].grade_post}">
-                                                </td>
-                                                <td>
-                                                    <input type="text" name="grade_comment" value="${list[0].grade_comment}">
-                                                </td>
-                                                <td>
-                                                    <input type="color" name="grade_color" value="${list[0].grade_color}" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">
-                                                </td>
-                                                <td>
-                                                    <input value="저장" type="submit"/>
-                                                </td>
-                                            </tr>
+                                        <form action="grade" method="post" id="grade" style="margin-bottom: 0px"></form>
+                                        <tr>
+                                            <td>
+                                                ${list[0].grade_no}
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name="grade_no" value="1">
+                                                <input type="text" name="grade_name" value="${list[0].grade_name}">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="grade_post" value="${list[0].grade_post}">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="grade_comment" value="${list[0].grade_comment}">
+                                            </td>
+                                            <td>
+                                                <input type="color" name="grade_color" value="${list[0].grade_color}" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">
+                                            </td>
+                                            <td>
+                                                <input value="저장" type="submit"/>
+                                            </td>
+                                        </tr>
                                         </form>
                                         <form action="grade" method="post" style="margin-bottom: 0px">
                                                 <tr>
@@ -352,8 +281,9 @@ table {
                     </div>
                    <!--표 끝-->
                 </div>
-			</div>
-		</div>
+
+	
+		
 
 
  	<%-- <form action="grade" method="post" id="grade" style="margin-bottom: 0px">

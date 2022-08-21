@@ -8,16 +8,157 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2c6e8effc4f59a314f7673e566c1b6f1"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<style>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-	.rest table,tr,th{
+
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+ <link href="${path}/resources/etcResource/assets/css/animate.min.css" rel="stylesheet"/>
+<link href="${path}/resources/etcResource/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
+<link href="/http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+<link href="${path}/resources/etcResource/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
+<style>
+#content_List{
+	display: flex;
+	justify-content: center;
+}
+#map{
+	margin:0px;
+}
+#moin_list{
+	border: 1px solid rgb(235,236,239);
+	background-color:#f9f9fa;
+	width:400px;
+	height:300px;
+
+}
+ul{ list-style:none;}
+
+/* 	.rest table,tr,th{
 		border: 1px solid black;
 		border-collapse: collapse;
 		padding: 5px;
 		text-align: center;
 	}
+ */
+#comment_label{
+	text-align:center;
+	margint-bottom:20px;
+}
+#comment__{
+	 border-radius: 8px;
+	border: 1px solid rgb(235,236,239);
+	background-color: #f9f9fa;
+}
+
+#comment_date{position:relative;  top:5px; left:600px;}
 
 
+#comment_content{
+	text-align:left;
+	
+}
+
+#comment_writed{
+	padding:10px;
+	position: relative;
+	left: 10px;
+	
+
+}
+#comment_pic{
+	padding-top:20px;
+	justify-content:left;
+	display:flex;
+	position: relative;
+	left: 20px;
+}
+#comment_border{
+	border: 1px solid rgb(235,236,239);
+	width:800px;
+	height:600px;
+	position:relarive; 
+	left:500px;
+	margin:auto;
+	  overflow-x: hidden;
+    overflow-y: auto;
+	
+}
+#comment_list{
+
+}
+#comment_option{
+	position:relative;
+	left:720px;
+	bottom:5px;
+}
+
+
+
+
+#btn-write-comment{ 
+    color : #009f47;
+    background-color: #e0f8eb;
+    position: relative;
+   	right:6px;
+}
+
+
+#comment-writebox {
+    background-color: white;
+    border : 1px solid #e5e5e5;
+    border-radius: 5px;
+    width:800px;
+    margin:auto;
+}
+
+textarea {
+    display: block;
+    width: 100%;
+    min-height: 17px;
+    padding: 0 20px;
+    border: 0;
+    outline: 0;
+    font-size: 13px;
+    resize: none;
+    box-sizing: border-box;
+    background: transparent;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#comment-writebox-bottom {
+    padding : 3px 10px 10px 10px;
+    min-height : 35px;
+}
+
+.btn {
+    font-size:10pt;
+    color : black;
+    background-color: #eff0f2;
+    border:none;
+    text-decoration: none;
+	position:relative;
+	bottom:10px;
+    border-radius: 5px;
+    float : right;
+}
+
+#option_align{
+	display:flex;
+	justify-content: right;
+}
+#image_label{
+	position:relative;
+	right:10px;
+	cursor: pointer;
+}
+#photo_div{
+     position:relative;
+	left:280px;
+}
 </style>
 <title>Insert title here</title>
 </head>
@@ -27,7 +168,7 @@
 	<h3>${sessionScope.loginId}</h3>
 	<h3>맛집 상세보기</h3>
 	</div>
-	<div>
+	<div id="photo_div">
 	<c:forEach items="${CommentPhoto}" var="p">
 		<img src="/photo/${p.photo_newFileName}" height="250"/>
 	</c:forEach>
@@ -36,8 +177,10 @@
 	 <%-- <c:forEach items="${photoList}" var="path">
       	<img src="/photo/${path.photo_newFileName}" height="100"/>
      </c:forEach> --%>
+  <div id="content_List">
+  
     <div style="float: left; margin-right:40px;">
-	<table class="rest" width="500" height="300">
+	<table class="table table-hover table-striped" class="rest" width="500" height="300">
 	         <tr>
 	         	<th colspan="2" id="restaurant_name">
 	         		${resDetail.restaurant_name}
@@ -63,77 +206,115 @@
 				</td>
 	</table>
 	</div>
-	<!-- 지도^^ -->
-	<div id="map" style="width:400px;height:300px;"></div>
-	<div>
-	<ul>
-	<c:forEach items="${lightninglist}" var="liList">
-	 	<h3>번개 모임!!</h3>
-	 	<br/>
-	 	<c:if test="${liList.lightning_status eq '모집중'}">
-      		<li>${liList.lightning_title}</li>
-    	</c:if>
-     </c:forEach>
-     </ul>
+	
+	
+		<!-- 지도^^ -->
+		<div id="map" style="width:400px;height:300px;"></div>
+		<div id="moin_list">
+		<ul>
+		<c:forEach items="${lightninglist}" var="liList">
+		 	<h3>번개 모임!!</h3>
+		 	<br/>
+		 	<c:if test="${liList.lightning_status eq '모집중'}">
+	      		<li>${liList.lightning_title}</li>
+	    	</c:if>
+	     </c:forEach>
+	     </ul>
+		</div>
 	</div>
-	<h3>리뷰</h3>
-	<div>
+	
+	<div id="comment_label">
+		<h3>리뷰</h3>
 		 <a href="./reviewWrite?restaurant_no=${resDetail.restaurant_no}">[리뷰 쓰기]</a>            
 	<br/>
 	</div>
-	<div>
-	 <c:forEach items="${resCommet}" var="comment" >
-	 <table>
-		<c:if test="${comment.comment_status eq '공개'}">
-			<input type="hidden" name="idx" value="${comment.comment_no}" />
-			<tr>
-				<td width="50;">${comment.member_id}</td>
-				<td  width="300;"></td>
-				<td colspan="2">${comment.comment_date}</td>
-			</tr>
-			
-			<tr height="150;">
-			<td></td>
-			<td>${comment.comment_content} </br>
-			<c:forEach items="${CommentPhoto}" var="p">
-				<c:if test="${comment.comment_no eq p.idx}">
-				<img src="/photo/${p.photo_newFileName}" height="100"/>
-				</c:if>
-			</c:forEach>
-			</td>
-			
-			<td width="100;">
-			<c:choose>
-		 		<c:when test="${comment.member_id eq sessionScope.loginId}">
-					<input type="hidden" name="ID" value="${comment.member_id}" />
-					<button class="delBtn" onclick="commentDel(this)" commentID="${comment.comment_no}">삭제</button>
-					<a href="./reviewUpdate?comment_no=${comment.comment_no}">수정</a>
-				</c:when>
-				<c:otherwise>
-					<input type="hidden" value="${comment.comment_no}">
-					<button type="button" resID="${comment.comment_no}"
-						memberID="${sessionScope.loginId}" onclick="report(${comment.comment_no})">신고하기</button>
-				</c:otherwise>
-			</c:choose>
-				</br>
-				
-				<c:choose>
-		 		<c:when test="${comment.likeMember == null or sessionScope.loginId == null}">
-					<img src="/photo/heart.png" height="13" style="cursor: pointer;" onclick="like(this)" commentID="${comment.comment_no}" loginID="${sessionScope.loginId}"/>	
-					${comment.likeNo}
-				</c:when>
-				<c:otherwise>
-					<img src="/photo/fullheart.png" height="13" style="cursor: pointer;" onclick="likeDel(this)" commentID="${comment.comment_no}" loginID="${sessionScope.loginId}"/>	
-					${comment.likeNo}
-				</c:otherwise>
-			</c:choose>
-				</td>
+	
+	
 
-			</tr>
+	
+	<form id="comment-writebox" action=reviewWrite.do method="post" enctype="multipart/form-data">
+        
+        		<input type="hidden" name="idx" value="${resDetail.restaurant_no}" />
+        
+           
+                
+                <div  class="comment-writebox-content">
+                	<textarea  cols="30" rows="5" name="Comment_content" placeholder="리뷰를 남겨보세요~"></textarea>
+                </div>
+            <div id="option_align">
+               <label  id="image_label" for="image_">    
+ 					<i style="font-size:20px"; class="fas fa-camera"></i></label> 
+               <input style="display:none" id="image_"  type="file" name="photos" multiple="multiple"/>
+           
+	           <button  class="btn" id="btn-write-comment" type="submit" >리뷰작성</button>
+	       </div>
+	</form>
+	
+	
+	
+	
+	
+	<div id="comment_border" >
+	 <c:forEach items="${resCommet}" var="comment" >
+	
+		<c:if test="${comment.comment_status eq '공개'}">
+		 <div id="comment__">
+			<input type="hidden" name="idx" value="${comment.comment_no}" />
+			
+			<div  id="comment_list">
+				<span>${comment.member_id}</span>
+				
+				<span id="comment_date">${comment.comment_date}
+					<c:choose>
+				 		<c:when test="${comment.likeMember == null or sessionScope.loginId == null}">
+							<img src="/photo/heart.png" height="13" style="cursor: pointer;" onclick="like(this)" commentID="${comment.comment_no}" loginID="${sessionScope.loginId}"/>	
+							${comment.likeNo}
+						</c:when>
+						<c:otherwise>
+							<img src="/photo/fullheart.png" height="13" style="cursor: pointer;" onclick="likeDel(this)" commentID="${comment.comment_no}" loginID="${sessionScope.loginId}"/>	
+							${comment.likeNo}
+						</c:otherwise>
+					</c:choose>
+				</span>
+			</div>
+			
+			<div  id="comment_content">
+			
+				<div id="comment_writed">${comment.comment_content}</div>
+				<div id="comment_pic">
+					<c:forEach items="${CommentPhoto}" var="p">
+					<c:if test="${comment.comment_no eq p.idx}">
+					<img src="/photo/${p.photo_newFileName}" height="100"/>
+					</c:if>
+					</c:forEach>
+				</div>
+			</div>
+			
+			<div id="comment_option">
+					<c:choose>
+				 		<c:when test="${comment.member_id eq sessionScope.loginId}">
+							<input type="hidden" name="ID" value="${comment.member_id}" />
+							<a href="#"class="delBtn" onclick="commentDel(this)" commentID="${comment.comment_no}">삭제</a>
+							<a href="./reviewUpdate?comment_no=${comment.comment_no}">수정</a>
+						</c:when>
+						<c:otherwise>
+							<input type="hidden" value="${comment.comment_no}">
+							<a href="#" resID="${comment.comment_no}"
+								memberID="${sessionScope.loginId}" onclick="report(${comment.comment_no})">신고하기</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
+
+		</div>
 		</c:if>	
-		</table>
+		
      </c:forEach>
     </div>
+    
+
+        
+        
+        
 </body>
 
 <script>
@@ -147,7 +328,7 @@ console.log("식당번호 확인::",restaurant_no);
 	var ooo = onclick="report(${comment.comment_no})"
 	
 	function resUp(){
-		window.open('restaurantUpdate.go?restaurant_no=${resDetail.restaurant_no}','','width=400, height=300');
+		window.open('restaurantUpdate.go?restaurant_no=${resDetail.restaurant_no}',"new","width=400, height=200, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 	}
 	
 	function report(rep){
@@ -282,6 +463,32 @@ console.log("식당번호 확인::",restaurant_no);
 	infowindow.open(map, marker);
 	
 	
+	
+	
+	/*  */
+	
+	
+		function fileUpload(){
+		$("form").submit();
+	}
+	
+	var path = "${path}";
+	
+	if(path != ""){
+		var content = '<a href="#" id="${path}" onclick="del(this)">';
+		content += '<img src="'+path+'" height="150"/>';
+		content += '</a>';
+		opener.document.getElementById("editable").innerHTML += content;		
+		self.close();
+	}
+
+
+	
+	
+	
+	function back() {
+	     history.go(-1);
+	 }
 </script>
 
 

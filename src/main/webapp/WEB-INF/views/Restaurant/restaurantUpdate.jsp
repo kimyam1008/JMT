@@ -5,8 +5,32 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<style></style>
-<title>Insert title here</title>
+<style>
+
+	table {
+	    width:70%; 
+	    margin-left:auto; 
+	    margin-right:auto;
+	    position: static;
+	}
+	
+    textarea {
+		width:100%;
+		height : 90px;
+		resize : none;
+	}
+	
+	.center {
+		margin: 0;
+		position: absolute;
+		top: 90%;
+		left: 50%;
+		-ms-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
+	}
+	
+</style>
+<title>맛집 수정 요청 페이지</title>
 </head>
 
 
@@ -23,18 +47,23 @@
 				<td><input type="hidden" name="member_id" value="${sessionScope.loginId}"/></td>
 			</tr>
 			<tr>
-				<th>내용</th>
-				<td>					
-					<input type="text" name="restaurantUpdate_reason"/>
+				<th>식당이름, 주소, 전화번호, 영업 여부등 수정해야 할 정보를 기입해주세요</th>
+			</tr>
+			<tr>
+				<td>
+					<textarea name="restaurantUpdate_reason"></textarea>			
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					<button type="button" onclick="cancellation()">취소</button>
+				<div class="center">
+			   		<button type="button" onclick="cancellation()">취소</button>
 					<button type="button" onclick="save()">요청</button>
+			  	</div>
 				</td>
 			</tr>
 		</table>
+		<br/>
 	</form>
 </body>
 <script>

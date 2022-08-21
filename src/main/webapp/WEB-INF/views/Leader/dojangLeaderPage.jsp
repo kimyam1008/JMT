@@ -32,6 +32,21 @@
 		caption, table th {
 			text-align:center;
 		}
+		
+		input[type='button']{
+			font-family: 'GmarketSansMedium';
+			color:black;
+			background:#D6F5D8;
+			border:solid #B9F2B4 1px;
+			padding:5px 10px;
+		}
+		input[type='button']:focus{
+			outline:0;
+		}
+		input[type='button']:hover{
+			background:yellowgreen;
+			cursor:pointer;
+		}
 	</style>
 </head>
 <body>
@@ -203,7 +218,7 @@
 
                 <!--게시글 양식 시작-->
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="content">
                                 <h3>최근 게시글</h3>
@@ -212,31 +227,31 @@
                                         등록된 글이 없습니다.
                                     </c:if>
                                     <c:forEach items="${dojangRecentPost}" var="dojangRecentPost" begin="0" end="4">			
-                                        <li>${dojangRecentPost.dojangPost_subject}</li>
+                                        <li style="text-align:left; font-size:17px;">${dojangRecentPost.dojangPost_subject}</li>
                                     </c:forEach>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!--게시글 양식 끝-->
-
-                 <!--게시글 양식 시작-->
-                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="content">
-                                <h3>가입 대기 회원</h3><a style="text-decoration:none" onclick="joinWait()">회원보기</a>
-                                <!-- <input type="button" value="회원보기" onclick="joinWait()"/> -->
-                                <ul>
-                                    <c:forEach items="${dojangJoinWait}" var="dojangJoinWait">
-                                        <li>${dojangJoinWait.member_id}</li>
-                                    </c:forEach>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
+                <div class="col-md-6">
+                      <div class="card">
+                          <div class="content">
+                              <h3>가입 대기 회원</h3>
+                              <a style="text-decoration:none; float:right; font-size:16px;" onclick="joinWait()">회원보기</a><br/>
+                              <!-- <input type="button" value="회원보기" onclick="joinWait()"/> -->
+                              <ul>
+                              	<c:if test = "${dojangJoinWait.size() == 0}">
+	                                    가입 신청한 회원이 없습니다.
+	                                </c:if>
+                                  <c:forEach items="${dojangJoinWait}" var="dojangJoinWait">
+                                      <li style="text-align:left; font-size:17px;">${dojangJoinWait.member_id}</li>
+                                  </c:forEach>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
                 <!--게시글 양식 끝-->
 
                

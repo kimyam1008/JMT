@@ -59,7 +59,7 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="jmtMain.html" class="simple-text">
+                <a href="/" class="simple-text">
                     JMT
                 </a>
             </div>
@@ -170,9 +170,13 @@
                             <div class="content">
 
                                 <div class="top-section">
-                                    <a href="#"><img src ="/photo/${dto.photo_newFileName}" class="profileImg"></a>
-                                    <p class="title">${dto.lightning_title}</p>
-                                    <p class="post-count">작성글 : ${dto.post_count}</p><p class="comment-count">작성 댓글 : ${dto.comment_count}</p>
+                                    <div>
+	                                    <a href="#" style="float:left; weight:50px;"><img src ="/photo/${dto.photo_newFileName}" class="profileImg"></a>
+	                                    <div>
+	                                    	<p class="title" style="margin-bottom:10px;">${dto.lightning_title}</p><br/>
+	                                   		<p class="post-count">작성글 : ${dto.post_count}</p><p class="comment-count">작성 댓글 : ${dto.comment_count}</p>
+	                                    </div>
+	                                </div>
                                 </div>
 
                             </div>

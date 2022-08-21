@@ -51,7 +51,7 @@ public class DojangService {
 		searchResult.put("gender", gender);
 		searchResult.put("loginId", session.getAttribute("loginId"));
 		
-		logger.info("확인:::"+session.getAttribute("loginId"));
+		//logger.info("확인:::"+session.getAttribute("loginId"));
 		
 
 		int allCnt = dao.allCount(searchResult);
@@ -400,6 +400,11 @@ public class DojangService {
 			success = true;
 		}
 		return success;
+	}
+
+	public String dojangTitle(String dojang_no) {
+
+		return dao.dojangTitle(dojang_no);
 	}
 	
 
