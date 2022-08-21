@@ -144,9 +144,11 @@ public class DojangController {
 		public String dojangHomeGo(@RequestParam String dojang_no, Model model, HttpSession session) {
 			session.setAttribute("dojang_no", dojang_no);
 			String loginId = (String) session.getAttribute("loginId");
-			String dojangHomeLeader = service.reported(dojang_no);
 			String dojangHomeMstatus = service.dojangHomeMstatus(dojang_no,loginId);
+			String dojangHomeLeader = service.reported(dojang_no);
 			ArrayList<DojangDTO> dojangHomeMember = service.dojangHomeMember(dojang_no);
+			String dojangTitle = service.dojangTitle(dojang_no);
+			model.addAttribute("dojangTitle",dojangTitle);
 			model.addAttribute("dojangHomeMember",dojangHomeMember);
 			model.addAttribute("leader",dojangHomeLeader);
 			model.addAttribute("loginId",loginId);
@@ -162,6 +164,8 @@ public class DojangController {
 			String dojangHomeLeader = service.reported(dojang_no);
 			String dojangHomeMstatus = service.dojangHomeMstatus(dojang_no,loginId);
 			ArrayList<DojangDTO> dojangHomeMember = service.dojangHomeMember(dojang_no);
+			String dojangTitle = service.dojangTitle(dojang_no);
+			model.addAttribute("dojangTitle",dojangTitle);
 			model.addAttribute("dojangHomeMember",dojangHomeMember);
 			model.addAttribute("leader",dojangHomeLeader);
 			model.addAttribute("loginId",loginId);
@@ -176,6 +180,10 @@ public class DojangController {
 			String loginId = (String) session.getAttribute("loginId");
 			String dojangHomeLeader = service.reported(dojang_no);
 			String dojangHomeMstatus = service.dojangHomeMstatus(dojang_no,loginId);
+			ArrayList<DojangDTO> dojangHomeMember = service.dojangHomeMember(dojang_no);
+			String dojangTitle = service.dojangTitle(dojang_no);
+			model.addAttribute("dojangTitle",dojangTitle);
+			model.addAttribute("dojangHomeMember",dojangHomeMember);
 			model.addAttribute("leader",dojangHomeLeader);
 			model.addAttribute("loginId",loginId);
 			model.addAttribute("member",dojangHomeMstatus);
@@ -381,6 +389,12 @@ public class DojangController {
 			
 			DojangDTO dojangHomeDetail = service.dojangHomeDetail(dojangPost_no);
 			String dojangHomeMstatus = service.dojangHomeMstatus(dojang_no,loginId);
+			String dojangHomeLeader = service.reported(dojang_no);
+			ArrayList<DojangDTO> dojangHomeMember = service.dojangHomeMember(dojang_no);
+			String dojangTitle = service.dojangTitle(dojang_no);
+			model.addAttribute("dojangTitle",dojangTitle);
+			model.addAttribute("dojangHomeMember",dojangHomeMember);
+			model.addAttribute("leader",dojangHomeLeader);
 			
 				model.addAttribute("loginId",loginId);
 				model.addAttribute("list",dojangHomeDetail);
@@ -434,6 +448,10 @@ public class DojangController {
 			String dojang_no = (String) session.getAttribute("dojang_no");
 			String loginId = (String) session.getAttribute("loginId");
 			String dojangHomeLeader = service.reported(dojang_no);
+			ArrayList<DojangDTO> dojangHomeMember = service.dojangHomeMember(dojang_no);
+			String dojangTitle = service.dojangTitle(dojang_no);
+				model.addAttribute("dojangTitle",dojangTitle);
+				model.addAttribute("dojangHomeMember",dojangHomeMember);
 				model.addAttribute("leader",dojangHomeLeader);
 				model.addAttribute("loginId",loginId);
 			logger.info("방장확인::"+dojangHomeLeader);
@@ -456,6 +474,7 @@ public class DojangController {
 			
 			String dojangHomeLeader = service.reported(dojang_no);
 			ArrayList<DojangDTO> dojangHomeMember = service.dojangHomeMember(dojang_no);
+			
 			
 			boolean dojangPostReg = service.dojangPostReg(params,session);
 			map.put("dojangPostReg", dojangPostReg);

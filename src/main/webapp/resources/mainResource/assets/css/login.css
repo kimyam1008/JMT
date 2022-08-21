@@ -21,6 +21,7 @@ h1 {
 	margin: 0;
 	font-family: 'NanumSquareRound';
 	/* font-size: 50px; */
+	margin-bottom: 5px;
 }
 
 h2 {
@@ -86,12 +87,16 @@ form {
 	text-align: center;
 }
 
-input {
+input[type='text'],input[type='password'],input[type='email'],input[type='date'],input[type='id'] {
 	background-color: #eee;
 	border: none;
 	padding: 12px 15px;
 	margin: 8px 0;
-	width: 100%;
+	width: 95%;
+}
+
+#idform,#emailform{
+	width: 70%;
 }
 
 .container {
@@ -259,4 +264,14 @@ footer a {
 .birthday {
 	margin:0 auto;
 	font-size: 13px;
+}
+
+.chkBtn {
+	border:none;
+	border: 1px solid #fc7c66;
+	background-color: #fc7c66;
+	color: #FFFFFF;
+	font-size: 14px;
+	padding: 7px 3px;
+	margin: 2px;
 }

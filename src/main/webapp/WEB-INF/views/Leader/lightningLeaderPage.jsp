@@ -159,7 +159,7 @@
                         <div class="card">
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
-                                    <caption>${lightDto.lightning_title}</caption>
+                                    <caption style="maragin:0 auto; text-align:center; font-size:20px;">${lightDto.lightning_title}</caption>
                                     <tr>
                                         <th>방장</th>
                                         <td>${lightDto.leaderName}</td>
@@ -202,7 +202,7 @@
 
                 <!--게시글 양식 시작-->
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="card">
                         	<div class="content">
                             <h3>최근 게시글</h3>
@@ -211,7 +211,25 @@
 	                                    등록된 글이 없습니다.
 	                                </c:if>
 	                                <c:forEach items="${lightRecentPost}" var="lightRecentPost" begin="0" end="4">			
-	                                    <li>${lightRecentPost.comment_content}</li>
+	                                    <li style="text-align:left; font-size:17px;">${lightRecentPost.comment_content}</li>
+	                                </c:forEach>
+	                            </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card">
+                        	<div class="content">
+	                            <h3>가입 대기 회원</h3>
+	                            <a style="text-decoration:none; text-align:right; font-size:16px;" onclick="lightJoinWait()">회원보기</a>
+	                            <!-- <input type="button" value="회원보기" onclick="lightJoinWait()"/> -->
+	                            <ul>
+	                            	<c:if test = "${lightJoinWait.size() == 0}">
+	                                    가입 신청한 회원이 없습니다.
+	                                </c:if>
+	                                <c:forEach items="${lightJoinWait}" var="lightJoinWait">
+	                                    <li style="text-align:left; font-size:17px;">${lightJoinWait.member_id}</li>
 	                                </c:forEach>
 	                            </ul>
                             </div>
@@ -221,7 +239,7 @@
                 <!--게시글 양식 끝-->
 
                  <!--게시글 양식 시작-->
-                 <div class="row">
+                 <%-- <div class="row">
                     <div class="col-md-12">
                         <div class="card">
                         	<div class="content">
@@ -235,7 +253,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --%>
                 <!--게시글 양식 끝-->
 
                

@@ -1,10 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<meta charset="UTF-8">
+	<link rel="icon" type="image/png" href="mainResource/assets/img/pizza-slice.png">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<title>JMT 도장깨기방 : 게시글 상세</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    
+    
+    <!-- Bootstrap core CSS     -->
+    <link href="../resources/etcResource/assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Animation library for notifications   -->
+    <link href="../resources/etcResource/assets/css/animate.min.css" rel="stylesheet"/>
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="../resources/etcResource/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="../resources/etcResource/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    
+
 <style>
 #test {
   list-style-type: none;
@@ -31,19 +54,33 @@ li a:hover {
   color: #fff;
 }
 
-#list {
-  margin-left: 260px;
+.detailtest{
+text-align:right;
 }
 
-table, th, td{
-		border: 1px solid black;
-		border-collapse: collapse;
-		width: 600px;
-		hi
-	}
-	td, th{
-		padding: 5px 10px;
-	}
+table {
+			  border-collapse: separate;
+			  border-spacing: 1px;
+			  text-align: left;
+			  line-height: 1.5;
+			  border-top: 1px solid #ccc;
+			  width : 1000px;
+			  margin-left:auto; 
+    		  margin-right:auto;
+			}
+			table th {
+			  width: 150px;
+			  padding: 10px;
+			  font-weight: bold;
+			  vertical-align: top;
+			  border-bottom: 1px solid #ccc;
+			}
+			table td {
+			  width: 350px;
+			  padding: 10px;
+			  vertical-align: top;
+			  border-bottom: 1px solid #ccc;
+			}
 	
 #test2{
 		width: 170px;
@@ -76,9 +113,11 @@ td a {
 	 .comment-form {
 	  display: flex;
 	  flex-direction: column;
-	  width : 515px;
-	  height : 80px;
+	  width : 1000px;
+	  height : 100px;
 	  margin : 10px 0px;
+	  margin-left:auto; 
+    margin-right:auto;
 	}
 	.comment-form textarea {
 	  resize: none;
@@ -95,14 +134,15 @@ td a {
 	}
  	
  	
- 	
  	/*댓글 리스트 */
  	/* 레이아웃 - 댓글 */
 	.comments {
 	  border: 0.5px solid #dbdbdb;
 	  border-left: none;
 	  border-right: none;
-	  width : 510px;
+	  width : 1000px;
+	  margin-left:auto; 
+     margin-right:auto;
 	}
 	.comments .comment {
 	  border-bottom: 1px solid #dbdbdb;
@@ -235,104 +275,249 @@ td a {
 </style>
 </head>
 <body>
- ${sessionScope.loginId} 님 환영합니다, <a href="logout.do">로그아웃</a>
+<!--사이드바-->
+    <div class="wrapper">
+     <div class="sidebar" data-color="orange">
+
+        <!--
+
+            Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+            Tip 2: you can also add an image using data-image tag
+
+        -->
+
+    	<div class="sidebar-wrapper">
+            <div class="logo">
+                <a href="jmtMain.html" class="simple-text">
+                    JMT
+                </a>
+            </div>
+            <ul class="nav">
+                <!--도장격파원-->
+                <li class="dojangParty">
+                    <a class="dojangPartyList" href="#">
+                        <i class="pe-7s-hammer"></i>
+                        <p>도장격파원</p>
+                    </a>
+                     <a><p>${leader} 방장</p></a>
+                    <c:forEach items="${dojangHomeMember}" var="dojangHomeMember">
+                    <a><p>${dojangHomeMember.member_id}</p></a>
+                    </c:forEach>
+                </li>
+                <li>
+                    <a href="dojangHome.go?dojang_no=${sessionScope.dojang_no}">
+                        <i class="pe-7s-news-paper"></i>
+                        <p>전체 게시판</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="dojangHomeL.go?dojang_no=${sessionScope.dojang_no}">
+                        <i class="pe-7s-speaker"></i>
+                        <p>공지 게시판</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="dojangHomeM.go?dojang_no=${sessionScope.dojang_no}">
+                        <i class="pe-7s-note2"></i>
+                        <p>일반 게시판</p>
+                    </a>
+                 </li>
+                  <li>
+                    <a href="dojangPostReg.go">
+                        <i class="pe-7s-star"></i>
+                        <p>글쓰기</p>
+                    </a>
+                </li>
+                </li>
+                  <li>
+                    <a href="groupReviewList">
+                        <i class="pe-7s-star"></i>
+                        <p>모임후기 작성</p>
+                    </a>
+                </li>
+                <c:if test="${leader == loginId}">
+                <li>
+                    <a href="dojangLeaderPage.go?dojang_no=${sessionScope.dojang_no}">
+                        <i class="pe-7s-star"></i>
+                        <p>방장 페이지</p>
+                    </a>
+                </li>
+                </c:if>
+                <c:if test="${member == loginId}">
+                <li>
+                    <a href="#" onclick="memberStatus(); return false;">
+                        <i class="pe-7s-hammer"></i>
+                        <p>도장깨기 회원 탈퇴</p>
+                    </a>
+                </li>
+                </c:if>
+            </ul>
+    	</div>
+    </div>
+    <!--사이드바 끝-->
+
+  <!--상단바 시작-->
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">${dojangTitle}</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <!-- <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-dashboard"></i>
+								<p class="hidden-lg hidden-md">Dashboard</p>
+                            </a>
+                        </li> -->
+                        <!--누르면 알림창같은거 조그맣게 뜸-->
+                        <!-- <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-globe"></i>
+                                    <b class="caret hidden-lg hidden-md"></b>
+									<p class="hidden-lg hidden-md">
+										5 Notifications
+										<b class="caret"></b>
+									</p>
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">Notification 1</a></li>
+                                <li><a href="#">Notification 2</a></li>
+                                <li><a href="#">Notification 3</a></li>
+                                <li><a href="#">Notification 4</a></li>
+                                <li><a href="#">Another notification</a></li>
+                              </ul>
+                        </li> -->
+                        <!-- <li>
+                           <a href="">
+                                <i class="fa fa-search"></i>
+								<p class="hidden-lg hidden-md">Search</p>
+                            </a>
+                        </li> -->
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                           <a href="./mypage.go">
+                               <p>${sessionScope.loginId} 님의 마이페이지</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/">
+                                <p>Home</p>
+                             </a>
+                         </li>
+                        <li>
+                            <a href="logout.do">
+                                <p>Log out</p>
+                            </a>
+                        </li>
+						<li class="separator hidden-lg"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--상단바 끝-->
+
  <input type="hidden" id="dojangPost_no" value="${sessionScope.dojangPost_no}"/>
   <input type="hidden" id="dojang_no" value="${sessionScope.dojang_no}"/>
-<div id="test">
-<h3>도장 격파원</h3>
-<div id="test2">
-<h5>방장</h5>
-<ul id="leader">
-</ul>
-<h5>멤버</h5>
-<ul id="member">
-</ul>
-</div>
-<br/>
-<h3>게시판</h3>
-<ul id="post_type">
-  <li class="post"><a href="dojangHome.go?dojang_no=${sessionScope.dojang_no}">전체게시판</a></li>
-  <li class="post"><a href="dojangHomeL.go?dojang_no=${sessionScope.dojang_no}">공지게시판</a></li>
-  <li class="post"><a href="dojangHomeM.go?dojang_no=${sessionScope.dojang_no}">일반게시판</a></li>
-   <c:if test="${list.leader_id == loginId}">
-  <li><a href="dojangLeaderPage.go?dojang_no=${sessionScope.dojang_no}">방장페이지</a></li>
-	</c:if>
-</ul>
-
-<div  id="review">
-<input type="button" value="모임후기 작성하러 가기" onclick="location.href='groupReviewList'"/>
-</div>
-<br/>
-<c:if test="${member == loginId}">
-<div id="review2">
-<input type="button" value="도장깨기 회원 탈퇴" onclick="memberStatus()"/>
-</div>
-</c:if>
-</div>
-
-
-<div id="list">
-<h1>게시글 상세</h1>
-	<c:choose>
-		<c:when test="${list.member_id ==loginId}">
-			<input type="button" value="수정하기" onclick="dojangPostUpdate()"/>
-			<input type="button" value="삭제하기" onclick="dojangPostDel()"/>
-		</c:when>
-		<c:otherwise>
-			<input type="button" value="신고하기" onclick="dojangPostReport()"/>
-		</c:otherwise>
-	</c:choose>
-<table>
-	<tr id="dojangPost_no_tr">
-		<th>글번호</th>
-		<td id="dojangPost_no"></td>
-	</tr>
-	<tr>
-		<th>제목</th>
-		<td colspan="2" id="dojangPost_subject"></td>
-		<td id="dojangPost_type"></td>
-	</tr>
-	<tr>
-		<th>작성자</th>
-		<td id="member_id"></td>
-		<th>작성일</th>
-		<td id="dojangPost_date"></td>
-	</tr>
-	<tr>
-		<td height=350 colspan="4" id="dojangPost_content"></td>
-	</tr>
-	<tr>
-		<th colspan="2">
-		<c:choose>
-			<c:when test="${list.leader_id == loginId and list.dojangPost_type == '공지게시판'}">
-				이번 모임장소는?
-			</c:when>
-			<c:otherwise>
-				추천 맛집은?
-			</c:otherwise>
-		</c:choose>
-		</th>
-		<c:choose>
-			<c:when test="${list.restaurant_name == null or list.restaurant_name == '검색버튼을 눌러주세요'}">
-				<td colspan="2">등록된 맛집이 없습니다.</td>
-			</c:when>
-			<c:otherwise>
-				<td colspan="2" id="restaurant_name"></td>
-			</c:otherwise>
-		</c:choose>
-	</tr>
-</table>
-<!-- 댓글 -->
-<div class="comment-form">
-  		<textarea  id="cmtInput" placeholder="댓글을 작성하세요 (최대 300자)"></textarea>
-  		<button type="button" class="submit" id="cmtWrite">댓글 쓰기</button>
-	</div>
-	<div id="cmtList">
-	</div>
-
-
-</div>
-
+ 
+						 <!-- 컨텐츠 -->
+						 <div class="content">
+				        <div class="container-fluid">
+				        <div class="col-md-12">
+				        <div class="card">
+						<div id="list" class="content table-responsive table-full-width">
+						<h2>게시글 상세</h2>
+						<table>
+							<tr id="dojangPost_no_tr">
+								<th>글번호</th>
+								<td id="dojangPost_no"></td>
+							</tr>
+							<tr>
+								<th>제목</th>
+								<td colspan="2" id="dojangPost_subject"></td>
+								<td id="dojangPost_type"></td>
+							</tr>
+							<tr>
+								<th>작성자</th>
+								<td id="member_id"></td>
+								<th>작성일</th>
+								<td id="dojangPost_date"></td>
+							</tr>
+							<tr>
+								<td height=350 colspan="4" id="dojangPost_content"></td>
+							</tr>
+							<tr>
+								<th colspan="2">
+								<c:choose>
+									<c:when test="${list.leader_id == loginId and list.dojangPost_type == '공지게시판'}">
+										이번 모임장소는?
+									</c:when>
+									<c:otherwise>
+										추천 맛집은?
+									</c:otherwise>
+								</c:choose>
+								</th>
+								<c:choose>
+									<c:when test="${list.restaurant_name == null or list.restaurant_name == '검색버튼을 눌러주세요'}">
+										<td colspan="2">등록된 맛집이 없습니다.</td>
+									</c:when>
+									<c:otherwise>
+										<td colspan="2" id="restaurant_name"></td>
+									</c:otherwise>
+								</c:choose>
+							</tr>
+							<tr>
+							<th>
+							<c:choose>
+								<c:when test="${list.member_id ==loginId}">
+									 <a href="#" onclick="dojangPostUpdate(); return false;" class="detailtest">수정</a>
+									 <a href="#" onclick="dojangPostDel(); return false;" class="detailtest">삭제</a>
+								</c:when>
+								<c:otherwise>
+								 	<a href="#" onclick="dojangPostReport(); return false;" class="detailtest">신고</a>
+								</c:otherwise>
+							</c:choose>
+							</th>
+							<td></td>
+							<td></td>
+							<td></td>
+							</tr>
+						</table>
+						<!-- 댓글 -->
+						<div class="comment-form">
+						  		<textarea  id="cmtInput" placeholder="댓글을 작성하세요 (최대 300자)"></textarea>
+						  		<button type="button" class="submit" id="cmtWrite">댓글 쓰기</button>
+							</div>
+							<div id="cmtList">
+							</div>
+						
+						</div>
+						</div>
+						</div>
+					    </div>
+					    </div>
+						 
+						 
+						 <!--푸터-->
+						        <footer class="footer">
+						            <div class="container-fluid">
+						                <p class="copyright pull-right">
+						                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+						                </p>
+						            </div>
+						        </footer>
+						
+						    </div>
+						</div>
 
 </body>
 <script>
