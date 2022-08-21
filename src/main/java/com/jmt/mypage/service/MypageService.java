@@ -303,6 +303,11 @@ public class MypageService {
 		return dao.myMoimArry(loginId);
 	}
 
+	public String proCon(String loginId) {
+
+		return dao.proCon(loginId);
+	}
+
 	
 
 

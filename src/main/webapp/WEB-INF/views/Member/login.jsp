@@ -17,7 +17,6 @@
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
 		<form>
-			<h1>회원 가입</h1>
 			<!-- <div class="social-container">
 				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
 				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
