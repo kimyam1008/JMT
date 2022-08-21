@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-	<link rel="icon" type="image/png" href="mainResource/assets/img/pizza-slice.png">
+	<link rel="icon" type="image/png" href="../resources/mainResource/assets/img/pizza-slice.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<title>JMT 도장깨기방 : 게시글 쓰기</title>
@@ -52,6 +52,20 @@ table {
 			  vertical-align: top;
 			  border-bottom: 1px solid #ccc;
 			}
+table,th,td {
+				border : 1px solid #ccc;
+		        border-left: none;
+		        border-right: none;
+				border-collapse : collapse;
+			}
+		    th {
+			background-color: #f9f9f9;
+		    text-align: center;
+			}
+		
+			th,td { 
+				padding : 5px 10px;
+			}			
 	
 #review{
 	display: flex;
@@ -115,6 +129,11 @@ textarea {
  	.btnnn:hover{
  		background-color: #bebebe;
  	}
+ 	
+ 	.notiDelBtn:hover{
+		cursor : pointer;
+		color : red;
+	}
 </style>
 </head>
 <body>
@@ -221,23 +240,24 @@ textarea {
                             </a>
                         </li> -->
                         <!--누르면 알림창같은거 조그맣게 뜸-->
-                        <!-- <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret hidden-lg hidden-md"></b>
-									<p class="hidden-lg hidden-md">
-										5 Notifications
-										<b class="caret"></b>
-									</p>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
+                        <li class="dropdown">
+	                       <c:if test="${notiChk=='true'}">
+								<a  class="dropdown-toggle" data-toggle="dropdown" style="color:Red" >
+			        			 	<i class="fa fa-globe"></i> 
+			        			 	 <b class="caret hidden-lg hidden-md"></b>
+									<b class="caret"></b>
+								</a>
+							</c:if>	
+							<c:if test="${notiChk=='false'}">
+								<a  class="dropdown-toggle" data-toggle="dropdown" >
+							         <i class="fa fa-globe"></i> 
+							          <b class="caret hidden-lg hidden-md"></b>
+									<b class="caret"></b>
+								</a>
+							</c:if>	
+                              <ul class="dropdown-menu" style="width: 400px;">
                               </ul>
-                        </li> -->
+                        </li> 
                         <!-- <li>
                            <a href="">
                                 <i class="fa fa-search"></i>
@@ -357,6 +377,7 @@ textarea {
 
 
 </body>
+<%@ include file="../../../resources/inc/footer2.jsp" %>
 <script>
 
 noHidden();
@@ -454,7 +475,7 @@ function dojangfileUp(){
 }
 
 function restaurant_pop(){	
-	 window.open("/gpRestaurantSearch.go","new","width=800, height=600, left=350 ,top=500, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	 window.open("/gpRestaurantSearch.go","new","width=700, height=500, left=350 ,top=500, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 	}
 
 
@@ -499,4 +520,16 @@ function del(elem){
 
 
 </script>
+<!--   Core JS Files   -->
+    <script src="../resources/etcResource/assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
+	<script src="../resources/etcResource/assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<!--  Charts Plugin -->
+	<script src="../resources/etcResource/assets/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="../resources/etcResource/assets/js/bootstrap-notify.js"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+	<script src="../resources/etcResource/assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
 </html>

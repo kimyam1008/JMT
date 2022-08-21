@@ -6,6 +6,8 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
+
+
 	body {
 		overflow-x :hidden;
 		overflow-y :hidden;
@@ -55,7 +57,7 @@
 	.btn1{
 		display : inline-block;
 		background-color: #ff3d1c;
-   		border-radius: 30px;
+   		border-radius: 10px;
    		color : white;
    		border : none;
    		padding : 5px 10px; 

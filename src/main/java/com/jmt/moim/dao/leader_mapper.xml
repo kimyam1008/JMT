@@ -48,8 +48,10 @@
 	
 	<!-- 번개 최근 게시글(댓글) -->
 	<select id="lightRecentPost" resultType="leader">
-		SELECT comment_content, comment_date, c.member_id, c.idx FROM comment c
-		WHERE class_no = 2 AND comment_status = "공개" AND c.idx = #{param1}; <!-- #{param1} -->
+		<!-- SELECT comment_content, comment_date, c.member_id, c.idx FROM comment c
+		WHERE class_no = 2 AND comment_status = "공개" AND c.idx = #{param1}; --> <!-- #{param1} -->
+		
+		SELECT l.lightning_no,l.lightning_title,l.lightning_create FROM lightningList l WHERE lightning_no = #{param1}
 	</select>
 	
 	<!-- 도장깨기 최근 게시글 -->

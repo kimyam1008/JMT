@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html class="no-js" lang="zxx">
     <head>
         <meta charset="UTF-8">
@@ -25,9 +25,16 @@
             <link rel="stylesheet" href="../resources/mainResource/assets/css/nice-select.css">
             <link rel="stylesheet" href="../resources/mainResource/assets/css/style.css">
    </head>
-
+	<style>
+		.notiDelBtn:hover{
+			cursor : pointer;
+			color : red;
+		}		
+	</style>
    <body>
    <input type="hidden" id="loginId" value="${sessionScope.loginId}"/>
+  <%-- <input type="hidden" id="lightning_no" value="${lightDto.lightning_no}"/> --%>
+  <%-- <input type="hidden" id="dojang_no" value="${dojangDto.dojang_no}"/> --%>
     <!-- 로고 시작 -->
     <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
@@ -67,16 +74,30 @@
                                             </li>
                                             <li><a href="restaurant">맛집</a></li>
                                             <li><a href="groupReviewList">후기</a></li>
-                                            <c:choose>
-                                            	<c:when test="${loginId != null}">
-	                                            	<li id="logoutDo"><a href="logout.do">로그아웃</a></li>
-	                                            	<li class="add-list"><a href="./mypage.go"><i class="ti-user"></i>마이페이지</a></li>
-                                            	</c:when>
-                                            	<c:otherwise>
-		                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
-                                            	</c:otherwise>
-                                            </c:choose>
-                                            <!-- <li id="mypageGo"><a href="./mypage.go">마이페이지</a></li> -->
+										<c:choose>
+		                                       <c:when test="${loginId != null}">
+			                                            <!-- 알림 -->
+				                                        <c:choose>
+						                                       <c:when test="${notiChk=='true'}"><!--안읽은 알림있을 때  -->
+								                                       <li><a href="#"><img  id="notidrop" src="resources/photo/noti4.png"  style="width:30px; height:25px;"/></a>
+								                                            <ul class="submenu notidrop_menu" style="width : 300px; display : none;">
+								                                            </ul>
+								                                        </li>
+						                                        </c:when>
+						                                <c:otherwise>
+							                                   <li><a href="#"><img id="notidrop"  src="resources/photo/bnoti4.png"  style="width:30px; height:25px;"/></a>
+							                                          <ul class="submenu notidrop_menu" style="width : 300px; display : none;">
+								                                      </ul>
+							                                   </li>
+						                                </c:otherwise>
+			                                        	</c:choose>
+			                                           <li id="logoutDo"><a href="logout.do">로그아웃</a></li>
+			                                            <li class="add-list"><a href="/mypage.go"><i class="ti-user"></i>마이페이지</a></li>
+		                                       </c:when>
+		                                       <c:otherwise>
+				                                          <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
+		                                       </c:otherwise>
+		                                   </c:choose>
                                         </ul>
                                     </nav>
                                 </div>
@@ -165,7 +186,7 @@
 			                            			 <a href="lightDetail.go?lightning_no=${lightReco.lightning_no}"><img src="../resources/photo/food_no/3.jpg" alt=""></a>
 			                            		</c:if>
 			                            		<c:if test="${lightReco.food_no eq 4}">
-			                            			 <a href="lightDetail.go?lightning_no=${lightDto.lightning_no}"><img src="../resources/photo/food_no/4.jpg" alt=""></a>
+			                            			 <a href="lightDetail.go?lightning_no=${lightReco.lightning_no}"><img src="../resources/photo/food_no/4.jpg" alt=""></a>
 			                            		</c:if>
 			                            		<c:if test="${lightReco.food_no eq 5}">
 			                            			 <a href="lightDetail.go?lightning_no=${lightReco.lightning_no}"><img src="../resources/photo/food_no/5.jpg" alt=""></a>
@@ -494,8 +515,14 @@
         <script src="../resources/mainResource/assets/js/main.js"></script>
         
     </body>
-    
+    <%@ include file="../../../resources/inc/footer.jsp" %>
     <script>
+    
+		var msg = "${msg}";
+		if (msg != "") {
+			alert(msg);
+		}
+    
     	//var loginId = ${loginId};
     	//console.log(loginId);
     	

@@ -12,6 +12,32 @@ table {
     margin-right:auto;
     position: static;
 }
+body {
+		font-family: 'GmarketSansMedium';
+	}
+@font-face {
+		font-family: 'GmarketSansMedium';
+		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+	}
+	input[type='button']{
+		font-family: 'GmarketSansMedium';
+		color:#fff;
+		background:orange;
+		border:none;
+		padding:5px 10px;
+	}
+	input[type='button']:focus{
+		outline:0;
+	}
+	input[type='button']:hover{
+		background:#ff3d1c;
+		cursor:pointer;
+	}
+	select,option,textarea {
+		font-family: 'GmarketSansMedium';
+	}
 </style>
 </head>
 <body>

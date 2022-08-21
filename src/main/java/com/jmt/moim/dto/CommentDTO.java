@@ -24,9 +24,18 @@ public class CommentDTO {
 	
 	
 	private String grade_color;
+	private int profile_no;
 	
 	
 	
+	
+	
+	public int getProfile_no() {
+		return profile_no;
+	}
+	public void setProfile_no(int profile_no) {
+		this.profile_no = profile_no;
+	}
 	public String getGrade_color() {
 		return grade_color;
 	}

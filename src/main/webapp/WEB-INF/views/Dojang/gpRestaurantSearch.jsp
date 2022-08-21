@@ -6,14 +6,77 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-table, th, td{
-		border: 1px solid black;
-		border-collapse: collapse;
+body {
+		font-family: 'GmarketSansMedium';
 	}
-th, td {
-  text-align: center;
-}
+	table {
+		border-collapse: separate;
+		border-spacing: 1px;
+		text-align: left;
+		line-height: 1.5;
+		border-top: 1px solid #ccc;
+		margin : 20px 10px;
+	}
+	table th {
+		width: 150px;
+		padding: 10px;
+		font-weight: bold;
+		vertical-align: top;
+		border-bottom: 1px solid #ccc;
+	}
+	table td {
+		width: 350px;
+		padding: 10px;
+		vertical-align: top;
+		border-bottom: 1px solid #ccc;
+	}
+	
+	@font-face {
+		font-family: 'GmarketSansMedium';
+		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+	}
+	input[type='button']{
+		font-family: 'GmarketSansMedium';
+		color:#fff;
+		background:orange;
+		border:none;
+		padding:5px 10px;
+	}
+	input[type='button']:focus{
+		outline:0;
+	}
+	input[type='button']:hover{
+		background:#ff3d1c;
+		cursor:pointer;
+	}
+	select,option,textarea {
+		font-family: 'GmarketSansMedium';
+	}
 
+.btnn{
+ 		margin : 3px;
+ 		padding : 5px;
+ 		border-radius : 5px;
+ 		border : 1px black;
+		font-family: 'GmarketSansMedium';
+		color:#fff;
+		background:orange;
+		border:none;
+		padding:5px 10px;
+ 	}
+ 	
+ 	.btnn:hover{
+		background:#ff3d1c;
+		cursor:pointer;
+ 	}
+
+.searchContent{
+  width:300px;
+  height:30px;
+  font-family: 'GmarketSansMedium';
+}
 
 </style>
 </head>
@@ -24,13 +87,13 @@ th, td {
 			<tr><th colspan="3">맛집검색창</th></tr>
 			<tr>
 				<td>
-					<select class="conditionSelect" name="gpSearchCondition">
+					<select class="conditionSelect" name="gpSearchCondition" style="width:100px;height:30px;">
 			            <option value="restaurant_name" selected>가게이름</option>
 			            <option value="restaurant_address">가게주소</option>			            									            
 			        </select>
 				</td>
-			<td><input type="text" name="searchContent" placeholder="검색어를 입력해주세요"/></td>
-			<td><input type="submit" value="검색"/></td>
+			<td><input type="text" class="searchContent" name="searchContent" placeholder="검색어를 입력해주세요"/></td>
+			<td><input type="submit" class="btnn" value="검색"/></td>
 			</tr>
 		</table>
 		</form>
@@ -57,9 +120,11 @@ th, td {
 		</tbody>
 	</table>
 	
-	<br/><br/><br/><br/><br/><br/>
-	<button onclick="gpChoice()">선택</button>
-	<button onclick="window.close()">취소</button>
+	<br/><br/><br/>
+	<div style="text-align: center; height: 20px;">
+		<input type="button" onclick="gpChoice()" value="선택"/>
+		<input type="button" onclick="window.close()" value="취소"/>
+	</div>
 </body>
 <script>
 noHidden();
