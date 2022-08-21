@@ -70,7 +70,7 @@
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                    <img src="mainResource/assets/img/logo/logo.png" alt="">
+                    <img src="../resources/mainResource/assets/img/logo/logo.png" alt="">
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
                             <!-- Logo -->
                             <div class="col-xl-2 col-lg-2 col-md-1">
                                 <div class="logo">
-                                  <a href="jmtMain.html"><img src="mainResource/assets/img/logo/logo.png" width="80px" alt=""></a>
+                                  <a href="/"><img src="../resources/mainResource/assets/img/logo/logo.png" width="80px" alt=""></a>
                                 </div>
                             </div>
                             <div class="col-xl-10 col-lg-10 col-md-8">
@@ -242,7 +242,7 @@
                                 <div class="single-footer-caption mb-30">
                                     <!-- logo -->
                                     <div class="footer-logo">
-                                        <a href="jmtMain.html"><img src="mainResource/assets/img/logo/logo.png" width="100px" alt=""></a>
+                                        <a href="jmtMain.html"><img src="../resources/mainResource/assets/img/logo/logo.png" width="100px" alt=""></a>
                                     </div>
                                 </div>
                             </div>
