@@ -121,6 +121,10 @@
 		SELECT leader_id FROM dojanglist where dojang_no =#{param1}
 	</select>
 	
+	<select id="dojangTitle" resultType="String">
+		SELECT dojang_title FROM dojanglist where dojang_no =#{param1}
+	</select>
+	
 	
 	<insert id="dojangReport" parameterType="hashmap">
 		INSERT INTO report (report_reason,class_no,idx,reporter,reported)
