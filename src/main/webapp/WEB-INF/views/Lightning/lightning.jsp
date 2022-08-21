@@ -5,7 +5,6 @@
 <html class="no-js" lang="zxx">
     <head>
         <meta charset="utf-8">
-       
         <title>JMT 번개 모임 리스트 페이지</title>
   		 <meta http-equiv="x-ua-compatible" content="ie=edge">
          <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -67,6 +66,14 @@
 	.fa,.fab,.fad,.fal,.far,.fas{
 	font-weight: 900 !important;
 	}
+	
+	.createBtn{
+		border-radius: 30px;
+		background-color : #ff3d1c;
+		color : white;
+		border: none;
+		padding : 20px 30px;
+	}
     </style>
    <body>
     <!--알림 헤더
@@ -114,7 +121,7 @@
                                         <c:choose>
                                         	<c:when test="${notiChk=='true'}"><!--안읽은 알림있을 때  -->
 		                                            <li><a href="#"><img  id="notidrop" src="resources/photo/noti4.png"  style="width:30px; height:25px;"/></a>
-		                                               	<ul class="submenu notidrop_menu" style="width : 300px;  display : none;">
+		                                               	<ul class="submenu notidrop_menu" style="width : 300px; display : none;">
 		                                               	</ul>
 		                                            </li>
                                             </c:when>
@@ -164,8 +171,7 @@
                         <div class="row">
                             <div class="col-12">
                                     <div class="small-section-tittle2 mb-45">
-                                    <h4 class="searchName">번개를 찾아보세요</h4>
-                                    <button onclick="location.href='/lightCreate.go'"><i class="fa fa-solid fa-bolt"></i>번개 생성하기</button>
+                                    <button onclick="location.href='/lightCreate.go'" class="createBtn"><i class="fa fa-solid fa-bolt"></i> 번개모임 생성</button>
                                 </div>
                             </div>
                         </div>
@@ -173,6 +179,7 @@
  		<div class="category-listing mb-50">
                             <!-- single one -->
                             <div class="single-listing">
+                            <h4 class="searchName">번개를 찾아보세요</h4>
                                 <!-- input -->
                                 <div class="input-form">
                                     <input type="text" id="lightning_title"  name="lightning_title" placeholder="모임 이름을 입력해주세요"
@@ -222,7 +229,7 @@
                             </div>
 
                             <div class="single-listing">
-                                 <button id="search" class="btn list-btn mt-20">검색</button>
+                                 <button id="search" class="btn list-btn mt-10">검색</button>
                             </div>
                         </div>
                         <!-- Job Category Listing End -->

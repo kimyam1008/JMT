@@ -19,12 +19,23 @@
 
 	
 	table,th,td {
-		border : 1px solid black;
+		border : 1px solid #ccc;
 		border-collapse : collapse;
+		border-left: none;
+		border-right: none;
 	}
+	
+	 th {
+			background-color: #f9f9f9;
+		    text-align: center;
+		}
 
 	th,td { 
 		padding : 5px 10px;
+	}
+	
+	tr:nth-child(odd){
+		background-color: #f9f9f9;
 	}
 	div {
 		width:95%;
@@ -43,6 +54,11 @@
 	}
 	.btn1{
 		display : inline-block;
+		background-color: #ff3d1c;
+   		border-radius: 30px;
+   		color : white;
+   		border : none;
+   		padding : 5px 10px; 
 	}
 </style>
 </head>

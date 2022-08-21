@@ -23,10 +23,11 @@
 		});
 	}
 	
+	
 	$('#notidrop').on("click",function(){
 		$('#notidrop').attr("src","resources/photo/bnoti4.png");
 		//$('.notidrop_menu').empty();
-		$('.notidrop_menu').css("display","block");
+		$('.notidrop_menu').css("display","block"); 
 		
 		$.ajax({
 			type: 'get',
@@ -45,6 +46,7 @@
 		});
 		
 	});
+	
 	
 	function drawNotiList(list){
 		//console.log(list);
