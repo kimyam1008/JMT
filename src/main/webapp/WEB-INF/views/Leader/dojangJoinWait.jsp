@@ -8,19 +8,55 @@
 <title>도장깨기 가입 대기 회원 목록</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-	table,th,td {
-		border:1px solid black;
-		border-collapse:collapse;
+	body {
+		font-family: 'GmarketSansMedium';
 	}
-	th,td {
+	table {
+		border-collapse: separate;
+		border-spacing: 1px;
+		text-align: left;
+		line-height: 1.5;
+		border-top: 1px solid #ccc;
+		margin : 20px 10px;
+	}
+	table th {
+		width: 150px;
+		padding: 10px;
+		font-weight: bold;
+		vertical-align: top;
+		border-bottom: 1px solid #ccc;
+	}
+	table td {
+		width: 350px;
+		padding: 10px;
+		vertical-align: top;
+		border-bottom: 1px solid #ccc;
+	}
+	
+	@font-face {
+		font-family: 'GmarketSansMedium';
+		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+	}
+	input[type='button']{
+		font-family: 'GmarketSansMedium';
+		color:#fff;
+		background:orange;
+		border:none;
 		padding:5px 10px;
+	}
+	input[type='button']:focus{
+		outline:0;
+	}
+	input[type='button']:hover{
+		background:#ff3d1c;
+		cursor:pointer;
 	}
 </style>
 </head>
 <body>
 	<h3>도장깨기 가입 대기 회원</h3>
-	<!-- <form action="dojangJoinWaitUpdate" method="post"> -->
-		<%-- <input type="hidden" name="class_no" value="${dojangJoinWait.class_no}"/> --%>
 		<input type="hidden" id="dojang_no" value="${sessionScope.dojang_no}"/>
 		<table>
 			<thead>
@@ -48,13 +84,16 @@
 				</c:forEach>
 				<tr>
 					<th colspan="3">
-						<input type="button" value="처리 완료" onclick="JoinWaitSaveD()"/>
-						<input type="button" value="닫기" onclick="JoinWaitCloseD()"/>
+						<div style="display:block;">
+                        <span style="text-align:center; display:block; margin: 0 auto;">
+							<input type="button" value="저장" onclick="JoinWaitSaveD()"/>
+							<input type="button" value="닫기" onclick="JoinWaitCloseD()"/>
+						</span>
+						</div>
 					</th>
 				</tr>
 			</tbody>
 		</table>
-	<!-- </form> -->
 </body>
 <script>
 //처리 완료

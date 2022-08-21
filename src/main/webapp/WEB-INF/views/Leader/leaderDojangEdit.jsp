@@ -8,17 +8,58 @@
 <title>도장깨기 수정 팝업</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-	table,th,td {
-		border:1px solid black;
-		border-collapse:collapse;
+	body {
+		font-family: 'GmarketSansMedium';
 	}
-	th,td {
+	table {
+		border-collapse: separate;
+		border-spacing: 1px;
+		text-align: left;
+		line-height: 1.5;
+		border-top: 1px solid #ccc;
+		margin : 20px 10px;
+	}
+	table th {
+		width: 150px;
+		padding: 10px;
+		font-weight: bold;
+		vertical-align: top;
+		border-bottom: 1px solid #ccc;
+	}
+	table td {
+		width: 350px;
+		padding: 10px;
+		vertical-align: top;
+		border-bottom: 1px solid #ccc;
+	}
+	
+	@font-face {
+		font-family: 'GmarketSansMedium';
+		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+	}
+	input[type='button']{
+		font-family: 'GmarketSansMedium';
+		color:#fff;
+		background:orange;
+		border:none;
 		padding:5px 10px;
+	}
+	input[type='button']:focus{
+		outline:0;
+	}
+	input[type='button']:hover{
+		background:#ff3d1c;
+		cursor:pointer;
+	}
+	select,option,textarea {
+		font-family: 'GmarketSansMedium';
 	}
 </style>
 </head>
 <body>
-	<h3>도장깨기 수정</h3>
+	<h3 style="text-align:center;">도장깨기 수정</h3>
 	<!-- <form action="leaderDojangEdit" method="post"> -->
 		<input type="hidden" id="class_no" value="${dojangDto.class_no}"/>
 		<input type="hidden" id="dojang_no" value="${dojangDto.dojang_no}"/>
@@ -46,13 +87,17 @@
 			<tr>
 				<th>소개글</th>
 				<td>
-					<textarea id="dojang_content">${dojangDto.dojang_content}</textarea>
+					<textarea id="dojang_content" style="width:100%;">${dojangDto.dojang_content}</textarea>
 				</td>
 			</tr>
 			<tr>
 				<th colspan="2">
-					<input type="button" value="수정 완료" onclick="dojangGroupUpd()"/>
-					<input type="button" value="취소" onclick="dojangGroupEditClose()"/>
+					<div style="display:block;">
+                    <span style="text-align:center; display:block; margin: 0 auto;">
+						<input type="button" value="저장" onclick="dojangGroupUpd()"/>
+						<input type="button" value="취소" onclick="dojangGroupEditClose()"/>
+					</span>
+					</div>
 				</th>
 			</tr>
 		</table>

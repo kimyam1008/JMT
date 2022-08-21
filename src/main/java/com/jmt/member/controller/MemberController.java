@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jmt.member.dto.MemberDTO;
 import com.jmt.member.service.MemberService;
@@ -36,15 +37,15 @@ public class MemberController {
 		}
 			
 		// 회원가입 페이지
-		@RequestMapping(value = "/Member/joinForm.go")
-		public String joinForm( Model model) {
-			logger.info("회원가입 페이지 이동");
+		//@RequestMapping(value = "/Member/joinForm.go")
+		//public String joinForm( Model model) {
+		//	logger.info("회원가입 페이지 이동");
 						
-			return "/Member/joinForm";
-		}
+		//	return "/Member/joinForm";
+		//}
 		
 		// 회원가입
-		@RequestMapping("/Member/join.ajax")
+		@RequestMapping("/join.ajax")
 		@ResponseBody
 		public HashMap<String, Object> join(@RequestParam HashMap<String, String> params) {
 			logger.info("회원가입 요청 : "+params);
@@ -53,7 +54,7 @@ public class MemberController {
 		}
 		
 		// 아이디 중복 체크
-		@RequestMapping("/Member/idoverlay.ajax")
+		@RequestMapping("/idoverlay.ajax")
 		@ResponseBody
 		public HashMap<String, Object> idoverlay(@RequestParam String chkId) {
 			
@@ -62,7 +63,7 @@ public class MemberController {
 		}
 			
 		// 이메일 중복 체크
-		@RequestMapping("/Member/emailoverlay.ajax")
+		@RequestMapping("/emailoverlay.ajax")
 		@ResponseBody
 		public HashMap<String, Object> emailoverlay(@RequestParam String chkEmail) {
 			
@@ -89,7 +90,7 @@ public class MemberController {
 				if(loginId != null && member_status != null) {
 					String profileExist = service.profileExist(loginId); //로그인이 진행되면 프로필 생성 여부 확인
 					if(profileExist != null) { //프로필이 생성 되어있다면 메인페이지(테스트페이지)로 이동
-						page="./Main/main"; // 테스트용 페이지 만들어서 로그아웃 기능 확인
+						page="redirect:/"; // 테스트용 페이지 만들어서 로그아웃 기능 확인
 					}else { //프로필을 생성하지 않았다면 프로필 생성 페이지로 이동
 						ArrayList<MemberDTO> foodList = service.foodList(); //음식카테고리 가져오기
 						model.addAttribute("foodList", foodList);
@@ -168,13 +169,12 @@ public class MemberController {
 		}
 		
 		// 로그아웃
-		@RequestMapping(value = "logout.do")
-		public String logout(Model model,HttpSession session) {
+		@RequestMapping(value = "/logout.do")
+		public String logout(RedirectAttributes ra ,HttpSession session) {
 			session.removeAttribute("loginId");
 			session.removeAttribute("mb_class");
-			model.addAttribute("msg", "로그아웃 되었습니다");
-				
-			return "./Main/main"; 
+			ra.addFlashAttribute("msg", "로그아웃 되었습니다");
+			return "redirect:/"; 
 		}
 		
 		
@@ -196,9 +196,9 @@ public class MemberController {
 				}else if(params.get("speed") == null) {
 					model.addAttribute("msg", "입려되지 않은 값이 있으면 이용에 제한 될 수 있습니다.");
 				}else {
+					service.profileRegister(photos, params); //프로필 등록하기
 					model.addAttribute("msg", "등록이 완료되었습니다.");
 				}
-				service.profileRegister(photos, params); //프로필 등록하기
 			}
 			
 			return "./Main/main"; 

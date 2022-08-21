@@ -194,6 +194,10 @@
 		SELECT photo_newFileName FROM photo p WHERE idx = (SELECT profile_no FROM profile p WHERE member_id = #{param1})
 	</select>
 	
+	<select id="proCon" resultType="String">
+		SELECT member_id FROM profile p WHERE member_id = #{param1}
+	</select>
+	
 	<select id="myBoardArry" resultType="mypage">
 		SELECT groupReview_no, review_title, review_date, (SELECT class_name  FROM codetable c WHERE class_no = '6') AS category FROM groupreview g2 
 			WHERE member_id = #{param1} AND groupReview_status = '노출'

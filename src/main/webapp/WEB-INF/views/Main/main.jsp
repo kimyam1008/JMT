@@ -496,6 +496,12 @@
     </body>
     
     <script>
+    
+		var msg = "${msg}";
+		if (msg != "") {
+			alert(msg);
+		}
+    
     	//var loginId = ${loginId};
     	//console.log(loginId);
     	

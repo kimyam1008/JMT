@@ -221,9 +221,10 @@
                         <div class="card">
                         	<div class="content">
                             <h3>최근 게시글</h3>
+                            <a style="text-decoration:none; float:right; font-size:16px;" href="/myGroupPostSettingL.go?lightning_no=${lightDto.lightning_no}">더보기</a><br/>
 	                            <ul>
 	                                <c:if test = "${lightRecentPost.size() == 0}">
-	                                    등록된 글이 없습니다.
+	                                    <p style="text-align:center;">등록된 글이 없습니다.</p>
 	                                </c:if>
 	                                <c:forEach items="${lightRecentPost}" var="lightRecentPost" begin="0" end="4">			
 	                                    <li style="text-align:left; font-size:17px;">${lightRecentPost.comment_content}</li>
@@ -241,7 +242,7 @@
 	                            <!-- <input type="button" value="회원보기" onclick="lightJoinWait()"/> -->
 	                            <ul>
 	                            	<c:if test = "${lightJoinWait.size() == 0}">
-	                                    가입 신청한 회원이 없습니다.
+	                                     <p style="text-align:center;">가입 신청한 회원이 없습니다.</p>
 	                                </c:if>
 	                                <c:forEach items="${lightJoinWait}" var="lightJoinWait">
 	                                    <li style="text-align:left; font-size:17px;">${lightJoinWait.member_id}</li>
