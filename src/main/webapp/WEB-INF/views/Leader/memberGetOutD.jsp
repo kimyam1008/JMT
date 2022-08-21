@@ -8,13 +8,54 @@
 <title>회원 추방</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-table,th,td {
-	border:1px solid black;
-	border-collapse:collapse;
-}
-th,td {
-	padding:5px 10px;
-}
+	body {
+		font-family: 'GmarketSansMedium';
+	}
+	table {
+		border-collapse: separate;
+		border-spacing: 1px;
+		text-align: left;
+		line-height: 1.5;
+		border-top: 1px solid #ccc;
+		margin : 20px 10px;
+	}
+	table th {
+		width: 150px;
+		padding: 10px;
+		font-weight: bold;
+		vertical-align: top;
+		border-bottom: 1px solid #ccc;
+	}
+	table td {
+		width: 350px;
+		padding: 10px;
+		vertical-align: top;
+		border-bottom: 1px solid #ccc;
+	}
+	
+	@font-face {
+		font-family: 'GmarketSansMedium';
+		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+	}
+	input[type='button']{
+		font-family: 'GmarketSansMedium';
+		color:#fff;
+		background:orange;
+		border:none;
+		padding:5px 10px;
+	}
+	input[type='button']:focus{
+		outline:0;
+	}
+	input[type='button']:hover{
+		background:#ff3d1c;
+		cursor:pointer;
+	}
+	textarea {
+		font-family: 'GmarketSansMedium';
+	}
 </style>
 </head>
 <body>
