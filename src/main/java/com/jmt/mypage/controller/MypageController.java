@@ -31,33 +31,45 @@ public class MypageController {
 		// 마이페이지 이동
 		@RequestMapping(value = "/mypage.go")
 		public String mypage(Model model, HttpSession session) {
-			String loginId = (String) session.getAttribute("loginId");
-			MemberDTO my = service.mypage(loginId); //마이페이지에 보여줄 프로필 정보 가져오기
-			int profile_no = service.profile_no(loginId); //프로필 사진 가져올 때 맵퍼에 조건으로 필요
-			photoDTO photoList = service.photoList(profile_no); //프로필 사진 가져오기
-			int blindCount = service.blindCount(loginId); //블라인드 갯수 가져오기
-			int follower = service.follower(loginId); //팔로워 수 가져오기
-			int following = service.following(loginId); //팔로잉 수 가져오기
-			ArrayList<MypageDTO> myboard = service.myboard(loginId);//내가 쓴 게시글 가져오기 (도장깨기 하위+모임후기)
-			ArrayList<MypageDTO> mycomment = service.mycomment(loginId);//내가 쓴 댓글의 게시글 가져오기
-			ArrayList<MypageDTO> myLightning = service.myLightning(loginId);//내모임 - 번개
-			ArrayList<MypageDTO> myDojang = service.myDojang(loginId);//내모임 - 도장
-			ArrayList<MypageDTO> myLightningRoom = service.myLightningRoom(loginId);//내가 생성한 방 - 번개
-			ArrayList<MypageDTO> myDojangRoom = service.myDojangRoom(loginId);//내가 생성한 방 - 도장
-			//뷰에 보내주기
-			model.addAttribute("list", my);
-			model.addAttribute("blind", blindCount);
-			model.addAttribute("follower", follower);
-			model.addAttribute("following", following);
-			model.addAttribute("photo",photoList);
-			model.addAttribute("myboard", myboard);
-			model.addAttribute("mycomment", mycomment);
-			model.addAttribute("myLightning", myLightning);
-			model.addAttribute("myDojang", myDojang);
-			model.addAttribute("myLightningRoom", myLightningRoom);
-			model.addAttribute("myDojangRoom", myDojangRoom);
 			
-			return "/Mypage/mypage";
+			String loginId = (String) session.getAttribute("loginId");
+			String page = "/Member/profileRegister";
+			//프로필 등록 안했다면 마이페이지 이동 불가하게 하기
+			String proCon = service.proCon(loginId);
+			if(proCon != null) {
+				MemberDTO my = service.mypage(loginId); //마이페이지에 보여줄 프로필 정보 가져오기
+				int profile_no = service.profile_no(loginId); //프로필 사진 가져올 때 맵퍼에 조건으로 필요
+				photoDTO photoList = service.photoList(profile_no); //프로필 사진 가져오기
+				int blindCount = service.blindCount(loginId); //블라인드 갯수 가져오기
+				int follower = service.follower(loginId); //팔로워 수 가져오기
+				int following = service.following(loginId); //팔로잉 수 가져오기
+				ArrayList<MypageDTO> myboard = service.myboard(loginId);//내가 쓴 게시글 가져오기 (도장깨기 하위+모임후기)
+				ArrayList<MypageDTO> mycomment = service.mycomment(loginId);//내가 쓴 댓글의 게시글 가져오기
+				ArrayList<MypageDTO> myLightning = service.myLightning(loginId);//내모임 - 번개
+				ArrayList<MypageDTO> myDojang = service.myDojang(loginId);//내모임 - 도장
+				ArrayList<MypageDTO> myLightningRoom = service.myLightningRoom(loginId);//내가 생성한 방 - 번개
+				ArrayList<MypageDTO> myDojangRoom = service.myDojangRoom(loginId);//내가 생성한 방 - 도장
+				//뷰에 보내주기
+				model.addAttribute("list", my);
+				model.addAttribute("blind", blindCount);
+				model.addAttribute("follower", follower);
+				model.addAttribute("following", following);
+				model.addAttribute("photo",photoList);
+				model.addAttribute("myboard", myboard);
+				model.addAttribute("mycomment", mycomment);
+				model.addAttribute("myLightning", myLightning);
+				model.addAttribute("myDojang", myDojang);
+				model.addAttribute("myLightningRoom", myLightningRoom);
+				model.addAttribute("myDojangRoom", myDojangRoom);
+				
+				page = "/Mypage/mypage2";
+			} else {
+				model.addAttribute("msg","마이페이지는 프로필을 등록해야지만 이용할 수 있습니다.");
+				page = "/Member/profileRegister";
+			}
+			
+			
+			return page;
 		}
 		
 		// 프로필 수정페이지 이동
