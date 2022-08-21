@@ -57,7 +57,7 @@ public class MypageController {
 			model.addAttribute("myLightningRoom", myLightningRoom);
 			model.addAttribute("myDojangRoom", myDojangRoom);
 			
-			return "/Mypage/mypage";
+			return "/Mypage/mypage2";
 		}
 		
 		// 프로필 수정페이지 이동
