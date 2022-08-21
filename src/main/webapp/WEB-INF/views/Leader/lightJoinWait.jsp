@@ -44,8 +44,7 @@
 		color:#fff;
 		background:orange;
 		border:none;
-		padding:5px 5px;
-		border-radius:20%;
+		padding:5px 10px;
 	}
 	input[type='button']:focus{
 		outline:0;
