@@ -9,13 +9,16 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 	<title>JMT 방장 모임 관리 페이지</title>
-
+	
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- 페이징
+    
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> 
     <script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
+     -->
 
     <!-- Bootstrap core CSS     -->
     <link href="../resources/etcResource/assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -44,6 +47,11 @@
 	
 	.profileImg {
 	
+	}
+	
+	.notiDelBtn:hover{
+		cursor : pointer;
+		color : red;
 	}
     </style>
 </head>
@@ -113,24 +121,25 @@
 								<p class="hidden-lg hidden-md">Dashboard</p>
                             </a>
                         </li> -->
-                        <!--누르면 알림창같은거 조그맣게 뜸-->
-                        <!-- <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret hidden-lg hidden-md"></b>
-									<p class="hidden-lg hidden-md">
-										5 Notifications
-										<b class="caret"></b>
-									</p>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
+                       <!--누르면 알림창같은거 조그맣게 뜸-->
+                       <li class="dropdown">
+	                       <c:if test="${notiChk=='true'}">
+								<a  class="dropdown-toggle" data-toggle="dropdown" style="color:Red" >
+			        			 	<i class="fa fa-globe"></i> 
+			        			 	 <b class="caret hidden-lg hidden-md"></b>
+									<b class="caret"></b>
+								</a>
+							</c:if>	
+							<c:if test="${notiChk=='false'}">
+								<a  class="dropdown-toggle" data-toggle="dropdown" >
+							         <i class="fa fa-globe"></i> 
+							          <b class="caret hidden-lg hidden-md"></b>
+									<b class="caret"></b>
+								</a>
+							</c:if>	
+                              <ul class="dropdown-menu" style="width: 400px;">
                               </ul>
-                        </li> -->
+                        </li> 
                         <!-- <li>
                            <a href="">
                                 <i class="fa fa-search"></i>
@@ -249,6 +258,7 @@
 
 
 </body>
+<%@ include file="../../../resources/inc/footer2.jsp" %>
 <script>
 //추방하기
 function getOut(){

@@ -593,14 +593,12 @@
                     content += '<header class="top">';
                     content += '<div class ="img">';
                     
-                    if (item.photo_newFileName!= null){
-                        content += '<a href="#"><img src ="/photo/'+item.photo_newFileName+'" class="profileImg"></a>';
-                    }else{ //프로필 등록을 안했을 시
-                        content += '<a href="#"><img src ="/photo/profile.jpeg" class="profileImg"></a>';
-                    }
+                  
+                   content += '<a href="othersPage.go?profile_no='+item.profile_no+'"><img src ="/photo/'+item.photo_newFileName+'" class="profileImg"></a>';
+                    
                     
                     content += '</div>';
-                    content += '<div class="member_id"><a href="#" class="idatag">'+item.member_id+'</a></div>';
+                    content += '<div class="member_id"><a href="othersPage.go?profile_no='+item.profile_no+'" class="idatag">'+item.member_id+'</a></div>';
                     //content += '<div class="grade_name g'+item.grade_no+'">'+item.grade_name+'</div>';
                     content += '<div class="grade_name" style="color :'+item.grade_color+'">'+item.grade_name+'</div>';
                     content += '<div class="utility">';
