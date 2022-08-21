@@ -62,7 +62,7 @@ public class MypageController {
 				model.addAttribute("myLightningRoom", myLightningRoom);
 				model.addAttribute("myDojangRoom", myDojangRoom);
 				
-				page = "/Mypage/mypage2";
+				page = "/Mypage/mypage";
 			} else {
 				model.addAttribute("msg","마이페이지는 프로필을 등록해야지만 이용할 수 있습니다.");
 				page = "/Member/profileRegister";
@@ -196,6 +196,10 @@ public class MypageController {
 			int otherBlind = service.otherBlind(profile_no); //블라인드 갯수 가져오기
 			int otherFollower = service.otherFollower(profile_no); //팔로워 수 가져오기
 			int otherFollowing = service.otherFollowing(profile_no); //팔로잉 수 가져오기
+			ArrayList<MypageDTO> lightRoom = service.lightRoom(profile_no);//번개 방 만든거 가져오기
+			ArrayList<MypageDTO> dojangRoom = service.dojangRoom(profile_no);//도장깨기 방 만든거 가져오기
+			ArrayList<MypageDTO> otherBoard = service.otherBoard(profile_no);//게시글 가져오기
+			ArrayList<MypageDTO> otherCom = service.otherCom(profile_no);//댓글의 게시글 가져오기
 			//로그인 한 아이디의 유저가 해당 페이지의 아이디를 팔로우 하고 있나?
 			String followCon = service.followCon(loginId, profile_no);
 			if(followCon == null) {
@@ -209,6 +213,9 @@ public class MypageController {
 			model.addAttribute("blind", otherBlind);
 			model.addAttribute("follower", otherFollower);
 			model.addAttribute("following", otherFollowing);
+			model.addAttribute("lightRoom",lightRoom);
+			model.addAttribute("otherBoard",otherBoard);
+			model.addAttribute("otherCom",otherCom);
 		
 			return "/Mypage/otherspage";
 		}
@@ -281,7 +288,7 @@ public class MypageController {
 			return "/Mypage/myBoardList";
 		}
 		
-		// 나의활동 첫 페이지 이동 - 게시글 (아작스 페이징)
+		// 나의활동 첫 페이지 이동 - 게시글 (아작스 페이징) -- 페이징이랑 같이하면 리스트 안불러와져서 일단 페이징 안하고 리스트만 불러옴
 		//@RequestMapping("/myBoardList.ajax")
 		//@ResponseBody
 		//public HashMap<String, Object> myBoardListAjax(@RequestParam HashMap<String, String>params, HttpSession session) {
