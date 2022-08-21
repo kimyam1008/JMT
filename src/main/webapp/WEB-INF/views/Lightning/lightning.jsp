@@ -171,7 +171,7 @@
                         <div class="row">
                             <div class="col-12">
                                     <div class="small-section-tittle2 mb-45">
-                                    <button onclick="location.href='/lightCreate.go'" class="createBtn"><i class="fa fa-solid fa-bolt"></i> 번개모임 생성</button>
+                                    <button onclick="location.href='/lightCreate.go'" class="btn list-btn mt-10"><i class="fa fa-solid fa-bolt"></i> 번개모임 생성</button>
                                 </div>
                             </div>
                         </div>
