@@ -30,12 +30,7 @@
 
 <style>
 		
-	table,th,td{
-		border: 1px solid black;
-		border-collapse: collapse;
-		padding: 5px;
-	}
-	
+
 	
 	
 	
@@ -49,10 +44,15 @@
 	
 	#res1 {
 		height: 200px;
-		width: 100px;
+		width: 600px;
 		
 	}
-
+	.card .content {
+    padding: 15px 15px 10p 15px;
+    margin: auto;
+    height: 200px;
+		width: 600px;
+	}
 	textarea{
 		resize:none;
 		width:100%;
@@ -61,10 +61,7 @@
 
 	
 		
-	.card .content {
-    padding: 15px 15px 10p 15px;
-    margin: auto;
-	}
+
 </style>
 <title>맛집 수정</title>
 </head>
@@ -238,12 +235,12 @@
                                     <td>섹션5</td>
                                 </tr>
                             </table> -->
-                            <div class="content table-responsive table-full-width">
+                            <div id="res1" class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
                                        
                                     </thead>
-                                     <tbody id="res1">
+                                     <tbody >
                                      		<form action="Reporthandling.do" method="post">
 												<tr>
 													<td>
