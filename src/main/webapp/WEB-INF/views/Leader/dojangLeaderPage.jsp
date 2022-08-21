@@ -224,7 +224,7 @@
                       <div class="card">
                           <div class="content">
                               <h3>가입 대기 회원</h3>
-                              <a style="text-decoration:none; text-align:right; font-size:16px;" onclick="joinWait()">회원보기</a>
+                              <a style="text-decoration:none; float:right; font-size:16px;" onclick="joinWait()">회원보기</a><br/>
                               <!-- <input type="button" value="회원보기" onclick="joinWait()"/> -->
                               <ul>
                               	<c:if test = "${dojangJoinWait.size() == 0}">
