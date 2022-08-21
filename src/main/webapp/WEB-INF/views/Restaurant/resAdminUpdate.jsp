@@ -29,6 +29,16 @@
 
 
 <style>
+		
+	table,th,td{
+		border: 1px solid black;
+		border-collapse: collapse;
+		padding: 5px;
+	}
+	
+	table {
+		width: 600px
+	}
 	
 </style>
 <title>맛집 수정</title>
@@ -60,19 +70,19 @@
                     </a>
                 </li>
                 <li>
-                    <a href="reportList">
+                    <a href="/report/">
                         <i class="pe-7s-comment"></i>
                         <p>신고 목록</p>
                     </a>
                 </li>
                 <li>
-                    <a href="blind.go">
+                    <a href="/report/blind.go">
                         <i class="pe-7s-config"></i>
                         <p>블라인드</p>
                     </a>
                 </li>
                 <li>
-                    <a href="/memberList.go">
+                    <a href="/report/memberList.go">
                         <i class="pe-7s-users"></i>
                         <p>회원 관리</p>
                     </a>
