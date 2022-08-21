@@ -266,14 +266,10 @@
     </header>
     <main>
         <!-- Hero Start-->
-        <div class="hero-area2  slider-height2 hero-overly2 d-flex align-items-center ">
+       <div class="hero-area3 hero-overly2 d-flex align-items-center">
             <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="hero-cap text-center pt-50">
-                            <h2>번개모임</h2>
-                        </div>
-                    </div>
+                <div class="row justify-content-center">
+                   
                 </div>
             </div>
         </div>
