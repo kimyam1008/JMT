@@ -108,7 +108,6 @@
                                                     <li><a href="dojang.go">도장깨기</a></li>
                                                 </ul>
                                             </li>
-<
                                             <li><a href="restaurant">맛집</a></li>
                                             <li><a href="groupReviewList">후기</a></li>
                                          <c:choose>
