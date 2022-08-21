@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<link rel="icon" type="image/png" href="mainResource/assets/img/pizza-slice.png">
+	<link rel="icon" type="image/png" href="../resources/mainResource/assets/img/pizza-slice.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<title>JMT 도장깨기방 : 전체 게시판</title>
