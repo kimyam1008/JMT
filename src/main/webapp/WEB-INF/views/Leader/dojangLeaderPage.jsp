@@ -32,6 +32,21 @@
 		caption, table th {
 			text-align:center;
 		}
+		
+		input[type='button']{
+			font-family: 'GmarketSansMedium';
+			color:black;
+			background:#D6F5D8;
+			border:solid #B9F2B4 1px;
+			padding:5px 10px;
+		}
+		input[type='button']:focus{
+			outline:0;
+		}
+		input[type='button']:hover{
+			background:yellowgreen;
+			cursor:pointer;
+		}
 	</style>
 </head>
 <body>
@@ -160,7 +175,7 @@
                         <div class="card">
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
-                                    <caption>${dojangDto.dojang_title}</caption>
+                                    <caption style="maragin:0 auto; text-align:center; font-size:20px;">${dojangDto.dojang_title}</caption>
                                     <tr>
                                         <th>방장</th>
                                         <td>${dojangDto.leaderName}</td>
@@ -207,9 +222,10 @@
                         <div class="card">
                             <div class="content">
                                 <h3>최근 게시글</h3>
+                                <a style="text-decoration:none; float:right; font-size:16px;" href="/myGroupPostSettingD.go?dojang_no=${dojangDto.dojang_no}">더보기</a><br/>
                                 <ul>
                                     <c:if test = "${dojangRecentPost.size() == 0}">
-                                        등록된 글이 없습니다.
+                                        <p style="text-align:center;">등록된 글이 없습니다.</p>
                                     </c:if>
                                     <c:forEach items="${dojangRecentPost}" var="dojangRecentPost" begin="0" end="4">			
                                         <li style="text-align:left; font-size:17px;">${dojangRecentPost.dojangPost_subject}</li>
@@ -218,9 +234,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="col-md-6">
+               
+               <div class="col-md-6">
                       <div class="card">
                           <div class="content">
                               <h3>가입 대기 회원</h3>
@@ -228,7 +243,7 @@
                               <!-- <input type="button" value="회원보기" onclick="joinWait()"/> -->
                               <ul>
                               	<c:if test = "${dojangJoinWait.size() == 0}">
-	                                    가입 신청한 회원이 없습니다.
+	                                     <p style="text-align:center;">가입 신청한 회원이 없습니다.</p>
 	                                </c:if>
                                   <c:forEach items="${dojangJoinWait}" var="dojangJoinWait">
                                       <li style="text-align:left; font-size:17px;">${dojangJoinWait.member_id}</li>
@@ -238,8 +253,9 @@
                       </div>
                   </div>
                 <!--게시글 양식 끝-->
-
                
+                </div>
+
             </div>
         </div>
         <!--컨텐츠영역 끝-->

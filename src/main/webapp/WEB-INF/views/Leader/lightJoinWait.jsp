@@ -44,8 +44,7 @@
 		color:#fff;
 		background:orange;
 		border:none;
-		padding:5px 5px;
-		border-radius:20%;
+		padding:5px 10px;
 	}
 	input[type='button']:focus{
 		outline:0;
@@ -58,8 +57,6 @@
 </head>
 <body>
 	<h3 style="text-align:center;">번개모임 가입 대기 회원</h3>
-	<%-- <form action="lightJoinWaitUpdate" method="post">
-		<input type="hidden" name="class_no" value="${lightJoinWait.class_no}"/> --%>
 		<input type="hidden" id="lightning_no" value="${sessionScope.lightning_no}"/>
 		<table>
 			<thead>
@@ -97,7 +94,6 @@
 				</tr>
 			</tbody>
 		</table>
-	<!-- </form> -->
 </body>
 <script>
 //처리 완료
