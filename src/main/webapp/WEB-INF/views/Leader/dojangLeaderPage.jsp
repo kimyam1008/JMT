@@ -32,6 +32,21 @@
 		caption, table th {
 			text-align:center;
 		}
+		
+		input[type='button']{
+			font-family: 'GmarketSansMedium';
+			color:black;
+			background:#D6F5D8;
+			border:solid #B9F2B4 1px;
+			padding:5px 10px;
+		}
+		input[type='button']:focus{
+			outline:0;
+		}
+		input[type='button']:hover{
+			background:yellowgreen;
+			cursor:pointer;
+		}
 	</style>
 </head>
 <body>
