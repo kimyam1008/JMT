@@ -39,17 +39,20 @@
 	
 	
 	
-	
+	/* 
 	@media (max-width: 991px)
 	.table-responsive {
     width: 80%;
+    margin-bottom: 15px;
     overflow-x: scroll;
     overflow-y: hidden;
-	}
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    -webkit-overflow-scrolling: touch;
+	} */
 	
 	#res1 {
-		height: 200px;
-		width: 100px;
+		height: 400px;
+		width: 70%;
 		
 	}
 
