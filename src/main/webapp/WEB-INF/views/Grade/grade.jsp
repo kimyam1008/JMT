@@ -127,7 +127,7 @@ table {
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="/logout.do">
                                 <p>Log out</p>
                             </a>
                         </li>

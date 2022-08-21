@@ -54,6 +54,11 @@
 	#search{
 		text-align:center; 
 	}
+	
+	
+	th {
+    text-align: center;
+	}
 
 </style>
 <title>Insert title here</title>
@@ -181,7 +186,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                           <a href="/logout.do">
                                 <p>Log out</p>
                             </a>
                         </li>
