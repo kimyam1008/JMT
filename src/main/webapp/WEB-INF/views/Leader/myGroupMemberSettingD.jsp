@@ -34,6 +34,11 @@
         caption,th {
 		text-align:center;
 	}
+	
+	#getoutBtn:hover{
+		background:yellowgreen;
+		cursor:pointer;
+	}
     </style>
 </head>
 <body>
@@ -163,9 +168,13 @@
                             <div class="content">
 
                                 <div class="top-section">
-                                    <a href="#"><img src ="/photo/${dto.photo_newFileName}" class="profileImg"></a>
-                                    <p class="title">${dto.dojang_title}</p>
-                                    <p class="post-count">작성글 : ${dto.post_count}</p><p class="comment-count">작성 댓글 : ${dto.comment_count}</p>
+                                	<div>
+	                                    <a href="#" style="float:left; weight:50px;"><img src ="/photo/${dto.photo_newFileName}" class="profileImg"></a>
+	                                    <div>
+	                                    	<p class="title" style="margin-bottom:10px;">${dto.dojang_title}</p>
+	                                    	<p class="post-count">작성글 : ${dto.post_count}</p><p class="comment-count">작성 댓글 : ${dto.comment_count}</p>
+                                		</div>
+                                	</div>
                                 </div>
 
                             </div>
@@ -182,7 +191,7 @@
                     <!--표 시작-->
                     <div class="col-md-12">
                         <div class="card">
-                        	<input type="button" value="추방하기" onclick="getOut()"/>
+                        	<input type="button" value="추방하기" style="float:left; margin:15px 15px; border:none;" onclick="getOut()"/>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
