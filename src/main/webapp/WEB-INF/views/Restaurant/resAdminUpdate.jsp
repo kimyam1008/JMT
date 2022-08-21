@@ -29,7 +29,42 @@
 
 
 <style>
+		
+	table,th,td{
+		border: 1px solid black;
+		border-collapse: collapse;
+		padding: 5px;
+	}
 	
+	
+	
+	
+	
+	@media (max-width: 991px)
+	.table-responsive {
+    width: 80%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+	}
+	
+	#res1 {
+		height: 200px;
+		width: 100px;
+		
+	}
+
+	textarea{
+		resize:none;
+		width:100%;
+		height:150px;
+	}
+
+	
+		
+	.card .content {
+    padding: 15px 15px 10p 15px;
+    margin: auto;
+	}
 </style>
 <title>맛집 수정</title>
 </head>
@@ -60,19 +95,19 @@
                     </a>
                 </li>
                 <li>
-                    <a href="reportList">
+                    <a href="/report/">
                         <i class="pe-7s-comment"></i>
                         <p>신고 목록</p>
                     </a>
                 </li>
                 <li>
-                    <a href="blind.go">
+                    <a href="/report/blind.go">
                         <i class="pe-7s-config"></i>
                         <p>블라인드</p>
                     </a>
                 </li>
                 <li>
-                    <a href="/memberList.go">
+                    <a href="/report/memberList.go">
                         <i class="pe-7s-users"></i>
                         <p>회원 관리</p>
                     </a>
@@ -208,7 +243,7 @@
                                     <thead>
                                        
                                     </thead>
-                                     <tbody>
+                                     <tbody id="res1">
                                      		<form action="Reporthandling.do" method="post">
 												<tr>
 													<td>
@@ -269,6 +304,15 @@
                     </div>
                    <!--표 끝-->
                 </div>
+                
+                <!--컨텐츠영역 시작-->
+        <div class="content">
+            <div class="container-fluid">
+                <!--여기에 <div class="row">로 시작해서 내용을 넣어주세요 -->
+                <div class="row">
+                    <!--표 시작-->
+                    <div class="col-md-12">
+                        <div class="card">
                 
                  <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
@@ -332,7 +376,7 @@
 													음식 카테고리
 												</td>
 												<td colspan="2">
-													
+													${requestNO.food_name}
 												</td>
 												
 											</tr>

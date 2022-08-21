@@ -401,6 +401,11 @@ public class DojangService {
 		}
 		return success;
 	}
+
+	public String dojangTitle(String dojang_no) {
+
+		return dao.dojangTitle(dojang_no);
+	}
 	
 
 	

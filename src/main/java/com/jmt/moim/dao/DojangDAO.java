@@ -67,6 +67,8 @@ public interface DojangDAO {
 
 	int dojangCmtReport(HashMap<String, String> params);
 
+	String dojangTitle(String dojang_no);
+
 
 
 

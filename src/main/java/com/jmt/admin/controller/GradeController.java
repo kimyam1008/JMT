@@ -71,9 +71,10 @@ public class GradeController extends HandlerInterceptorAdapter{
 	
 		 String loginId = (String) session.getAttribute("loginId"); 
 			
+
 			
-			//System.out.println("test: "+result);
-		if(loginId!=null) {
+			
+		 	if(loginId!=null) {
 			
 			int result = service2.profile_no(loginId);
 			

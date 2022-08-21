@@ -328,7 +328,7 @@ console.log("식당번호 확인::",restaurant_no);
 	var ooo = onclick="report(${comment.comment_no})"
 	
 	function resUp(){
-		window.open('restaurantUpdate.go?restaurant_no=${resDetail.restaurant_no}','','width=400, height=300');
+		window.open('restaurantUpdate.go?restaurant_no=${resDetail.restaurant_no}',"new","width=400, height=200, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 	}
 	
 	function report(rep){

@@ -31,7 +31,7 @@
     <link href="../resources/etcResource/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
     <script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
 <style>
-	body{
+	/* body{
 	width: 100%;
 	}
 	#memberTable{
@@ -42,7 +42,7 @@
 		border: 1px solid black;
 		border-collapse: collapse;
 		padding: 5px;
-	}
+	} */
 	
 	.active{
 		color:pink;
@@ -53,6 +53,11 @@
 	#option_list span{font-size: 20px; margin:20px 20px;}
 	#search{
 		text-align:center; 
+	}
+	
+	
+	th {
+    text-align: center;
 	}
 
 </style>
@@ -86,19 +91,19 @@
                     </a>
                 </li>
                 <li>
-                    <a href="reportList">
+                    <a href="/report/">
                         <i class="pe-7s-comment"></i>
                         <p>신고 목록</p>
                     </a>
                 </li>
                 <li>
-                    <a href="blind.go">
+                    <a href="/report/blind.go">
                         <i class="pe-7s-config"></i>
                         <p>블라인드</p>
                     </a>
                 </li>
                 <li>
-                    <a href="/memberList.go">
+                    <a href="/report/memberList.go">
                         <i class="pe-7s-users"></i>
                         <p>회원 관리</p>
                     </a>
@@ -181,7 +186,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                           <a href="/logout.do">
                                 <p>Log out</p>
                             </a>
                         </li>
@@ -237,12 +242,14 @@
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
-                                        <th></th>
+                                    <tr>
+                                        <th>신고 번호</th>
                                     	<th>회원 아이디</th>
                                     	<th>식당이름</th>
                                     	<th>신청날짜</th>
                                     	<th>사유</th>
                                     	<th>처리여부</th>
+                                    </tr>
                                     </thead>
                                      <tbody id="list">
       								</tbody>
@@ -253,8 +260,7 @@
                     </div>
                    <!--표 끝-->
                 </div>
-        </div>
-      </div>
+       
         
        
 	
@@ -303,7 +309,7 @@
 	listCall(currPage);
 	$('span').click(  
 			function(){$("#pagination").twbsPagination('destroy'); 
-			console.log('부심');
+			console.log('^^');
 	});
 
 	 function listCall(page,list_option){
