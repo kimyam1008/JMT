@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jmt.member.dto.MemberDTO;
 import com.jmt.member.service.MemberService;
@@ -36,15 +37,15 @@ public class MemberController {
 		}
 			
 		// 회원가입 페이지
-		@RequestMapping(value = "/Member/joinForm.go")
-		public String joinForm( Model model) {
-			logger.info("회원가입 페이지 이동");
+		//@RequestMapping(value = "/Member/joinForm.go")
+		//public String joinForm( Model model) {
+		//	logger.info("회원가입 페이지 이동");
 						
-			return "/Member/joinForm";
-		}
+		//	return "/Member/joinForm";
+		//}
 		
 		// 회원가입
-		@RequestMapping("/Member/join.ajax")
+		@RequestMapping("/join.ajax")
 		@ResponseBody
 		public HashMap<String, Object> join(@RequestParam HashMap<String, String> params) {
 			logger.info("회원가입 요청 : "+params);
@@ -53,7 +54,7 @@ public class MemberController {
 		}
 		
 		// 아이디 중복 체크
-		@RequestMapping("/Member/idoverlay.ajax")
+		@RequestMapping("/idoverlay.ajax")
 		@ResponseBody
 		public HashMap<String, Object> idoverlay(@RequestParam String chkId) {
 			
@@ -62,7 +63,7 @@ public class MemberController {
 		}
 			
 		// 이메일 중복 체크
-		@RequestMapping("/Member/emailoverlay.ajax")
+		@RequestMapping("/emailoverlay.ajax")
 		@ResponseBody
 		public HashMap<String, Object> emailoverlay(@RequestParam String chkEmail) {
 			
@@ -168,13 +169,12 @@ public class MemberController {
 		}
 		
 		// 로그아웃
-		@RequestMapping(value = "logout.do")
-		public String logout(Model model,HttpSession session) {
+		@RequestMapping(value = "/logout.do")
+		public String logout(RedirectAttributes ra ,HttpSession session) {
 			session.removeAttribute("loginId");
 			session.removeAttribute("mb_class");
-			model.addAttribute("msg", "로그아웃 되었습니다");
-				
-			return "./Main/main"; 
+			ra.addFlashAttribute("msg", "로그아웃 되었습니다");
+			return "redirect:/"; 
 		}
 		
 		
@@ -196,9 +196,9 @@ public class MemberController {
 				}else if(params.get("speed") == null) {
 					model.addAttribute("msg", "입려되지 않은 값이 있으면 이용에 제한 될 수 있습니다.");
 				}else {
+					service.profileRegister(photos, params); //프로필 등록하기
 					model.addAttribute("msg", "등록이 완료되었습니다.");
 				}
-				service.profileRegister(photos, params); //프로필 등록하기
 			}
 			
 			return "./Main/main"; 

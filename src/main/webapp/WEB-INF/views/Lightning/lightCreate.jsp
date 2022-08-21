@@ -59,6 +59,11 @@
 		        border-radius: 5px;
 		        color: black;
 		    }
+		    
+		    .notiDelBtn:hover{
+				cursor : pointer;
+				color : red;
+			}
 	</style>
    <body>
     <!-- Preloader Start -->
@@ -100,7 +105,30 @@
                                             </li>
                                             <li><a href="resList.html">맛집</a></li>
                                             <li><a href="moimReviewList.html">후기</a></li>
-                                            <li class="add-list"><a href="login.html"><i class="ti-user"></i>로그인</a></li>
+                                           <c:choose>
+		                                            <c:when test="${loginId != null}">
+			                                            	<!-- 알림 -->
+				                                           	<c:choose>
+						                                        <c:when test="${notiChk=='true'}"><!--안읽은 알림있을 때  -->
+								                                          <li><a href="#"><img  id="notidrop" src="resources/photo/noti4.png"  style="width:30px; height:25px;"/></a>
+								                                              <ul class="submenu notidrop_menu" style="width : 300px; display : none;">
+								                                              </ul>
+								                                           </li>
+						                                        </c:when>
+						                                        <c:otherwise>
+							                                           	<li><a href="#"><img id="notidrop"  src="resources/photo/bnoti4.png"  style="width:30px; height:25px;"/></a>
+							                                            	<ul class="submenu notidrop_menu" style="width : 300px; display : none;">
+								                                             </ul>
+							                                            </li>
+						                                           </c:otherwise>
+			                                        		</c:choose>
+			                                            <li id="logoutDo"><a href="logout.do">로그아웃</a></li>
+			                                            <li class="add-list"><a href="./mypage.go"><i class="ti-user"></i>마이페이지</a></li>
+		                                            </c:when>
+		                                            <c:otherwise>
+				                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
+		                                            </c:otherwise>
+		                               	</c:choose>
                                         </ul>
                                     </nav>
                                 </div>
@@ -292,6 +320,7 @@
         <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
     </div>
 </body>
+<%@ include file="../../../resources/inc/footer.jsp" %>
  <!-- JS here -->
 		<!-- All JS Custom Plugins Link Here here -->
         <script src="../resources/mainResource/assets/js/vendor/modernizr-3.5.0.min.js"></script>
