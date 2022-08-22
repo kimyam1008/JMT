@@ -149,8 +149,12 @@
         <!-- Hero Start-->
         <div class="hero-area3 hero-overly2 d-flex align-items-center">
             <div class="container">
-                <div class="row justify-content-center">
-                   
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap text-center pt-50">
+                            <h2>번개모임 생성</h2>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -41,26 +41,25 @@
 			  line-height: 1.5;
 			  border-top: 1px solid #ccc;
 			 width : 1000px;
-			
 			}
-			table th {
+			
+			
+		table th {
 			  width: 150px;
 			  padding: 10px;
 			  font-weight: bold;
 			  vertical-align: top;
 			  border-bottom: 1px solid #ccc;
 			  background-color: #f9f9f9;
-			}
-			table td {
+		}
+		
+		table td {
 			  width: 350px;
 			  padding: 10px;
 			  vertical-align: top;
 			  border-bottom: 1px solid #ccc;
-			}
+		}
 			
-			
-	
-	
 	.notiDelBtn:hover{
 		cursor : pointer;
 		color : red;
@@ -165,8 +164,12 @@
         <!-- Hero Start-->
         <div class="hero-area3 hero-overly2 d-flex align-items-center">
             <div class="container">
-                <div class="row justify-content-center">
-                   
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap text-center pt-50">
+                            <h2>번개모임</h2>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -275,8 +278,8 @@
                                                     <td colspan="8" id="paging">
                                                         <!-- plugin 사용법    -->
                                                         <div class="container">
-                                                            <nav arial-label="Page navigation" style="text-align:center">
-                                                                <ul class="pagination" id="pagination"></ul>
+                                                            <nav arial-label="Page navigation" >
+                                                                <ul class="pagination" id="pagination" style="text-align:center"></ul>
                                                             </nav>
                                                         </div>
                                                     </td>
