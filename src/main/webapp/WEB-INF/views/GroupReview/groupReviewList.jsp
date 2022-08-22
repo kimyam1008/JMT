@@ -105,6 +105,7 @@
     </head>
 
    <body>
+   <input type="hidden" id="loginId" value="${sessionScope.loginId}"/>
     <!-- Preloader Start -->
     <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
@@ -117,6 +118,7 @@
         </div>
     </div>
     <header>
+    
         <!-- Header Start -->
        <div class="header-area header-transparent">
             <div class="main-header">
@@ -224,7 +226,9 @@
                         </div>
                     </div>
                 </div>
-                <button id="writeBtn" onclick="location.href='grRegisterForm.go'" style="margin:30px 5px 10px 5px">글쓰기</button><br/>
+                <c:if test="${loginId != null}">
+	                <button id="writeBtn" onclick="location.href='grRegisterForm.go'" style="margin:30px 5px 10px 5px">글쓰기</button><br/>
+                </c:if>
                 <!--표-->
                 <div class="row">
                     <div class="col-lg-12">

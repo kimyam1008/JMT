@@ -49,7 +49,20 @@
 
             table, input[type='text'] {
 			width:100%;
+			border:none;
 		    }
+            button {
+		    	color:#fff;
+				background:orange;
+				border:none;
+		    }
+		    button:focus{
+				outline:0;
+			}
+			button:hover{
+				background:#ff3d1c;
+				cursor:pointer;
+			}
                 
             textarea {
                 width: 100%;
@@ -368,10 +381,10 @@ function save(){
 	} else if(review_title == "") {
 		alert("제목을 입력해주세요");
 		review_title.focus();
-	} /* else if($('#editable').html() == null) { //여기 아직 안됨...
+	} else if($('#editable').innerHtml() == '') { //여기 아직 안됨...
 		alert("내용을 입력해주세요.");
 		//review_content.focus();
-	}*/  else if($('#content-image').length > 3) {
+	} else if($('.imageUp').length > 3) {
 		alert('이미지 업로드 제한 갯수를 초과했습니다.');
 	} else if($('#content-image').length == 0) {
 		$('#review_content').val($('#editable').html());
