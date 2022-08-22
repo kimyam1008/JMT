@@ -102,7 +102,7 @@ public class GroupReviewService {
 			byte[] bytes = file.getBytes();
 			
 			//4. 파일 저장(java nio 사용)
-			Path filePath = Paths.get("C:/STUDY/SPRING_Advanced/JMT4/src/main/webapp/resources/photo/review/"+newFileName);
+			Path filePath = Paths.get("C:/STUDY/SPRING_ADVANCE/JMT4/src/main/webapp/resources/photo/review/"+newFileName);
 			Files.write(filePath, bytes);
 			
 			//5. DB에 저장(아직 저장 안했으니 세션에 임시저장)
@@ -142,7 +142,7 @@ public class GroupReviewService {
 	}
 
 	private boolean delFile(String fileName) {
-		File file = new File("C:/STUDY/SPRING_Advanced/JMT4/src/main/webapp/resources/photo/review/"+fileName);
+		File file = new File("C:/STUDY/SPRING_ADVANCE/JMT4/src/main/webapp/resources/photo/review/"+fileName);
 		boolean success = false;
 		if(file.exists()) {
 			success = file.delete();
