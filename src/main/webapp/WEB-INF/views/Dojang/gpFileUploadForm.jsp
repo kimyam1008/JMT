@@ -8,7 +8,7 @@
 <title>사진 업로드</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-.btn {cursor:pointer;}
+.btt {cursor:pointer;}
 </style>
 </head>
 <body>
@@ -26,7 +26,7 @@
 	console.log(path);
 	
 	if(path != ''){
-		var content = '<img src="'+path+'" height="150" id="${path}" class="btn" onclick="del(this)"/>';
+		var content = '<img src="'+path+'" height="150" id="${path}" class="btt" onclick="del(this)"/>';
 		opener.document.getElementById("editable").innerHTML += content;
 		self.close();
 	}
