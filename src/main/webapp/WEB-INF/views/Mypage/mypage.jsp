@@ -179,17 +179,17 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="content" style="height:350px">
+                            <div class="content" style="height:450px">
                                     <div class="typo-line" style="float:left;">
-                                    <h5><p class="category">내가 쓴 게시글</p>
-                                    	<c:forEach items="${myboard }" var="list">
+                                    <h5 style="margin:40px; margin-left:50px; margin-right:100px"><p class="category">내가 쓴 게시글</p>
+                                    	<c:forEach items="${myboard }" var="myboard">
 											<ul>
-												<li>${list.review_title }</li>
+												<li>${myboard.review_title}</li>
 											</ul>
 										</c:forEach>
 										<a href="./boardMore.go">더 보기</a>
                                     </h5>
-                                    <h5><p class="category">내가 쓴 댓글의 게시글</p>
+                                    <h5 style="margin:40px; margin-left:50px; margin-right:100px"><p class="category">내가 쓴 댓글의 게시글</p>
                                     <c:forEach items="${mycomment}" var="board">
 										<ul>
 											<li>${board.lightning_title}</li>
@@ -198,28 +198,28 @@
 									<a href="#">더 보기</a>
                                     </h5>
                                 </div>
-                                <div class="typo-line" style="float:left; margin:30px;" >
+                                <div class="typo-line" style="float:left; margin:30px;">
                                     <h5><p class="category">내 모임</p>
                                     	<ul>
 											<li>번개모임</li>
 											<c:forEach items="${myLightning}" var="myLightning">
 												<a href="#">${myLightning.lightning_title }</a>
-											</c:forEach>
+											</c:forEach><br/><br/>
 											
 											<li>도장깨기</li>
 											<c:forEach items="${myDojang}" var="myDojang">
 												<a href="#">${myDojang.dojang_title }</a>
-											</c:forEach>
+											</c:forEach><br/><br/>
 											
 											<li>내가 생성한 방 - 번개</li>
 											<c:forEach items="${myLightningRoom}" var="myLightningRoom">
 												<a href="/lightningLeaderPage.go?lightning_no=${myLightningRoom.lightning_no}">${myLightningRoom.lightning_title }</a>
-											</c:forEach>
+											</c:forEach><br/><br/>
 											
 											<li>내가 생성한 방 - 도장</li>
 											<c:forEach items="${myDojangRoom}" var="myDojangRoom">
 												<a href="/dojangLeaderPage.go?dojang_no=${myDojangRoom.dojang_no}">${myDojangRoom.dojang_title }</a>
-											</c:forEach>
+											</c:forEach><br/><br/>
 										</ul>
                                     </h5>
                                 </div>
@@ -271,6 +271,8 @@
 		if (msg != "") {
 			alert(msg);
 		}
+		
+		
 	
 </script>
 

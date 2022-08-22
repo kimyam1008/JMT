@@ -185,14 +185,14 @@
                         <div class="card">
                             <div class="content" style="height:350px">
                                     <div class="typo-line" style="float:left;">
-                                    <h5><p class="category">${list.member_id}의 게시글</p>
+                                    <h5 style="margin:40px; margin-left:50px; margin-right:100px"><p class="category">${list.member_id}의 게시글</p>
                                     	<c:forEach items="${otherBoard }" var="list">
 											<ul>
 												<li>${list.review_title }</li>
 											</ul>
 										</c:forEach>
                                     </h5>
-                                    <h5><p class="category">${list.member_id}의 쓴 댓글의 게시글</p>
+                                    <h5 style="margin:40px; margin-left:50px; margin-right:100px"><p class="category">${list.member_id}의 쓴 댓글의 게시글</p>
                                     <c:forEach items="${otherCom}" var="board">
 										<ul>
 											<li>${board.lightning_title}</li>
@@ -201,7 +201,7 @@
                                     </h5>
                                 </div>
                                 <div class="typo-line" style="float:left; margin:30px;" >
-                                    <h5><p class="category">모임</p>
+                                    <h5 style="float:left; margin:30px;"><p class="category">모임</p>
                                     	<ul>
 											<li>생성한 방 - 번개</li>
 											<c:forEach items="${lightRoom}" var="lightRoom">

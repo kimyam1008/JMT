@@ -22,7 +22,7 @@ table {
 			<tr>
 				<td><input type="hidden" name="profile_no" value="${list.profile_no}"/></td>
 				<td><img src="/photo/${list.photo_newFileName}" width="50" height="50"/></td>
-				<td><a href="./othersPage.go?profile_no=${list.profile_no }">${list.follower_id}</a></td>
+				<td><a href="#" onclick="self.close(); javascript:parent.opener.location.href='./othersPage.go?profile_no=${list.profile_no }'">${list.follower_id}</a></td>
 			</tr>
 		</c:forEach>
 	</table>

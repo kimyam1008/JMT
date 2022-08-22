@@ -130,7 +130,7 @@
 	<select id="myboard" resultType="mypage">
 		SELECT review_title FROM groupreview g2 WHERE member_id = #{param1}
 		UNION ALL
-		SELECT dojangPost_subject FROM dojangpost d WHERE member_id = #{param1} limit 2
+		SELECT dojangPost_subject FROM dojangpost d WHERE member_id = #{param1} LIMIT 3
 	</select>
 	
 	<select id="mycomment" resultType="mypage">
@@ -141,25 +141,25 @@
 			WHERE c.member_id = #{param1} AND c.comment_status = '공개' AND c.class_no = '5'
 		UNION 
 		SELECT restaurant_name, idx FROM restaurant r JOIN comment c ON restaurant_no = idx 
-			WHERE member_id = #{param1} AND c.comment_status = '공개' AND c.class_no = '8' LIMIT 2
+			WHERE member_id = #{param1} AND c.comment_status = '공개' AND c.class_no = '8' LIMIT 3
 	</select>
 	
 	<select id="myLightning" resultType="mypage">
 		SELECT lightning_title, idx FROM lightninglist l JOIN apply a 
-			ON lightning_no = idx WHERE member_id = #{param1} AND status = '승인' AND a.class_no = '1' LIMIT 2
+			ON lightning_no = idx WHERE member_id = #{param1} AND status = '승인' AND a.class_no = '1' LIMIT 3
 	</select>
 	
 	<select id="myDojang" resultType="mypage">
 		SELECT dojang_title, idx FROM dojanglist d JOIN apply a 
-			ON dojang_no = idx WHERE member_id = #{param1} AND status = '승인' AND a.class_no = '3' LIMIT 2
+			ON dojang_no = idx WHERE member_id = #{param1} AND status = '승인' AND a.class_no = '3' LIMIT 3
 	</select>
 	
 	<select id="myLightningRoom" resultType="mypage">
-		SELECT lightning_title, lightning_no FROM lightninglist l WHERE leader_id = #{param1} LIMIT 2
+		SELECT lightning_title, lightning_no FROM lightninglist l WHERE leader_id = #{param1} LIMIT 3
 	</select>
 	
 	<select id="myDojangRoom" resultType="mypage">
-		SELECT dojang_title, dojang_no FROM dojanglist d WHERE leader_id = #{param1} LIMIT 2
+		SELECT dojang_title, dojang_no FROM dojanglist d WHERE leader_id = #{param1} LIMIT 3
 	</select>
 	
 	<select id="dojangCount" resultType="int">

@@ -25,6 +25,8 @@ public class MemberDTO {
 	private String follower_id;
 	private String following_id;
 	
+	private String review_title;
+	
 	
 	public String getMember_id() {
 		return member_id;
@@ -127,6 +129,12 @@ public class MemberDTO {
 	}
 	public void setFollowing_id(String following_id) {
 		this.following_id = following_id;
+	}
+	public String getReview_title() {
+		return review_title;
+	}
+	public void setReview_title(String review_title) {
+		this.review_title = review_title;
 	}
 	
 	

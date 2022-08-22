@@ -192,22 +192,21 @@ public class MemberController extends HandlerInterceptorAdapter{
 			String member_status = (String) session.getAttribute("member_status");
 			logger.info("member_status : "+member_status);
 			params.put("loginId", loginId); //hashmap 타입으로 한번에 보내기 위해 params 에 넣기
+			String page = "./Main/main";
 			if(member_status.equals("일반회원")) {
-				if(params.get("gender") == null) { //입력되지 않은 값이 하나라도 있다면 경고창 띄우기
-					model.addAttribute("msg", "입려되지 않은 값이 있으면 이용에 제한 될 수 있습니다.");
-				}else if(params.get("job") == null) {
-					model.addAttribute("msg", "입려되지 않은 값이 있으면 이용에 제한 될 수 있습니다.");
-				}else if(params.get("speed") == null) {
-					model.addAttribute("msg", "입려되지 않은 값이 있으면 이용에 제한 될 수 있습니다.");
+				if(params.get("gender") != null && params.get("job") != null 
+						&& params.get("speed") != null) {
+					service.profileRegister(photos, params);
+					model.addAttribute("msg","프로필 등록이 완료되었습니다.");
 				}else {
-					service.profileRegister(photos, params); //프로필 등록하기
-					model.addAttribute("msg", "등록이 완료되었습니다.");
+					model.addAttribute("msg", "입력하지 않은 값을 입력해주세요. 입력되지 않은 것이 있으면 이용에 제한 될 수 있습니다.");
+					page="redirect:/profileRegister.go";
 				}
 			}else {
 				model.addAttribute("msg", "등록에 실패하였습니다.");
 			}
 			
-			return "./Main/main"; 
+			return page; 
 		}
 		
 		
