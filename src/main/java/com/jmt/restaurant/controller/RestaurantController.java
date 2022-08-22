@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jmt.moim.dto.DojangDTO;
 import com.jmt.moim.dto.LightningDTO;
@@ -329,20 +330,20 @@ public class RestaurantController {
 	
 	// 맛집 수정 (관리자) 정보 수정
 	@RequestMapping(value = "/resAdminUpdate.do")
-	   public String resAdminUpdate(@RequestParam HashMap<String, String> params, HttpSession session) {
+	   public String resAdminUpdate(RedirectAttributes ra, @RequestParam HashMap<String, String> params, HttpSession session) {
 		
 	      logger.info("맛집 정보 수정 : " + params);
 	      
-	      return service.resAdminUpdate(params);
+	      return service.resAdminUpdate(params, ra);
 	   }
 	
 	// 맛집 수정 요청 (관리자) 요청 처리
 	@RequestMapping(value = "/Reporthandling.do")
-	   public String Reporthandling(@RequestParam HashMap<String, String> params, HttpSession session) {
+	   public String Reporthandling(@RequestParam HashMap<String, String> params, HttpSession session, RedirectAttributes ra) {
 		
 	      logger.info("맛집 요청 처리 : " + params);
 	      
-	      return service.Reporthandling(params);
+	      return service.Reporthandling(params, ra);
 	   }
 	
 

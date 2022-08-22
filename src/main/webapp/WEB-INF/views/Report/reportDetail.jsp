@@ -210,7 +210,20 @@ table{width:100%;}
 					 
 					 <c:if test="${not empty reportPost.lightning_title}"><a href="/lightDetail.go?lightning_no=${detailDto.idx}"> ${reportPost.lightning_title}</a></c:if>
 					 <c:if test="${not empty reportPost.dojang_title}"><a href="/dojangDetail.do?dojang_no=${detailDto.idx}"> ${reportPost.dojang_title}</a></c:if>
-					 <c:if test="${not empty reportPost.comment_content}"> ${reportPost.comment_content}</c:if>
+					 <c:if test="${not empty reportPost.comment_content}"> 
+						 <c:if test="${detailDto.class_no eq 8 }"> <!-- idx가 restaurant_no로  reportPost.idx  -->
+						 	<a href="/resDetail.do?restaurant_no=${reportPost.idx}"> ${reportPost.comment_content}</a>
+						 </c:if>
+						 <c:if test="${detailDto.class_no eq 7 }">
+					 		<a href="/groupReviewDetail.do?groupReview_no=${reportPost.idx}"> ${reportPost.comment_content}</a>
+						 </c:if>
+					 	 <c:if test="${detailDto.class_no eq 5 }"> <!-- 도장깨기 댓글  -->
+					 		<a href="/dojangHomeDetail.go?dojangPost_no=${reportPost.idx}"> ${reportPost.comment_content}</a>
+						 </c:if>
+					 	 <c:if test="${detailDto.class_no eq 2 }"> <!-- 번개 댓글 -->
+					 		<a href="/lightDetail.go?lightning_no=${detailDto.idx}"> ${reportPost.comment_content}</a>
+						 </c:if>
+					 </c:if>
 					 <c:if test="${not empty reportPost.dojangPost_subject}"><a href="/dojangHomeDetail.go?dojangPost_no=${detailDto.idx}"> ${reportPost.dojangPost_subject}</a></c:if>
 					 <c:if test="${not empty reportPost.review_title}"><a href="/groupReviewDetail.do?groupReview_no=${detailDto.idx}"> ${reportPost.review_title}</a></c:if> 
 					 
@@ -279,7 +292,16 @@ function blind_submit(){
 		alert('블라인드 페이지에서 수정가능합니다.');
 		return false;
 	}
-	$('#form_').submit();
+	
+	var result_reason = $('textarea[name=reason]').val();
+/* 	console.log(result_reason.length);
+	console.log(result_reason.trim().length); */
+	if (result_reason.trim().length > 250){
+	    alert("최대 250자까지 입력 가능합니다.");
+	  return false; 
+	  } 
+	
+ 	$('#form_').submit(); 
 	
 }
  
@@ -287,6 +309,7 @@ var report_status = $('select[name=report_status]').val();
 if(report_status=='블라인드'){
 	$('select[name=report_status]').attr("disabled","disabled");
 }
+
 
 </script>
 </html>

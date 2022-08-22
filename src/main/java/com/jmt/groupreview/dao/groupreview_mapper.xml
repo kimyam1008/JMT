@@ -100,22 +100,28 @@
 	
 	<!-- 도장리스트 -->
 	<select id="groupList" resultType="groupReview">
-		SELECT leader_id,d.dojang_no,d.member_id,t.dojang_title,t.class_no,c.class_name
+		<!-- SELECT leader_id,d.dojang_no,d.member_id,t.dojang_title,t.class_no,c.class_name
 		FROM dojangPost d
 		LEFT OUTER JOIN dojangList t ON t.dojang_no = d.dojang_no
 		LEFT OUTER JOIN codeTable c ON t.class_no = c.class_no
 		WHERE t.class_no=3 AND leader_id OR member_id = #{param1}
-		GROUP BY leader_id,d.dojang_no,d.member_id
+		GROUP BY leader_id,d.dojang_no,d.member_id -->
+		
+		select d.leader_id,a.member_id,d.dojang_title from apply a right outer join dojanglist d on d.dojang_no = a.idx 
+		where d.leader_id = #{param1} or a.status = "승인" and member_id =#{param1} group by d.dojang_title
 	</select>
 	
 	<!-- 번개리스트 -->
 	<select id="lightGroupList" resultType="groupReview">
-		SELECT a.member_id, l.lightning_title, l.lightning_no, l.leader_id
+		<!-- SELECT a.member_id, l.lightning_title, l.lightning_no, l.leader_id
 			,c.class_name, a.class_no
 		FROM apply a
 		JOIN codeTable c ON a.class_no = c.class_no
 		LEFT OUTER JOIN lightningList l ON a.idx = l.lightning_no
-		WHERE a.class_no = 1 AND (a.status = "승인" AND a.member_id = #{param1}) OR l.leader_id = #{param1}
+		WHERE a.class_no = 1 AND (a.status = "승인" AND a.member_id = #{param1}) OR l.leader_id = #{param1} -->
+		
+		select l.leader_id,a.member_id,l.lightning_title from apply a right outer join lightninglist l on l.lightning_no = a.idx 
+		where l.leader_id = #{param1} or a.status = "승인" and member_id =#{param1} group by l.lightning_title;
 	</select>
 	
 	

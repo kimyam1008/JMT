@@ -22,8 +22,16 @@ public class ReportPostDto {
 	private String lightning_content;
 	private int  member_count;
 	private int class_no;
+	private int idx; 
 	
 	
+	
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
 	//lightning comment 
 	private String comment_content;
 	private Date comment_date ;

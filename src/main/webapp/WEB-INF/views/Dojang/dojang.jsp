@@ -45,25 +45,45 @@
 			  border-top: 1px solid #ccc;
 			 width : 1000px;
 			}
-			table th {
+			
+			
+		table th {
 			  width: 150px;
 			  padding: 10px;
 			  font-weight: bold;
 			  vertical-align: top;
 			  border-bottom: 1px solid #ccc;
-			}
-			table td {
+			  background-color: #f9f9f9;
+		}
+		
+		table td {
 			  width: 350px;
 			  padding: 10px;
 			  vertical-align: top;
 			  border-bottom: 1px solid #ccc;
-			}
-	
-	
-	
+			 font-size: 15px;
+		}
+			
+		a {
+			font-size: 15px;
+		}	
+		
+			
 	.notiDelBtn:hover{
 		cursor : pointer;
 		color : red;
+	}
+	
+	.fa,.fab,.fad,.fal,.far,.fas{
+	font-weight: 900 !important;
+	}
+	
+	.createBtn{
+		border-radius: 30px;
+		background-color : #ff3d1c;
+		color : white;
+		border: none;
+		padding : 20px 30px;
 	}
 </style>
 
@@ -172,11 +192,11 @@
 	            <div class="container">
 	                <div class="row">
 	                    <!-- Left content -->
-	                    <div class="col-xl-4 col-lg-4 col-md-6">
+	                    <div class="col-xl-3 col-lg-3 col-md-3">
 	                        <div class="row">
 	                            <div class="col-12">
 	                                    <div class="small-section-tittle2 mb-45">
-										<input type="button" value="도장깨기 생성" class="btn list-btn mt-20" onclick="location.href='dojangReg.go'"/>
+										<input type="button" value="도장깨기 생성" class="btn list-btn mt-10" onclick="location.href='dojangReg.go'"/>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -241,14 +261,14 @@
                     </div>
  
                     <!-- Right content -->
-                    <div class="col-xl-8 col-lg-8 col-md-6">
+                    <div class="col-xl-9 col-lg-9 col-md-9">
                         <!-- listing Details Stat-->
                         <!--리스트 시작-->
                         <div class="listing-details-area">
                             <div class="container">
                                 <div class="row">
                                     <!--넣을 내용 입력-->
-                                    <div class="col-lg-6 ">
+                                    <div class="col-lg-12 ">
                                         <table style="margin:0 auto; text-align:center;">
                                             <thead id="lightningList">
                                                 <tr class="table-caption">

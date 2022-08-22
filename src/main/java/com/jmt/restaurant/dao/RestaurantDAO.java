@@ -53,13 +53,13 @@ public interface RestaurantDAO {
 
 	RestaurantDTO restuarantUpdateNo(int restuarantUpdate_no);
 
-	void resAdminUpdate(RestaurantDTO dto);
+	int resAdminUpdate(RestaurantDTO dto);
 
 	int reviewDel(HashMap<String, String> params);
 
 	ArrayList<RestaurantDTO> photoDelList(HashMap<String, String> params);
 
-	void Reporthandling(RestaurantDTO dto);
+	int Reporthandling(RestaurantDTO dto);
 
 	int allCount2(HashMap<String, Object> searchResult);
 

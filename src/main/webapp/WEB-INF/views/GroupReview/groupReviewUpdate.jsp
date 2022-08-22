@@ -236,7 +236,6 @@
                                         <fieldset style="width:40%; float:left;">
 	                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="1" <c:if test="${dto.class_no != 0}">checked</c:if>/>번개모임</legend>
 	                                        <c:forEach items="${lightGroupList}" var="lightGroupList">
-	                                           <!--  <input type="radio" name="class_no" value="1" style="width:5%"/> -->
 	                                           	<input type="radio" name="idx" style="margin: 5px" value="${lightGroupList.lightning_no}" <c:if test="${dto.lightning_no eq lightGroupList.lightning_no}">checked</c:if>/>${lightGroupList.lightning_title} <%-- (${lightGroupList.class_name}) --%> 
 	                                            <br/>
 	                                        </c:forEach>
@@ -244,7 +243,6 @@
 	                                    <fieldset style="width:40%; float:left;">
 	                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="3" <c:if test="${dto.dojang_class_no != 0}">checked</c:if>/>도장깨기</legend>
 	                                        <c:forEach items="${groupList}" var="groupList">
-	                                           <!--  <input type="radio" name="class_no" value="3" style="width:5%"/> -->
 	                                           	<input type="radio" name="idx" style="margin: 5px" value="${groupList.dojang_no}" <c:if test="${dto.dojang_no eq groupList.dojang_no}">checked</c:if>/>${groupList.dojang_title} 
 	                                            <br/>
 	                                        </c:forEach>

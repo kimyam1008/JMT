@@ -105,6 +105,8 @@
 	
 	</select>
 	
+
+	
 	
 	<!-- 신고 상세보기 -->
 	<select id="reportDetail" parameterType="int" resultType="com.jmt.admin.dto.ReportDTO">
@@ -153,7 +155,7 @@
 	</select>
 	
 	<select id="select_no2" parameterType="integer" resultType="com.jmt.admin.dto.ReportPostDto">
-		SELECT  c.comment_content  , c.comment_status  FROM   comment c WHERE c.comment_no  =#{idx} 
+		SELECT  c.comment_content  , c.comment_status,c.idx  FROM   comment c WHERE c.comment_no  =#{idx} 
 	</select>
 	
 	<select id="select_no3" parameterType="integer" resultType="com.jmt.admin.dto.ReportPostDto">

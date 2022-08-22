@@ -499,7 +499,13 @@
 
 </body>
 <script>
-	
+
+
+	var msg = "${msg}";
+		if(msg != ""){
+		alert(msg);
+	}
+		
 	function back(){ 
 		location.href="/resUpdateList.go"; 
 	
