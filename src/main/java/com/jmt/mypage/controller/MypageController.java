@@ -64,8 +64,7 @@ public class MypageController {
 				
 				page = "/Mypage/mypage";
 			} else {
-				model.addAttribute("msg","마이페이지는 프로필을 등록해야지만 이용할 수 있습니다.");
-				page = "/Member/profileRegister";
+				page = "redirect:./profileRegister.go";
 			}
 			
 			

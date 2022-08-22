@@ -159,7 +159,7 @@ public class MemberService {
 				// 3-4. 파일 받아서 저장하기
 				try {
 					byte[] arr = photo.getBytes();
-					Path path = Paths.get("C:/STUDY/SPRING_ADVANCE/JMT4/src/main/webapp/resources/photo/review"+newFileName);
+					Path path = Paths.get("C:\\STUDY\\SPRING_ADVANCE\\JMT4\\src\\main\\webapp\\resources\\photo\\review\\"+newFileName);
 					Files.write(path,arr);
 					logger.info(newFileName+" - save ok");
 					// 4. 업로드 후 photo 테이블에 데이터 입력

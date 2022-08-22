@@ -13,6 +13,7 @@ table {
     margin-right:auto;
     position: static;
 }
+
 </style>
 </head>
 <body>
