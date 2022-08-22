@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-pen.css" rel="stylesheet">
 
 <!-- CSS here -->
 <link rel="stylesheet" href="../resources/mainResource/assets/css/bootstrap.min.css">
