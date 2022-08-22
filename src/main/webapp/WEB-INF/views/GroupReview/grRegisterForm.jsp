@@ -201,20 +201,6 @@
                     </div>
                 </div>
 
-                <!--검색창-->
-                <!-- <div class="row">
-                    <div class="col-lg-12">
-                        <fieldset>
-                            <select id="searchCate">
-                                <option value="lightning">번개모임</option>
-                                <option value="dojang">도장깨기</option>
-                            </select>
-                            <input type="text" id="keyword" value="" placeholder="모임 이름을 입력해주세요"/>
-                            <button id="reviewSearch">검색</button>
-                        </fieldset>
-                    </div>
-                </div>
-                <button onclick="location.href='grRegisterForm.go'">글쓰기</button><br/> -->
                 <!--표-->
                 <div class="row">
                     <div class="col-lg-12">
@@ -224,20 +210,25 @@
                                     <th>나의 모임</th>
                                     <td>
                                     <fieldset style="width:40%; float:left;">
-                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="1"/>번개모임</legend>
+                                        <legend id="light"><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="1"/>번개모임</legend>
+                                        <div id="groupChoose1">
                                         <c:forEach items="${lightGroupList}" var="lightGroupList">
                                            <!--  <input type="radio" name="class_no" value="1" style="width:5%"/> -->
-                                           	<input type="radio" name="idx" style="margin: 5px" value="${lightGroupList.lightning_no}"/>${lightGroupList.lightning_title} <%-- (${lightGroupList.class_name}) --%> 
+                                           		<input type="radio" name="idx" style="margin: 5px;" value="${lightGroupList.lightning_no}"/>${lightGroupList.lightning_title} <%-- (${lightGroupList.class_name}) --%> 
                                             <br/>
                                         </c:forEach>
+                                        </div>
                                     </fieldset>
                                     <fieldset style="width:40%; float:left;">
-                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="3"/>도장깨기</legend>
+                                        <legend id="dojang"><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="3"/>도장깨기</legend>
+                                        <div id="groupChoose2">
                                         <c:forEach items="${groupList}" var="groupList">
                                            <!--  <input type="radio" name="class_no" value="3" style="width:5%"/> -->
-                                           	<input type="radio" name="idx" style="margin: 5px" value="${groupList.dojang_no}"/>${groupList.dojang_title} 
+                                         	<input type="radio" name="idx" style="margin: 5px;" value="${groupList.dojang_no}"/>${groupList.dojang_title} 
+                                            
                                             <br/>
                                         </c:forEach>
+                                        </div>
                                     </fieldset>
                                     </td>
                                 </tr>
@@ -372,6 +363,10 @@
     </body>
  <%@ include file="../../../resources/inc/footer.jsp" %>
 <script>
+//$('#groupChoose1').hide();
+//$('#groupChoose2').hide();
+
+
 //체크박스 하나만 체크
 function checkOnlyOne(element) {
   
@@ -384,15 +379,37 @@ function checkOnlyOne(element) {
   element.checked = true;
 }
 
-/* $('input[type=radio][name=idx]').change(function() {
-	$('input[type=radio][name=idx]').next().prop("checked",true);
-});
+console.log($('.light:first-child').val());
+console.log($('.dojang:first-child').val());
 
-if (if($('input[type="radio"]:checked').is(":checked") == true) {
-	
-} else {
+function setDisplay1(){
+	if($('input[type="checkbox"]:nth-child(1)').is(':checked')){
+		$('#groupChoose1').show();
+		} else {
+			$('#groupChoose1').hide();
+		}
+}
 
-} */
+/* function setDisplay2(){
+	if($('input:checkbox[value="3"]').is(':checked')){
+		$('#groupChoose2').show();
+		} else {
+			$('#groupChoose2').hide();
+		}
+}
+ */
+/* 
+$('input[name="class_no"]').on("change",function(){
+	if ($('input[name="class_no"]:checked').val()=="1") {
+		$('input[type="radio"]').attr("disabled",false);
+	} else {
+		$('input[type="radio"]').val('');
+		('input[type="radio"]').attr("disabled",true);
+	}
+})
+ */
+
+
 
 //글 업로드
 function save(){
@@ -401,14 +418,14 @@ function save(){
 	//var review_content = $('#review_content').val($('#editable').html());
 	var review_content = $('#editable').html(); 
 	
-	if($('input[type="checked"]:checked').is(":checked") == false){
+	if($('input[type="checkbox"]:checked').is(":checked") == false){
 		alert("모임 분류를 선택해 주세요");
 	} else if($('input[type="radio"]:checked').is(":checked") == false) {
 		alert("모임을 선택해 주세요");
 	} else if(review_title == "") {
 		alert("제목을 입력해주세요");
 		//review_title.focus();
-	}  else if(review_content == "") { //여기 아직 안됨...
+	}  else if(review_content == "") {
 		alert("내용을 입력해주세요.");
 		//review_content.focus();
 	} else if($('.imageUp').length > 3) {

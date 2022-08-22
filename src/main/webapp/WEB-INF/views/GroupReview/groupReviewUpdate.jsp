@@ -209,26 +209,46 @@
                     <div class="col-lg-12">
                         <form action="groupReviewUpdate" method="POST">
                         <input type="hidden" id="groupReview_no" name="groupReview_no" value="${dto.groupReview_no}"/>
+                        <%-- <input type="hidden" id="class_no" name="class_no" value="${dto.class_no}"/>
+                        <input type="hidden" id="dojang_class_no" name="dojang_class_no" value="${dto.dojang_class_no}"/> --%>
                             <table style="margin:0 auto; text-align:center;">
                                 <tr>
                                     <th>나의 모임</th>
                                     <td>
+                                        <%-- <fieldset style="width:40%; float:left;">
+	                                        <legend>번개모임</legend>
+	                                        <c:forEach items="${lightGroupList}" var="lightGroupList">
+	                                                <input type="radio" name="idx" value="${lightGroupList.lightning_no}" <c:if test="${dto.lightning_no eq lightGroupList.lightning_no}">checked</c:if>/>
+	                                                ${lightGroupList.lightning_title} (${lightGroupList.class_name}) 
+	                                                <input type="hidden" name="class_no" value="${lightGroupList.class_no}"><br/>
+	                                        </c:forEach>
+	                                        </fieldset>
+	                                        <fieldset style="width:40%; float:left;">
+	                                            <legend>도장깨기</legend>
+	                                            <c:forEach items="${groupList}" var="groupList">
+	                                                    <input type="radio" name="idx" value="${groupList.dojang_no}" <c:if test="${dto.dojang_no eq groupList.dojang_no}">checked</c:if>/>
+	                                                    ${groupList.dojang_title} (${groupList.class_name}) 
+	                                                    <input type="hidden" name="class_no" value="${groupList.class_no}"><br/>
+	                                        </c:forEach>
+                                        </fieldset> --%>
+                                        
+                                        
                                         <fieldset style="width:40%; float:left;">
-                                        <legend>번개모임</legend>
-                                        <c:forEach items="${lightGroupList}" var="lightGroupList">
-                                                <input type="radio" name="idx" value="${lightGroupList.lightning_no}" <c:if test="${dto.lightning_no eq lightGroupList.lightning_no}">checked</c:if>/>
-                                                ${lightGroupList.lightning_title} (${lightGroupList.class_name}) 
-                                                <input type="hidden" name="class_no" value="${lightGroupList.class_no}"><br/>
-                                        </c:forEach>
-                                        </fieldset>
-                                        <fieldset style="width:40%; float:left;">
-                                            <legend>도장깨기</legend>
-                                            <c:forEach items="${groupList}" var="groupList">
-                                                    <input type="radio" name="idx" value="${groupList.dojang_no}" <c:if test="${dto.dojang_no eq groupList.dojang_no}">checked</c:if>/>
-                                                    ${groupList.dojang_title} (${groupList.class_name}) 
-                                                    <input type="hidden" name="class_no" value="${groupList.class_no}"><br/>
-                                            </c:forEach>
-                                        </fieldset>
+	                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="1" <c:if test="${dto.class_no != 0}">checked</c:if>/>번개모임</legend>
+	                                        <c:forEach items="${lightGroupList}" var="lightGroupList">
+	                                           <!--  <input type="radio" name="class_no" value="1" style="width:5%"/> -->
+	                                           	<input type="radio" name="idx" style="margin: 5px" value="${lightGroupList.lightning_no}" <c:if test="${dto.lightning_no eq lightGroupList.lightning_no}">checked</c:if>/>${lightGroupList.lightning_title} <%-- (${lightGroupList.class_name}) --%> 
+	                                            <br/>
+	                                        </c:forEach>
+	                                    </fieldset>
+	                                    <fieldset style="width:40%; float:left;">
+	                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="3" <c:if test="${dto.dojang_class_no != 0}">checked</c:if>/>도장깨기</legend>
+	                                        <c:forEach items="${groupList}" var="groupList">
+	                                           <!--  <input type="radio" name="class_no" value="3" style="width:5%"/> -->
+	                                           	<input type="radio" name="idx" style="margin: 5px" value="${groupList.dojang_no}" <c:if test="${dto.dojang_no eq groupList.dojang_no}">checked</c:if>/>${groupList.dojang_title} 
+	                                            <br/>
+	                                        </c:forEach>
+	                                    </fieldset>
                                     </td>
                                 </tr>
                                 <tr>
@@ -362,21 +382,34 @@
     </body>
 <%@ include file="../../../resources/inc/footer.jsp" %>
 <script>
+function checkOnlyOne(element) {
+	  
+  const checkboxes = document.getElementsByName("class_no");
+  
+  checkboxes.forEach((cb) => {
+    cb.checked = false;
+  })
+  
+  element.checked = true;
+}
+
 //글 업로드
 function save(){
 	
 	var review_title = $('#review_title').val();
-	var review_content = $('#editable').text();
+	var review_content = $('#editable').html();
 	
-	if($('input[type="radio"]:checked').is(":checked") == false){
+	if($('input[type="checkbox"]:checked').is(":checked") == false){
+		alert("모임 분류를 선택해 주세요");
+	} else if($('input[type="radio"]:checked').is(":checked") == false) {
 		alert("모임을 선택해 주세요");
 	} else if(review_title == "") {
 		alert("제목을 입력해주세요");
 		review_title.focus();
-	} /* else if(review_content == "") { //여기 아직 안됨...
+	} else if(review_content == "") {
 		alert("내용을 입력해주세요.");
 		//review_content.focus();
-	} */ else if($('.imageUp').length > 3) {
+	} else if($('.imageUp').length > 3) {
 		alert('이미지 업로드 제한 갯수를 초과했습니다.');
 	} else {
 		$('#review_content a').removeAttr('onclick');
