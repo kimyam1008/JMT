@@ -63,7 +63,7 @@ public class MainController {
 	    ArrayList<MainDTO> grDto = service.grDto();
 	    model.addAttribute("grDto", grDto);
 	    logger.info("메인 페이지 모임 후기 리스트 호출 : "+grDto.size());
-	    
+	 
 	    
 	    
 		return "./Main/main";

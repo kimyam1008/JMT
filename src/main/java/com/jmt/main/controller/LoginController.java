@@ -16,8 +16,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.FlashMap;
+import org.springframework.web.servlet.FlashMapManager;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.jmt.main.dto.NotiDTO;
 import com.jmt.main.service.NotiService;
@@ -44,7 +47,13 @@ public class LoginController extends HandlerInterceptorAdapter {
 					//하지만 일반적으로 대부분 컨택스트 경로는 제외하는 경우가 더 많다.
 					//http://localhost:8080/member/
 					//response.sendRedirect("//");
+					FlashMap flashMap = new FlashMap();
+					flashMap.put("msg", "로그인이 필요한 서비스 입니다.");
+					FlashMapManager flashMapManager = RequestContextUtils.getFlashMapManager(request);
+					flashMapManager.saveOutputFlashMap(flashMap, request, response);
+
 					response.sendRedirect("/"); // http://localhost:8080/
+					
 					//대신 이건 메세지를 보낼 수 없음. 메세지를 주는 페이지를 우회해서 가게 하거나 해야함. 알아서 생각해보기
 					pass = false;
 				}

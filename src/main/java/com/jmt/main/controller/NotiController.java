@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jmt.main.dto.NotiDTO;
 import com.jmt.main.service.NotiService;
@@ -30,6 +31,16 @@ public class NotiController extends HandlerInterceptorAdapter {
 	@Autowired NotiService service;
 	
 
+
+
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		// TODO Auto-generated method stub
+		
+		boolean success = true;
+		return success;
+	}
 
 
 	@Override
