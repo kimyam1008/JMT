@@ -9,10 +9,10 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="manifest" href="site.webmanifest">
-		<link rel="shortcut icon" type="image/x-icon" href="../resources/mainResource/assets/img/pizza-slice.png">
+      <link rel="shortcut icon" type="image/x-icon" href="../resources/mainResource/assets/img/pizza-slice.png">
         <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-pen.css" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-		<!-- CSS here -->
+      <!-- CSS here -->
             <link rel="stylesheet" href="../resources/mainResource/assets/css/bootstrap.min.css">
             <link rel="stylesheet" href="../resources/mainResource/assets/css/owl.carousel.min.css">
             <link rel="stylesheet" href="../resources/mainResource/assets/css/slicknav.css">
@@ -26,43 +26,43 @@
             <link rel="stylesheet" href="../resources/mainResource/assets/css/style.css">
         <style>
             table {
-			  border-collapse: separate;
-			  border-spacing: 1px;
-			  text-align: left;
-			  line-height: 1.5;
-			  border-top: 1px solid #ccc;
-			  margin : 20px 10px;
-			}
-			table th {
-			  width: 150px;
-			  padding: 10px;
-			  font-weight: bold;
-			  vertical-align: top;
-			  border-bottom: 1px solid #ccc;
-			}
-			table td {
-			  width: 350px;
-			  padding: 10px;
-			  vertical-align: top;
-			  border-bottom: 1px solid #ccc;
-			}
+           border-collapse: separate;
+           border-spacing: 1px;
+           text-align: left;
+           line-height: 1.5;
+           border-top: 1px solid #ccc;
+           margin : 20px 10px;
+         }
+         table th {
+           width: 150px;
+           padding: 10px;
+           font-weight: bold;
+           vertical-align: top;
+           border-bottom: 1px solid #ccc;
+         }
+         table td {
+           width: 350px;
+           padding: 10px;
+           vertical-align: top;
+           border-bottom: 1px solid #ccc;
+         }
 
             table, input[type='text'] {
-			width:100%;
-			border:none;
-		    }
+         width:100%;
+         border:none;
+          }
             button {
-		    	color:#fff;
-				background:orange;
-				border:none;
-		    }
-		    button:focus{
-				outline:0;
-			}
-			button:hover{
-				background:#ff3d1c;
-				cursor:pointer;
-			}
+             color:#fff;
+            background:orange;
+            border:none;
+          }
+          button:focus{
+            outline:0;
+         }
+         button:hover{
+            background:#ff3d1c;
+            cursor:pointer;
+         }
                 
             textarea {
                 width: 100%;
@@ -89,9 +89,9 @@
             }
             
             .notiDelBtn:hover{
-				cursor : pointer;
-				color : red;
-			}
+            cursor : pointer;
+            color : red;
+         }
         </style>
     </head>
 
@@ -134,30 +134,30 @@
                                             </li>
                                             <li><a href="resList.html">맛집</a></li>
                                             <li><a href="groupReviewList">후기</a></li>
-											<c:choose>
-		                                       <c:when test="${loginId != null}">
-			                                            <!-- 알림 -->
-				                                        <c:choose>
-						                                       <c:when test="${notiChk=='true'}"><!--안읽은 알림있을 때  -->
-								                                       <li><a href="#"><img  id="notidrop" src="resources/photo/noti4.png"  style="width:30px; height:25px;"/></a>
-								                                            <ul class="submenu notidrop_menu" style="width : 300px; display : none;">
-								                                            </ul>
-								                                        </li>
-						                                        </c:when>
-						                                <c:otherwise>
-							                                   <li><a href="#"><img id="notidrop"  src="resources/photo/bnoti4.png"  style="width:30px; height:25px;"/></a>
-							                                          <ul class="submenu notidrop_menu" style="width : 300px; display : none;">
-								                                      </ul>
-							                                   </li>
-						                                </c:otherwise>
-			                                        	</c:choose>
-			                                           <li id="logoutDo"><a href="logout.do">로그아웃</a></li>
-			                                            <li class="add-list"><a href="/mypage.go"><i class="ti-user"></i>마이페이지</a></li>
-		                                       </c:when>
-		                                       <c:otherwise>
-				                                          <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
-		                                       </c:otherwise>
-		                                   </c:choose>
+                                 <c:choose>
+                                             <c:when test="${loginId != null}">
+                                                     <!-- 알림 -->
+                                                    <c:choose>
+                                                         <c:when test="${notiChk=='true'}"><!--안읽은 알림있을 때  -->
+                                                               <li><a href="#"><img  id="notidrop" src="resources/photo/noti4.png"  style="width:30px; height:25px;"/></a>
+                                                                    <ul class="submenu notidrop_menu" style="width : 300px; display : none;">
+                                                                    </ul>
+                                                                </li>
+                                                          </c:when>
+                                                  <c:otherwise>
+                                                        <li><a href="#"><img id="notidrop"  src="resources/photo/bnoti4.png"  style="width:30px; height:25px;"/></a>
+                                                               <ul class="submenu notidrop_menu" style="width : 300px; display : none;">
+                                                              </ul>
+                                                        </li>
+                                                  </c:otherwise>
+                                                    </c:choose>
+                                                    <li id="logoutDo"><a href="logout.do">로그아웃</a></li>
+                                                     <li class="add-list"><a href="/mypage.go"><i class="ti-user"></i>마이페이지</a></li>
+                                             </c:when>
+                                             <c:otherwise>
+                                                      <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
+                                             </c:otherwise>
+                                         </c:choose>
                                         </ul>
                                     </nav>
                                 </div>
@@ -201,20 +201,6 @@
                     </div>
                 </div>
 
-                <!--검색창-->
-                <!-- <div class="row">
-                    <div class="col-lg-12">
-                        <fieldset>
-                            <select id="searchCate">
-                                <option value="lightning">번개모임</option>
-                                <option value="dojang">도장깨기</option>
-                            </select>
-                            <input type="text" id="keyword" value="" placeholder="모임 이름을 입력해주세요"/>
-                            <button id="reviewSearch">검색</button>
-                        </fieldset>
-                    </div>
-                </div>
-                <button onclick="location.href='grRegisterForm.go'">글쓰기</button><br/> -->
                 <!--표-->
                 <div class="row">
                     <div class="col-lg-12">
@@ -224,20 +210,25 @@
                                     <th>나의 모임</th>
                                     <td>
                                     <fieldset style="width:40%; float:left;">
-                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)"  value="1"/>번개모임</legend>
+                                        <legend id="light"><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="1"/>번개모임</legend>
+                                        <div id="groupChoose1">
                                         <c:forEach items="${lightGroupList}" var="lightGroupList">
                                            <!--  <input type="radio" name="class_no" value="1" style="width:5%"/> -->
-                                           	<input type="radio" name="idx" style="margin: 5px" value="${lightGroupList.lightning_no}" disabled/>${lightGroupList.lightning_title} <%-- (${lightGroupList.class_name}) --%> 
+                                                 <input type="radio" name="idx" style="margin: 5px;" value="${lightGroupList.lightning_no}"/>${lightGroupList.lightning_title} <%-- (${lightGroupList.class_name}) --%> 
                                             <br/>
                                         </c:forEach>
+                                        </div>
                                     </fieldset>
                                     <fieldset style="width:40%; float:left;">
-                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)"  value="3" />도장깨기</legend>
+                                        <legend id="dojang"><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="3"/>도장깨기</legend>
+                                        <div id="groupChoose2">
                                         <c:forEach items="${groupList}" var="groupList">
                                            <!--  <input type="radio" name="class_no" value="3" style="width:5%"/> -->
-                                           	<input type="radio" name="idx" style="margin: 5px" value="${groupList.dojang_no}" disabled/>${groupList.dojang_title} 
+                                            <input type="radio" name="idx" style="margin: 5px;" value="${groupList.dojang_no}"/>${groupList.dojang_title} 
+                                            
                                             <br/>
                                         </c:forEach>
+                                        </div>
                                     </fieldset>
                                     </td>
                                 </tr>
@@ -336,26 +327,26 @@
 
 
     <!-- JS here -->
-		<!-- All JS Custom Plugins Link Here here -->
+      <!-- All JS Custom Plugins Link Here here -->
         <script src="../resources/mainResource/assets/js/vendor/modernizr-3.5.0.min.js"></script>
-		<!-- Jquery, Popper, Bootstrap -->
-		<script src="../resources/mainResource/assets/js/vendor/jquery-1.12.4.min.js"></script>
+      <!-- Jquery, Popper, Bootstrap -->
+      <script src="../resources/mainResource/assets/js/vendor/jquery-1.12.4.min.js"></script>
         <script src="../resources/mainResource/assets/js/popper.min.js"></script>
         <script src="../resources/mainResource/assets/js/bootstrap.min.js"></script>
-	    <!-- Jquery Mobile Menu -->
+       <!-- Jquery Mobile Menu -->
         <script src="../resources/mainResource/assets/js/jquery.slicknav.min.js"></script>
 
-		<!-- Jquery Slick , Owl-Carousel Plugins -->
+      <!-- Jquery Slick , Owl-Carousel Plugins -->
         <script src="../resources/mainResource/assets/js/owl.carousel.min.js"></script>
         <script src="../resources/mainResource/assets/js/slick.min.js"></script>
-		<!-- One Page, Animated-HeadLin -->
+      <!-- One Page, Animated-HeadLin -->
         <script src="../resources/mainResource/assets/js/wow.min.js"></script>
-		<script src="../resources/mainResource/assets/js/animated.headline.js"></script>
+      <script src="../resources/mainResource/assets/js/animated.headline.js"></script>
         <script src="../resources/mainResource/assets/js/jquery.magnific-popup.js"></script>
 
-		<!-- Nice-select, sticky -->
+      <!-- Nice-select, sticky -->
         <script src="../resources/mainResource/assets/js/jquery.nice-select.min.js"></script>
-		<script src="../resources/mainResource/assets/js/jquery.sticky.js"></script>
+      <script src="../resources/mainResource/assets/js/jquery.sticky.js"></script>
         
         <!-- contact js -->
         <script src="../resources/mainResource/assets/js/contact.js"></script>
@@ -364,7 +355,7 @@
         <script src="../resources/mainResource/assets/js/mail-script.js"></script>
         <script src="../resources/mainResource/assets/js/jquery.ajaxchimp.min.js"></script>
         
-		<!-- Jquery Plugins, main Jquery -->	
+      <!-- Jquery Plugins, main Jquery -->   
         <script src="../resources/mainResource/assets/js/plugins.js"></script>
         <script src="../resources/mainResource/assets/js/main.js"></script>
 
@@ -372,93 +363,115 @@
     </body>
  <%@ include file="../../../resources/inc/footer.jsp" %>
 <script>
+//$('#groupChoose1').hide();
+//$('#groupChoose2').hide();
+
+
 //체크박스 하나만 체크
 function checkOnlyOne(element) {
-
+  
   const checkboxes = document.getElementsByName("class_no");
   
   checkboxes.forEach((cb) => {
     cb.checked = false;
- 
   })
   
   element.checked = true;
-
 }
 
+console.log($('.light:first-child').val());
+console.log($('.dojang:first-child').val());
+
+function setDisplay1(){
+   if($('input[type="checkbox"]:nth-child(1)').is(':checked')){
+      $('#groupChoose1').show();
+      } else {
+         $('#groupChoose1').hide();
+      }
+}
+
+/* function setDisplay2(){
+   if($('input:checkbox[value="3"]').is(':checked')){
+      $('#groupChoose2').show();
+      } else {
+         $('#groupChoose2').hide();
+      }
+}
+ */
+/* 
+$('input[name="class_no"]').on("change",function(){
+   if ($('input[name="class_no"]:checked').val()=="1") {
+      $('input[type="radio"]').attr("disabled",false);
+   } else {
+      $('input[type="radio"]').val('');
+      ('input[type="radio"]').attr("disabled",true);
+   }
+})
+ */
 
 
-/* $('input[type=radio][name=idx]').change(function() {
-	$('input[type=radio][name=idx]').next().prop("checked",true);
-});
-
-if (if($('input[type="radio"]:checked').is(":checked") == true) {
-	
-} else {
-
-} */
 
 //글 업로드
 function save(){
-	
-	var review_title = $('#review_title').val();
-	//var review_content = $('#review_content').val($('#editable').html());
-	var review_content = $('#editable').html(); 
-	
-	if($('input[type="checked"]:checked').is(":checked") == false){
-		alert("모임 분류를 선택해 주세요");
-	} else if($('input[type="radio"]:checked').is(":checked") == false) {
-		alert("모임을 선택해 주세요");
-	} else if(review_title == "") {
-		alert("제목을 입력해주세요");
-		//review_title.focus();
-	}  else if(review_content == "") { //여기 아직 안됨...
-		alert("내용을 입력해주세요.");
-		//review_content.focus();
-	} else if($('.imageUp').length > 3) {
-		alert('이미지 업로드 제한 갯수를 초과했습니다.');
-	} else if($('#content-image').length == 0) {
-		$('#review_content').val($('#editable').html());
-		$('form').submit();
-	} else {
-		$('#review_content a').removeAttr('onclick');
-		//id가 content인 태그의 자식태그 a 태그에서 onclick 속성 삭제
-		
-		$('#review_content').val($('#editable').html());
-		//content 안에 editable 넣음
-		
-		$('form').submit();
-	}
-	
+   
+   var review_title = $('#review_title').val();
+   //var review_content = $('#review_content').val($('#editable').html());
+   var review_content = $('#editable').html(); 
+   
+   if($('input[type="checkbox"]:checked').is(":checked") == false){
+      alert("모임 분류를 선택해 주세요");
+   } else if($('input[type="radio"]:checked').is(":checked") == false) {
+      alert("모임을 선택해 주세요");
+   } else if(review_title == "") {
+      alert("제목을 입력해주세요");
+      //review_title.focus();
+   }  else if(review_content == "") {
+      alert("내용을 입력해주세요.");
+      //review_content.focus();
+   } else if($('.imageUp').length > 3) {
+      alert('이미지 업로드 제한 갯수를 초과했습니다.');
+   } else if($('#content-image').length == 0) {
+      $('#review_content').val($('#editable').html());
+      $('form').submit();
+   } else {
+      $('#review_content a').removeAttr('onclick');
+      //id가 content인 태그의 자식태그 a 태그에서 onclick 속성 삭제
+      
+      $('#review_content').val($('#editable').html());
+      //content 안에 editable 넣음
+      
+      $('form').submit();
+   }
+   
 }
 
 //파일업로드 팝업
 function fileUp(){
-	window.open('grFileUploadForm.go','','width=400, height=100');
+   window.open('grFileUploadForm.go','','width=400, height=100');
 }
 
 //사진 삭제
 function del(elem){
-	console.log(elem);
-	//id에서 삭제할 파일명을 추출
-	var id = $(elem).attr("id");
-	var fileName = id.substring(id.lastIndexOf("/")+1);
-	console.log(fileName);
-	//해당 파일 삭제 요청
-	$.ajax({
-		url:'grFileDelete.ajax',
-		type:'get',
-		data:{'fileName':fileName},
-		dataType:'json',
-		success:function(data){
-			console.log(data)
-			//a 태그를 포함한 img 태그를 삭제
-			$(elem).remove();
-		},
-		error:function(e){
-			console.log(e);
-		}
-	});
+   console.log(elem);
+   //id에서 삭제할 파일명을 추출
+   var id = $(elem).attr("id");
+   var fileName = id.substring(id.lastIndexOf("/")+1);
+   console.log(fileName);
+   //해당 파일 삭제 요청
+   $.ajax({
+      url:'grFileDelete.ajax',
+      type:'get',
+      data:{'fileName':fileName},
+      dataType:'json',
+      success:function(data){
+         console.log(data)
+         //a 태그를 포함한 img 태그를 삭제
+         $(elem).remove();
+      },
+      error:function(e){
+         console.log(e);
+      }
+   });
 }
 </script>
 </html>

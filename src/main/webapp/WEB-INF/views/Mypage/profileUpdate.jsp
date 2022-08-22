@@ -7,6 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 	<title>JMT 마이페이지</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -151,9 +152,9 @@
                                	<div class="middle" style="float: left; margin:20px;">
                                		이름 : <input type=text name="name" value="${list.member_name }"/><br/>
 									아이디 : ${list.member_id }<br/>
-									비밀번호 : <input type="button" name="passUpdate" value="비밀번호변경" onclick="passUpdate()"/><br/>
+									비밀번호 : <button type="button" name="passUpdate" value="비밀번호변경" onclick="passUpdate()">비밀번호변경</button><br/>
 									생년월일 : ${list.member_birth }
-                               	</div>
+                               	</div> 
                                 </div>
                             </div>
                         </div>

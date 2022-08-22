@@ -214,7 +214,7 @@
 
                 <!--검색창-->
                 <div class="row">
-                    <div class="col-lg-6" style="margin:auto">
+                    <div class="col-lg-6" style="margin:auto; margin-bottom:30px;">
                         <div>
                             <!-- <input type="hidden" id="searchCate" value="idx"/> -->
                             <select id="searchCate">
@@ -227,7 +227,7 @@
                     </div>
                 </div>
                 <c:if test="${loginId != null}">
-	                <button id="writeBtn" onclick="location.href='grRegisterForm.go'" style="margin:30px 5px 10px 5px">글쓰기</button><br/>
+	                <button id="writeBtn" onclick="location.href='grRegisterForm.go'" style="margin:15px 5px 10px 5px">글쓰기</button><br/>
                 </c:if>
                 <!--표-->
                 <div class="row">

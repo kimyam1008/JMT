@@ -111,9 +111,11 @@ public class ReportController {
 				// idx, class_no를 활용하여 report_status 변경 . 
 				service.changeStatus(data);
 				//변경된 status 가 블라인드인 경우 블라인드(테이블 insert) 생성해야 함. 
+				logger.info("admin 로그인 아이디 : "+loginId);
 				String updateCheck= service.updateCheck(report_no); 
 				if(updateCheck.equals("블라인드")) { 
 					data.put("reported", reported);
+				
 					service.insertBlind(data);
 				}
 		
@@ -179,7 +181,7 @@ public class ReportController {
 	
 	@RequestMapping("/blindUpdate.do")
 	public String blindUpdate(@RequestParam HashMap<String, String> params , @RequestParam(defaultValue = "해제") String blichk 
-			, RedirectAttributes ra) { 
+			, RedirectAttributes ra, HttpSession session) { 
 		Map<String, Object> data  = new HashMap<String, Object>();
 		
 		
@@ -191,7 +193,7 @@ public class ReportController {
 		String reason =params.get("reason");
 		String reported =params.get("reported");
 		int report_no = Integer.parseInt(params.get("report_no")) ;
-		
+		String loginId = (String) session.getAttribute("loginId");
 		
 		data.put("reported", reported);
 		data.put("class_no", class_no);
@@ -199,6 +201,7 @@ public class ReportController {
 		data.put("reason", reason);
 		data.put("report_status", blichk);
 		data.put("report_no", report_no);
+		data.put("loginId", loginId);
 		
 		
 		// 블라인드 생성하면서 해당 게시글의 상태도 변경시켜줘야 함... 
@@ -257,8 +260,10 @@ public class ReportController {
 	
 	@RequestMapping("/blackReg.ajax")
 	@ResponseBody
-	public Map<String, Object> blackReg(@RequestParam HashMap<String, String> params){ 
+	public Map<String, Object> blackReg(@RequestParam HashMap<String, String> params,HttpSession session){ 
 		
+		String loginId=(String) session.getAttribute("loginId");
+		params.put("loginId", loginId);
 		return service.blackReg(params); 
 		
 	}
