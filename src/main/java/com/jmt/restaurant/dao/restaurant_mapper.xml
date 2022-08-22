@@ -94,7 +94,8 @@
 	<select id="lightninglist" resultType="res" parameterType="int" >
 		select
 			  l.lightning_title 
-			, l.lightning_status 
+			, l.lightning_status
+			, lightning_no
 		from 
 			lightninglist l
 		inner join restaurant r on 

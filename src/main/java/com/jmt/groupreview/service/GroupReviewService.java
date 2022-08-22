@@ -211,6 +211,7 @@ public class GroupReviewService {
 		int row = dao.groupReviewDelete(params);
 	}
 
+	@Transactional
 	public ModelAndView groupReviewUpdate(HashMap<String, String> params, HttpSession session, String loginId) {
 		logger.info("params : {}",params);
 		
