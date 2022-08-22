@@ -352,9 +352,16 @@ function updateBlind(){
 	} else if (!z & s=='해제'){
 		alert('이미 블라인드 해제상태입니다.');
 		return false; 
-	}
+	} 
 	
-	$('#blindUpdate').submit();
+	var result_reason = $('textarea[name=reason]').val();
+
+	if (result_reason.trim().length > 250){
+	    alert("최대 250자까지 입력 가능합니다.");
+	  return false; 
+	  } 
+	
+	$('#blindUpdate').submit(); 
 	
 }
 

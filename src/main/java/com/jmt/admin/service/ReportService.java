@@ -494,6 +494,7 @@ public class ReportService {
 		dao.blindNoti(class_no,idx,reported);
 	}
 
+
 	
 
 
