@@ -41,6 +41,7 @@
 			  line-height: 1.5;
 			  border-top: 1px solid #ccc;
 			 width : 1000px;
+			
 			}
 			table th {
 			  width: 150px;
@@ -48,6 +49,7 @@
 			  font-weight: bold;
 			  vertical-align: top;
 			  border-bottom: 1px solid #ccc;
+			  background-color: #f9f9f9;
 			}
 			table td {
 			  width: 350px;
@@ -55,7 +57,8 @@
 			  vertical-align: top;
 			  border-bottom: 1px solid #ccc;
 			}
-	
+			
+			
 	
 	
 	.notiDelBtn:hover{
@@ -107,15 +110,15 @@
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav>
 		                              <ul id="navigation">
-                                            <li><a href="jmtMain.html">Home</a></li>
+                                            <li><a href="/">Home</a></li>
                                             <li><a href="#">모임</a>
                                                 <ul class="submenu">
-                                                    <li><a href="lightningList.html">번개</a></li>
-                                                    <li><a href="dojangList.html">도장깨기</a></li>
+                                                    <li><a href="/lightList.go">번개</a></li>
+                                                    <li><a href="/dojang.go">도장깨기</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="resList.html">맛집</a></li>
-                                            <li><a href="moimReviewList.html">후기</a></li>
+                                            <li><a href="/restaurant">맛집</a></li>
+                                            <li><a href="/groupReviewList">후기</a></li>
 		                                        <c:choose>
 		                                            	<c:when test="${loginId != null}">
 			                                            		<!-- 알림 -->
@@ -174,7 +177,7 @@
             <div class="container">
                 <div class="row">
                     <!-- Left content -->
-                    <div class="col-xl-4 col-lg-4 col-md-6">
+                    <div class="col-xl-3 col-lg-3 col-md-3">
                         <div class="row">
                             <div class="col-12">
                                     <div class="small-section-tittle2 mb-45">
@@ -189,7 +192,7 @@
                             <h4 class="searchName">번개를 찾아보세요</h4>
                                 <!-- input -->
                                 <div class="input-form">
-                                    <input type="text" id="lightning_title"  name="lightning_title" placeholder="모임 이름을 입력해주세요"
+                                    <input type="text" id="lightning_title"  name="lightning_title" placeholder="모임명을 입력하세요"
 		                                onKeypress="javascript:if(event.keyCode==13) {enterkey()}"/>
                                 </div>
                                 <!-- Select job items start -->
@@ -243,7 +246,7 @@
                     </div>
  
                     <!-- Right content -->
-                    <div class="col-xl-8 col-lg-8 col-md-6">
+                    <div class="col-xl-9 col-lg-9 col-md-9">
                         <!-- listing Details Stat-->
                         <!--리스트 시작-->
                        
@@ -251,8 +254,8 @@
                             <div class="container">
                                 <div class="row">
                                     <!--넣을 내용 입력-->
-                                    <div class="col-lg-6 ">
-                                        <table style="margin:0 auto; text-align:center;">
+                                    <div class="col-lg-12">
+                                        <table style="margin:0 auto; text-align:center; font-size: 11px;">
                                             <thead id="lightningList">
                                                 <tr class="table-caption">
                                                     <th>맛집 이름</th>
@@ -267,9 +270,10 @@
                                             </thead>
                                             <tbody id="list">
                                             </tbody>
+                                    
                                                 <tr>
                                                     <td colspan="8" id="paging">
-                                                        <!-- plugin 사용법  -->
+                                                        <!-- plugin 사용법    -->
                                                         <div class="container">
                                                             <nav arial-label="Page navigation" style="text-align:center">
                                                                 <ul class="pagination" id="pagination"></ul>
