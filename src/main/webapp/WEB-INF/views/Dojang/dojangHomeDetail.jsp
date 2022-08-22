@@ -188,26 +188,6 @@ td a {
 	}
 	
 	/*등급색상*/
-	.g1{
-		color :green;
-	}
-	
-	.g2{
-		color :brown;
-	}
-	
-	.g3{
-		color :lightblue;
-	}
-	
-	.g4{
-		color :gold;
-	}
-	
-	.g5{
-		color :purple;
-	}
-	
 	.top .utility {
 	  display: flex;
 	  flex-direction: row;
