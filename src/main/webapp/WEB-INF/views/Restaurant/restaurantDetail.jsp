@@ -323,7 +323,8 @@ textarea {
 		 	<h3>번개 모임!!</h3>
 		 	<br/>
 		 	<c:if test="${liList.lightning_status eq '모집중'}">
-	      		<li>${liList.lightning_title}</li>
+		 		<input type="hidden" name="idx" value="${liList.lightning_no}" />
+	      		<li><a href="lightDetail.go?lightning_no=${liList.lightning_no}">${liList.lightning_title}</a></li>
 	    	</c:if>
 	     </c:forEach>
 	     </ul>
