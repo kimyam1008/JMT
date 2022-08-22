@@ -379,8 +379,10 @@
                             <tr>
                                 <td colspan="4">
                                     ${dto.review_content}
-                                        <button onclick="groupReviewDel()" style="float:right; border:none;">삭제</button>
-                                        <button onclick="grReviewReport_pop()" style="float:right; margin-right:5px; border:none;">신고하기</button>
+                                        <c:if test="${loginId != null}">
+	                                        <button onclick="groupReviewDel()" style="float:right; border:none;">삭제</button>
+	                                        <button onclick="grReviewReport_pop()" style="float:right; margin-right:5px; border:none;">신고하기</button>
+                                        </c:if>
                                 </td>
                             </tr>
                             <tr>
@@ -519,7 +521,7 @@ var loginId = "${loginId}"; //댓글에서 쓸거
 
 //신고창 팝업
 function grReviewReport_pop(){
-	window.open("/grReviewReport.go?groupReview_no="+${dto.groupReview_no},"new","width=400, height=350, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	window.open("/grReviewReport.go?groupReview_no="+${dto.groupReview_no},"new","width=400, height=350, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");	
 }
 
 //업데이트폼 이동
