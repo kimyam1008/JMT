@@ -372,7 +372,7 @@
                             </tr>
                             <tr>
                                 <th>모임 이름</th>
-                                <td>${dto.lightning_title} ${dto.dojang_title}</td>
+                                <td>${dto.lightning_title}${dto.dojang_title}</td>
                                 <th>모임 종류</th>
                                 <td>${dto.class_name}</td>
                             </tr>
