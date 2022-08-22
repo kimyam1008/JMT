@@ -7,8 +7,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 table, th, td{
-		border: 1px solid black;
+		border: 1px solid #ccc;
 		border-collapse: collapse;
+		line-height: 1.5;
+		border-bottom: 1px solid #ccc;
+		border-top: 1px solid #ccc;
+		
 	}
 	td, th{
 		padding: 5px 10px;
@@ -22,6 +26,7 @@ table{
 	 text-align: center;
 
 }
+
 
 #report_text {
   width:300px;
@@ -44,6 +49,32 @@ table{
 	width:70px;
 	height:35px;
 }
+body {
+		font-family: 'GmarketSansMedium';
+	}
+	@font-face {
+		font-family: 'GmarketSansMedium';
+		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+	}
+	input[type='button']{
+		font-family: 'GmarketSansMedium';
+		color:#fff;
+		background:orange;
+		border:none;
+		padding:5px 10px;
+	}
+	input[type='button']:focus{
+		outline:0;
+	}
+	input[type='button']:hover{
+		background:#ff3d1c;
+		cursor:pointer;
+	}
+	select,option,textarea {
+		font-family: 'GmarketSansMedium';
+	}
 
 
 </style>
