@@ -40,8 +40,8 @@
 			  text-align: left;
 			  line-height: 1.5;
 			  border-top: 1px solid #ccc;
-			 width : 100%;
-			 font-size: 11px;
+			 width : 1000px;
+			
 			}
 			table th {
 			  width: 150px;
@@ -49,6 +49,7 @@
 			  font-weight: bold;
 			  vertical-align: top;
 			  border-bottom: 1px solid #ccc;
+			  background-color: #f9f9f9;
 			}
 			table td {
 			  width: 350px;
@@ -56,7 +57,8 @@
 			  vertical-align: top;
 			  border-bottom: 1px solid #ccc;
 			}
-	
+			
+			
 	
 	
 	.notiDelBtn:hover{
@@ -108,15 +110,15 @@
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav>
 		                              <ul id="navigation">
-                                            <li><a href="jmtMain.html">Home</a></li>
+                                            <li><a href="/">Home</a></li>
                                             <li><a href="#">모임</a>
                                                 <ul class="submenu">
-                                                    <li><a href="lightningList.html">번개</a></li>
-                                                    <li><a href="dojangList.html">도장깨기</a></li>
+                                                    <li><a href="/lightList.go">번개</a></li>
+                                                    <li><a href="/dojang.go">도장깨기</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="resList.html">맛집</a></li>
-                                            <li><a href="moimReviewList.html">후기</a></li>
+                                            <li><a href="/restaurant">맛집</a></li>
+                                            <li><a href="/groupReviewList">후기</a></li>
 		                                        <c:choose>
 		                                            	<c:when test="${loginId != null}">
 			                                            		<!-- 알림 -->
@@ -268,9 +270,10 @@
                                             </thead>
                                             <tbody id="list">
                                             </tbody>
+                                    
                                                 <tr>
                                                     <td colspan="8" id="paging">
-                                                        <!-- plugin 사용법  -->
+                                                        <!-- plugin 사용법    -->
                                                         <div class="container">
                                                             <nav arial-label="Page navigation" style="text-align:center">
                                                                 <ul class="pagination" id="pagination"></ul>
