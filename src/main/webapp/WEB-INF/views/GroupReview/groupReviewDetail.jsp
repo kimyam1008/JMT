@@ -372,7 +372,7 @@
                             </tr>
                             <tr>
                                 <th>모임 이름</th>
-                                <td>${dto.lightning_title} ${dto.dojang_title}</td>
+                                <td>${dto.lightning_title}${dto.dojang_title}</td>
                                 <th>모임 종류</th>
                                 <td>${dto.class_name}</td>
                             </tr>
@@ -630,14 +630,20 @@ function drawCmt(list){
 			content += '<div class ="img">';
 			
 			if (item.photo_newFileName!= null){
-			content += '<a href="#"><img src ="/photo/'+item.photo_newFileName+'" class="profileImg"></a>';
+			content += '<img src ="/photo/'+item.photo_newFileName+'" class="profileImg">';
 			}else{ //프로필 등록을 안했을 시
-				content += '<a href="#"><img src ="/photo/profile.jpeg" class="profileImg"></a>';
+				content += '<img src ="/photo/profile.jpeg" class="profileImg">';
 			}
-			
 			content += '</div>';
-			content += '<div class="member_id"><a href="#">'+item.member_id+'</a></div>';
-			content += '<div class="grade_name g'+item.grade_no+'">'+item.grade_name+'</div>';
+			
+			if(loginId == item.member_id){ //본인 댓글은 마이페이지로/타아이디는 otherspage로 
+            	content += '<div class="member_id"><a href="mypage.go" class="idatag">'+item.member_id+'</a></div>';
+            }else{
+            content += '<div class="member_id"><a href="othersPage.go?profile_no='+item.profile_no+'" class="idatag">'+item.member_id+'</a></div>';
+            }
+			//content += '<div class="member_id"><a href="othersPage.go?profile_no='+item.profile_no+'">'+item.member_id+'</a></div>';
+			//content += '<div class="grade_name g'+item.grade_no+'">'+item.grade_name+'</div>';
+			content += '<div class="grade_name" style="color :'+item.grade_color+'">'+item.grade_name+'</div>';
 			content += '<div class="utility">';
 			
 			if(loginId == item.member_id){ //본인 댓글만 수정,삭제 보이게 

@@ -3,6 +3,8 @@ package com.jmt.member.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -16,13 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jmt.member.dto.MemberDTO;
 import com.jmt.member.service.MemberService;
 
 @Controller
-public class MemberController {
+public class MemberController extends HandlerInterceptorAdapter{
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -180,7 +183,7 @@ public class MemberController {
 		
 		
 		//프로필 등록
-		@RequestMapping(value = "profileRegister.do")
+		@RequestMapping(value = "/profileRegister.do")
 		public String profileRegister(Model model, MultipartFile[] photos, HttpSession session, 
 				@RequestParam HashMap<String, Object> params) {
 			logger.info("프로필 요청 값 {}: ",params);
@@ -200,11 +203,29 @@ public class MemberController {
 					service.profileRegister(photos, params); //프로필 등록하기
 					model.addAttribute("msg", "등록이 완료되었습니다.");
 				}
+			}else {
+				model.addAttribute("msg", "등록에 실패하였습니다.");
 			}
 			
 			return "./Main/main"; 
 		}
 		
+		
+		//프로필 등록 이동페이지
+		@RequestMapping(value = "/profileRegister.go")
+		public String profileRegister(HttpSession session, Model model) {
+			String loginId = (String) session.getAttribute("loginId");
+			String page = "/Main/main";
+			if(loginId != null) {
+				model.addAttribute("msg","프로필을 등록해야만 마이페이지 이용이 가능합니다.");
+				service.profileExist(loginId);
+				ArrayList<MemberDTO> foodList = service.foodList(); //음식카테고리 가져오기
+				model.addAttribute("foodList", foodList);
+				page="/Member/profileRegister";
+			}
+
+			return page; 
+		}
 		
 		
 

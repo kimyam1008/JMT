@@ -49,7 +49,20 @@
 
             table, input[type='text'] {
 			width:100%;
+			border:none;
 		    }
+            button {
+		    	color:#fff;
+				background:orange;
+				border:none;
+		    }
+		    button:focus{
+				outline:0;
+			}
+			button:hover{
+				background:#ff3d1c;
+				cursor:pointer;
+			}
                 
             textarea {
                 width: 100%;
@@ -211,17 +224,19 @@
                                     <th>나의 모임</th>
                                     <td>
                                     <fieldset style="width:40%; float:left;">
-                                        <legend>번개모임</legend>
+                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" value="1"/>번개모임</legend>
                                         <c:forEach items="${lightGroupList}" var="lightGroupList">
-                                                <input type="radio" name="idx" value="${lightGroupList.lightning_no}"/>${lightGroupList.lightning_title} (${lightGroupList.class_name}) 
-                                                <input type="hidden" name="class_no" value="${lightGroupList.class_no}"><br/>
+                                           <!--  <input type="radio" name="class_no" value="1" style="width:5%"/> -->
+                                           	<input type="radio" name="idx" style="margin: 5px" value="${lightGroupList.lightning_no}"/>${lightGroupList.lightning_title} <%-- (${lightGroupList.class_name}) --%> 
+                                            <br/>
                                         </c:forEach>
                                     </fieldset>
                                     <fieldset style="width:40%; float:left;">
-                                        <legend>도장깨기</legend>
+                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" value="3"/>도장깨기</legend>
                                         <c:forEach items="${groupList}" var="groupList">
-                                                <input type="radio" name="idx" value="${groupList.dojang_no}"/>${groupList.dojang_title} (${groupList.class_name}) 
-                                                <input type="hidden" name="class_no" value="${groupList.class_no}"><br/>
+                                           <!--  <input type="radio" name="class_no" value="3" style="width:5%"/> -->
+                                           	<input type="radio" name="idx" style="margin: 5px" value="${groupList.dojang_no}"/>${groupList.dojang_title} 
+                                            <br/>
                                         </c:forEach>
                                     </fieldset>
                                     </td>
@@ -357,21 +372,32 @@
     </body>
  <%@ include file="../../../resources/inc/footer.jsp" %>
 <script>
+/* $('input[type=radio][name=idx]').change(function() {
+	$('input[type=radio][name=idx]').next().prop("checked",true);
+});
+
+if (if($('input[type="radio"]:checked').is(":checked") == true) {
+	
+} else {
+
+} */
+
 //글 업로드
 function save(){
 	
 	var review_title = $('#review_title').val();
-	var review_content = $('#review_content').val($('#editable').html());
+	//var review_content = $('#review_content').val($('#editable').html());
+	var review_content = $('#editable').html(); 
 	
 	if($('input[type="radio"]:checked').is(":checked") == false){
 		alert("모임을 선택해 주세요");
 	} else if(review_title == "") {
 		alert("제목을 입력해주세요");
-		review_title.focus();
-	} /* else if($('#editable').html() == null) { //여기 아직 안됨...
+		//review_title.focus();
+	}  else if(review_content == "") { //여기 아직 안됨...
 		alert("내용을 입력해주세요.");
 		//review_content.focus();
-	}*/  else if($('#content-image').length > 3) {
+	} else if($('.imageUp').length > 3) {
 		alert('이미지 업로드 제한 갯수를 초과했습니다.');
 	} else if($('#content-image').length == 0) {
 		$('#review_content').val($('#editable').html());
@@ -379,8 +405,10 @@ function save(){
 	} else {
 		$('#review_content a').removeAttr('onclick');
 		//id가 content인 태그의 자식태그 a 태그에서 onclick 속성 삭제
+		
 		$('#review_content').val($('#editable').html());
 		//content 안에 editable 넣음
+		
 		$('form').submit();
 	}
 	

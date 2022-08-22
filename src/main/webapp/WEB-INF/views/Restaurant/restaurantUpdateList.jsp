@@ -44,14 +44,27 @@
 		padding: 5px;
 	} */
 	
-	.active{
-		color:pink;
+	.active {
+		color: #943bea;
 		font: bold;
 		text-decoration: underline;
 	}
-	#option_list{ text-align:center;  margin:20px 0px;}
-	#option_list span{font-size: 20px; margin:20px 20px;}
-	#search{
+	
+	.pagination>li>a {
+		color: #943bea;
+	}
+	
+	
+	#option_list {
+		text-align:center;
+		margin:20px 0px;
+		}
+	#option_list span{
+		font-size: 20px;
+		margin:20px 20px;
+	}
+	
+	#search {
 		text-align:center; 
 	}
 	
@@ -85,10 +98,6 @@
             <ul class="nav">
                 <!--유저 사진, 이름-->
                 <li class="dojangParty">
-                    <a class="leaderProfile">
-                        <img class="avatar border-gray" src="etcResource/assets/img/faces/face-0.jpg" alt="..."/>
-                        <h4 class="title">Admin</h4>
-                    </a>
                 </li>
                 <li>
                     <a href="/report/">
@@ -180,11 +189,6 @@
                                 <p>Home</p>
                              </a>
                          </li>
-                        <li>
-                           <a href="mypage.go">
-                               <p>마이페이지</p>
-                            </a>
-                        </li>
                         <li>
                            <a href="/logout.do">
                                 <p>Log out</p>

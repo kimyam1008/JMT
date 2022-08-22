@@ -114,11 +114,6 @@ table{width:100%;}
                              </a>
                          </li>
                         <li>
-                           <a href="/mypage.go">
-                               <p>마이페이지</p>
-                            </a>
-                        </li>
-                        <li>
                             <a href="/logout.do">
                                 <p>Log out</p>
                             </a>

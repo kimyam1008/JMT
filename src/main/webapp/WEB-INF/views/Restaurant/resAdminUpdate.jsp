@@ -30,45 +30,19 @@
 
 <style>
 		
-
-	
-	
-	
-	/* 
-	@media (max-width: 991px)
-	.table-responsive {
-    width: 80%;
-    margin-bottom: 15px;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
-    -webkit-overflow-scrolling: touch;
-	} */
-	
-	#res1 {
-<<<<<<< HEAD
-		height: 200px;
-		width: 600px;
-=======
-		height: 400px;
-		width: 70%;
->>>>>>> e37caad0d21db261377ceb900f60ceb2ad1fc595
-		
-	}
 	.card .content {
     padding: 15px 15px 10p 15px;
     margin: auto;
     height: 200px;
-		width: 600px;
+		width: 800px;
 	}
 	textarea{
 		resize:none;
 		width:100%;
 		height:150px;
 	}
-
 	
-		
+			
 
 </style>
 <title>맛집 수정</title>
@@ -94,10 +68,6 @@
             <ul class="nav">
                 <!--유저 사진, 이름-->
                 <li class="dojangParty">
-                    <a class="leaderProfile">
-                        <img class="avatar border-gray" src="etcResource/assets/img/faces/face-0.jpg" alt="..."/>
-                        <h4 class="title">Admin</h4>
-                    </a>
                 </li>
                 <li>
                     <a href="/report/">
@@ -190,11 +160,6 @@
                              </a>
                          </li>
                         <li>
-                           <a href="mypage.go">
-                               <p>마이페이지</p>
-                            </a>
-                        </li>
-                        <li>
                             <a href="#">
                                 <p>Log out</p>
                             </a>
@@ -208,8 +173,8 @@
 
 	
 	<!--컨텐츠영역 시작-->
-        <div class="content">
-            <div class="container-fluid">
+        <div class="">
+            <div class="">
                 <!--여기에 <div class="row">로 시작해서 내용을 넣어주세요 -->
                 <div class="row">
                     <!--표 시작-->
@@ -311,8 +276,8 @@
                 </div>
                 
                 <!--컨텐츠영역 시작-->
-        <div class="content">
-            <div class="container-fluid">
+        <div class="">
+            <div class="">
                 <!--여기에 <div class="row">로 시작해서 내용을 넣어주세요 -->
                 <div class="row">
                     <!--표 시작-->

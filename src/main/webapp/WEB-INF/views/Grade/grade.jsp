@@ -33,7 +33,10 @@ table {
     width: 80%;
     height: 200px;
   }
-
+  
+th {
+    text-align: center;
+	}
 	
 	
 	
@@ -57,10 +60,6 @@ table {
             <ul class="nav">
                 <!--유저 사진, 이름-->
                 <li class="dojangParty">
-                    <a class="leaderProfile">
-                        <img class="avatar border-gray" src="etcResource/assets/img/faces/face-0.jpg" alt="..."/>
-                        <h4 class="title">Admin</h4>
-                    </a>
                 </li>
                 <li>
                     <a href="/report/">
@@ -121,11 +120,6 @@ table {
                                 <p>Home</p>
                              </a>
                          </li>
-                        <li>
-                           <a href="myPage.go">
-                               <p>마이페이지</p>
-                            </a>
-                        </li>
                         <li>
                             <a href="/logout.do">
                                 <p>Log out</p>

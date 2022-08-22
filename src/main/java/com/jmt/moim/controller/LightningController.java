@@ -170,6 +170,8 @@ public class LightningController {
 	//번개모임 게시글 신고 팝업 페이지 이동
 	@RequestMapping("/lightReport.go")
 	public String lightReportPopup(Model model,@RequestParam String lightning_no) {
+		//String loginId = (String) session.getAttribute("loginId");
+		
 		logger.info("번개 모임 신고 팝업 이동  : "+lightning_no);
 		model.addAttribute("lightning_no", lightning_no);
 		return"./Lightning/lightReport";	

@@ -40,25 +40,32 @@
 			  text-align: left;
 			  line-height: 1.5;
 			  border-top: 1px solid #ccc;
-			 width : 100%;
-			 font-size: 11px;
+			 width : 1000px;
 			}
-			table th {
+			
+			
+		table th {
 			  width: 150px;
 			  padding: 10px;
 			  font-weight: bold;
 			  vertical-align: top;
 			  border-bottom: 1px solid #ccc;
-			}
-			table td {
+			  background-color: #f9f9f9;
+		}
+		
+		table td {
 			  width: 350px;
 			  padding: 10px;
 			  vertical-align: top;
 			  border-bottom: 1px solid #ccc;
-			}
-	
-	
-	
+			 font-size: 15px;
+		}
+			
+		a {
+			font-size: 15px;
+		}	
+		
+			
 	.notiDelBtn:hover{
 		cursor : pointer;
 		color : red;
@@ -108,15 +115,15 @@
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav>
 		                              <ul id="navigation">
-                                            <li><a href="jmtMain.html">Home</a></li>
+                                            <li><a href="/">Home</a></li>
                                             <li><a href="#">모임</a>
                                                 <ul class="submenu">
-                                                    <li><a href="lightningList.html">번개</a></li>
-                                                    <li><a href="dojangList.html">도장깨기</a></li>
+                                                    <li><a href="/lightList.go">번개</a></li>
+                                                    <li><a href="/dojang.go">도장깨기</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="resList.html">맛집</a></li>
-                                            <li><a href="moimReviewList.html">후기</a></li>
+                                            <li><a href="/restaurant">맛집</a></li>
+                                            <li><a href="/groupReviewList">후기</a></li>
 		                                        <c:choose>
 		                                            	<c:when test="${loginId != null}">
 			                                            		<!-- 알림 -->
@@ -163,8 +170,12 @@
         <!-- Hero Start-->
         <div class="hero-area3 hero-overly2 d-flex align-items-center">
             <div class="container">
-                <div class="row justify-content-center">
-                   
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap text-center pt-50">
+                            <h2>번개모임</h2>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -268,12 +279,13 @@
                                             </thead>
                                             <tbody id="list">
                                             </tbody>
+                                    
                                                 <tr>
                                                     <td colspan="8" id="paging">
-                                                        <!-- plugin 사용법  -->
+                                                        <!-- plugin 사용법    -->
                                                         <div class="container">
-                                                            <nav arial-label="Page navigation" style="text-align:center">
-                                                                <ul class="pagination" id="pagination"></ul>
+                                                            <nav arial-label="Page navigation" >
+                                                                <ul class="pagination" id="pagination" style="margin: 10px 30px 10px 310px;"></ul>
                                                             </nav>
                                                         </div>
                                                     </td>
