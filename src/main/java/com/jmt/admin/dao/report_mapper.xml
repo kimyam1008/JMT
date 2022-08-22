@@ -180,7 +180,7 @@
 	</select>
 	<!-- 블라인드 insert -->
 	<insert id="insertBlind" parameterType="map" >
-		INSERT INTO blind (member_id, report_no, admin_id, blind_reason, blind_status) VALUES(#{reported}, #{report_no}, 'admin2', #{reason}, #{report_status})
+		INSERT INTO blind (member_id, report_no, admin_id, blind_reason, blind_status) VALUES(#{reported}, #{report_no}, #{loginId}, #{reason}, #{report_status})
 	</insert>
 	<select id="blindCount" parameterType="map" resultType="int">
 		select count(dd.blind_no) from 
@@ -386,7 +386,7 @@
 	<!-- 블랙 등록 -->
 	<insert id="blackReg" parameterType="hashmap">
 		INSERT INTO blacklist
-	(blacklist_proc_date, blacklist_proc_reason, member_id, admin_id, blacklist_status) VALUES(now(), #{reason}, #{member_id}, "admin1", #{black})
+	(blacklist_proc_date, blacklist_proc_reason, member_id, admin_id, blacklist_status) VALUES(now(), #{reason}, #{member_id}, #{loginId}, #{black})
 	</insert>
 	<!-- 블랙 등록시 멤버 변경 -->
 	<update id="blackUPdate" parameterType="hashmap">

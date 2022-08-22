@@ -22,7 +22,12 @@
 				<mvc:exclude-mapping path="/grade.go"/>
 				<bean class="com.jmt.main.controller.NotiController"/>
 			</mvc:interceptor>
-			
+
+			<!-- 어드민 로그인 체크 인터셉터입니다.. -->
+			<mvc:interceptor>
+				<mvc:mapping path="/report/**"/>
+				<bean class="com.jmt.admin.controller.LoginCheck"/>
+			</mvc:interceptor>
 			
 			<mvc:interceptor>
 				<mvc:mapping path="/*"/> 
@@ -43,4 +48,7 @@
 			
 		</mvc:interceptors>
 		
+
+		
+
 </beans>
