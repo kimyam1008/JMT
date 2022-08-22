@@ -106,16 +106,11 @@
                                 <p>Home</p>
                              </a>
                          </li>
-                        <li>
-                           <a href="/mypage.go">
-                               <p>마이페이지</p>
-                            </a>
-                        </li>
-                        <li>
+                         <li>
                               <a href="/logout.do">
                                 <p>Log out</p>
                             </a>
-                        </li>
+                         </li>
 						<li class="separator hidden-lg"></li>
                     </ul>
                 </div>
