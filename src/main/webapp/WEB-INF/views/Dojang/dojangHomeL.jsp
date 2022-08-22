@@ -140,7 +140,7 @@ td a {
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="jmtMain.html" class="simple-text">
+                <a href="/" class="simple-text">
                     JMT
                 </a>
             </div>
@@ -233,14 +233,14 @@ td a {
                         <li class="dropdown">
 	                       <c:if test="${notiChk=='true'}">
 								<a  class="dropdown-toggle" data-toggle="dropdown" style="color:Red" >
-			        			 	<i class="fa fa-globe"></i> 
+			        			 	<i class="fa fa-bell"></i> 
 			        			 	 <b class="caret hidden-lg hidden-md"></b>
 									<b class="caret"></b>
 								</a>
 							</c:if>	
 							<c:if test="${notiChk=='false'}">
 								<a  class="dropdown-toggle" data-toggle="dropdown" >
-							         <i class="fa fa-globe"></i> 
+							         <i class="fa fa-bell"></i> 
 							          <b class="caret hidden-lg hidden-md"></b>
 									<b class="caret"></b>
 								</a>

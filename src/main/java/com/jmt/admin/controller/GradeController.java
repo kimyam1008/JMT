@@ -67,7 +67,7 @@ public class GradeController extends HandlerInterceptorAdapter{
 	
 		logger.info("등급 확인 합니다.");
 		
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 	
 		 String loginId = (String) session.getAttribute("loginId"); 
 			

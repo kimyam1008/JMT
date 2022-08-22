@@ -90,11 +90,11 @@ public class MainService {
 		//2.URL 의 페이지 호출
 		driver.get(url);
 		driver.manage().window().maximize();
-		Thread.sleep(5000);
+		//Thread.sleep(5000);
 		driver.findElement(By.cssSelector("#search")).click(); //도장깨기 검색창 클릭
 		driver.findElement(By.cssSelector("#search")).sendKeys(keyword); //파라메터 입력
 		Thread.sleep(2000);
-		driver.findElement(By.cssSelector("#moimSearch")).click(); //검색
+		driver.findElement(By.cssSelector("#moimSearch")).click(); //검색	
 	}
 
 	public ArrayList<MainDTO> lightReco(String loginId) {
