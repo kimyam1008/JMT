@@ -9,13 +9,16 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 	<title>JMT 방장 모임 관리 페이지</title>
-
+	
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- 페이징
+    
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> 
     <script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
+     -->
 
     <!-- Bootstrap core CSS     -->
     <link href="../resources/etcResource/assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -45,6 +48,11 @@
 	.profileImg {
 	
 	}
+	
+	.notiDelBtn:hover{
+		cursor : pointer;
+		color : red;
+	}
     </style>
 </head>
 <body>
@@ -70,7 +78,7 @@
             <ul class="nav">
                 <!--방장 사진, 이름-->
                 <li class="dojangParty">
-                    <a class="leaderProfile">
+                    <a class="leaderProfile" href="./mypage.go">
                         <img class="avatar border-gray" src="/photo/${dto.photo_newFileName}" class="profileImg" alt="..."/>
                         <h4 class="title">${sessionScope.loginId}</h4>
                     </a>
@@ -113,24 +121,25 @@
 								<p class="hidden-lg hidden-md">Dashboard</p>
                             </a>
                         </li> -->
-                        <!--누르면 알림창같은거 조그맣게 뜸-->
-                        <!-- <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret hidden-lg hidden-md"></b>
-									<p class="hidden-lg hidden-md">
-										5 Notifications
-										<b class="caret"></b>
-									</p>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
+                       <!--누르면 알림창같은거 조그맣게 뜸-->
+                       <li class="dropdown">
+	                       <c:if test="${notiChk=='true'}">
+								<a  class="dropdown-toggle" data-toggle="dropdown" style="color:Red" >
+			        			 	<i class="fa fa-globe"></i> 
+			        			 	 <b class="caret hidden-lg hidden-md"></b>
+									<b class="caret"></b>
+								</a>
+							</c:if>	
+							<c:if test="${notiChk=='false'}">
+								<a  class="dropdown-toggle" data-toggle="dropdown" >
+							         <i class="fa fa-globe"></i> 
+							          <b class="caret hidden-lg hidden-md"></b>
+									<b class="caret"></b>
+								</a>
+							</c:if>	
+                              <ul class="dropdown-menu" style="width: 400px;">
                               </ul>
-                        </li> -->
+                        </li> 
                         <!-- <li>
                            <a href="">
                                 <i class="fa fa-search"></i>
@@ -208,6 +217,9 @@
                                         </tr>
                                     </thead>
                                     <tbody id="list">
+                                    	<c:if test = "${lightMember.size() == 0}">
+						                    <th colspan="3" style="text-align:center;">모임에 가입한 회원이 없습니다.</th>
+						                </c:if>
                                         <c:forEach items="${lightMember}" var="lightMember">
                                         <tr>			
                                             <td><input type="radio" name="member_id" id="member_id" value="${lightMember.member_id}"/></td>
@@ -246,6 +258,7 @@
 
 
 </body>
+<%@ include file="../../../resources/inc/footer2.jsp" %>
 <script>
 //추방하기
 function getOut(){
@@ -256,7 +269,7 @@ function getOut(){
 	if($('input[type="radio"]:checked').is(":checked") == false){
 		alert("추방할 회원을 선택해 주세요.");
 	} else {
-		window.open("/memberGetOutL.go?member_id="+member_id,"new","width=500, height=500, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+		window.open("/memberGetOutL.go?member_id="+member_id,"new","width=500, height=250, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 		//openWin.document.getElementById("member_id").value = document.getElementById("member_id").value;
 	}
 }

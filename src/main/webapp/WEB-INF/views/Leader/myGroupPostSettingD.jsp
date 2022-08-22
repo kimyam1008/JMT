@@ -29,7 +29,7 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="../resources/etcResource/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
-
+	
     <style>
         caption,th {
 		text-align:center;
@@ -37,6 +37,12 @@
 	 .table-caption th {
 		text-align:center;
 	}
+	
+	.notiDelBtn:hover{
+		cursor : pointer;
+		color : red;
+	}
+	
     </style>
 </head>
 <body>
@@ -62,7 +68,7 @@
             <ul class="nav">
                 <!--방장 사진, 이름-->
                 <li class="dojangParty">
-                    <a class="leaderProfile">
+                    <a class="leaderProfile" href="./mypage.go">
                         <img class="avatar border-gray" src="/photo/${dto.photo_newFileName}" class="profileImg" alt="..."/>
                         <h4 class="title">${sessionScope.loginId}</h4>
                     </a>
@@ -106,23 +112,24 @@
                             </a>
                         </li> -->
                         <!--누르면 알림창같은거 조그맣게 뜸-->
-                        <!-- <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret hidden-lg hidden-md"></b>
-									<p class="hidden-lg hidden-md">
-										5 Notifications
-										<b class="caret"></b>
-									</p>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
+                        <li class="dropdown">
+	                       <c:if test="${notiChk=='true'}">
+								<a  class="dropdown-toggle" data-toggle="dropdown" style="color:Red" >
+			        			 	<i class="fa fa-globe"></i> 
+			        			 	 <b class="caret hidden-lg hidden-md"></b>
+									<b class="caret"></b>
+								</a>
+							</c:if>	
+							<c:if test="${notiChk=='false'}">
+								<a  class="dropdown-toggle" data-toggle="dropdown" >
+							         <i class="fa fa-globe"></i> 
+							          <b class="caret hidden-lg hidden-md"></b>
+									<b class="caret"></b>
+								</a>
+							</c:if>	
+                              <ul class="dropdown-menu" style="width: 400px;">
                               </ul>
-                        </li> -->
+                        </li> 
                         <!-- <li>
                            <a href="">
                                 <i class="fa fa-search"></i>
@@ -241,6 +248,7 @@
 
 
 </body>
+<%@ include file="../../../resources/inc/footer2.jsp" %>
 <script>
 var currPage = 1;
 
@@ -304,22 +312,21 @@ function drawList(myGroupPostSettingD){
 	$('#list').append(content);
 }
 </script>
-
     <!--   Core JS Files   -->
     <script src="../resources/etcResource/assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
 	<script src="../resources/etcResource/assets/js/bootstrap.min.js" type="text/javascript"></script>
 
 	<!--  Charts Plugin -->
 	<script src="../resources/etcResource/assets/js/chartist.min.js"></script>
-
+    
     <!--  Notifications Plugin    -->
     <script src="../resources/etcResource/assets/js/bootstrap-notify.js"></script>
 
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 	<script src="../resources/etcResource/assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
-
+    
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script> 
     <script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
-
+    
 </html>

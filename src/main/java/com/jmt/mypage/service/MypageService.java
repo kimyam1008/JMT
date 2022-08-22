@@ -308,6 +308,26 @@ public class MypageService {
 		return dao.proCon(loginId);
 	}
 
+	public ArrayList<MypageDTO> lightRoom(int profile_no) {
+
+		return dao.lightRoom(profile_no);
+	}
+
+	public ArrayList<MypageDTO> dojangRoom(int profile_no) {
+
+		return dao.dojangRoom(profile_no);
+	}
+
+	public ArrayList<MypageDTO> otherBoard(int profile_no) {
+
+		return dao.otherBoard(profile_no);
+	}
+
+	public ArrayList<MypageDTO> otherCom(int profile_no) {
+
+		return dao.otherCom(profile_no);
+	}
+
 	
 
 

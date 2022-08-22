@@ -105,6 +105,14 @@ public interface MypageDAO {
 
 	String proCon(String loginId);
 
+	ArrayList<MypageDTO> lightRoom(int profile_no);
+
+	ArrayList<MypageDTO> dojangRoom(int profile_no);
+
+	ArrayList<MypageDTO> otherBoard(int profile_no);
+
+	ArrayList<MypageDTO> otherCom(int profile_no);
+
 
 
 	

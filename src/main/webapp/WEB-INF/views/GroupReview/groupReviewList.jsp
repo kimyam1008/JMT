@@ -96,6 +96,11 @@
 				background:#ff3d1c;
 				cursor:pointer;
 			}
+			
+			.notiDelBtn:hover{
+				cursor : pointer;
+				color : red;
+			}
         </style>
     </head>
 
@@ -139,14 +144,29 @@
                                             <li><a href="restaurant">맛집</a></li>
                                             <li><a href="groupReviewList">후기</a></li>
                                             <c:choose>
-                                            	<c:when test="${loginId != null}">
-	                                            	<li id="logoutDo"><a href="logout.do">로그아웃</a></li>
-	                                            	<li class="add-list"><a href="./mypage.go"><i class="ti-user"></i>마이페이지</a></li>
-                                            	</c:when>
-                                            	<c:otherwise>
-		                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
-                                            	</c:otherwise>
-                                            </c:choose>
+		                                       <c:when test="${loginId != null}">
+			                                            <!-- 알림 -->
+				                                        <c:choose>
+						                                       <c:when test="${notiChk=='true'}"><!--안읽은 알림있을 때  -->
+								                                       <li><a href="#"><img  id="notidrop" src="resources/photo/noti4.png"  style="width:30px; height:25px;"/></a>
+								                                            <ul class="submenu notidrop_menu" style="width : 300px; display : none;">
+								                                            </ul>
+								                                        </li>
+						                                        </c:when>
+						                                <c:otherwise>
+							                                   <li><a href="#"><img id="notidrop"  src="resources/photo/bnoti4.png"  style="width:30px; height:25px;"/></a>
+							                                          <ul class="submenu notidrop_menu" style="width : 300px; display : none;">
+								                                      </ul>
+							                                   </li>
+						                                </c:otherwise>
+			                                        	</c:choose>
+			                                           <li id="logoutDo"><a href="logout.do">로그아웃</a></li>
+			                                            <li class="add-list"><a href="/mypage.go"><i class="ti-user"></i>마이페이지</a></li>
+		                                       </c:when>
+		                                       <c:otherwise>
+				                                          <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
+		                                       </c:otherwise>
+		                                   </c:choose>
                                         </ul>
                                     </nav>
                                 </div>
@@ -331,6 +351,7 @@
         <script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script>
         
     </body>
+<%@ include file="../../../resources/inc/footer.jsp" %>
 <script>
 var currPage = 1;
 

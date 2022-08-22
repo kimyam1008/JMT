@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  
- <!doctype html>
+ <!DOCTYPE HTML>
 <html class="no-js" lang="zxx">
     <head>
         <meta charset="utf-8">
@@ -76,9 +76,7 @@
 	}
     </style>
    <body>
-    <!--알림 헤더
-    <jsp:include page="../commons/header.jsp"/>-->
-    
+  
     <!-- Preloader Start -->
     <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
@@ -118,21 +116,30 @@
                                             </li>
                                             <li><a href="resList.html">맛집</a></li>
                                             <li><a href="moimReviewList.html">후기</a></li>
-                                        <c:choose>
-                                        	<c:when test="${notiChk=='true'}"><!--안읽은 알림있을 때  -->
-		                                            <li><a href="#"><img  id="notidrop" src="resources/photo/noti4.png"  style="width:30px; height:25px;"/></a>
-		                                               	<ul class="submenu notidrop_menu" style="width : 300px; display : none;">
-		                                               	</ul>
-		                                            </li>
-                                            </c:when>
-                                        	<c:otherwise>
-	                                            <li><a href="#"><img id="notidrop"  src="resources/photo/bnoti4.png"  style="width:30px; height:25px;"/></a>
-	                                            	<ul class="submenu notidrop_menu" style="width : 300px; display : none;">
-		                                               	</ul>
-	                                            </li>
-                                            </c:otherwise>
-                                        </c:choose>
-                                            <li class="add-list"><a href="login.html"><i class="ti-user"></i>로그인</a></li>
+		                                        <c:choose>
+		                                            	<c:when test="${loginId != null}">
+			                                            		<!-- 알림 -->
+				                                            	 <c:choose>
+						                                        	<c:when test="${notiChk=='true'}"><!--안읽은 알림있을 때  -->
+								                                            <li><a href="#"><img  id="notidrop" src="resources/photo/noti4.png"  style="width:30px; height:25px;"/></a>
+								                                               	<ul class="submenu notidrop_menu" style="width : 300px; display : none;">
+								                                               	</ul>
+								                                            </li>
+						                                            </c:when>
+						                                        	<c:otherwise>
+							                                            <li><a href="#"><img id="notidrop"  src="resources/photo/bnoti4.png"  style="width:30px; height:25px;"/></a>
+							                                            	<ul class="submenu notidrop_menu" style="width : 300px; display : none;">
+								                                             </ul>
+							                                            </li>
+						                                            </c:otherwise>
+			                                        			</c:choose>
+			                                            	<li id="logoutDo"><a href="logout.do">로그아웃</a></li>
+			                                            	<li class="add-list"><a href="/mypage.go"><i class="ti-user"></i>마이페이지</a></li>
+		                                            	</c:when>
+		                                            	<c:otherwise>
+				                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
+		                                            	</c:otherwise>
+		                                            </c:choose>
                                         </ul>
                                     </nav>
                                 </div>
@@ -171,7 +178,7 @@
                         <div class="row">
                             <div class="col-12">
                                     <div class="small-section-tittle2 mb-45">
-                                    <button onclick="location.href='/lightCreate.go'" class="createBtn"><i class="fa fa-solid fa-bolt"></i> 번개모임 생성</button>
+                                    <button onclick="location.href='/lightCreate.go'" class="btn list-btn mt-10"><i class="fa fa-solid fa-bolt"></i> 번개모임 생성</button>
                                 </div>
                             </div>
                         </div>

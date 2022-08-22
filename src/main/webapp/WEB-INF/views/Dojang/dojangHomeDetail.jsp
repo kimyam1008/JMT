@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<link rel="icon" type="image/png" href="mainResource/assets/img/pizza-slice.png">
+	<link rel="icon" type="image/png" href="../resources/mainResource/assets/img/pizza-slice.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<title>JMT 도장깨기방 : 게시글 상세</title>
@@ -81,6 +81,20 @@ table {
 			  vertical-align: top;
 			  border-bottom: 1px solid #ccc;
 			}
+table,th,td {
+				border : 1px solid #ccc;
+		        border-left: none;
+		        border-right: none;
+				border-collapse : collapse;
+			}
+		    th {
+			background-color: #f9f9f9;
+		    text-align: center;
+			}
+		
+			th,td { 
+				padding : 5px 10px;
+			}						
 	
 #test2{
 		width: 170px;
@@ -161,6 +175,7 @@ td a {
 	.top .member_id {
 	  font-weight: bold;
 	  font-size : 13px;
+	  padding-left : 5px;
 	}
 	
 	.top .grade_name{
@@ -474,7 +489,6 @@ td a {
 										<td colspan="2" id="restaurant_name"></td>
 									</c:otherwise>
 								</c:choose>
-							</tr>
 							<tr>
 							<th>
 							<c:choose>

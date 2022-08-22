@@ -39,6 +39,11 @@
 		background:yellowgreen;
 		cursor:pointer;
 	}
+	
+	.notiDelBtn:hover{
+		cursor : pointer;
+		color : red;
+	}
     </style>
 </head>
 <body>
@@ -64,7 +69,7 @@
             <ul class="nav">
                 <!--방장 사진, 이름-->
                 <li class="dojangParty">
-                    <a class="leaderProfile">
+                    <a class="leaderProfile" href="./mypage.go">
                         <img class="avatar border-gray" src="/photo/${dto.photo_newFileName}" class="profileImg" alt="..."/>
                         <h4 class="title">${sessionScope.loginId}</h4>
                     </a>
@@ -108,23 +113,24 @@
                             </a>
                         </li> -->
                         <!--누르면 알림창같은거 조그맣게 뜸-->
-                        <!-- <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret hidden-lg hidden-md"></b>
-									<p class="hidden-lg hidden-md">
-										5 Notifications
-										<b class="caret"></b>
-									</p>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
+                       <li class="dropdown">
+	                       <c:if test="${notiChk=='true'}">
+								<a  class="dropdown-toggle" data-toggle="dropdown" style="color:Red" >
+			        			 	<i class="fa fa-globe"></i> 
+			        			 	 <b class="caret hidden-lg hidden-md"></b>
+									<b class="caret"></b>
+								</a>
+							</c:if>	
+							<c:if test="${notiChk=='false'}">
+								<a  class="dropdown-toggle" data-toggle="dropdown" >
+							         <i class="fa fa-globe"></i> 
+							          <b class="caret hidden-lg hidden-md"></b>
+									<b class="caret"></b>
+								</a>
+							</c:if>	
+                              <ul class="dropdown-menu" style="width: 400px;">
                               </ul>
-                        </li> -->
+                        </li> 
                         <!-- <li>
                            <a href="">
                                 <i class="fa fa-search"></i>
@@ -191,7 +197,7 @@
                     <!--표 시작-->
                     <div class="col-md-12">
                         <div class="card">
-                        	<input type="button" value="추방하기" style="float:left; margin:15px 15px; border:none;" onclick="getOut()"/>
+                        	<input id="getoutBtn" type="button" value="추방하기" style="float:left; margin:15px 15px; border:none;" onclick="getOut()"/>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
@@ -202,6 +208,9 @@
                                         </tr>
                                     </thead>
                                     <tbody id="list">
+                                    	<c:if test = "${dojangMember.size() == 0}">
+						                    <th colspan="3" style="text-align:center;">모임에 가입한 회원이 없습니다.</th>
+						                </c:if>
                                         <c:forEach items="${dojangMember}" var="dojangMember">
                                         <tr>			
                                             <td><input type="radio" name="member_id" id="member_id" value="${dojangMember.member_id}"/></td>
@@ -239,6 +248,7 @@
 
 
 </body>
+<%@ include file="../../../resources/inc/footer2.jsp" %>
 <script>
 function getOut(){
 	var member_id = $('input[type="radio"]:checked').val();
@@ -248,7 +258,7 @@ function getOut(){
 	if($('input[type="radio"]:checked').is(":checked") == false){
 		alert("추방할 회원을 선택해 주세요.");
 	} else {
-		window.open("/memberGetOutD.go?member_id="+member_id,"new","width=500, height=500, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+		window.open("/memberGetOutD.go?member_id="+member_id,"new","width=500, height=250, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 		//openWin.document.getElementById("member_id").value = document.getElementById("member_id").value;
 	}
 }
