@@ -3,6 +3,8 @@ package com.jmt.moim.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +30,15 @@ public class CommentController {
 	//댓글 작성 
 	//필요한 파라미터 : member_id, comment_content, class_no, (댓글이 작성되는 글의)글번호
 	@RequestMapping(value="/cmtWrite")
-	public HashMap<String, Object> write(@RequestBody CommentDTO dto) {
+	public HashMap<String, Object> write(@RequestBody CommentDTO dto, HttpSession session) {
 		logger.info("댓글 작성 : " + dto.getComment_content());
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		String loginId = (String) session.getAttribute("loginId");
 		
-		boolean writeSuccess = service.cmtWrite(dto);
-		map.put("writeSuccess", writeSuccess);
+		if(loginId != null) {
+			boolean writeSuccess = service.cmtWrite(dto);
+			map.put("writeSuccess", writeSuccess);
+		}
 		return map; 
 	}
 	
