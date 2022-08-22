@@ -71,7 +71,7 @@ public class GradeService {
 		return dao.list();
 	}
 
-	public void gradeUpdate(HashMap<String, String> params) {
+	public int gradeUpdate(HashMap<String, String> params) {
 		
 		Grade_DTO dto = new Grade_DTO();
 		
@@ -81,7 +81,10 @@ public class GradeService {
 		dto.setGrade_no(Integer.parseInt(params.get("grade_no")));
 		dto.setGrade_comment(Integer.parseInt(params.get("grade_comment")));
 		
-		dao.gradeUpdate(dto);
+		
+		return dao.gradeUpdate(dto);
+	
+		
 		
 		
 	}

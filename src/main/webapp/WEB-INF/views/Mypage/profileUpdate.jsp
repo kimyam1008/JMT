@@ -26,7 +26,8 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="../resources/etcResource/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
-
+<style type="text/css">
+</style>
 </head>
 <body>
     <!--사이드바 시작-->
@@ -152,7 +153,7 @@
                                	<div class="middle" style="float: left; margin:20px;">
                                		이름 : <input type=text name="name" value="${list.member_name }"/><br/>
 									아이디 : ${list.member_id }<br/>
-									비밀번호 : <button type="button" name="passUpdate" value="비밀번호변경" onclick="passUpdate()">비밀번호변경</button><br/>
+									비밀번호 : <a href="./passUpdate.go" onclick="window.open(this.href, '_blank', 'width=400, height=200, left=500, top=300'); return false;">비밀번호 변경</a><br/>
 									생년월일 : ${list.member_birth }
                                	</div> 
                                 </div>
@@ -211,7 +212,7 @@
 
     <!--   Core JS Files   -->
     <script src="../resources/etcResource/assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
-	<script src="etcResource/assets/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="../resources/etcResource/assets/js/bootstrap.min.js" type="text/javascript"></script>
 
 	<!--  Charts Plugin -->
 	<script src="../resources/etcResource/assets/js/chartist.min.js"></script>

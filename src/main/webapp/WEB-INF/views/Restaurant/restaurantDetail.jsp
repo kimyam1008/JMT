@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="shortcut icon" type="image/x-icon" href="../resources/mainResource/assets/img/pizza-slice.png">
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-pen.css" rel="stylesheet">
 
 <!-- CSS here -->
@@ -277,7 +278,7 @@ textarea {
 	</div>
 	<div id="photo_div">
 	<c:forEach items="${CommentPhoto}" var="p">
-		<img src="/photo/${p.photo_newFileName}" height="250"/>
+		<img src="/photo/${p.photo_newFileName}" height="250" width="200"/>
 	</c:forEach>
 	</div>
 	</br>
@@ -346,14 +347,14 @@ textarea {
            
                 
                 <div  class="comment-writebox-content">
-                	<textarea  cols="30" rows="5" name="Comment_content" placeholder="리뷰를 남겨보세요~"></textarea>
+                	<textarea cols="30" rows="5" id="comment" name="Comment_content" placeholder="리뷰를 남겨보세요~"></textarea>
                 </div>
             <div id="option_align">
                <label  id="image_label" for="image_">    
  					<i style="font-size:20px"; class="fas fa-camera"></i></label> 
                <input style="display:none" id="image_"  type="file" name="photos" multiple="multiple"/>
            
-	           <button  class="btn" id="btn-write-comment" type="submit" >리뷰작성</button>
+	           <button  class="btn" type="submit" id="btn-write-comment" >리뷰작성</button>
 	       </div>
 	</form>
 	
@@ -391,7 +392,7 @@ textarea {
 				<div id="comment_pic">
 					<c:forEach items="${CommentPhoto}" var="p">
 					<c:if test="${comment.comment_no eq p.idx}">
-					<img src="/photo/${p.photo_newFileName}" height="100"/>
+					<img src="/photo/${p.photo_newFileName}" height="100" width="150"/>
 					</c:if>
 					</c:forEach>
 				</div>
@@ -662,11 +663,6 @@ console.log("식당번호 확인::",restaurant_no);
 	infowindow.open(map, marker);
 	
 	
-	
-	
-	/*  */
-	
-	
 		function fileUpload(){
 		$("form").submit();
 	}
@@ -679,15 +675,30 @@ console.log("식당번호 확인::",restaurant_no);
 		content += '</a>';
 		opener.document.getElementById("editable").innerHTML += content;		
 		self.close();
-	}
-
-
-	
-	
+	};
 	
 	function back() {
 	     history.go(-1);
-	 }
+	 };
+	
+	 //유효성 검사 제한이 되었을시 폼 전송X 
+	 $("#btn-write-comment").on("click",function(){
+          var comment_content = $("#comment").val();
+          console.log(comment_content);
+          var a = true;
+          	if(comment_content == null || comment_content ==''){
+            	alert("댓글을 입력해 주세요.");
+            	$("#comment").focus();
+            	return a = false;
+          	}else if(comment_content.length>300){
+              	alert("최대 300자까지 입력 가능합니다.");
+                $("#comment").val(comment_content.substring(0, 300));
+                return a = false;
+          };
+          return a;
+       });
+	 
+	 
 </script>
 
 

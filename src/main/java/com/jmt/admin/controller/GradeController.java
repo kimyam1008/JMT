@@ -17,11 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jmt.admin.dto.TestDto;
 import com.jmt.admin.service.GradeService;
 import com.jmt.admin.service.ReportService;
 import com.jmt.mypage.service.MypageService;
+
+import io.netty.handler.codec.http.HttpRequest;
 
 
 
@@ -42,7 +46,6 @@ public class GradeController extends HandlerInterceptorAdapter{
 		logger.info("등급 페이지 이동");
 		ModelAndView mav = new ModelAndView("Grade/grade");
 		ArrayList<HashMap<String, Object>> list = service.list();
-		//logger.info("리스트 갯수 : " +list.size());
 		model.addAttribute("list", list);
 		return mav;
 		
@@ -52,11 +55,18 @@ public class GradeController extends HandlerInterceptorAdapter{
 	
 	
 	@RequestMapping(value = "/grade")
-	public String gradeUpdate(Model model, HttpSession session, @RequestParam HashMap<String, String> params) {
+	public String gradeUpdate(HttpServletRequest request, RedirectAttributes ra, HttpSession session, @RequestParam HashMap<String, String> params) {
 		
-	logger.info("aaaaaa::::"+params);
+		String page = "Grade/grade";
+		//String msg = "";
 		
-		service.gradeUpdate(params);
+		int a = service.gradeUpdate(params);
+		
+		if(a > 0) {
+			//msg = "등급 변경 성공";
+			ra.addFlashAttribute("msg", "등급 변경 성공");
+		}
+ 		
 		return "redirect:/grade.go";
 		
 	}

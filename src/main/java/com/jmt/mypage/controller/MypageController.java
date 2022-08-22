@@ -161,6 +161,7 @@ public class MypageController {
 				if (row>0) {
 					success = true;
 					map.put("memberDrop", success);
+					session.removeAttribute("loginId");
 				}
 			}
 			

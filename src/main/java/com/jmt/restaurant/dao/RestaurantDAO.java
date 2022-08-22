@@ -53,7 +53,7 @@ public interface RestaurantDAO {
 
 	RestaurantDTO restuarantUpdateNo(int restuarantUpdate_no);
 
-	void resAdminUpdate(RestaurantDTO dto);
+	int resAdminUpdate(RestaurantDTO dto);
 
 	int reviewDel(HashMap<String, String> params);
 

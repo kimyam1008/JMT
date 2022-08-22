@@ -205,12 +205,12 @@
                                     	<ul>
 											<li>생성한 방 - 번개</li>
 											<c:forEach items="${lightRoom}" var="lightRoom">
-												<a href="#">${lightRoom.lightning_title }</a>
+												<a href="/lightningLeaderPage.go?lightning_no=${lightRoom.lightning_no}">${lightRoom.lightning_title }</a>
 											</c:forEach>
 											
 											<li>생성한 방 - 도장</li>
 											<c:forEach items="${dojangRoom}" var="dojangRoom">
-												<a href="#">${dojangRoom.dojang_title }</a>
+												<a href="/dojangLeaderPage.go?dojang_no=${dojangRoom.dojang_no}">${dojangRoom.dojang_title }</a>
 											</c:forEach>
 										</ul>
                                     </h5>
