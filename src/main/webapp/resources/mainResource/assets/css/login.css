@@ -55,7 +55,7 @@ button {
 	border: 1px solid #FF4B2B;
 	background-color: #FF4B2B;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 10px;
 	font-weight: bold;
 	padding: 12px 45px;
 	letter-spacing: 1px;
@@ -92,12 +92,16 @@ input[type='text'],input[type='password'],input[type='email'],input[type='date']
 	border: none;
 	padding: 12px 15px;
 	margin: 8px 0;
-	width: 95%;
+	width: 98%;
 }
 
-#idform,#emailform{
-	width: 70%;
+#joinId, #email{
+	width: 71%;
 }
+
+/* #idform,#emailform{
+	width: 70%;
+} */
 
 .container {
 	background-color: #fff;

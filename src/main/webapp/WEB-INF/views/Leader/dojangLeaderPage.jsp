@@ -180,7 +180,7 @@
                         <div class="card">
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
-                                    <caption style="maragin:0 auto; text-align:center; font-size:20px;">${dojangDto.dojang_title}</caption>
+                                    <caption style="margin:0 auto; text-align:center; font-size:20px;">${dojangDto.dojang_title}</caption>
                                     <tr>
                                         <th>방장</th>
                                         <td>${dojangDto.leaderName}</td>

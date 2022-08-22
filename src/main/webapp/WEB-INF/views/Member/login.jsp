@@ -13,7 +13,7 @@
     <title>로그인</title>
 </head>
 <body>
-    <a href="jmtMain.html"><h2>세상에서 가장 맛있는 만남, JMT</h2></a>
+    <a href="/"><h2>세상에서 가장 맛있는 만남, JMT</h2></a>
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
 		<form>
@@ -61,7 +61,8 @@
 		<div class="overlay">
 			<div class="overlay-panel overlay-left">
 				<h1>반가워요!</h1>
-				<p>오늘 같이 밥 먹을래요?</p>
+				<p style="margin:20px 0 5px">회원 가입하고</p>
+				<p>같이 밥 먹을래요?</p>
 				<button class="ghost" id="signIn">Sign In</button>
 			</div>
 			<div class="overlay-panel overlay-right">

@@ -5,10 +5,60 @@
 <meta charset="UTF-8">
 <title>비밀번호 찾기</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+ body > div {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@font-face {
+	font-family: 'GmarketSansMedium';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body,input {
+		font-family: 'GmarketSansMedium';
+	}
+	
+button{
+	font-family: 'GmarketSansMedium';
+	color:#fff;
+	background:orange;
+	border:none;
+	padding:5px 10px;
+}
+button:focus{
+	outline:0;
+}
+button:hover{
+	background:#ff3d1c;
+	cursor:pointer;
+}
+
+form{
+	background-color:#ffffff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 50px;
+	height: 100%;
+	text-align: center;
+}
+</style>
 </head>
 <body>
 	<form action="./pwFind.do" method="POST">
-		<h3 id="title">비밀번호 찾기</h3>
+		<h3 id="title" style="font-size:30px; color:orange; text-align:center;">비밀번호 찾기</h3>
 		<table>
 			<tr>
 				<th class="col1">아이디</th>
@@ -23,9 +73,11 @@
 				</td>
 			</tr>
 		</table>
-		<div class="FindBtn-area">
+		<div class="FindBtn-area" style="display:block; margin-top:15px">
+		<span style="text-align:center; display:block; margin: 0 auto;">
 			<button class="FindBtn" type="submit">PW찾기</button>
 			<button class="FindBtn" type="button" onclick="location.href='../login.go'">돌아가기</button>
+		</span>
 		</div>
 	</form>
 </body>

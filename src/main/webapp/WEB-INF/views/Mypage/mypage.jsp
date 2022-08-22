@@ -32,6 +32,15 @@
 		cursor : pointer;
 		color : red;
 	}
+	
+	.profileImg{
+		width:170px;
+	}
+	
+	li, li a {
+		text-align:left;
+	}
+
 </style>
 <body>
     <!--사이드바 시작-->
@@ -144,44 +153,68 @@
         <div class="content">
             <div class="container-fluid">
                 <!--여기에 <div class="row">로 시작해서 내용을 넣어주세요 -->
+                
+                <!--게시글 양식 시작-->
                 <div class="row">
-                    <!--표 시작-->
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="card">
-                        <div class="content table-responsive table-full-width" style="height:170px">
-                                <div class="table table-hover table-striped">
-                           <div class="left" style="float: left; margin:20px;">
-                               		<img src="/photo/${photo.photo_newFileName}" width="150" height="100"/>
-                               	</div>
-                               	<div class="middle" style="float: left; margin:20px;">
-                               		${list.member_id }님 반갑습니다.<br/>
-                               		등급 : ${list.grade_name }
-									팔로워 : <a href="./followerList.go" onclick="window.open(this.href, '_blank', 'width=400, height=450, left=500, top=200'); return false;">${follower }</a>
-									팔로잉 : <a href="./followingList.go" onclick="window.open(this.href, '_blank', 'width=400, height=450, left=500, top=200'); return false;">${following }</a>
-                               	</div>
-                               	<div class="right" style="float: left; margin:20px;">
-                               		성별 : ${list.profile_gender }<br/>
+                            
+                            <div class="content" style="padding:30px;">
+
+                                <div class="top-section">
+                                	<div>
+	                                    <a href="#" style="float:left; weight:50px;"><img src ="/photo/${photo.photo_newFileName}" class="profileImg"></a>
+	                                    <div class="info" style="font-size:16px;">
+	                                    	<p style="margin-bottom:10px;">${list.member_id }님 반갑습니다.</p>
+	                                    	<p>등급 : ${list.grade_name }</p>
+	                                    	<p>팔로워 : <a href="./followerList.go" onclick="window.open(this.href, '_blank', 'width=400, height=450, left=500, top=200'); return false;">${follower }</a></p>
+	                                    	<p>팔로잉 : <a href="./followingList.go" onclick="window.open(this.href, '_blank', 'width=400, height=450, left=500, top=200'); return false;">${following }</a></p>
+                                		</div>
+                                		
+                                	</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+					<div class="col-md-6">
+                        <div class="card">
+                            
+                            <div class="content" style="padding:30px;">
+
+                                <div class="top-section">
+                                	<div style="font-size:16px;">
+									성별 : ${list.profile_gender }<br/>
 									직업 : ${list.profile_job }<br/>
 									선호 음식 : ${list.food_name }<br/>
 									식사 속도 : ${list.eat_speed }<br/>
 									블라인드 수 : ${blind }<br/>
-									<a href='./profileUpdate.go'>개인정보수정</a>
-                               	</div>
+                                	</div>
                                 </div>
+                                <div style="margin-top:15px; font-size:16px">
+									<a href='./profileUpdate.go'>개인정보 수정</a>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                   <!--표 끝-->
+                    
+                    
                 </div>
+                <!--게시글 양식 끝-->
+                
+                
 
 
                 <!--게시글 양식 시작-->
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="card">
-                            <div class="content" style="height:450px">
-                                    <div class="typo-line" style="float:left;">
-                                    <h5 style="margin:40px; margin-left:50px; margin-right:100px"><p class="category">내가 쓴 게시글</p>
+                            <div class="content">
+                                  
+                                    <h5 style="margin:40px; margin-left:50px; margin-right:100px"><p>내가 쓴 게시글</p>
                                     	<c:forEach items="${myboard }" var="myboard">
 											<ul>
 												<li>${myboard.review_title}</li>
@@ -189,7 +222,7 @@
 										</c:forEach>
 										<a href="./boardMore.go">더 보기</a>
                                     </h5>
-                                    <h5 style="margin:40px; margin-left:50px; margin-right:100px"><p class="category">내가 쓴 댓글의 게시글</p>
+                                    <h5 style="margin:40px; margin-left:50px; margin-right:100px"><p>내가 쓴 댓글의 게시글</p>
                                     <c:forEach items="${mycomment}" var="board">
 										<ul>
 											<li>${board.lightning_title}</li>
@@ -197,37 +230,56 @@
 									</c:forEach>
 									<a href="#">더 보기</a>
                                     </h5>
-                                </div>
-                                <div class="typo-line" style="float:left; margin:30px;">
-                                    <h5><p class="category">내 모임</p>
+                            </div>
+                        </div>
+                    </div>
+
+					
+					<div class="col-md-6">
+                        <div class="card">
+                            
+                            <div class="content">
+
+                                <!-- <div class="">
+                                	<div class="typo-line" style="float:left; margin:30px;"> -->
+                                    <h5><p style="font-size:20px;">내 모임</p>
                                     	<ul>
 											<li>번개모임</li>
 											<c:forEach items="${myLightning}" var="myLightning">
-												<a href="#">${myLightning.lightning_title }</a>
-											</c:forEach><br/><br/>
+												<ul>
+													<li><a href="#">${myLightning.lightning_title }</a></li>
+												</ul>
+											</c:forEach><br/>
 											
 											<li>도장깨기</li>
 											<c:forEach items="${myDojang}" var="myDojang">
-												<a href="#">${myDojang.dojang_title }</a>
-											</c:forEach><br/><br/>
+												<ul>
+													<li><a href="#">${myDojang.dojang_title }</a></li>
+												</ul>
+											</c:forEach><br/>
 											
 											<li>내가 생성한 방 - 번개</li>
 											<c:forEach items="${myLightningRoom}" var="myLightningRoom">
-												<a href="/lightningLeaderPage.go?lightning_no=${myLightningRoom.lightning_no}">${myLightningRoom.lightning_title }</a>
-											</c:forEach><br/><br/>
+												<ul>
+													<li><a href="/lightningLeaderPage.go?lightning_no=${myLightningRoom.lightning_no}">${myLightningRoom.lightning_title }</a></li>
+												</ul>
+											</c:forEach><br/>
 											
 											<li>내가 생성한 방 - 도장</li>
 											<c:forEach items="${myDojangRoom}" var="myDojangRoom">
-												<a href="/dojangLeaderPage.go?dojang_no=${myDojangRoom.dojang_no}">${myDojangRoom.dojang_title }</a>
-											</c:forEach><br/><br/>
+												<ul>
+													<li><a href="/dojangLeaderPage.go?dojang_no=${myDojangRoom.dojang_no}">${myDojangRoom.dojang_title }</a></li>
+												</ul>
+											</c:forEach><br/>
 										</ul>
                                     </h5>
-                                </div>
-
+                                <!-- </div>
+                                </div> -->
 
                             </div>
                         </div>
                     </div>
+					
 
                 </div>
                 <!--게시글 양식 끝-->

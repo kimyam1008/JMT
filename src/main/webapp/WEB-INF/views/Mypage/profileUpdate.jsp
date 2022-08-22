@@ -27,6 +27,10 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="../resources/etcResource/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 <style type="text/css">
+	th{
+		text-align:center;
+	}
+
 </style>
 </head>
 <body>
@@ -136,35 +140,81 @@
         <!--상단바 끝-->
 
         <!--컨텐츠영역 시작-->
-        <form action="profileUpdate.do" method="post" enctype="multipart/form-data">
         <div class="content">
             <div class="container-fluid">
                 <!--여기에 <div class="row">로 시작해서 내용을 넣어주세요 -->
                 <div class="row">
                     <!--표 시작-->
-                    <div class="col-md-12">
+                    <div class="col-md-9" style="margin-top:15px">
                         <div class="card">
-                        <div class="content table-responsive table-full-width" style="height:170px">
-                                <div class="table table-hover table-striped">
-                           		<div class="left" style="float: left; margin:20px;">
-                               		<img src="/photo/${photo.photo_newFileName}" width="150" height="100"/><br/>
-                               		<input type="file" name="photos" multiple="multiple"/>
-                               	</div>
-                               	<div class="middle" style="float: left; margin:20px;">
-                               		이름 : <input type=text name="name" value="${list.member_name }"/><br/>
-									아이디 : ${list.member_id }<br/>
-									비밀번호 : <a href="./passUpdate.go" onclick="window.open(this.href, '_blank', 'width=400, height=200, left=500, top=300'); return false;">비밀번호 변경</a><br/>
-									생년월일 : ${list.member_birth }
-                               	</div> 
-                                </div>
+                            <div class="content table-responsive table-full-width">
+       						 <form action="profileUpdate.do" method="post" enctype="multipart/form-data">
+                                <table class="table table-hover table-striped">
+                                    <caption style="margin-right:20px; text-align:right; font-size:20px;"><a href="./memberDrop.go" onclick="window.open(this.href, '_blank', 'width=400, height=200, left=500, top=300'); return false;">회원탈퇴</a></caption>
+                                    <tr>
+                                        <th>프로필 사진</th>
+                                        <td>
+	                                        <div class="left" style="float: left; margin:20px;">
+			                               		<img src="/photo/${photo.photo_newFileName}" width="150" height="100"/><br/>
+			                               		<input type="file" name="photos" multiple="multiple"/>
+		                               		</div>
+		                               	</td>
+                                        <th>이름</th>
+                                        <td><input type=text name="name" value="${list.member_name}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>아이디</th>
+                                        <td>${list.member_id }</td>
+                                        <th>비밀번호</th>
+                                        <td><a href="./passUpdate.go" onclick="window.open(this.href, '_blank', 'width=470, height=260, left=500, top=300'); return false;">비밀번호 변경</a></td>
+                                    </tr>
+                                    <tr><th colspan=4 style="color:blue">프로필</th></tr>
+                                    <tr>
+                                        <th>성별</th>
+                                        <td>${list.profile_gender }</td>
+                                        <th>직업</th>
+                                        <td>
+                                        	<input id="student" type="radio" name="job" value="학생"/>학생  <input id="freshman" type="radio" name="job" value="취준생"/>취준생  <input id="worker" type="radio" name="job" value="직장인"/>직장인
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    	<th>식사 속도</th>
+                                    	<td>
+                                    		<input id="slow" type="radio" name="speed" value="느림"/>느림
+                                    		<input id="nomal" type="radio" name="speed" value="보통"/>보통
+                                    		<input id="fast" type="radio" name="speed" value="빠름"/>빠름
+                                    	</td>
+                                    	<th>선호 음식</th>
+                                    	<td>
+                                    		<select id="food" name="food_no">
+												<option value="">선택</option>
+							                	<c:forEach items="${foodList}" var="foodList">
+							                		<option value="${foodList.food_no}" ${foodList.food_name == list.food_name ? 'selected="selected"' : ''}>${foodList.food_name}</option>
+							                	</c:forEach>
+							           		</select>
+                                    	</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4">
+                                        	<input class="update" type="submit" value="수정">
+                                        </th>
+                                    </tr>
+                                </table>
+							  </form>
                             </div>
                         </div>
                     </div>
                    <!--표 끝-->
                 </div>
+                
 
 
-                <!--게시글 양식 시작-->
+                   
+                   
+                </div>
+
+
+<%--                 <!--게시글 양식 시작-->
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
@@ -187,12 +237,12 @@
                     </div>
 					<input class="update" type="submit" value="수정">
                 </div>
-                <!--게시글 양식 끝-->
+                <!--게시글 양식 끝--> --%>
 
                
             </div>
-        </div>
-        </form>
+       
+      
         <!--컨텐츠영역 끝-->
 
         <!--푸터-->

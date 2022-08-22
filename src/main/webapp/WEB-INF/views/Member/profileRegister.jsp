@@ -35,6 +35,25 @@
 	.fontC{
 	font-size:17;
 	}
+	
+	button{
+		font-family: 'GmarketSansMedium';
+		color:#fff;
+		background:orange;
+		border:none;
+		padding:5px 10px;
+	}
+	button:focus{
+		outline:0;
+	}
+	button:hover{
+		background:#ff3d1c;
+		cursor:pointer;
+	}
+	th{
+		text-align:center;
+	}
+
 </style>
 <body>
     <!--사이드바 시작-->
@@ -131,6 +150,81 @@
                 <!--여기에 <div class="row">로 시작해서 내용을 넣어주세요 -->
                 <div class="row">
                     <!--표 시작-->
+                    <div class="col-md-10" style="margin-top:15px">
+                        <div class="card">
+                            <div class="content table-responsive table-full-width">
+       						 <form action="profileRegister.do" method="post" enctype="multipart/form-data">
+                                <table class="table table-hover table-striped">
+                                    <caption style="margin-right:20px; text-align:center; font-size:20px;">프로필 생성</caption>
+                                    <tr>
+                                        <th>프로필 사진</th>
+                                        <td>
+	                                        <div class="left" style="margin:20px;">
+			                               		<input type="file" name="photos" multiple="multiple" style="margin:auto 0"/>
+		                               		</div>
+		                               	</td>
+		                            </tr>
+		                            <tr>
+                                        <th>성별</th>
+                                        <td>
+                                        	<input type="radio" name="gender" value="남자"/>남자
+                                        	<input type="radio" name="gender" value="여자"/>여자
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>직업</th>
+                                        <td>
+                                        	<input type="radio" name="job" value="학생"/>학생
+                                        	<input type="radio" name="job" value="취준생"/>취준생
+                                        	<input type="radio" name="job" value="직장인"/>직장인
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <th>식사속도</th>
+                                        <td>
+                                        	<input type="radio" name="speed" value="느림"/>느림
+                                        	<input type="radio" name="speed" value="보통"/>보통
+                                        	<input type="radio" name="speed" value="빠름"/>빠름
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th>선호음식</th>
+                                        <td>
+                                        	<select name="food_no">
+											<option value="">선택</option>
+							                	<c:forEach items="${foodList}" var="foodList">
+							                		<option value="${foodList.food_no}">${foodList.food_name}</option>
+							                	</c:forEach>
+							           		</select>
+                                        </td>
+                                        
+                                    </tr>
+                                   
+                                    <tr>
+                                        <th colspan="2">
+                                        	<div style="display:block;">
+	                        					<span style="text-align:center; display:block; margin: 0 auto;">
+	                                        		<button>등록하기</button> 
+													<button type="button" onclick="cancel()">취소</button>
+												</span>
+											</div>
+                                        </th>
+                                    </tr>
+                                </table>
+							  </form>
+                            </div>
+                        </div>
+                    </div>
+                   <!--표 끝-->
+                </div>
+                
+                
+                
+                
+                
+                <%-- <div class="row">
+                    <!--표 시작-->
                     <div class="col-md-12">
                         <div class="card">
                         <div class="content table-responsive table-full-width" style="height:600px">
@@ -156,8 +250,10 @@
                          </div>
                      </div>
                  </div>
-             </div>
+             </div> --%>
             <!--표 끝-->
+            
+            
          </div>
 
 
@@ -179,7 +275,7 @@
         </footer>
 
     </div>
-</div>
+<!-- </div> -->
 
 
 </body>
