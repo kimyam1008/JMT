@@ -58,7 +58,13 @@
 			  padding: 10px;
 			  vertical-align: top;
 			  border-bottom: 1px solid #ccc;
+			 font-size: 15px;
 		}
+			
+		a {
+			font-size: 15px;
+		}	
+		
 			
 	.notiDelBtn:hover{
 		cursor : pointer;
@@ -279,7 +285,7 @@
                                                         <!-- plugin 사용법    -->
                                                         <div class="container">
                                                             <nav arial-label="Page navigation" >
-                                                                <ul class="pagination" id="pagination" style="text-align:center"></ul>
+                                                                <ul class="pagination" id="pagination" style="margin: 10px 30px 10px 310px;"></ul>
                                                             </nav>
                                                         </div>
                                                     </td>
