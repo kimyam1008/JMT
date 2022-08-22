@@ -224,18 +224,18 @@
                                     <th>나의 모임</th>
                                     <td>
                                     <fieldset style="width:40%; float:left;">
-                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="1"/>번개모임</legend>
+                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)"  value="1"/>번개모임</legend>
                                         <c:forEach items="${lightGroupList}" var="lightGroupList">
                                            <!--  <input type="radio" name="class_no" value="1" style="width:5%"/> -->
-                                           	<input type="radio" name="idx" style="margin: 5px" value="${lightGroupList.lightning_no}"/>${lightGroupList.lightning_title} <%-- (${lightGroupList.class_name}) --%> 
+                                           	<input type="radio" name="idx" style="margin: 5px" value="${lightGroupList.lightning_no}" disabled/>${lightGroupList.lightning_title} <%-- (${lightGroupList.class_name}) --%> 
                                             <br/>
                                         </c:forEach>
                                     </fieldset>
                                     <fieldset style="width:40%; float:left;">
-                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="3"/>도장깨기</legend>
+                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)"  value="3" />도장깨기</legend>
                                         <c:forEach items="${groupList}" var="groupList">
                                            <!--  <input type="radio" name="class_no" value="3" style="width:5%"/> -->
-                                           	<input type="radio" name="idx" style="margin: 5px" value="${groupList.dojang_no}"/>${groupList.dojang_title} 
+                                           	<input type="radio" name="idx" style="margin: 5px" value="${groupList.dojang_no}" disabled/>${groupList.dojang_title} 
                                             <br/>
                                         </c:forEach>
                                     </fieldset>
@@ -374,15 +374,19 @@
 <script>
 //체크박스 하나만 체크
 function checkOnlyOne(element) {
-  
+
   const checkboxes = document.getElementsByName("class_no");
   
   checkboxes.forEach((cb) => {
     cb.checked = false;
+ 
   })
   
   element.checked = true;
+
 }
+
+
 
 /* $('input[type=radio][name=idx]').change(function() {
 	$('input[type=radio][name=idx]').next().prop("checked",true);
