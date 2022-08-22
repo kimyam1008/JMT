@@ -564,31 +564,35 @@ function groupReviewDel(){
 $("#cmtWrite").on("click",function(){
 console.log(loginId, groupReview_no);
   var comment_content = $("#cmtInput").val();
-  if(comment_content == null ||comment_content ==''){
-    alert("댓글을 입력해 주세요.");
-    $("#cmtInput").focus();
-	}else if(comment_content.length>300){
-	  alert("최대 300자까지 입력 가능합니다.");
-	    $("#cmtInput").val(comment_content.substring(0, 300));
-	}else{
-  var cmtData = {'idx':groupReview_no,'member_id':loginId,'comment_content':comment_content,'class_no':class_no};
-    
-	$.ajax({
-		type:"post",
-		url:"comment/cmtWrite",
-		data:JSON.stringify(cmtData),
-		contentType:"application/json; charset=utf-8",
-		success : function(data){
-			if(data.writeSuccess){
-				cmtList(class_no,groupReview_no);
-				$("#cmtInput").val("");
+  if(loginId != ""){
+	  if(comment_content == null ||comment_content ==''){
+	    alert("댓글을 입력해 주세요.");
+	    $("#cmtInput").focus();
+		}else if(comment_content.length>300){
+		  alert("최대 300자까지 입력 가능합니다.");
+		    $("#cmtInput").val(comment_content.substring(0, 300));
+		}else{
+	  var cmtData = {'idx':groupReview_no,'member_id':loginId,'comment_content':comment_content,'class_no':class_no};
+	    
+		$.ajax({
+			type:"post",
+			url:"comment/cmtWrite",
+			data:JSON.stringify(cmtData),
+			contentType:"application/json; charset=utf-8",
+			success : function(data){
+				if(data.writeSuccess){
+					cmtList(class_no,groupReview_no);
+					$("#cmtInput").val("");
+				}
+			},
+			error : function(e){
+				console.log(e);
 			}
-		},
-		error : function(e){
-			console.log(e);
-		}
-	});
-  
+		});
+	  }
+  }else{
+	  alert("로그인이 필요한 서비스 입니다.");
+	  $("#cmtInput").val("");
   }
 });
 

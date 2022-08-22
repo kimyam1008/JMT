@@ -32,17 +32,6 @@ public class NotiController extends HandlerInterceptorAdapter {
 	
 
 
-
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		// TODO Auto-generated method stub
-		
-		boolean success = true;
-		return success;
-	}
-
-
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView mav) throws Exception {
