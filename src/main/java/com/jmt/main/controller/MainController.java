@@ -34,6 +34,9 @@ public class MainController {
 		String loginId = (String) session.getAttribute("loginId");
 	    model.addAttribute("loginId", loginId);
 	    
+	    String member_status = (String) session.getAttribute("member_status");
+	    model.addAttribute("member_status",member_status);
+	    
 		if (loginId != null) {
 			//번개 모임 추천
 	    	ArrayList<MainDTO> lightReco = service.lightReco(loginId);

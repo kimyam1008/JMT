@@ -159,6 +159,11 @@
                                 <p>Home</p>
                              </a>
                          </li>
+                           <li>
+                              <a href="#">
+                                <p>${loginId}</p>
+                            </a>
+                         </li>
                         <li>
                             <a href="#">
                                 <p>Log out</p>

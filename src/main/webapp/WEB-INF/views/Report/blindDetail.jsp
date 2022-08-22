@@ -125,6 +125,11 @@ textarea{ resize:none;width:100%;height:150px;}
                                 <p>Home</p>
                              </a>
                          </li>
+                           <li>
+                              <a href="#">
+                                <p>${loginId}</p>
+                            </a>
+                         </li>
                         <li>
                               <a href="/logout.do">
                                 <p>Log out</p>
