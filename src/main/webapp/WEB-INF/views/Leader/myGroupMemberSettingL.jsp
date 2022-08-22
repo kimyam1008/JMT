@@ -53,6 +53,9 @@
 		cursor : pointer;
 		color : red;
 	}
+	.profileImg{
+		width:170px;
+	}
     </style>
 </head>
 <body>
@@ -177,10 +180,10 @@
 
                 <!--게시글 양식 시작-->
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <div class="card">
                             
-                            <div class="content">
+                            <div class="content" style="padding:30px;">
 
                                 <div class="top-section">
                                 	<div>

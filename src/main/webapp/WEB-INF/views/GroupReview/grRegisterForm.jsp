@@ -211,24 +211,21 @@
                                     <td>
                                     <fieldset style="width:40%; float:left;">
                                         <legend id="light"><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="1"/>번개모임</legend>
-                                        <div id="groupChoose1">
+                                        <!-- <div id="groupChoose1"> -->
                                         <c:forEach items="${lightGroupList}" var="lightGroupList">
-                                           <!--  <input type="radio" name="class_no" value="1" style="width:5%"/> -->
-                                                 <input type="radio" name="idx" style="margin: 5px;" value="${lightGroupList.lightning_no}"/>${lightGroupList.lightning_title} <%-- (${lightGroupList.class_name}) --%> 
+                                            <input type="radio" name="idx" style="margin: 5px;" value="${lightGroupList.lightning_no}"/>${lightGroupList.lightning_title} <%-- (${lightGroupList.class_name}) --%> 
                                             <br/>
                                         </c:forEach>
-                                        </div>
+                                       <!--  </div> -->
                                     </fieldset>
                                     <fieldset style="width:40%; float:left;">
                                         <legend id="dojang"><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="3"/>도장깨기</legend>
-                                        <div id="groupChoose2">
+                                        <!-- <div id="groupChoose2"> -->
                                         <c:forEach items="${groupList}" var="groupList">
-                                           <!--  <input type="radio" name="class_no" value="3" style="width:5%"/> -->
                                             <input type="radio" name="idx" style="margin: 5px;" value="${groupList.dojang_no}"/>${groupList.dojang_title} 
-                                            
                                             <br/>
                                         </c:forEach>
-                                        </div>
+                                        <!-- </div> -->
                                     </fieldset>
                                     </td>
                                 </tr>
@@ -379,7 +376,7 @@ function checkOnlyOne(element) {
   element.checked = true;
 }
 
-console.log($('.light:first-child').val());
+/* console.log($('.light:first-child').val());
 console.log($('.dojang:first-child').val());
 
 function setDisplay1(){
@@ -389,7 +386,7 @@ function setDisplay1(){
          $('#groupChoose1').hide();
       }
 }
-
+ */
 /* function setDisplay2(){
    if($('input:checkbox[value="3"]').is(':checked')){
       $('#groupChoose2').show();
