@@ -126,11 +126,6 @@ textarea{ resize:none;width:100%;height:150px;}
                              </a>
                          </li>
                         <li>
-                           <a href="/mypage.go">
-                               <p>마이페이지</p>
-                            </a>
-                        </li>
-                        <li>
                               <a href="/logout.do">
                                 <p>Log out</p>
                             </a>
