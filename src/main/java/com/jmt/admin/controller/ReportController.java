@@ -58,7 +58,8 @@ public class ReportController {
 		model.addAttribute("detailDto",dto);
 		
 		data.put("class_no", class_no);
-		data.put("idx", idx);
+		data.put("idx", idx); // comment_no로 변경하기 . 
+		
 		
 		ReportPostDto reportPost= service.reportPost(data);
 		model.addAttribute("reportPost",reportPost);

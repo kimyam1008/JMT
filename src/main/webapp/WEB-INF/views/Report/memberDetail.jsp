@@ -127,7 +127,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"> 블라인드 등록/ 해제</h4>
+        <h4 class="modal-title"> 블랙리스트 등록/ 해제</h4>
       </div>
       <div class="modal-body">
      	<table class="table table-bordered">
@@ -354,7 +354,7 @@
 
 <!-- Button trigger modal -->
 <div id="twobutton">
-<button id="regButton" type="button" style="background-color: #943bea;  color:white;  border:none;" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">  블라인드 등록/ 해제</button>
+<button id="regButton" type="button" style="background-color: #943bea;  color:white;  border:none;" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">  블랙리스트 등록/ 해제</button>
 <button type ="button" onclick="Back()"  style="background-color: #943bea;  color:white; border:none;" class="btn btn-info btn-lg" >목록</button>
 </div>
 
