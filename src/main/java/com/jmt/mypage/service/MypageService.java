@@ -118,6 +118,7 @@ public class MypageService {
 		int profileUpdate = dao.profileUpdate(dto);
 		//회원정보(이름) 업데이트
 		int memberUpdate = dao.memberUpdate(dto);
+		logger.info("1차 와?");
 		//사진 업데이트는 하든 안하든 무조건 기존 사진 삭제하고 다시 올리기
 		int photoDel = dao.photoDel(profile_no); //기존 사진 삭제
 		logger.info("사진삭제 : "+ photoDel);
