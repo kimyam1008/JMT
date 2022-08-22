@@ -152,28 +152,28 @@ th {
                                     	<th>색상</th>
                                     </thead>
                                     <tbody>
-                                        <form action="grade" method="post" id="grade" style="margin-bottom: 0px"></form>
-                                        <tr>
-                                            <td>
-                                                ${list[0].grade_no}
-                                            </td>
-                                            <td>
-                                                <input type="hidden" name="grade_no" value="1">
-                                                <input type="text" name="grade_name" value="${list[0].grade_name}">
-                                            </td>
-                                            <td>
-                                                <input type="text" name="grade_post" value="${list[0].grade_post}">
-                                            </td>
-                                            <td>
-                                                <input type="text" name="grade_comment" value="${list[0].grade_comment}">
-                                            </td>
-                                            <td>
-                                                <input type="color" name="grade_color" value="${list[0].grade_color}" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">
-                                            </td>
-                                            <td>
-                                                <input value="저장" type="submit"/>
-                                            </td>
-                                        </tr>
+                                       <form action="grade" method="post" style="margin-bottom: 0px">
+                                                <tr>
+                                                    <td>
+                                                        ${list[0].grade_no}
+                                                    </td>
+                                                    <td>
+                                                        <input type="hidden" name="grade_no" value="1">
+                                                        <input type="text" name="grade_name" value="${list[0].grade_name}">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="grade_post" value="${list[0].grade_post}">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="grade_comment" value="${list[0].grade_comment}">
+                                                    </td>
+                                                    <td>
+                                                        <input type="color" name="grade_color" value="${list[0].grade_color}" onchange="sendCode(this.value)" id="colorWell'+item.grade_no+'">
+                                                    </td>
+                                                    <td>
+                                                    <input value="저장" type="submit"/>
+                                                    </td>
+                                                </tr>
                                         </form>
                                         <form action="grade" method="post" style="margin-bottom: 0px">
                                                 <tr>
@@ -424,6 +424,13 @@ th {
 			
 		</body>
 <script>
+
+var msg = "${msg}";
+	if(msg != ""){
+	alert(msg);
+}
+
+
 /* 
 	function mySubmit(index) {
 	    if (index == 1) {

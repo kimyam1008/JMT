@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jmt.moim.dto.DojangDTO;
 import com.jmt.restaurant.dao.RestaurantDAO;
@@ -382,21 +383,22 @@ public class RestaurantService {
 	}
 
 
-	public String resAdminUpdate(HashMap<String, String> params) {
+	public String resAdminUpdate(HashMap<String, String> params, RedirectAttributes ra) {
 		String idx = params.get("restaurant_no");
 		String idx2 = params.get("restuarantUpdate_no");
 		
 		String page = "redirect:/resAdminUpdate.go?restaurant_no="+idx+"&restuarantUpdate_no="+idx2;
 		RestaurantDTO dto = new RestaurantDTO();
-		
-		logger.info("보자보자 : "+params);
+
 		dto.setRestaurant_name(params.get("restaurant_name"));
 		dto.setRestaurant_address(params.get("restaurant_address"));
 		dto.setRestaurant_info(params.get("restaurant_info"));
 		dto.setRestaurant_call(params.get("restaurant_call"));
 		dto.setRestaurant_no(Integer.parseInt(params.get("restaurant_no")));
-		dao.resAdminUpdate(dto);
-		
+		int a = dao.resAdminUpdate(dto);
+		if(a > 0 ) {
+			ra.addFlashAttribute("msg", "요청처리 완료");
+		}
 		return page;
 	}
 
