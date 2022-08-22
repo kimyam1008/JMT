@@ -43,6 +43,8 @@
 			th,td { 
 				padding : 5px 10px;
 			}
+			
+		
                  /*댓글 아이디 & 신고하기 */ 
                  .idatag{
                  color : black;
@@ -283,8 +285,12 @@
         <!-- Hero Start-->
        <div class="hero-area3 hero-overly2 d-flex align-items-center">
             <div class="container">
-                <div class="row justify-content-center">
-                   
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap text-center pt-50">
+                            <h2>번개모임</h2>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -334,11 +340,19 @@
                                         <button id="button" onclick="lightReport_pop()" style="float:right; border:none; cursor:pointer;">신고하기</button>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th colspan="4" style="height:70px; background-color: #fff;">                                      
+                                        <button id="application" class="btn list-btn mt-10 col-md-2" style="padding:25px;" onclick="application()">신청</button>
+                                        <button class="btn list-btn mt-10 col-md-2" style="padding:25px;" onclick="location.href='/lightList.go'">목록</button>
+                                    </th>
+                                </tr>
+                                
                             </table>
+                            <!-- 
                            	<div style="text-align: center; height: 20px;">
-                                        <button id="application" class="btn list-btn mt-10 col-md-2" onclick="application()">신청</button>
-                                        <button class="btn list-btn mt-10 col-md-2" onclick="location.href='/lightList.go'">목록</button>
                              </div>     
+                            
+                             -->
                         
                   
                     </div>
@@ -347,7 +361,7 @@
                     <div class="col-lg-6" style="margin:0 auto;">
                     	<div class="comment-box" style="width:50%; display:inline-block; margin:0 auto;">
 	                        <div class="comment-form">
-	                            <textarea  id="cmtInput" placeholder="댓글을 작성하세요."></textarea>
+	                            <textarea  id="cmtInput" placeholder="댓글을 작성하세요." ></textarea>
 	                            <button type="button" class="submit" id="cmtWrite">댓글 쓰기</button>
 		                    </div>
 		                    <br/>
@@ -464,32 +478,37 @@
         var profileChk = ${profileChk};
         
         function application(){
-            console.log(status);
-            //방장아이디랑 로그인아이디 비교해서 같으면 신청불가
-            if(leader_id == loginId){
-                alert("방장은 신청할 수 없습니다.");
-            //아직 가입신청을 안한 경우
-            }else if (status == ""){
-                if(!profileChk){
-                    alert("프로필 생성 후 이용 가능합니다");
-                //프로필 상태 기반
-                }else if("${dto.gender}" !="상관없음" && "${dto.gender}" != profile_gender){
-                    alert("성별 조건이 맞지않습니다.");
-                }else{
-                    if(confirm("가입 신청하시겠습니까?")){
-                        alert("신청완료 되었습니다.");
-                        location.href='/lightRegister.do?lightning_no=${dto.lightning_no}';
-                    }
-                }
-                
-            }else if(status=="대기"){
-                alert("이미 신청한 방입니다.");
-            }else if(status=="거절"){
-                alert("방장이 승인을 거절하여 재신청이 불가합니다.");
-            }else if(status=="탈퇴"){
-                alert("모임에서 탈퇴하여 재신청이 불가합니다.");
-            }else if(status=="강퇴"){
-                alert("모임에서 강퇴당하여 재신청이 불가합니다.");
+            //console.log(status);
+            //console.log(loginId);
+            if(loginId != ""){
+	            //방장아이디랑 로그인아이디 비교해서 같으면 신청불가
+	            if(leader_id == loginId){
+	                alert("방장은 신청할 수 없습니다.");
+	            //아직 가입신청을 안한 경우
+	            }else if (status == ""){
+	                if(!profileChk){
+	                    alert("프로필 생성 후 이용 가능합니다");
+	                //프로필 상태 기반
+	                }else if("${dto.gender}" !="상관없음" && "${dto.gender}" != profile_gender){
+	                    alert("성별 조건이 맞지않습니다.");
+	                }else{
+	                    if(confirm("가입 신청하시겠습니까?")){
+	                        alert("신청완료 되었습니다.");
+	                        location.href='/lightRegister.do?lightning_no=${dto.lightning_no}';
+	                    }
+	                }
+	                
+	            }else if(status=="대기"){
+	                alert("이미 신청한 방입니다.");
+	            }else if(status=="거절"){
+	                alert("방장이 승인을 거절하여 재신청이 불가합니다.");
+	            }else if(status=="탈퇴"){
+	                alert("모임에서 탈퇴하여 재신청이 불가합니다.");
+	            }else if(status=="강퇴"){
+	                alert("모임에서 강퇴당하여 재신청이 불가합니다.");
+	            }
+            }else{
+            	alert("로그인이 필요한 서비스 입니다.");
             }
             
         }
@@ -505,7 +524,7 @@
         
         //신고 팝업
         function lightReport_pop(){
-            window.open("/lightReport.go?lightning_no="+${dto.lightning_no},"new","width=400, height=200, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+            window.open("/lightReport.go?lightning_no="+${dto.lightning_no},"new","width=400, height=350, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
         }
         
         function chkDel(){
@@ -712,7 +731,7 @@
         
         //댓글 신고 팝업
         function lightCmtReport_pop(cno){
-            window.open("/lightCmtReport.go?comment_no="+cno,"new","width=400, height=200, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+            window.open("/lightCmtReport.go?comment_no="+cno,"new","width=400, height=350, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
         }
     </script>
 

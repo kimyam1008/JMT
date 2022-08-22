@@ -180,7 +180,7 @@ public class MemberController {
 		
 		
 		//프로필 등록
-		@RequestMapping(value = "profileRegister.do")
+		@RequestMapping(value = "/profileRegister.do")
 		public String profileRegister(Model model, MultipartFile[] photos, HttpSession session, 
 				@RequestParam HashMap<String, Object> params) {
 			logger.info("프로필 요청 값 {}: ",params);
@@ -200,6 +200,8 @@ public class MemberController {
 					service.profileRegister(photos, params); //프로필 등록하기
 					model.addAttribute("msg", "등록이 완료되었습니다.");
 				}
+			}else {
+				model.addAttribute("msg", "등록에 실패하였습니다.");
 			}
 			
 			return "./Main/main"; 

@@ -6,64 +6,41 @@
 <title>번개 모임 댓글 신고</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-	table {
-	    width:70%; 
-	    margin-left:auto; 
-	    margin-right:auto;
-	    position: static;
-	}
-	
-	table, th, td{
-		border: 1px solid #ccc;
-		border-collapse: collapse;
-		line-height: 1.5;
-		border-bottom: 1px solid #ccc;
-		border-top: 1px solid #ccc;
-		
-	}
-	td, th{
-		padding: 5px 10px;
-	}
-	
-table{
-	 width: 400px;
-	 height: 300px;
-	 margin-left: auto;
-	 margin-right: auto;
-	 text-align: center;
-
-}
-
-
-#report_text {
-  width:300px;
-  height:30px;
-  font-size:15px;
-}
-
-#reportYes {
-	position: absolute;
-	left: 220px;
-	top: 350px;
-	width:70px;
-	height:35px;
-}
-
-#reportNo {
-	position: absolute;
-	left: 330px;
-	top: 350px;
-	width:70px;
-	height:35px;
-}
-body {
+	body,textarea {
 		font-family: 'GmarketSansMedium';
 	}
+	table {
+		border-collapse: separate;
+		border-spacing: 1px;
+		text-align: left;
+		line-height: 1.5;
+		border-top: 1px solid #ccc;
+		margin : 20px 10px;
+	}
+	table th {
+		width: 150px;
+		padding: 10px;
+		font-weight: bold;
+		vertical-align: top;
+		border-bottom: 1px solid #ccc;
+		text-align:center;
+	}
+	table td {
+		width: 350px;
+		padding: 10px;
+		vertical-align: top;
+		border-bottom: 1px solid #ccc;
+	}
+	
 	@font-face {
 		font-family: 'GmarketSansMedium';
 		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
 		font-weight: normal;
 		font-style: normal;
+	}
+	input[type='text']{
+		font-family: 'GmarketSansMedium';
+		border:none;
 	}
 	input[type='button']{
 		font-family: 'GmarketSansMedium';
@@ -79,8 +56,12 @@ body {
 		background:#ff3d1c;
 		cursor:pointer;
 	}
-	select,option,textarea {
+	textarea {
 		font-family: 'GmarketSansMedium';
+		width: 100%;
+	    height: 6.25em;
+	    border: none;
+	    resize: none;
 	}
 	
 </style>

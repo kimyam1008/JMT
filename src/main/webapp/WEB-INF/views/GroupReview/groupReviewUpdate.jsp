@@ -49,6 +49,7 @@
 
             table, input[type='text'] {
 				width:100%;
+				border:none;
 		    }
 		    
 		    button {
@@ -375,7 +376,7 @@ function save(){
 	} /* else if(review_content == "") { //여기 아직 안됨...
 		alert("내용을 입력해주세요.");
 		//review_content.focus();
-	} */ else if($('#content-image').length > 3) {
+	} */ else if($('.imageUp').length > 3) {
 		alert('이미지 업로드 제한 갯수를 초과했습니다.');
 	} else {
 		$('#review_content a').removeAttr('onclick');

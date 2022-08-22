@@ -6,7 +6,24 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-
+	body,textarea,table,button {
+		font-family: 'GmarketSansMedium';
+	}
+	
+	input[type='text']{
+		font-family: 'GmarketSansMedium';
+	}
+	
+	input[type='submit']{
+		font-family: 'GmarketSansMedium';
+	}
+	
+	@font-face {
+		font-family: 'GmarketSansMedium';
+		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+	}
 
 	body {
 		overflow-x :hidden;
