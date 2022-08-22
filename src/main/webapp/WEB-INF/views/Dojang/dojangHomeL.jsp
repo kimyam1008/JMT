@@ -140,7 +140,7 @@ td a {
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="jmtMain.html" class="simple-text">
+                <a href="/" class="simple-text">
                     JMT
                 </a>
             </div>
