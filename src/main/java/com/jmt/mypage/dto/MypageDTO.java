@@ -45,6 +45,7 @@ public class MypageDTO {
 	
 	private String category;
 	private String myCommentArry;
+	private String lightning_no;
 	
 	
 	public String getMyCommentArry() {
@@ -220,6 +221,12 @@ public class MypageDTO {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public String getLightning_no() {
+		return lightning_no;
+	}
+	public void setLightning_no(String lightning_no) {
+		this.lightning_no = lightning_no;
 	}
 	
 	
