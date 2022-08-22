@@ -206,7 +206,7 @@
 			WHERE member_id = #{param1} AND dojangPost_status = '공개' ORDER BY review_date DESC
 	</select>
 	
-	<select id="myCommentArry" resultType="mypage">
+	<!-- <select id="myCommentArry" resultType="mypage">
 		SELECT lightning_title, idx FROM lightninglist l JOIN comment c ON lightning_no = idx 
 			WHERE member_id = #{param1} AND c.comment_status = '공개' AND c.class_no = '2'
 		UNION 
@@ -215,15 +215,15 @@
 		UNION 
 		SELECT restaurant_name, idx FROM restaurant r JOIN comment c ON restaurant_no = idx 
 			WHERE member_id = #{param1} AND c.comment_status = '공개' AND c.class_no = '8'
-	</select>
+	</select> -->
 	
-	<select id="myMoimArry" resultType="mypage">
+	<!-- <select id="myMoimArry" resultType="mypage">
 		SELECT lightning_title , (SELECT class_name  FROM codetable c WHERE class_no = '1') AS category FROM lightninglist l WHERE lightning_no = (SELECT idx FROM apply a 
 			WHERE member_id = #{param1} AND class_no = '1' AND status = '승인')
 		UNION ALL
 		SELECT dojang_title,(SELECT class_name  FROM codetable c WHERE class_no = '3') AS category FROM dojanglist d WHERE dojang_no = (SELECT idx FROM apply a 
 			WHERE member_id = #{param1} AND class_no = '3' and status = '승인')
-	</select>
+	</select> -->
 	
 	<select id="lightRoom" resultType="mypage">
 		SELECT lightning_title FROM lightninglist l WHERE leader_id = (SELECT member_id FROM profile p WHERE profile_no = #{param1}) LIMIT 3

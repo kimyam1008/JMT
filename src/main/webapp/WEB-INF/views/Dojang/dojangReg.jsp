@@ -368,7 +368,7 @@ function dojangReg() {
 	}else if(eat_speed == ""){
 		alert("식사속도를 선택해주세요.");
 		
-	}else if(gender == ""){
+	}else if(gender == null){
 		alert("성별을 선택해주세요.");
 		
 	}else if(job == ""){
