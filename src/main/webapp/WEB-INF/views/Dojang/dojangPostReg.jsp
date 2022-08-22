@@ -99,7 +99,7 @@ textarea {
 		text-align: left;
 }
 
-.btn {
+.btt {
 	cursor:pointer;
 }
 
