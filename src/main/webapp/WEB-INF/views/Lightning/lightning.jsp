@@ -40,7 +40,8 @@
 			  text-align: left;
 			  line-height: 1.5;
 			  border-top: 1px solid #ccc;
-			 width : 1000px;
+			 width : 100%;
+			 font-size: 11px;
 			}
 			table th {
 			  width: 150px;
@@ -174,7 +175,7 @@
             <div class="container">
                 <div class="row">
                     <!-- Left content -->
-                    <div class="col-xl-4 col-lg-4 col-md-6">
+                    <div class="col-xl-3 col-lg-3 col-md-3">
                         <div class="row">
                             <div class="col-12">
                                     <div class="small-section-tittle2 mb-45">
@@ -189,7 +190,7 @@
                             <h4 class="searchName">번개를 찾아보세요</h4>
                                 <!-- input -->
                                 <div class="input-form">
-                                    <input type="text" id="lightning_title"  name="lightning_title" placeholder="모임 이름을 입력해주세요"
+                                    <input type="text" id="lightning_title"  name="lightning_title" placeholder="모임명을 입력하세요"
 		                                onKeypress="javascript:if(event.keyCode==13) {enterkey()}"/>
                                 </div>
                                 <!-- Select job items start -->
@@ -243,7 +244,7 @@
                     </div>
  
                     <!-- Right content -->
-                    <div class="col-xl-8 col-lg-8 col-md-6">
+                    <div class="col-xl-9 col-lg-9 col-md-9">
                         <!-- listing Details Stat-->
                         <!--리스트 시작-->
                        
@@ -251,8 +252,8 @@
                             <div class="container">
                                 <div class="row">
                                     <!--넣을 내용 입력-->
-                                    <div class="col-lg-6 ">
-                                        <table style="margin:0 auto; text-align:center;">
+                                    <div class="col-lg-12">
+                                        <table style="margin:0 auto; text-align:center; font-size: 11px;">
                                             <thead id="lightningList">
                                                 <tr class="table-caption">
                                                     <th>맛집 이름</th>
