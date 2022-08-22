@@ -224,7 +224,7 @@
                                     <th>나의 모임</th>
                                     <td>
                                     <fieldset style="width:40%; float:left;">
-                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" value="1"/>번개모임</legend>
+                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="1"/>번개모임</legend>
                                         <c:forEach items="${lightGroupList}" var="lightGroupList">
                                            <!--  <input type="radio" name="class_no" value="1" style="width:5%"/> -->
                                            	<input type="radio" name="idx" style="margin: 5px" value="${lightGroupList.lightning_no}"/>${lightGroupList.lightning_title} <%-- (${lightGroupList.class_name}) --%> 
@@ -232,7 +232,7 @@
                                         </c:forEach>
                                     </fieldset>
                                     <fieldset style="width:40%; float:left;">
-                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" value="3"/>도장깨기</legend>
+                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="3"/>도장깨기</legend>
                                         <c:forEach items="${groupList}" var="groupList">
                                            <!--  <input type="radio" name="class_no" value="3" style="width:5%"/> -->
                                            	<input type="radio" name="idx" style="margin: 5px" value="${groupList.dojang_no}"/>${groupList.dojang_title} 
@@ -372,6 +372,18 @@
     </body>
  <%@ include file="../../../resources/inc/footer.jsp" %>
 <script>
+//체크박스 하나만 체크
+function checkOnlyOne(element) {
+  
+  const checkboxes = document.getElementsByName("class_no");
+  
+  checkboxes.forEach((cb) => {
+    cb.checked = false;
+  })
+  
+  element.checked = true;
+}
+
 /* $('input[type=radio][name=idx]').change(function() {
 	$('input[type=radio][name=idx]').next().prop("checked",true);
 });
@@ -389,7 +401,9 @@ function save(){
 	//var review_content = $('#review_content').val($('#editable').html());
 	var review_content = $('#editable').html(); 
 	
-	if($('input[type="radio"]:checked').is(":checked") == false){
+	if($('input[type="checked"]:checked').is(":checked") == false){
+		alert("모임 분류를 선택해 주세요");
+	} else if($('input[type="radio"]:checked').is(":checked") == false) {
 		alert("모임을 선택해 주세요");
 	} else if(review_title == "") {
 		alert("제목을 입력해주세요");
