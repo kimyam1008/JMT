@@ -44,14 +44,27 @@
 		padding: 5px;
 	} */
 	
-	.active{
-		color:pink;
+	.active {
+		color: #943bea;
 		font: bold;
 		text-decoration: underline;
 	}
-	#option_list{ text-align:center;  margin:20px 0px;}
-	#option_list span{font-size: 20px; margin:20px 20px;}
-	#search{
+	
+	.pagination>li>a {
+		color: #943bea;
+	}
+	
+	
+	#option_list {
+		text-align:center;
+		margin:20px 0px;
+		}
+	#option_list span{
+		font-size: 20px;
+		margin:20px 20px;
+	}
+	
+	#search {
 		text-align:center; 
 	}
 	

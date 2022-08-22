@@ -41,7 +41,7 @@ public class RestaurantDTO {
 	// 번개모임
 	private String lightning_title;
 	private String lightning_status;
-	
+	private int lightning_no;
 	// 댓글 종합 
 	private int comment_no;
 	private int class_no;
@@ -107,6 +107,13 @@ public class RestaurantDTO {
 	
 	
 	
+	
+	public int getLightning_no() {
+		return lightning_no;
+	}
+	public void setLightning_no(int lightning_no) {
+		this.lightning_no = lightning_no;
+	}
 	public int getComment_no() {
 		return comment_no;
 	}
