@@ -59,7 +59,7 @@ public interface RestaurantDAO {
 
 	ArrayList<RestaurantDTO> photoDelList(HashMap<String, String> params);
 
-	void Reporthandling(RestaurantDTO dto);
+	int Reporthandling(RestaurantDTO dto);
 
 	int allCount2(HashMap<String, Object> searchResult);
 

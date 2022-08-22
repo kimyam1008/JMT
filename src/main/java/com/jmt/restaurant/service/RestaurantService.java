@@ -389,7 +389,8 @@ public class RestaurantService {
 		
 		String page = "redirect:/resAdminUpdate.go?restaurant_no="+idx+"&restuarantUpdate_no="+idx2;
 		RestaurantDTO dto = new RestaurantDTO();
-
+		String msg = "수정이 완료 되었습니다.";
+		
 		dto.setRestaurant_name(params.get("restaurant_name"));
 		dto.setRestaurant_address(params.get("restaurant_address"));
 		dto.setRestaurant_info(params.get("restaurant_info"));
@@ -397,23 +398,28 @@ public class RestaurantService {
 		dto.setRestaurant_no(Integer.parseInt(params.get("restaurant_no")));
 		int a = dao.resAdminUpdate(dto);
 		if(a > 0 ) {
-			ra.addFlashAttribute("msg", "요청처리 완료");
+			ra.addFlashAttribute("msg", msg);
 		}
 		return page;
 	}
 
 
-	public String Reporthandling(HashMap<String, String> params) {
+	public String Reporthandling(HashMap<String, String> params, RedirectAttributes ra) {
 		
 		String idx = params.get("restaurant_no");
 		String idx2 = params.get("restuarantUpdate_no");
 		
 		String page = "redirect:/resAdminUpdate.go?restaurant_no="+idx+"&restuarantUpdate_no="+idx2;
+		String msg = "수정이 완료 되었습니다.";
 		
 		RestaurantDTO dto = new RestaurantDTO();
 		dto.setRestaurantUpdate_proc_status(params.get("restaurantUpdate_proc_status"));
 		dto.setRestuarantUpdate_no(Integer.parseInt(params.get("restuarantUpdate_no")));
-		dao.Reporthandling(dto);
+		int a = dao.Reporthandling(dto);
+		if(a > 0) {
+			ra.addFlashAttribute("msg", msg);
+		}
+		
 		return page;
 	}
 
