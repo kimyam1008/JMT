@@ -31,6 +31,7 @@
 			<exclude-mapping path="/report*"/>
 			<exclude-mapping path="/*.ajax"/>
 			<exclude-mapping path="/mypage.go"/>
+			<exclude-mapping path="/profileRegister.*"/>
 			<beans:bean id="GradeController" class="com.jmt.admin.controller.GradeController"/>
 		</interceptor>
 	</interceptors>

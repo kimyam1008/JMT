@@ -284,7 +284,10 @@ td a {
  		object-fit : cover;
  	} 	
 
-
+	.notiDelBtn:hover{
+		cursor : pointer;
+		color : red;
+	}
 
 
 </style>
@@ -393,23 +396,24 @@ td a {
                             </a>
                         </li> -->
                         <!--누르면 알림창같은거 조그맣게 뜸-->
-                        <!-- <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret hidden-lg hidden-md"></b>
-									<p class="hidden-lg hidden-md">
-										5 Notifications
-										<b class="caret"></b>
-									</p>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
+                        <li class="dropdown">
+	                       <c:if test="${notiChk=='true'}">
+								<a  class="dropdown-toggle" data-toggle="dropdown" style="color:Red" >
+			        			 	<i class="fa fa-bell"></i> 
+			        			 	 <b class="caret hidden-lg hidden-md"></b>
+									<b class="caret"></b>
+								</a>
+							</c:if>	
+							<c:if test="${notiChk=='false'}">
+								<a  class="dropdown-toggle" data-toggle="dropdown" >
+							         <i class="fa fa-bell"></i>
+							          <b class="caret hidden-lg hidden-md"></b>
+									<b class="caret"></b>
+								</a>
+							</c:if>	
+                              <ul class="dropdown-menu" style="width: 400px;">
                               </ul>
-                        </li> -->
+                        </li> 
                         <!-- <li>
                            <a href="">
                                 <i class="fa fa-search"></i>
@@ -534,6 +538,19 @@ td a {
 						</div>
 
 </body>
+<!--   Core JS Files   -->
+    <script src="../resources/etcResource/assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
+	<script src="../resources/etcResource/assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<!--  Charts Plugin -->
+	<script src="../resources/etcResource/assets/js/chartist.min.js"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="../resources/etcResource/assets/js/bootstrap-notify.js"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+	<script src="../resources/etcResource/assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
+<%@ include file="../../../resources/inc/footer2.jsp" %>
 <script>
 
 /*상세보기 들어왔을 때 댓글리스트 보여주기 */
@@ -893,4 +910,5 @@ function lightCmtReport_pop(cno){
 
 
 </script>
+
 </html>
