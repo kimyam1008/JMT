@@ -19,7 +19,7 @@
 			<tr>
 				<th class="col1">생년월일</th>
 				<td class="FindCol2">
-					<input type="text" name="birth"/>
+					<input type="text" name="birth" placeholder="ex) 2022-08-20"/>
 				</td>
 			</tr>
 		</table>

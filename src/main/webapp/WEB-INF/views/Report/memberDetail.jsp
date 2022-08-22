@@ -141,7 +141,7 @@
      				<c:if test="${black.blacklist_status eq null}">
 	     				<label>Y <input name="black" type="radio" value="블랙리스트"/> </label>       			
 	     			</c:if>
-	     			<c:if test="${black.blacklist_status eq '블랙'}">
+	     			<c:if test="${black.blacklist_status eq '블랙리스트'}">
 	     				<label>Y <input name="black" type="radio" value="블랙리스트" checked/> </label>       			
 	     			</c:if>
 	     				<c:if test="${black.blacklist_status eq '일반회원'}">
@@ -153,7 +153,7 @@
 	     			</c:if>
 	     			<c:if test="${black.blacklist_status eq '일반회원'}">
 	     				<label>N  <input  name="black" type="radio" value="일반회원" checked/></label>  			
-	     			</c:if>	<c:if test="${black.blacklist_status eq '블랙'}">
+	     			</c:if>	<c:if test="${black.blacklist_status eq '블랙리스트'}">
 	     				<label>N  <input  name="black" type="radio" value="일반회원" /></label>  			
 	     			</c:if>
      			</td>   
@@ -549,6 +549,7 @@ function blickReg(){
 	
 	if("${black.blacklist_status}"==black)	{
 		alert('이미 해당 상태입니다.'); 
+		location.reload();
 		return false; 
 		
 	}
@@ -570,6 +571,8 @@ function blickReg(){
 					if(data.result>0){
 						alert(data.msg);
 					}
+					location.reload();
+					
 				}, 
 				error:function(e){console.log(e);}
 			

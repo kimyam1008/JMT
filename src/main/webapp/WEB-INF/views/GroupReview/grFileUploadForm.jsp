@@ -8,6 +8,15 @@
 <title>사진 업로드</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
+	@font-face {
+		font-family: 'GmarketSansMedium';
+		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+	}
+	body {
+		font-family: 'GmarketSansMedium';
+	}
 </style>
 </head>
 <body>

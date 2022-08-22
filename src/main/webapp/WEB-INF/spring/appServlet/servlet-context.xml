@@ -32,22 +32,10 @@
 			<exclude-mapping path="/*.ajax"/>
 			<exclude-mapping path="/mypage.go"/>
 			<exclude-mapping path="/profileRegister.*"/>
+			<exclude-mapping path="/profileUpdate.*"/>
 			<beans:bean id="GradeController" class="com.jmt.admin.controller.GradeController"/>
 		</interceptor>
-	<!-- 로그인 체크 인터셉터입니다.. -->
-<!-- 		
-		<interceptor>
-			<mapping path="/**"/>
-				<exclude-mapping path="/login.*"/>
-				<exclude-mapping path="/"/>
-				<exclude-mapping path="/logout.do"/>
-				<exclude-mapping path="/Member/join*"/>
-				<exclude-mapping path="/restaurant"/>
-				<exclude-mapping path="/resDetail.do*"/>
-				<exclude-mapping path="/*.ajax"/>
-			<beans:bean id="LoginCheck" class="com.jmt.admin.controller.LoginCheck"/>
-		</interceptor>
-		 -->
+	
 	</interceptors>
 	
  
