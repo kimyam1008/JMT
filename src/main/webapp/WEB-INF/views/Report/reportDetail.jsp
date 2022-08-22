@@ -113,6 +113,11 @@ table{width:100%;}
                                 <p>Home</p>
                              </a>
                          </li>
+                           <li>
+                              <a href="#">
+                                <p>${loginId}</p>
+                            </a>
+                         </li>
                         <li>
                             <a href="/logout.do">
                                 <p>Log out</p>
