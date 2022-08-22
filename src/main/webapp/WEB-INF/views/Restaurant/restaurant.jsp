@@ -107,28 +107,28 @@
                                             <li><a href="restaurant">맛집</a></li>
                                             <li><a href="groupReviewList">후기</a></li>
 											<c:choose>
-		                                            	<c:when test="${loginId != null}">
-			                                            		<!-- 알림 -->
-				                                            	 <c:choose>
-						                                        	<c:when test="${notiChk=='true'}"><!--안읽은 알림있을 때  -->
-								                                            <li><a href="#"><img  id="notidrop" src="resources/photo/noti4.png"  style="width:30px; height:25px;"/></a>
-								                                               	<ul class="submenu notidrop_menu" style="width : 300px; display : none;">
-								                                               	</ul>
-								                                            </li>
-						                                            </c:when>
-						                                        	<c:otherwise>
-							                                            <li><a href="#"><img id="notidrop"  src="resources/photo/bnoti4.png"  style="width:30px; height:25px;"/></a>
-							                                            	<ul class="submenu notidrop_menu" style="width : 300px; display : none;">
-								                                             </ul>
-							                                            </li>
-						                                            </c:otherwise>
-			                                        			</c:choose>
-			                                            	<li id="logoutDo"><a href="logout.do">로그아웃</a></li>
-			                                            	<li class="add-list"><a href="/mypage.go"><i class="ti-user"></i>마이페이지</a></li>
-		                                            	</c:when>
-		                                            	<c:otherwise>
-				                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
-		                                            	</c:otherwise>
+                                            	<c:when test="${loginId != null}">
+	                                            		<!-- 알림 -->
+		                                            	 <c:choose>
+				                                        	<c:when test="${notiChk=='true'}"><!--안읽은 알림있을 때  -->
+						                                            <li><a href="#"><img  id="notidrop" src="resources/photo/noti4.png"  style="width:30px; height:25px;"/></a>
+						                                               	<ul class="submenu notidrop_menu" style="width : 300px; display : none;">
+						                                               	</ul>
+						                                            </li>
+				                                            </c:when>
+				                                        	<c:otherwise>
+					                                            <li><a href="#"><img id="notidrop"  src="resources/photo/bnoti4.png"  style="width:30px; height:25px;"/></a>
+					                                            	<ul class="submenu notidrop_menu" style="width : 300px; display : none;">
+						                                             </ul>
+					                                            </li>
+				                                            </c:otherwise>
+	                                        			</c:choose>
+	                                            	<li id="logoutDo"><a href="logout.do">로그아웃</a></li>
+	                                            	<li class="add-list"><a href="/mypage.go"><i class="ti-user"></i>마이페이지</a></li>
+                                            	</c:when>
+                                            	<c:otherwise>
+		                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
+                                            	</c:otherwise>
 		                                   </c:choose>
                                         </ul>
                                     </nav>
@@ -213,7 +213,7 @@
                             <tr>
                                 <td colspan="8" id="paging">
                                     <!-- plugin 사용법  -->
-                                    <div class="container"">
+                                    <div class="container">
                                         <nav arial-label="Page navigation" style="text-align:center">
                                             <ul class="pagination" id="pagination"></ul>
                                         </nav>

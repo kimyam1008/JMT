@@ -5,6 +5,21 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- CSS here -->
+<link rel="stylesheet" href="../resources/mainResource/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="../resources/mainResource/assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="../resources/mainResource/assets/css/slicknav.css">
+<link rel="stylesheet" href="../resources/mainResource/assets/css/flaticon.css">
+<link rel="stylesheet" href="../resources/mainResource/assets/css/animate.min.css">
+<link rel="stylesheet" href="../resources/mainResource/assets/css/magnific-popup.css">
+<link rel="stylesheet" href="../resources/mainResource/assets/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="../resources/mainResource/assets/css/themify-icons.css">
+<link rel="stylesheet" href="../resources/mainResource/assets/css/slick.css">
+<link rel="stylesheet" href="../resources/mainResource/assets/css/nice-select.css">
+<link rel="stylesheet" href="../resources/mainResource/assets/css/style.css">
+
+            
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2c6e8effc4f59a314f7673e566c1b6f1"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -12,7 +27,7 @@
 
 
 <c:set var="path" value="${pageContext.request.contextPath}"/>
- <link href="${path}/resources/etcResource/assets/css/animate.min.css" rel="stylesheet"/>
+<link href="${path}/resources/etcResource/assets/css/animate.min.css" rel="stylesheet"/>
 <link href="${path}/resources/etcResource/assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
 <link href="/http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
@@ -160,13 +175,104 @@ textarea {
 	left:280px;
 }
 </style>
-<title>Insert title here</title>
+<title>맛집 상세보기</title>
 </head>
 <body>
+
+<!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="../resources/mainResource/assets/img/logo/logo.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <header>
+        <!-- Header Start -->
+       <div class="header-area header-transparent">
+            <div class="main-header">
+               <div class="header-bottom  header-sticky">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <!-- Logo -->
+                            <div class="col-xl-2 col-lg-2 col-md-1">
+                                <div class="logo">
+                                  <a href="/"><img src="../resources/mainResource/assets/img/logo/logo.png" width="80px" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-xl-10 col-lg-10 col-md-8">
+                                <!-- Main-menu -->
+                                <div class="main-menu f-right d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">                                                                                                                                     
+                                            <li><a href="/">Home</a></li>
+                                            <li><a href="#">모임</a>
+                                                <ul class="submenu">
+                                                    <li><a href="lightList.go">번개</a></li>
+                                                    <li><a href="dojang.go">도장깨기</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="restaurant">맛집</a></li>
+                                            <li><a href="groupReviewList">후기</a></li>
+											<c:choose>
+		                                            	<c:when test="${loginId != null}">
+			                                            		<!-- 알림 -->
+				                                            	 <c:choose>
+						                                        	<c:when test="${notiChk=='true'}"><!--안읽은 알림있을 때  -->
+								                                            <li><a href="#"><img  id="notidrop" src="resources/photo/noti4.png"  style="width:30px; height:25px;"/></a>
+								                                               	<ul class="submenu notidrop_menu" style="width : 300px; display : none;">
+								                                               	</ul>
+								                                            </li>
+						                                            </c:when>
+						                                        	<c:otherwise>
+							                                            <li><a href="#"><img id="notidrop"  src="resources/photo/bnoti4.png"  style="width:30px; height:25px;"/></a>
+							                                            	<ul class="submenu notidrop_menu" style="width : 300px; display : none;">
+								                                             </ul>
+							                                            </li>
+						                                            </c:otherwise>
+			                                        			</c:choose>
+			                                            	<li id="logoutDo"><a href="logout.do">로그아웃</a></li>
+			                                            	<li class="add-list"><a href="/mypage.go"><i class="ti-user"></i>마이페이지</a></li>
+		                                            	</c:when>
+		                                            	<c:otherwise>
+				                                            <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>
+		                                            	</c:otherwise>
+		                                   </c:choose>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <!-- Mobile Menu -->
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+       </div>
+        <!-- Header End -->
+    </header>
+<main>
+	
+	<!-- Hero Start-->
+        <div class="hero-area2  slider-height2 hero-overly2 d-flex align-items-center ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap text-center pt-50">
+                            <h2>맛집 상세보기</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 <input type="hidden" id="loginId" value="${sessionScope.loginId}"/>
 	<div>
-	<h3>${sessionScope.loginId}</h3>
-	<h3>맛집 상세보기</h3>
 	</div>
 	<div id="photo_div">
 	<c:forEach items="${CommentPhoto}" var="p">
@@ -225,7 +331,6 @@ textarea {
 	
 	<div id="comment_label">
 		<h3>리뷰</h3>
-		 <a href="./reviewWrite?restaurant_no=${resDetail.restaurant_no}">[리뷰 쓰기]</a>            
 	<br/>
 	</div>
 	
@@ -310,12 +415,104 @@ textarea {
 		
      </c:forEach>
     </div>
-    
+</main>    
 
         
+     
+     <footer>
+        <!-- Footer Start-->
+        <div class="footer-area">
+            <div class="container">
+               <div class="footer-top footer-padding">
+                    <div class="row justify-content-between">
+                        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                            <div class="single-footer-caption mb-50">
+                                <div class="single-footer-caption mb-30">
+                                    <!-- logo -->
+                                    <div class="footer-logo">
+                                        <a href="jmtMain.html"><img src="../resources/mainResource/assets/img/logo/logo.png" width="100px" alt=""></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>Quick Link</h4>
+                                    <ul>
+                                       	<li><a href="/">Home</a></li>
+                                        <li><a href="lightList.go">번개</a></li>
+                                        <li><a href="dojang.go">도장깨기</a></li>
+                                        <li><a href="restaurant">맛집</a></li>
+                                        <li><a href="groupReviewList">후기</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+               </div>
+                <div class="footer-bottom">
+                    <div class="row d-flex justify-content-between align-items-center">
+                        <div class="col-xl-9 col-lg-8">
+                            <div class="footer-copy-right">
+                                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            </div>
+                        </div>
+                        
+                    </div>
+               </div>
+            </div>
+        </div>
+        <!-- Footer End-->
+    </footer>
+    <!-- Scroll Up -->
+    <div id="back-top" >
+        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+    </div>
         
         
 </body>
+
+
+<!-- JS here -->
+		<!-- All JS Custom Plugins Link Here here -->
+        <script src="../resources/mainResource/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+		<!-- Jquery, Popper, Bootstrap -->
+		<script src="../resources/mainResource/assets/js/vendor/jquery-1.12.4.min.js"></script>
+        <script src="../resources/mainResource/assets/js/popper.min.js"></script>
+        <script src="../resources/mainResource/assets/js/bootstrap.min.js"></script>
+	    <!-- Jquery Mobile Menu -->
+        <script src="../resources/mainResource/assets/js/jquery.slicknav.min.js"></script>
+
+		<!-- Jquery Slick , Owl-Carousel Plugins -->
+        <script src="../resources/mainResource/assets/js/owl.carousel.min.js"></script>
+        <script src="../resources/mainResource/assets/js/slick.min.js"></script>
+		<!-- One Page, Animated-HeadLin -->
+        <script src="../resources/mainResource/assets/js/wow.min.js"></script>
+		<script src="../resources/mainResource/assets/js/animated.headline.js"></script>
+        <script src="../resources/mainResource/assets/js/jquery.magnific-popup.js"></script>
+
+		<!-- Nice-select, sticky -->
+        <script src="../resources/mainResource/assets/js/jquery.nice-select.min.js"></script>
+		<script src="../resources/mainResource/assets/js/jquery.sticky.js"></script>
+        
+        <!-- contact js -->
+        <script src="../resources/mainResource/assets/js/contact.js"></script>
+        <script src="../resources/mainResource/assets/js/jquery.form.js"></script>
+        <script src="../resources/mainResource/assets/js/jquery.validate.min.js"></script>
+        <script src="../resources/mainResource/assets/js/mail-script.js"></script>
+        <script src="../resources/mainResource/assets/js/jquery.ajaxchimp.min.js"></script>
+        
+		<!-- Jquery Plugins, main Jquery -->	
+        <script src="../resources/mainResource/assets/js/plugins.js"></script>
+        <script src="../resources/mainResource/assets/js/main.js"></script>
+        <script type="text/javascript" src="resources/js/jquery.twbsPagination.js"></script> 
+    </body>
+<%@ include file="../../../resources/inc/footer.jsp" %>
+
 
 <script>
 
@@ -332,7 +529,7 @@ console.log("식당번호 확인::",restaurant_no);
 	}
 	
 	function report(rep){
-		window.open('resReport.go?comment_no='+rep,'','width=400, height=300');
+		window.open('resReport.go?comment_no='+rep,"new","width=430, height=350, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 	}
 	
 	

@@ -33,7 +33,10 @@ table {
     width: 80%;
     height: 200px;
   }
-
+  
+th {
+    text-align: center;
+	}
 	
 	
 	
