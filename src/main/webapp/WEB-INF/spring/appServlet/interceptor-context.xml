@@ -30,6 +30,14 @@
 				<mvc:exclude-mapping path="/join*"/>
 				<mvc:exclude-mapping path="/login.*"/>
 				<mvc:exclude-mapping path="/*.ajax"/>
+				<mvc:exclude-mapping path="/lightList.go"/>
+				<mvc:exclude-mapping path="/lightDetail.go"/>
+				<mvc:exclude-mapping path="/groupReviewList"/>
+				<mvc:exclude-mapping path="/groupReviewDetail.do"/>
+				<mvc:exclude-mapping path="/dojang.go"/>
+				<mvc:exclude-mapping path="/dojangDetail.do"/>
+				<mvc:exclude-mapping path="/restaurant"/>
+				<mvc:exclude-mapping path="/resDetail.do*"/>
 				<bean class="com.jmt.main.controller.LoginController"/>
 			</mvc:interceptor>
 			
