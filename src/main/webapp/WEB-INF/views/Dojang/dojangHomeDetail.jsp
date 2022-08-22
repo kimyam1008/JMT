@@ -900,7 +900,7 @@ function updCmt(cno){
 
 //댓글 신고 팝업
 function lightCmtReport_pop(cno){
-	window.open("/dojangCmtReport.go?comment_no="+cno,"new","width=400, height=200, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+	window.open("/dojangCmtReport.go?comment_no="+cno,"new","width=400, height=350, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 }
 
 
