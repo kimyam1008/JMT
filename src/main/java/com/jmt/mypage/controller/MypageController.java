@@ -214,6 +214,7 @@ public class MypageController {
 			model.addAttribute("follower", otherFollower);
 			model.addAttribute("following", otherFollowing);
 			model.addAttribute("lightRoom",lightRoom);
+			model.addAttribute("dojangRoom",dojangRoom);
 			model.addAttribute("otherBoard",otherBoard);
 			model.addAttribute("otherCom",otherCom);
 		

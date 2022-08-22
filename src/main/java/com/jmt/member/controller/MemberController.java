@@ -85,7 +85,7 @@ public class MemberController {
 				String loginId = service.login(id, hashText); //로그인 아이디 가져오기
 				session.setAttribute("loginId", loginId); //로그인 아이디 세션 저장
 				String member_status = service.getMember_status(id, hashText); //관리자, 일반회원, 블랙리스트, 탈퇴회원인지 확인
-				session.setAttribute("member_", member_status);
+				session.setAttribute("member_status", member_status);
 				logger.info("로그인 요청아이디 : "+loginId+" 회원 상태 : "+member_status);
 				if(loginId != null && member_status != null) {
 					String profileExist = service.profileExist(loginId); //로그인이 진행되면 프로필 생성 여부 확인
@@ -187,6 +187,7 @@ public class MemberController {
 			logger.info("사진 : ",photos);
 			String loginId = (String) session.getAttribute("loginId"); //세션에 저장된 아이디 꺼내오기
 			String member_status = (String) session.getAttribute("member_status");
+			logger.info("member_status : "+member_status);
 			params.put("loginId", loginId); //hashmap 타입으로 한번에 보내기 위해 params 에 넣기
 			if(member_status.equals("일반회원")) {
 				if(params.get("gender") == null) { //입력되지 않은 값이 하나라도 있다면 경고창 띄우기
