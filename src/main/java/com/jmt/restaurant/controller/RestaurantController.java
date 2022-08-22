@@ -339,11 +339,11 @@ public class RestaurantController {
 	
 	// 맛집 수정 요청 (관리자) 요청 처리
 	@RequestMapping(value = "/Reporthandling.do")
-	   public String Reporthandling(@RequestParam HashMap<String, String> params, HttpSession session) {
+	   public String Reporthandling(@RequestParam HashMap<String, String> params, HttpSession session, RedirectAttributes ra) {
 		
 	      logger.info("맛집 요청 처리 : " + params);
 	      
-	      return service.Reporthandling(params);
+	      return service.Reporthandling(params, ra);
 	   }
 	
 

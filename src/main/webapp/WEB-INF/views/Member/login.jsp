@@ -48,7 +48,7 @@
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div> -->
 			<span>use your account</span>
-			<input type="id" name="id" placeholder="ID" />
+			<input type="text" name="id" placeholder="ID" />
 			<input type="password" name="pw" placeholder="Password" />
 			<div style="padding-bottom: 10px; padding-top: 10px;">
 				<a href="./Member/idFind.go" style="padding-right: 10px;">아이디 찾기 </a>
