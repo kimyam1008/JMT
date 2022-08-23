@@ -114,6 +114,10 @@ public interface MypageDAO {
 	ArrayList<MypageDTO> otherCom(int profile_no);
 
 
+	void fileUpdate(String oriFileName, String newFileName, int profile_no);
+
+	ArrayList<photoDTO> photoUpdate(String string);
+
 
 
 	
