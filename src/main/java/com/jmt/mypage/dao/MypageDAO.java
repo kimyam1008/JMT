@@ -113,6 +113,8 @@ public interface MypageDAO {
 
 	ArrayList<MypageDTO> otherCom(int profile_no);
 
+	photoDTO gibonPhoto(int profile_no);
+
 
 
 	

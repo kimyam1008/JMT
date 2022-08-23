@@ -163,16 +163,16 @@
                  
                  
                  /*버튼*/
-                 .btn{
+                 .btn1{
                      margin : 3px;
-                     padding : 5px;
                      border-radius : 5px;
                      border : 1px black;
                      background-color: #lightgrey;
-                     padding : 10px;
+                     font-size : 13px;
+                     padding : 5px;
                  }
                  
-                 .btn:hover{
+                 .btn1:hover{
                      background-color: #bebebe;
                  }
                  
@@ -611,8 +611,9 @@
                     content += '<div class ="content">';
                     content += '<header class="top">';
                     content += '<div class ="img">';
-                   content += '<img src ="/photo/'+item.photo_newFileName+'" class="profileImg">';
+                    content += '<img src ="/photo/'+item.photo_newFileName+'" class="profileImg">';
                     content += '</div>';
+               
                     
                     if(loginId == item.member_id){ //본인 댓글은 마이페이지로/타아이디는 otherspage로 
                     	content += '<div class="member_id"><a href="mypage.go" class="idatag">'+item.member_id+'</a></div>';
@@ -625,8 +626,8 @@
                     content += '<div class="utility">';
                     
                     if(loginId == item.member_id){ //본인 댓글만 수정,삭제 보이게 
-                        content += '<button class="btn" id="updBtn'+item.comment_no+'" onclick="updBtn('+item.comment_no+   ","     +  "\'" +  str   +"\'"  + ')">수정</button>';
-                        content += '<button class="btn" id="delBtn'+item.comment_no+'" onclick="cmtDel('+item.comment_no+')">삭제</button>';
+                        content += '<button class="btn1" id="updBtn'+item.comment_no+'" onclick="updBtn('+item.comment_no+   ","     +  "\'" +  str   +"\'"  + ')">수정</button>';
+                        content += '<button class="btn1" id="delBtn'+item.comment_no+'" onclick="cmtDel('+item.comment_no+')">삭제</button>';
                     }
                     
                     content += '</div>';

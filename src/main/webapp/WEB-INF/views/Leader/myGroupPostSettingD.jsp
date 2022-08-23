@@ -305,7 +305,7 @@ function drawList(myGroupPostSettingD){
 		
 		content += '<tr>';
 		content += '<td>'+item.dojangPost_no+'</td>';
-		content += '<td><a href="dojangDetail.do?dojangPost_no='+item.dojangPost_no+'">'+item.dojangPost_subject+'</a></td>';
+		content += '<td><a href="dojangHomeDetail.go?dojangPost_no='+item.dojangPost_no+'">'+item.dojangPost_subject+'</a></td>';
 		content += '<td>'+item.dojangPost_date+'</td>';
 		content += '</tr>';
 	});
