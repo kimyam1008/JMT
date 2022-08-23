@@ -611,8 +611,12 @@
                     content += '<div class ="content">';
                     content += '<header class="top">';
                     content += '<div class ="img">';
-                    content += '<img src ="/photo/'+item.photo_newFileName+'" class="profileImg">';
-                    content += '</div>';
+                    if (item.photo_newFileName!= null){
+            			content += '<img src ="/photo/'+item.photo_newFileName+'" class="profileImg">';
+            			}else{ //프로필 등록을 안했을 시
+            				content += '<img src ="resources/photo/profile.png" class="profileImg">';
+            			}
+            			content += '</div>';
                
                     
                     if(loginId == item.member_id){ //본인 댓글은 마이페이지로/타아이디는 otherspage로 

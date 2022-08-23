@@ -78,7 +78,14 @@
                 <!--방장 사진, 이름-->
                 <li class="dojangParty">
                     <a class="leaderProfile" href="./mypage.go">
-                        <img class="avatar border-gray" src="/photo/${lightDto.photo_newFileName}" alt="..."/>
+				<c:choose>
+						<c:when test="${lightDto.photo_newFileName ne null}">
+							 <img class="avatar border-gray" src="/photo/${lightDto.photo_newFileName}" alt="..."/>
+						</c:when>
+						<c:otherwise>
+							<img class="avatar border-gray" src ="resources/photo/profile.png" class="profileImg">
+						</c:otherwise>
+	              </c:choose>
                         <h4 class="title">${sessionScope.loginId}</h4>
                     </a>
                 </li>
