@@ -87,7 +87,7 @@
 			<td>
 				<select id="dojang_status" value="${dojangDto.dojang_status}">
 					<option value="모집중">모집중</option>
-					<option value="모집 마감">모집 마감</option>
+					<option value="모집마감">모집 마감</option>
 				</select>
 			</td>
 		</tr>
