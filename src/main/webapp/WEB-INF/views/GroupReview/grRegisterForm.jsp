@@ -92,6 +92,12 @@
             cursor : pointer;
             color : red;
          }
+         
+         .menu input[type="checkbox"]{cursor:pointer;}
+		 .hide{display:none;}
+		 
+		 .menu2 input[type="checkbox"]{cursor:pointer;}
+		 .hide2{display:none;}
         </style>
     </head>
 
@@ -209,24 +215,26 @@
                                 <tr>
                                     <th>나의 모임</th>
                                     <td>
-                                    <fieldset style="width:40%; float:left;">
-                                        <legend id="light"><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="1"/>번개모임</legend>
+                                    <div class="menu" style="width:40%; float:left;">
+                                        <input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="1"/>번개모임
                                         <!-- <div id="groupChoose1"> -->
-                                        <c:forEach items="${lightGroupList}" var="lightGroupList">
-                                            <input type="radio" name="idx" style="margin: 5px;" value="${lightGroupList.lightning_no}"/>${lightGroupList.lightning_title} <%-- (${lightGroupList.class_name}) --%> 
-                                            <br/>
-                                        </c:forEach>
+                                        <div class="hide">
+	                                        <c:forEach items="${lightGroupList}" var="lightGroupList">
+	                                            <input type="radio" name="idx" style="margin: 5px;" value="${lightGroupList.lightning_no}"/>${lightGroupList.lightning_title}<br/>
+	                                        </c:forEach>
+                                        </div>
                                        <!--  </div> -->
-                                    </fieldset>
-                                    <fieldset style="width:40%; float:left;">
-                                        <legend id="dojang"><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="3"/>도장깨기</legend>
+                                    </div>
+                                    <div class="menu2" style="width:40%; float:left;">
+                                        <input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="3"/>도장깨기
                                         <!-- <div id="groupChoose2"> -->
+                                        <div class="hide2">
                                         <c:forEach items="${groupList}" var="groupList">
-                                            <input type="radio" name="idx" style="margin: 5px;" value="${groupList.dojang_no}"/>${groupList.dojang_title} 
-                                            <br/>
+                                            <input type="radio" name="idx" style="margin: 5px;" value="${groupList.dojang_no}"/>${groupList.dojang_title}<br/>
                                         </c:forEach>
+                                        </div>
                                         <!-- </div> -->
-                                    </fieldset>
+                                    </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -376,36 +384,38 @@ function checkOnlyOne(element) {
   element.checked = true;
 }
 
-/* console.log($('.light:first-child').val());
-console.log($('.dojang:first-child').val());
 
-function setDisplay1(){
-   if($('input[type="checkbox"]:nth-child(1)').is(':checked')){
-      $('#groupChoose1').show();
-      } else {
-         $('#groupChoose1').hide();
-      }
-}
- */
-/* function setDisplay2(){
-   if($('input:checkbox[value="3"]').is(':checked')){
-      $('#groupChoose2').show();
-      } else {
-         $('#groupChoose2').hide();
-      }
-}
- */
+/***모임 관련 토글***/
+//html dom 이 다 로딩된 후 실행된다.
+$(document).ready(function(){
+	// memu 클래스 바로 하위에 있는 input 태그를 클릭했을때
+	$(".menu>input").click(function(){
+		// 현재 클릭한 태그가 input 이기 때문에
+		// input 옆의 태그중 ul 태그에 hide 클래스 태그를 넣던지 빼던지 한다.
+		$(this).next("div").toggleClass("hide");
+		//$(".menu2>input").next("ul").toggle(".hide2");
+	});
+});
+
+
+$(document).ready(function(){
+	$(".menu2>input").click(function(){
+		$(this).next("div").toggleClass("hide2");
+		//$(".menu>input").next("ul").toggle("hide");
+	});
+});
+
+
 /* 
-$('input[name="class_no"]').on("change",function(){
-   if ($('input[name="class_no"]:checked').val()=="1") {
-      $('input[type="radio"]').attr("disabled",false);
-   } else {
-      $('input[type="radio"]').val('');
-      ('input[type="radio"]').attr("disabled",true);
-   }
-})
+$('.menu ul li').bind('click', function() {
+	// 현재 선택된 ul을 가져옴
+	var $ul = $(this).closest('ul');
+	// 현재 선택된 ul 인덱스 외의 모든 ul의 하위 li 메뉴는 숨김처리
+	$('.menu ul:not(:eq(' + $ul.index() + ')) li').hide();
+	// 현재 선택된 ul 인덱스의 하위 .span_m 메뉴는 보여주게 처리
+	$('.menu ul:eq(' + $ul.index() + ') li').show();
+});
  */
-
 
 
 //글 업로드

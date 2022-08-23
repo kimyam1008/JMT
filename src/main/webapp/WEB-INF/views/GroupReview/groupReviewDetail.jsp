@@ -366,7 +366,7 @@
                             </tr>
                             <tr>
                                 <th>작성자</th>
-                                <td>${dto.member_name}</td>
+                                <td>${dto.member_id}</td>
                                 <th>작성일</th>
                                 <td>${dto.review_date}</td>
                             </tr>
