@@ -68,7 +68,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="./myBoardList.go">
+                    <a href="#">
                         <i class="pe-7s-note2"></i>
                         <p>나의 활동</p>
                     </a>
@@ -220,7 +220,7 @@
 												<li>${myboard.review_title}</li>
 											</ul>
 										</c:forEach>
-										<a href="./boardMore.go">더 보기</a>
+										<a href="#">더 보기</a>
                                     </h5>
                                     <h5 style="margin:40px; margin-left:50px; margin-right:100px"><p>내가 쓴 댓글의 게시글</p>
                                     <c:forEach items="${mycomment}" var="board">
