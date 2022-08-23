@@ -115,6 +115,10 @@ public interface MypageDAO {
 
 	photoDTO gibonPhoto(int profile_no);
 
+	void fileUpdate(String oriFileName, String newFileName, int profile_no);
+
+	ArrayList<photoDTO> photoUpdate(String string);
+
 
 
 	
