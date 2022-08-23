@@ -91,7 +91,7 @@
 							                                   </li>
 						                                </c:otherwise>
 			                                        	</c:choose>
-			                                           <li id="logoutDo"><a href="logout.do">로그아웃</a></li>
+			                                           <li id="logoutDo"><a href="logout.do">${sessionScope.loginId}님, 로그아웃</a></li>
 			                                           
 			                                      		<c:if test="${member_status eq '일반회원'}">
 			                                          	  <li class="add-list"><a href="/mypage.go"><i class="ti-user"></i>마이페이지</a></li>

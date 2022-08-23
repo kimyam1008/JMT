@@ -65,6 +65,14 @@
 			font-size: 15px;
 		}	
 		
+		
+		.titlea{
+			color : #50bcdf;
+		}
+		
+		.titlea:hover{
+			color:black;
+		}
 			
 	.notiDelBtn:hover{
 		cursor : pointer;
@@ -141,7 +149,7 @@
 							                                            </li>
 						                                            </c:otherwise>
 			                                        			</c:choose>
-			                                            	<li id="logoutDo"><a href="logout.do">로그아웃</a></li>
+			                                            	<li id="logoutDo"><a href="logout.do">${sessionScope.loginId}님, 로그아웃</a></li>
 			                                            	<li class="add-list"><a href="/mypage.go"><i class="ti-user"></i>마이페이지</a></li>
 		                                            	</c:when>
 		                                            	<c:otherwise>
@@ -558,7 +566,7 @@
 				content += '<td>'+item.restaurant_name+'</td>';
 				content += '<td>'+item.food_name+'</td>';
 				content += '<td>'+item.leader_id+'</td>';
-				content += item.lightning_status == "모집중"? '<td><a href="lightDetail.go?lightning_no='+item.lightning_no+'">'+item.lightning_title+'</a></td>' : '<td>'+item.lightning_title+'</td>';
+				content += item.lightning_status == "모집중"? '<td><a class="titlea" href="lightDetail.go?lightning_no='+item.lightning_no+'">'+item.lightning_title+'</a></td>' : '<td>'+item.lightning_title+'</td>';
 				content += '<td>'+date.toLocaleDateString("ko-KR")+'</td>';
 				content += '<td>'+item.member_count +' / '+ item.member_num+'</td>';
 				content += '<td>'+item.lightning_status+'</td>';
