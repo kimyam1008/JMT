@@ -113,7 +113,6 @@ public interface MypageDAO {
 
 	ArrayList<MypageDTO> otherCom(int profile_no);
 
-	photoDTO gibonPhoto(int profile_no);
 
 	void fileUpdate(String oriFileName, String newFileName, int profile_no);
 

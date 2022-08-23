@@ -368,10 +368,6 @@ public class MypageService {
 		return dao.otherCom(profile_no);
 	}
 
-	public photoDTO gibonPhoto(int profile_no) {
-		
-		return dao.gibonPhoto(profile_no);
-	}
 
 	
 

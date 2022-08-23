@@ -134,7 +134,7 @@ public class MypageController {
 				@RequestParam HashMap<String, Object> params) {
 			String loginId = (String) session.getAttribute("loginId");
 			params.put("loginId", loginId);
-			logger.info("params :{}",params);
+			logger.info("params :"+params+" 사진 : "+photos);
 			service.profileUpdate(model, photos, params);
 			
 			return "redirect:/mypage.go";

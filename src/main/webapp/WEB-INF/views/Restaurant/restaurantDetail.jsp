@@ -69,7 +69,7 @@ ul{ list-style:none;}
 	background-color: #f9f9fa;
 }
 
-#comment_date{position:relative;  top:5px; left:600px;}
+#comment_date{position:relative; width: 400px; bottom:20px; left:620px;}
 
 
 #comment_content{
@@ -103,11 +103,11 @@ ul{ list-style:none;}
 	
 }
 #comment_list{
-
+ width: 250px;
 }
 #comment_option{
 	position:relative;
-	left:720px;
+	left:700px;
 	bottom:5px;
 }
 
@@ -376,9 +376,9 @@ textarea {
 			<input type="hidden" name="idx" value="${comment.comment_no}" />
 			
 			<div  id="comment_list">
-				<span>${comment.member_id}</span>
+				<div>${comment.member_id}</div>
 				
-				<span id="comment_date">${comment.comment_date}
+				<div id="comment_date">${comment.comment_date}
 					<c:choose>
 				 		<c:when test="${comment.likeMember == null or sessionScope.loginId == null}">
 							<img src="/photo/heart.png" height="13" style="cursor: pointer;" onclick="like(this)" commentID="${comment.comment_no}" loginID="${sessionScope.loginId}"/>	
@@ -389,7 +389,7 @@ textarea {
 							${comment.likeNo}
 						</c:otherwise>
 					</c:choose>
-				</span>
+				</div>
 			</div>
 			
 			<div  id="comment_content">

@@ -20,6 +20,7 @@
 				<mvc:exclude-mapping path="/*.ajax"/>
 				<mvc:exclude-mapping path="/report*"/>
 				<mvc:exclude-mapping path="/grade.go"/>
+				<mvc:exclude-mapping path="/profileUpdate.*"/>
 				<bean class="com.jmt.main.controller.NotiController"/>
 			</mvc:interceptor>
 
