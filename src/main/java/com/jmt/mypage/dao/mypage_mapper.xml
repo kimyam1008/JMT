@@ -19,7 +19,7 @@
 		SELECT COUNT(following_id) From follow f WHERE following_id = #{param1}
 	</select>
 	
-	<select id="profile_no" resultType="int">
+	<select id="profile_no" resultType="integer">
 		SELECT profile_no FROM profile WHERE member_id = #{param1}
 	</select>
 	
