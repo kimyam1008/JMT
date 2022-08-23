@@ -240,11 +240,11 @@
 	</select> -->
 	
 	<select id="lightRoom" resultType="mypage">
-		SELECT lightning_title,lightning_no FROM lightninglist l WHERE leader_id = (SELECT member_id FROM profile p WHERE profile_no = #{param1}) LIMIT 3
+		SELECT lightning_title,lightning_no FROM lightninglist l WHERE leader_id = (SELECT member_id FROM profile p WHERE profile_no = #{param1}) AND l.lightning_status = "모집중" LIMIT 3
 	</select>
 	
 	<select id="dojangRoom" resultType="mypage">
-		SELECT dojang_title, dojang_no  FROM dojanglist d WHERE leader_id = (SELECT member_id FROM profile p WHERE profile_no = #{param1}) LIMIT 3
+		SELECT dojang_title, dojang_no  FROM dojanglist d WHERE leader_id = (SELECT member_id FROM profile p WHERE profile_no = #{param1}) AND d.dojang_status = "모집중" LIMIT 3
 	</select>
 	
 	<select id="otherBoard" resultType="mypage">
