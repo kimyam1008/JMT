@@ -76,21 +76,6 @@
                                             <li><a href="groupReviewList">후기</a></li>
 										<c:choose>
 		                                       <c:when test="${loginId != null}">
-			                                            <!-- 알림 -->
-				                                        <c:choose>
-						                                       <c:when test="${notiChk=='true'}"><!--안읽은 알림있을 때  -->
-								                                       <li><a href="#"><img  id="notidrop" src="resources/photo/noti4.png"  style="width:30px; height:25px;"/></a>
-								                                            <ul class="submenu notidrop_menu" style="width : 300px; display : none;">
-								                                            </ul>
-								                                        </li>
-						                                        </c:when>
-						                                <c:otherwise>
-							                                   <li><a href="#"><img id="notidrop"  src="resources/photo/bnoti4.png"  style="width:30px; height:25px;"/></a>
-							                                          <ul class="submenu notidrop_menu" style="width : 300px; display : none;">
-								                                      </ul>
-							                                   </li>
-						                                </c:otherwise>
-			                                        	</c:choose>
 			                                           <li id="logoutDo"><a href="logout.do">${sessionScope.loginId}님, 로그아웃</a></li>
 			                                           
 			                                      		<c:if test="${member_status eq '일반회원'}">
@@ -522,7 +507,6 @@
         <script src="../resources/mainResource/assets/js/main.js"></script>
         
     </body>
-    <%@ include file="../../../resources/inc/footer.jsp" %>
     <script>
     
 		var msg = "${msg}";
