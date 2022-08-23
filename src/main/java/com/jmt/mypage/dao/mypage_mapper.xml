@@ -27,6 +27,17 @@
 		SELECT * FROM photo p2 WHERE class_no=9 AND p2.idx = #{param1}
 	</select>
 	
+	<select id="photoUpdate" resultType="photo">
+		SELECT * FROM photo p2 WHERE class_no=9 AND p2.idx = #{param1}
+	</select>
+	
+	
+	<update id="fileUpdate">
+		UPDATE photo SET photo_oriFileName = #{param1}, photo_newFileName = #{param2}
+		WHERE idx = #{param3} and class_no=9
+	</update>
+	
+	
 	<select id="foodList" resultType="member">
 		SELECT * FROM food
 	</select>
@@ -48,8 +59,11 @@
 	</update>
 	
 	<delete id="photoDel" parameterType="int">
-		DELETE FROM photo WHERE idx = #{profile_no}
+		UPDATE  photo SET  idx = #{profile_no}
 	</delete>
+	
+	<!-- UPDATE curriculm SET curri_oriName = #{param1}, curri_newName = #{param2}
+		WHERE sub_no = #{param3} -->
 	
 	<insert id="fileWrite">
 		INSERT INTO photo(class_no, photo_oriFileName, photo_newFileName, idx)

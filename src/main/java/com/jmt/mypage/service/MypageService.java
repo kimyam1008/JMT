@@ -120,13 +120,16 @@ public class MypageService {
 		int memberUpdate = dao.memberUpdate(dto);
 		logger.info("1차 와?");
 		//사진 업데이트는 하든 안하든 무조건 기존 사진 삭제하고 다시 올리기
-		int photoDel = dao.photoDel(profile_no); //기존 사진 삭제
-		logger.info("사진삭제 : "+ photoDel);	
-		if(photoDel > 0) { //사진 삭제에 성공하면
-			fileSave(photos, profile_no); //사진 다시등록
-		}
 		
-		if(profileUpdate > 0 || memberUpdate >0 || photoDel > 0) {
+		if(profileUpdate > 0 || memberUpdate >0 ) {
+			
+			if(photos !=null ) {
+				fileUpdate(photos,profile_no);
+				
+			}else {
+				
+			}
+			
 			model.addAttribute("msg", "정보수정이 완료되었습니다.");
 		}else {
 			model.addAttribute("msg", "정보수정에 실패했습니다.");
@@ -161,6 +164,42 @@ public class MypageService {
 			}
 		}
 	}
+	
+	
+	public void fileUpdate(MultipartFile[] photos, int profile_no) {
+		
+		for (MultipartFile photo : photos) {
+			String oriFileName = photo.getOriginalFilename(); //파일명
+
+			
+			if(!oriFileName.equals("")) {
+				logger.info("업로드 진행");
+				// 3-2. 확장자 분리
+				String ext = oriFileName.substring(oriFileName.lastIndexOf(".")).toLowerCase();
+				// 3-3. 새 이름 만들기
+				String newFileName = System.currentTimeMillis()+ext;
+			logger.info("과목이미지:::" + photos);
+				try {
+					ArrayList<photoDTO> photoUpdate = dao.photoUpdate(Integer.toString(profile_no));
+					
+					byte[] arr = photo.getBytes();
+					Path path = Paths.get("C:/STUDY/SPRING_ADVANCE/JMT4/src/main/webapp/resources/photo/review/" + newFileName);
+					Files.write(path, arr);
+					
+					if(photoUpdate.isEmpty())
+						dao.fileWrite(oriFileName, newFileName, profile_no);
+					else
+						dao.fileUpdate(oriFileName, newFileName, profile_no);
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+		}
+	}
+	
+	
+	
 
 	public int memberDrop(String loginId) {
 		
