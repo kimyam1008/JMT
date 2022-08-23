@@ -250,9 +250,6 @@
 			WHERE member_id = (select member_id from profile p where profile_no = '20') AND c.comment_status = '공개' AND c.class_no = '8' LIMIT 3
 	</select>
 	
-	<insert id="gibonPhoto">
-	 	INSERT INTO photo (photo_oriFileName, photo_newFileName, class_no, idx) VALUES ('gibonPhoto.jpg', '0000.jpg', '9', #{param1})
-	</insert>
 	
 	
 	
