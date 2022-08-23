@@ -75,7 +75,14 @@
                 <!--방장 사진, 이름-->
                 <li class="dojangParty">
                     <a class="leaderProfile" href="./mypage.go">
-                        <img class="avatar border-gray" src="/photo/${dto.photo_newFileName}" class="profileImg" alt="..."/>
+				<c:choose>
+						<c:when test="${dto.photo_newFileName ne null}">
+							 <img class="avatar border-gray" src="/photo/${dto.photo_newFileName}" class="profileImg" alt="..."/>
+						</c:when>
+						<c:otherwise>
+							<img class="avatar border-gray" src ="resources/photo/profile.png" class="profileImg">
+						</c:otherwise>
+	              </c:choose>
                         <h4 class="title">${sessionScope.loginId}</h4>
                     </a>
                 </li>
@@ -180,7 +187,11 @@
 
                                 <div class="top-section">
                                     <div>
-	                                    <a href="#" style="float:left;"><img src ="/photo/${dto.photo_newFileName}" class="profileImg"></a>
+									<c:choose>
+											<c:when test="${dto.photo_newFileName ne null}">
+												   <a href="#" style="float:left;"><img src ="/photo/${dto.photo_newFileName}" class="profileImg"></a>
+											</c:when>
+						              </c:choose>
 	                                    <div>
 	                                    	<p class="title" style="margin-bottom:10px;">${dto.lightning_title}</p><br/>
 	                                   		<p class="post-count">작성글 : ${dto.post_count}</p><p class="comment-count">작성 댓글 : ${dto.comment_count}</p>

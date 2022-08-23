@@ -157,7 +157,14 @@
 
                                 <div class="top-section">
                                 	<div>
-	                                    <a href="#" style="float:left; weight:50px;"><img src ="/photo/${photo.photo_newFileName}" class="profileImg"></a>
+	                                    <a href="#" style="float:left; weight:50px;">
+	                                    <c:choose>
+	                                    <c:when test="${photo.photo_newFileName ne null}">
+	                                    	<img src ="/photo/${photo.photo_newFileName}" class="profileImg">
+	                                    </c:when>
+	                                    <c:otherwise><img src ="resources/photo/profile.png" class="profileImg"></c:otherwise>
+	                                    </c:choose>
+	                                    </a>
 	                                    <div class="info" style="font-size:16px;">
 	                                    	<p style="margin-bottom:10px;">${list.member_id }님 반갑습니다.</p>
 	                                    	<p>등급 : ${list.grade_name }</p>
