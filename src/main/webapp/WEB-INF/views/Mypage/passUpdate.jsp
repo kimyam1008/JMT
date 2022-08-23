@@ -6,7 +6,7 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-body,textarea {
+	body,textarea {
 		font-family: 'GmarketSansMedium';
 	}
 	table {

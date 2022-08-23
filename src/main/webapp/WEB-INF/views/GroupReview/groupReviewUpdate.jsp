@@ -93,7 +93,11 @@
 				cursor : pointer;
 				color : red;
 			}
-			
+			.menu input[type="checkbox"]{cursor:pointer;}
+			.hide{display:none;}
+			 
+			.menu2 input[type="checkbox"]{cursor:pointer;}
+			.hide2{display:none;}
         </style>
     </head>
 
@@ -215,38 +219,23 @@
                                 <tr>
                                     <th>나의 모임</th>
                                     <td>
-                                        <%-- <fieldset style="width:40%; float:left;">
-	                                        <legend>번개모임</legend>
-	                                        <c:forEach items="${lightGroupList}" var="lightGroupList">
-	                                                <input type="radio" name="idx" value="${lightGroupList.lightning_no}" <c:if test="${dto.lightning_no eq lightGroupList.lightning_no}">checked</c:if>/>
-	                                                ${lightGroupList.lightning_title} (${lightGroupList.class_name}) 
-	                                                <input type="hidden" name="class_no" value="${lightGroupList.class_no}"><br/>
-	                                        </c:forEach>
-	                                        </fieldset>
-	                                        <fieldset style="width:40%; float:left;">
-	                                            <legend>도장깨기</legend>
-	                                            <c:forEach items="${groupList}" var="groupList">
-	                                                    <input type="radio" name="idx" value="${groupList.dojang_no}" <c:if test="${dto.dojang_no eq groupList.dojang_no}">checked</c:if>/>
-	                                                    ${groupList.dojang_title} (${groupList.class_name}) 
-	                                                    <input type="hidden" name="class_no" value="${groupList.class_no}"><br/>
-	                                        </c:forEach>
-                                        </fieldset> --%>
                                         
-                                        
-                                        <fieldset style="width:40%; float:left;">
-	                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="1" <c:if test="${dto.class_no != 0}">checked</c:if>/>번개모임</legend>
-	                                        <c:forEach items="${lightGroupList}" var="lightGroupList">
-	                                           	<input type="radio" name="idx" style="margin: 5px" value="${lightGroupList.lightning_no}" <c:if test="${dto.lightning_no eq lightGroupList.lightning_no}">checked</c:if>/>${lightGroupList.lightning_title} <%-- (${lightGroupList.class_name}) --%> 
-	                                            <br/>
-	                                        </c:forEach>
-	                                    </fieldset>
-	                                    <fieldset style="width:40%; float:left;">
-	                                        <legend><input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="3" <c:if test="${dto.dojang_class_no != 0}">checked</c:if>/>도장깨기</legend>
+                                        <div class="menu" style="width:40%; float:left;">
+	                                        <input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="1" <c:if test="${dto.class_no != 0}">checked</c:if>/>번개모임
+	                                        <div class="hide">
+		                                        <c:forEach items="${lightGroupList}" var="lightGroupList">
+		                                           	<input type="radio" name="idx" style="margin: 5px" value="${lightGroupList.lightning_no}" <c:if test="${dto.lightning_no eq lightGroupList.lightning_no}">checked</c:if>/>${lightGroupList.lightning_title}<br/>
+		                                        </c:forEach>
+	                                        </div>
+	                                    </div>
+	                                    <div class="menu2" style="width:40%; float:left;">
+	                                        <input type="checkbox" style="margin: 5px" name="class_no" onclick="checkOnlyOne(this)" value="3" <c:if test="${dto.dojang_class_no != 0}">checked</c:if>/>도장깨기
+	                                        <div class="hide2">
 	                                        <c:forEach items="${groupList}" var="groupList">
-	                                           	<input type="radio" name="idx" style="margin: 5px" value="${groupList.dojang_no}" <c:if test="${dto.dojang_no eq groupList.dojang_no}">checked</c:if>/>${groupList.dojang_title} 
-	                                            <br/>
+	                                           	<input type="radio" name="idx" style="margin: 5px" value="${groupList.dojang_no}" <c:if test="${dto.dojang_no eq groupList.dojang_no}">checked</c:if>/>${groupList.dojang_title}<br/>
 	                                        </c:forEach>
-	                                    </fieldset>
+	                                        </div>
+	                                    </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -390,6 +379,28 @@ function checkOnlyOne(element) {
   
   element.checked = true;
 }
+
+
+/***모임 관련 토글***/
+//html dom 이 다 로딩된 후 실행된다.
+$(document).ready(function(){
+	// memu 클래스 바로 하위에 있는 input 태그를 클릭했을때
+	$(".menu>input").click(function(){
+		// 현재 클릭한 태그가 input 이기 때문에
+		// input 옆의 태그중 ul 태그에 hide 클래스 태그를 넣던지 빼던지 한다.
+		$(this).next("div").toggleClass("hide");
+		//$(".menu2>input").next("ul").toggle(".hide2");
+	});
+});
+
+
+$(document).ready(function(){
+	$(".menu2>input").click(function(){
+		$(this).next("div").toggleClass("hide2");
+		//$(".menu>input").next("ul").toggle("hide");
+	});
+});
+
 
 //글 업로드
 function save(){

@@ -23,7 +23,7 @@ public class MainService {
 	
 	//크롤링
 	String driver_id = "webdriver.chrome.driver";
-	String driver_path = "C:/STUDY/SPRING_Advanced/JMT4/src/main/webapp/resources/photo/food_no/chromedriver.exe";
+	String driver_path = "C:/STUDY/SPRING_ADVANCE/JMT4/src/main/webapp/resources/photo/food_no/chromedriver.exe";
 	//String driver_path = "C:/chromedriver.exe";
 
 	public ArrayList<MainDTO> lightDto() {

@@ -107,7 +107,7 @@
 		WHERE t.class_no=3 AND leader_id OR member_id = #{param1}
 		GROUP BY leader_id,d.dojang_no,d.member_id -->
 		
-		select d.leader_id,a.member_id,d.dojang_title from apply a right outer join dojanglist d on d.dojang_no = a.idx 
+		select d.leader_id,a.member_id,d.dojang_title,d.dojang_no from apply a right outer join dojanglist d on d.dojang_no = a.idx 
 		where d.leader_id = #{param1} or a.status = "승인" and member_id =#{param1} group by d.dojang_title
 	</select>
 	
@@ -120,7 +120,7 @@
 		LEFT OUTER JOIN lightningList l ON a.idx = l.lightning_no
 		WHERE a.class_no = 1 AND (a.status = "승인" AND a.member_id = #{param1}) OR l.leader_id = #{param1} -->
 		
-		select l.leader_id,a.member_id,l.lightning_title from apply a right outer join lightninglist l on l.lightning_no = a.idx 
+		select l.leader_id,a.member_id,l.lightning_title,l.lightning_no from apply a right outer join lightninglist l on l.lightning_no = a.idx 
 		where l.leader_id = #{param1} or a.status = "승인" and member_id =#{param1} group by l.lightning_title;
 	</select>
 	

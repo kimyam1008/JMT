@@ -40,6 +40,10 @@ public class MypageController {
 				MemberDTO my = service.mypage(loginId); //마이페이지에 보여줄 프로필 정보 가져오기
 				int profile_no = service.profile_no(loginId); //프로필 사진 가져올 때 맵퍼에 조건으로 필요
 				photoDTO photoList = service.photoList(profile_no); //프로필 사진 가져오기
+				if(photoList == null) { //사진 등록 안하고 프로필 등록하면 기본 이미지 보여주기
+					photoDTO gibonPhoto = service.gibonPhoto(profile_no);
+					photoList = gibonPhoto;
+				}
 				int blindCount = service.blindCount(loginId); //블라인드 갯수 가져오기
 				int follower = service.follower(loginId); //팔로워 수 가져오기
 				int following = service.following(loginId); //팔로잉 수 가져오기
