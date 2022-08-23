@@ -319,7 +319,7 @@ function drawList(list){
 		} 
 		content += '<tr>';
 		content += '<td>'+list.blind_no+'</td>';
-		content += '<td><a href=/report/blindDetail.go?report_no='+list.report_no+'&class_no='+list.class_no+'&idx='+list.idx+'>'+mb_ligntning_title + mb_comment+mb_dojang_title +mb_dojang_post+ mb_group_review + '</a></td>';
+		content += '<td><a href=/report/blindDetail.go?report_no='+list.report_no+'&class_no='+list.class_no+'&idx='+list.idx+'>'+mb_ligntning_title + mb_comment +mb_dojang_title +mb_dojang_post+ mb_group_review +'</a></td>';
 		content += '<td>'+list.reporter+'</td>';
 		content += '<td>'+list.reported+'</td>';
 		content += '<td>'+list.report_proc_status+'</td>';
