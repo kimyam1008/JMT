@@ -10,7 +10,7 @@
 		<link rel="shortcut icon" type="image/x-icon" href="../resources/mainResource/assets/img/pizza-slice.png">
         <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-pen.css" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-		
+		<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-pen.css" rel="stylesheet">
         
         <!-- CSS here -->
             <link rel="stylesheet" href="../resources/mainResource/assets/css/bootstrap.min.css">
