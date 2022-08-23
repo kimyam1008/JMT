@@ -67,12 +67,6 @@
                         <p>마이페이지</p>
                     </a>
                 </li>
-                <li>
-                    <a href="./myBoardList.go">
-                        <i class="pe-7s-note2"></i>
-                        <p>나의 활동</p>
-                    </a>
-                </li>
             </ul>
     	</div>
     </div>

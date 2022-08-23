@@ -226,7 +226,7 @@ table{width:100%;}
 					 		<a href="/dojangHomeDetail.go?dojangPost_no=${reportPost.idx}"> ${reportPost.comment_content}</a>
 						 </c:if>
 					 	 <c:if test="${detailDto.class_no eq 2 }"> <!-- 번개 댓글 -->
-					 		<a href="/lightDetail.go?lightning_no=${detailDto.idx}"> ${reportPost.comment_content}</a>
+					 		<a href="/lightDetail.go?lightning_no=${reportPost.idx}"> ${reportPost.comment_content}</a>
 						 </c:if>
 					 </c:if>
 					 <c:if test="${not empty reportPost.dojangPost_subject}"><a href="/dojangHomeDetail.go?dojangPost_no=${detailDto.idx}"> ${reportPost.dojangPost_subject}</a></c:if>
