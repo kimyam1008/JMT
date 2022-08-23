@@ -43,7 +43,7 @@
 		color : red;
 	}
 	.profileImg{
-		width:170px;
+		width:150px;
 	}
     </style>
 </head>
@@ -169,7 +169,7 @@
 
                 <!--게시글 양식 시작-->
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="card">
                             
                             <div class="content" style="padding:30px;">
@@ -305,7 +305,7 @@ function drawList(myGroupPostSettingD){
 		
 		content += '<tr>';
 		content += '<td>'+item.dojangPost_no+'</td>';
-		content += '<td><a href="dojangDetail.do?dojangPost_no='+item.dojangPost_no+'">'+item.dojangPost_subject+'</a></td>';
+		content += '<td><a href="dojangHomeDetail.go?dojangPost_no='+item.dojangPost_no+'">'+item.dojangPost_subject+'</a></td>';
 		content += '<td>'+item.dojangPost_date+'</td>';
 		content += '</tr>';
 	});

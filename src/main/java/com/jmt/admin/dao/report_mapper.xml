@@ -447,7 +447,7 @@
 	
 	
 	<select id="chkGrade" resultType="int" parameterType="String"> 
-		select p.grade_no  from profile p join grade g ON p.grade_no =g.grade_no  where p.member_id =#{loginId};
+		select p.grade_no from profile p join grade g ON p.grade_no =g.grade_no  where p.member_id =#{loginId};
 	</select>
 	
 	

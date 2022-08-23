@@ -76,7 +76,7 @@ public class MypageService {
 		return dao.following(loginId);
 	}
 
-	public int profile_no(String loginId) {
+	public Integer profile_no(String loginId) {
 		
 		return dao.profile_no(loginId);
 	}

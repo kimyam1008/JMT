@@ -84,9 +84,13 @@ public class GradeController extends HandlerInterceptorAdapter{
 
 			
 			
-		 	if(loginId!=null) {
+		 	if(loginId!=null ) {
+		 		
+			Integer result = service2.profile_no(loginId);
+			System.out.println(result);
+			if((Integer)result != null) {
+				
 			
-			int result = service2.profile_no(loginId);
 			
 			System.out.println("로그인 아이디 확인:"+loginId);
 			
@@ -142,7 +146,7 @@ public class GradeController extends HandlerInterceptorAdapter{
 		String level_4 =list.get(4).getGrade_name();
 		int level_4_no =list.get(4).getGrade_no();
 		
-		
+			
 		
 		
 		Map<String, Object> data = new HashMap<String, Object>(); 
@@ -185,8 +189,9 @@ public class GradeController extends HandlerInterceptorAdapter{
 		
 		}
 		
-		
-	}
+		 	}
+			
+}
 	
 	
 	
