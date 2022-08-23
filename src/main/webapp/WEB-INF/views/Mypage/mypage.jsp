@@ -231,10 +231,6 @@
 												</li>
 											</ul>
 										</c:forEach>
-<<<<<<< HEAD
-										<a href="#">더 보기</a>
-=======
->>>>>>> origin/master
                                     </h5>
                                     <h5 style="margin:40px; margin-left:50px; margin-right:100px"><p>내가 쓴 댓글의 게시글</p>
                                     <c:forEach items="${mycomment}" var="board">
