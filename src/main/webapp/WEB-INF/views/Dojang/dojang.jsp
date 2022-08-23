@@ -157,7 +157,13 @@
 						                                            </c:otherwise>
 			                                        			</c:choose>
 			                                            	<li id="logoutDo"><a href="logout.do">${sessionScope.loginId}님, 로그아웃</a></li>
-			                                            	<li class="add-list"><a href="/mypage.go"><i class="ti-user"></i>마이페이지</a></li>
+			                                            		
+			                                            		<c:if test="${member_status eq '일반회원'}">
+					                                          	  <li class="add-list"><a href="/mypage.go"><i class="ti-user"></i>마이페이지</a></li>
+					                                          	</c:if> 	
+					                                      		<c:if test="${member_status eq '관리자'}">
+					                                          	  <li class="add-list"><a href="/report/"><i class="ti-user"></i>관리자 페이지</a></li>
+					                                          	</c:if>
 		                                           </c:when>
 		                                           <c:otherwise>
 				                                         <li class="add-list"><a href="login.go"><i class="ti-user"></i>로그인</a></li>

@@ -88,8 +88,9 @@ public class GradeController extends HandlerInterceptorAdapter{
 		 		
 			Integer result = service2.profile_no(loginId);
 			System.out.println(result);
+			
+		
 			if((Integer)result != null) {
-				
 			
 			
 			System.out.println("로그인 아이디 확인:"+loginId);
