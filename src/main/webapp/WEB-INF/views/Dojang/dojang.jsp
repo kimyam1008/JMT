@@ -206,7 +206,7 @@
 		                            <div class="single-listing">
 		                                <!-- input -->
 		                                <div class="input-form">
-		                                    <input type="text" id="search" name="search" placeholder="모임 이름을 입력해주세요"
+		                                    <input type="text" id="search" name="search" placeholder="모임명을 입력하세요"
 				                                onKeypress="javascript:if(event.keyCode==13) {enterkey()}"/>
 		                                </div>
 							<!-- Select job items start -->
@@ -423,7 +423,7 @@
 
 
 <br/>
-		<!-- <input type="text" id="search" placeholder="모임이름을 검색해주세요"> -->
+		<!-- <input type="text" id="search" placeholder="모임명을 입력하세요"> -->
 
 
 

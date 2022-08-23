@@ -217,18 +217,42 @@
                                     <h5 style="margin:40px; margin-left:50px; margin-right:100px"><p>내가 쓴 게시글</p>
                                     	<c:forEach items="${myboard }" var="myboard">
 											<ul>
-												<li>${myboard.review_title}</li>
+												<li>
+												<c:choose>
+												<c:when test="${myboard.class_no =='1' || myboard.class_no =='3'}">
+												<a href="/groupReviewDetail.do?groupReview_no=${myboard.groupReview_no}">
+												${myboard.review_title}</a>
+												</c:when>
+												<c:when test="${myboard.class_no =='4'}">
+												<a href="/dojangHomeDetail.go?dojangPost_no=${myboard.groupReview_no}">
+												${myboard.review_title}</a>
+												</c:when>
+												</c:choose>
+												</li>
 											</ul>
 										</c:forEach>
-										<a href="./boardMore.go">더 보기</a>
                                     </h5>
                                     <h5 style="margin:40px; margin-left:50px; margin-right:100px"><p>내가 쓴 댓글의 게시글</p>
                                     <c:forEach items="${mycomment}" var="board">
 										<ul>
-											<li>${board.lightning_title}</li>
+											<li>
+											<c:choose>
+												<c:when test="${board.class_no =='2'}">
+												<a href="/lightDetail.go?lightning_no=${board.idx}">
+												${board.lightning_title}</a>
+												</c:when>
+												<c:when test="${board.class_no =='5'}">
+												<a href="/dojangHomeDetail.go?dojangPost_no=${board.idx}">
+												${board.lightning_title}</a>
+												</c:when>
+												<c:when test="${board.class_no =='8'}">
+												<a href="/resDetail.do?restaurant_no=${board.idx}">
+												${board.lightning_title}</a>
+												</c:when>
+											</c:choose>
+											</li>
 										</ul>
 									</c:forEach>
-									<a href="#">더 보기</a>
                                     </h5>
                             </div>
                         </div>
@@ -247,14 +271,14 @@
 											<li>번개모임</li>
 											<c:forEach items="${myLightning}" var="myLightning">
 												<ul>
-													<li><a href="#">${myLightning.lightning_title }</a></li>
+													<li><a href="/lightDetail.go?lightning_no=${myLightning.idx}">${myLightning.lightning_title }</a></li>
 												</ul>
 											</c:forEach><br/>
 											
 											<li>도장깨기</li>
 											<c:forEach items="${myDojang}" var="myDojang">
 												<ul>
-													<li><a href="#">${myDojang.dojang_title }</a></li>
+													<li><a href="/dojangHome.go?dojang_no=${myDojang.idx}">${myDojang.dojang_title }</a></li>
 												</ul>
 											</c:forEach><br/>
 											
