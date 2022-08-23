@@ -282,16 +282,16 @@ public class MypageController {
 		}
 		
 		// 나의활동 첫 페이지 이동 - 게시글 (상단 프로필)
-		@RequestMapping(value = "/myBoardList.go")
-		public String myBoardList(Model model, HttpSession session) {
-			String loginId = (String) session.getAttribute("loginId");
-			MypageDTO dto = service.myBoardList(loginId); // 상단 프로필쪽
-			model.addAttribute("dto",dto); // 상단 프로필쪽
-			ArrayList<MypageDTO> myBoardArry = service.myBoardArry(loginId);
-			model.addAttribute("list",myBoardArry);
+		//@RequestMapping(value = "/myBoardList.go")
+		//public String myBoardList(Model model, HttpSession session) {
+		//	String loginId = (String) session.getAttribute("loginId");
+		//	MypageDTO dto = service.myBoardList(loginId); // 상단 프로필쪽
+		//	model.addAttribute("dto",dto); // 상단 프로필쪽
+		//	ArrayList<MypageDTO> myBoardArry = service.myBoardArry(loginId);
+		//	model.addAttribute("list",myBoardArry);
 			
-			return "/Mypage/myBoardList";
-		}
+		//	return "/Mypage/myBoardList";
+		//}
 		
 		// 나의활동 첫 페이지 이동 - 게시글 (아작스 페이징) -- 페이징이랑 같이하면 리스트 안불러와져서 일단 페이징 안하고 리스트만 불러옴
 		//@RequestMapping("/myBoardList.ajax")
@@ -304,28 +304,28 @@ public class MypageController {
 		//}
 		
 		// 나의활동 댓글단 글
-		@RequestMapping(value = "/myComment.go")
-		public String myComment(Model model, HttpSession session) {
-			String loginId = (String) session.getAttribute("loginId");
-			MypageDTO dto = service.myBoardList(loginId); // 상단 프로필쪽
-			model.addAttribute("dto",dto); // 상단 프로필쪽
-			ArrayList<MypageDTO> myCommentArry = service.myCommentArry(loginId);
-			model.addAttribute("list",myCommentArry);
+		//@RequestMapping(value = "/myComment.go")
+		//public String myComment(Model model, HttpSession session) {
+		//	String loginId = (String) session.getAttribute("loginId");
+		//	MypageDTO dto = service.myBoardList(loginId); // 상단 프로필쪽
+		//	model.addAttribute("dto",dto); // 상단 프로필쪽
+		//	ArrayList<MypageDTO> myCommentArry = service.myCommentArry(loginId);
+		//	model.addAttribute("list",myCommentArry);
 			
-			return "/Mypage/myComment";
-		}
+		//	return "/Mypage/myComment";
+		//}
 		
 		// 나의활동 댓글단 글
-		@RequestMapping(value = "/myMoim.go")
-		public String myMoim(Model model, HttpSession session) {
-			String loginId = (String) session.getAttribute("loginId");
-			MypageDTO dto = service.myBoardList(loginId); // 상단 프로필쪽
-			model.addAttribute("dto",dto); // 상단 프로필쪽
-			ArrayList<MypageDTO> myMoimArry = service.myMoimArry(loginId);
-			model.addAttribute("list",myMoimArry);
+		//@RequestMapping(value = "/myMoim.go")
+		//public String myMoim(Model model, HttpSession session) {
+		//	String loginId = (String) session.getAttribute("loginId");
+		//	MypageDTO dto = service.myBoardList(loginId); // 상단 프로필쪽
+		//	model.addAttribute("dto",dto); // 상단 프로필쪽
+		//	ArrayList<MypageDTO> myMoimArry = service.myMoimArry(loginId);
+		//	model.addAttribute("list",myMoimArry);
 			
-			return "/Mypage/myMoim";
-		}
+		//	return "/Mypage/myMoim";
+		//}
 		
 
 }
