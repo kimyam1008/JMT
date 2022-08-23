@@ -236,7 +236,7 @@
 		,(select c.comment_content  from comment c  where c.comment_no  =r.idx  and r.class_no =c.class_no  )as mb_comment
 		,(select d.dojang_title  from  dojanglist d  where d.dojang_no  =r.idx and r.class_no  =d.class_no   )as mb_dojang_title
 		,(select d2.dojangPost_subject  from  dojangpost d2  where d2.dojangPost_no  =r.idx and r.class_no = d2.class_no  )as mb_dojang_post
-		,(select g.review_title  from groupreview g where g.groupReview_no = r.idx and r.class_no = g.class_no  )as mb_groupreview
+		,(select g.review_title  from groupreview g where g.groupReview_no = r.idx )as mb_group_review
 		from blind b  left outer join report r on r.report_no = b.report_no  
 		<where>
 			<if test="status_option!= null ">
