@@ -121,7 +121,7 @@ public class MypageService {
 		logger.info("1차 와?");
 		//사진 업데이트는 하든 안하든 무조건 기존 사진 삭제하고 다시 올리기
 		int photoDel = dao.photoDel(profile_no); //기존 사진 삭제
-		logger.info("사진삭제 : "+ photoDel);
+		logger.info("사진삭제 : "+ photoDel);	
 		if(photoDel > 0) { //사진 삭제에 성공하면
 			fileSave(photos, profile_no); //사진 다시등록
 		}
