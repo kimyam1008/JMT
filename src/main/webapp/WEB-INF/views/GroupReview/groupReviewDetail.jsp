@@ -535,7 +535,7 @@ function groupReviewDel(){
 			alert("삭제가 취소되었습니다.");
 			window.location.reload();
 		} else {
-			location.href="/groupReviewDelete.do";
+			location.href="/groupReviewDelete.do?groupReview_no=${dto.groupReview_no}";
 			alert("삭제되었습니다.");
 		}
 	} else {
