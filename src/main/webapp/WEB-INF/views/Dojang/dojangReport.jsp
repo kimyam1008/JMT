@@ -111,7 +111,7 @@ body {
 			<input type="radio" name="report" value="기타"/>
 			</th>
 			<td>
-			<input type="text" id="report_text" placeholder="기타 (직접 작성)"/>
+			<input type="text" id="report_text" placeholder="기타 (직접 작성)" disabled/>
 			</td>
 		</tr>
 	</table>
