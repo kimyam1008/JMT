@@ -39,6 +39,7 @@
 	
 	li, li a {
 		text-align:left;
+		padding:5px;
 	}
 
 </style>

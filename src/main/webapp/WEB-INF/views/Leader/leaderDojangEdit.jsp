@@ -85,9 +85,9 @@
 		<tr>
 			<th>모집 상태</th>
 			<td>
-				<select id="dojang_status" value="${dojangDto.dojang_status}">
-					<option value="모집중">모집중</option>
-					<option value="모집마감">모집 마감</option>
+				<select id="dojang_status">
+					<option value="모집중" <c:if test="${dojangDto.dojang_status eq '모집중'}">selected</c:if>>모집중</option>
+					<option value="모집마감" <c:if test="${dojangDto.dojang_status eq '모집마감'}">selected</c:if>>모집 마감</option>
 				</select>
 			</td>
 		</tr>
