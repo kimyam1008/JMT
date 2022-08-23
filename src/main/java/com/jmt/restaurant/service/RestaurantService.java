@@ -181,7 +181,7 @@ public class RestaurantService {
 				
 				try {
 					byte[] arr = photo.getBytes();
-					Path path = Paths.get("/Users/moon/Documents/SPRING_ADVANCE/JMT4/src/main/webapp/resources/photo/review/" + photo_newFileName);
+					Path path = Paths.get("C:/STUDY/SPRING_ADVANCE/JMT4/src/main/webapp/resources/photo/review/" + photo_newFileName);
 					// 같은이름의 파일이 나올 수 없기 떄문에 옵션 설정 안해도된다.
 					Files.write(path, arr);
 					logger.info(photo_newFileName + " SAVE OK");
@@ -283,7 +283,7 @@ public class RestaurantService {
 		if(dao.reviewDel(params)>0) {
 			//성공하면 사진도 삭제
 			for (RestaurantDTO photo : photoDelList) {
-				File f = new File("/Users/moon/Documents/SPRING_ADVANCE/JMT4/src/main/webapp/resources/photo/review/"+photo.getPhoto_newFileName());
+				File f = new File("C:/STUDY/SPRING_ADVANCE/JMT4/src/main/webapp/resources/photo/review/" +photo.getPhoto_newFileName());
 				if(f.exists()) {
 					boolean success = f.delete();
 					logger.info(photo.getPhoto_newFileName()+"삭제 여부 : "+success);
