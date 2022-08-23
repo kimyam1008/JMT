@@ -65,6 +65,14 @@
 			font-size: 15px;
 		}	
 		
+		
+		.titlea{
+			color : #50bcdf;
+		}
+		
+		.titlea:hover{
+			color:black;
+		}
 			
 	.notiDelBtn:hover{
 		cursor : pointer;
@@ -558,7 +566,7 @@
 				content += '<td>'+item.restaurant_name+'</td>';
 				content += '<td>'+item.food_name+'</td>';
 				content += '<td>'+item.leader_id+'</td>';
-				content += item.lightning_status == "모집중"? '<td><a href="lightDetail.go?lightning_no='+item.lightning_no+'">'+item.lightning_title+'</a></td>' : '<td>'+item.lightning_title+'</td>';
+				content += item.lightning_status == "모집중"? '<td><a class="titlea" href="lightDetail.go?lightning_no='+item.lightning_no+'">'+item.lightning_title+'</a></td>' : '<td>'+item.lightning_title+'</td>';
 				content += '<td>'+date.toLocaleDateString("ko-KR")+'</td>';
 				content += '<td>'+item.member_count +' / '+ item.member_num+'</td>';
 				content += '<td>'+item.lightning_status+'</td>';
