@@ -68,7 +68,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="./myBoardList.go">
+                    <a href="#">
                         <i class="pe-7s-note2"></i>
                         <p>나의 활동</p>
                     </a>
