@@ -160,20 +160,20 @@
 	
 	<select id="myLightning" resultType="mypage">
 		SELECT lightning_title, idx FROM lightninglist l JOIN apply a 
-			ON lightning_no = idx WHERE member_id = #{param1} AND status = '승인' AND a.class_no = '1' LIMIT 3
+			ON lightning_no = idx WHERE member_id = #{param1} AND status = '승인' AND a.class_no = '1' AND l.lightning_status = "모집중" LIMIT 3
 	</select>
 	
 	<select id="myDojang" resultType="mypage">
 		SELECT dojang_title, idx FROM dojanglist d JOIN apply a 
-			ON dojang_no = idx WHERE member_id = #{param1} AND status = '승인' AND a.class_no = '3' LIMIT 3
+			ON dojang_no = idx WHERE member_id = #{param1} AND status = '승인' AND a.class_no = '3' AND d.dojang_status = "모집중" LIMIT 3
 	</select>
 	
 	<select id="myLightningRoom" resultType="mypage">
-		SELECT lightning_title, lightning_no FROM lightninglist l WHERE leader_id = #{param1} LIMIT 3
+		SELECT lightning_title, lightning_no FROM lightninglist l WHERE leader_id = #{param1} AND l.lightning_status = "모집중" LIMIT 3
 	</select>
 	
 	<select id="myDojangRoom" resultType="mypage">
-		SELECT dojang_title, dojang_no FROM dojanglist d WHERE leader_id = #{param1} LIMIT 3
+		SELECT dojang_title, dojang_no FROM dojanglist d WHERE leader_id = #{param1}  AND d.dojang_status = "모집중" LIMIT 3
 	</select>
 	
 	<select id="dojangCount" resultType="int">
