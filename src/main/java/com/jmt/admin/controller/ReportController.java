@@ -181,7 +181,7 @@ public class ReportController {
 	}
 	
 	@RequestMapping("/blindUpdate.do")
-	public String blindUpdate(@RequestParam HashMap<String, String> params , @RequestParam(defaultValue = "해제") String blichk 
+	public String blindUpdate(@RequestParam HashMap<String, String> params , @RequestParam(defaultValue = "공개") String blichk 
 			, RedirectAttributes ra, HttpSession session) { 
 		Map<String, Object> data  = new HashMap<String, Object>();
 		
