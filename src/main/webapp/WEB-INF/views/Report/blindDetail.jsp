@@ -226,10 +226,10 @@ textarea{ resize:none;width:100%;height:150px;}
 			<tr>
 				<th>신고된 글</th>
 				<td>
-					 <c:if test="${not empty reportPost.lightning_title}">${reportPost.lightning_title}</c:if>
-					 <c:if test="${not empty reportPost.dojang_title}">${reportPost.dojang_title}</c:if>
-					 <c:if test="${not empty reportPost.dojangPost_subject}">${reportPost.dojangPost_subject}</c:if>
-					 <c:if test="${not empty reportPost.review_title}">${reportPost.review_title}</c:if> 				 
+					 <c:if test="${not empty reportPost.lightning_title}"> <a href="/lightDetail.go?lightning_no=${detailDto.idx}">${reportPost.lightning_title}</a></c:if>
+					 <c:if test="${not empty reportPost.dojang_title}"> <a href="/dojangDetail.do?dojang_no=${detailDto.idx}">${reportPost.dojang_title}</a></c:if>
+					 <c:if test="${not empty reportPost.dojangPost_subject}"><a href="/dojangHomeDetail.go?dojangPost_no=${detailDto.idx}">${reportPost.dojangPost_subject}</a></c:if>
+					 <c:if test="${not empty reportPost.review_title}"><a href="/groupReviewDetail.do?groupReview_no=${detailDto.idx}">${reportPost.review_title}</a></c:if> 				 
 				</td>
 				<th>신고사유</th><td>${detailDto.report_reason}</td>
 			</tr>
@@ -252,7 +252,18 @@ textarea{ resize:none;width:100%;height:150px;}
 			<tr>
 				<th>신고된 댓글</th>
 				<td>
-					${reportPost.comment_content}
+						 <c:if test="${detailDto.class_no eq 8 }"> <!-- idx가 restaurant_no로  reportPost.idx  -->
+						 	<a href="/resDetail.do?restaurant_no=${reportPost.idx}"> ${reportPost.comment_content}</a>
+						 </c:if>
+						 <c:if test="${detailDto.class_no eq 7 }">
+					 		<a href="/groupReviewDetail.do?groupReview_no=${reportPost.idx}"> ${reportPost.comment_content}</a>
+						 </c:if>
+					 	 <c:if test="${detailDto.class_no eq 5 }"> <!-- 도장깨기 댓글  -->
+					 		<a href="/dojangHomeDetail.go?dojangPost_no=${reportPost.idx}"> ${reportPost.comment_content}</a>
+						 </c:if>
+					 	 <c:if test="${detailDto.class_no eq 2 }"> <!-- 번개 댓글 -->
+					 		<a href="/lightDetail.go?lightning_no=${reportPost.idx}"> ${reportPost.comment_content}</a>
+						 </c:if>
 				</td>
 				<th>신고사유</th><td>${detailDto.report_reason}</td>
 			</tr>
@@ -354,7 +365,7 @@ function updateBlind(){
 	if(z && s=='블라인드'){
 		alert('이미 블라인드된 상태입니다.');
 		return false; 
-	} else if (!z & s=='해제'){
+	} else if (!z & s=='공개'){
 		alert('이미 블라인드 해제상태입니다.');
 		return false; 
 	} 
