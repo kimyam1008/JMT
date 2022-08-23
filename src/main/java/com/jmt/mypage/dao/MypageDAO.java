@@ -19,7 +19,7 @@ public interface MypageDAO {
 
 	int following(String loginId);
 
-	int profile_no(String loginId);
+	Integer profile_no(String loginId);
 
 	photoDTO photoList(int profile_no);
 
