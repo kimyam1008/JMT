@@ -128,19 +128,19 @@
 	</select>
 	
 	<select id="myboard" resultType="mypage">
-		SELECT review_title FROM groupreview g2 WHERE member_id = #{param1}
+		SELECT review_title,groupReview_no,class_no FROM groupreview g2 WHERE member_id = #{param1}
 		UNION ALL
-		SELECT dojangPost_subject FROM dojangpost d WHERE member_id = #{param1} LIMIT 3
+		SELECT dojangPost_subject,dojangPost_no,class_no FROM dojangpost d WHERE member_id = #{param1} LIMIT 3
 	</select>
 	
 	<select id="mycomment" resultType="mypage">
-		SELECT lightning_title, idx FROM lightninglist l JOIN comment c ON lightning_no = idx 
+		SELECT lightning_title, idx, c.class_no FROM lightninglist l JOIN comment c ON lightning_no = idx 
 			WHERE member_id = #{param1} AND c.comment_status = '공개' AND c.class_no = '2'
 		UNION 
-		SELECT dojangPost_subject, idx FROM dojangpost d JOIN comment c ON dojangPost_no = idx 
+		SELECT dojangPost_subject, idx, c.class_no FROM dojangpost d JOIN comment c ON dojangPost_no = idx 
 			WHERE c.member_id = #{param1} AND c.comment_status = '공개' AND c.class_no = '5'
 		UNION 
-		SELECT restaurant_name, idx FROM restaurant r JOIN comment c ON restaurant_no = idx 
+		SELECT restaurant_name, idx, c.class_no FROM restaurant r JOIN comment c ON restaurant_no = idx 
 			WHERE member_id = #{param1} AND c.comment_status = '공개' AND c.class_no = '8' LIMIT 3
 	</select>
 	
