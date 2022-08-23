@@ -220,7 +220,7 @@ public class MypageService {
 		
 		return dao.followerList(loginId);
 	}
-
+//
 	public MemberDTO otherPage(int profile_no) {
 		
 		return dao.otherPage(profile_no);
