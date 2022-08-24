@@ -9,7 +9,7 @@
 			,l.food_no
 		FROM lightningList l
 		LEFT OUTER JOIN codeTable c ON c.class_no = l.class_no
-		WHERE c.class_no=1 ORDER BY RAND()
+		WHERE c.class_no=1 AND l.lightning_status='모집중' ORDER BY RAND()
 		
 	</select>
 	
@@ -20,7 +20,7 @@
 			,d.food_no
 		FROM dojangList d
 		LEFT OUTER JOIN codeTable c ON c.class_no = d.class_no
-		WHERE c.class_no=3 ORDER BY RAND()
+		WHERE c.class_no=3 AND d.dojang_status='모집중' ORDER BY RAND()
 	</select>
 	
 	<select id="resDto" resultType="main">
