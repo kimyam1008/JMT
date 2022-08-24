@@ -176,6 +176,12 @@ textarea {
      position:relative;
 	left:280px;
 }
+
+ .notiDelBtn:hover{
+			cursor : pointer;
+			color : red;
+		}
+
 </style>
 <title>맛집 상세보기</title>
 </head>
@@ -325,9 +331,9 @@ textarea {
 		<!-- 지도^^ -->
 		<div id="map" style="width:400px;height:300px;"></div>
 		<div id="moin_list">
+		 	<h3>번개 모임!!</h3>
 		<ul>
 		<c:forEach items="${lightninglist}" var="liList">
-		 	<h3>번개 모임!!</h3>
 		 	<br/>
 		 	<c:if test="${liList.lightning_status eq '모집중'}">
 		 		<input type="hidden" name="idx" value="${liList.lightning_no}" />
