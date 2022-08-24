@@ -41,10 +41,12 @@ public class MainController {
 			//번개 모임 추천
 	    	ArrayList<MainDTO> lightReco = service.lightReco(loginId);
 		    model.addAttribute("lightReco", lightReco);
+		    logger.info("메인페이지 번개 추천 리스트 : "+lightReco.size());
 		    
 		    //도장 모임 추천
 		    ArrayList<MainDTO> dojangReco = service.dojangReco(loginId);
 		    model.addAttribute("dojangReco", dojangReco);
+		    logger.info("메인페이지 도장깨기 추천 리스트 : "+dojangReco.size());
 			}
 	    
 	    //번개 가져오기

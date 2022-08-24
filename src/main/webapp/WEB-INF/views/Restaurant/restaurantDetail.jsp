@@ -173,8 +173,23 @@ textarea {
 	cursor: pointer;
 }
 #photo_div{
-     position:relative;
+    position:relative;
 	left:280px;
+	margin-top:30px;
+}
+
+button{
+	color:#fff;
+	background:orange;
+	border:none;
+	padding:5px 10px;
+}
+button:focus{
+		outline:0;
+}
+button:hover{
+	background:#ff3d1c;
+	cursor:pointer;
 }
 
  .notiDelBtn:hover{
@@ -322,7 +337,11 @@ textarea {
 				<td>${resDetail.restaurant_call}</td>
 				<tr>
 				<td colspan="2">
-					<button type="button" resID="${resDetail.restaurant_no}" memberID="${sessionScope.loginId}" onclick="resUp()">맛집 수정요청</button>
+					<div style="display:block;">
+		            	<span style="text-align:center; display:block; margin: 0 auto;">
+							<button type="button" resID="${resDetail.restaurant_no}" memberID="${sessionScope.loginId}" onclick="resUp()">맛집 수정요청</button>
+						</span>
+					</div>
 				</td>
 	</table>
 	</div>
@@ -540,7 +559,7 @@ console.log("식당번호 확인::",restaurant_no);
 	var ooo = onclick="report(${comment.comment_no})"
 	
 	function resUp(){
-		window.open('restaurantUpdate.go?restaurant_no=${resDetail.restaurant_no}',"new","width=400, height=200, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
+		window.open('restaurantUpdate.go?restaurant_no=${resDetail.restaurant_no}',"new","width=400, height=350, left=550 ,top=300, resizable=no, scrollbars=no, status=no, location=no, directories=no;");
 	}
 	
 	function report(rep){

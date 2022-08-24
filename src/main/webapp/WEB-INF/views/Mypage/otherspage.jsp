@@ -32,6 +32,31 @@
 		cursor : pointer;
 		color : red;
 	}
+	
+	li, li a {
+		text-align:left;
+		padding:5px;
+	}
+	
+	@font-face {
+		font-family: 'GmarketSansMedium';
+		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+	}
+	
+	#follow {
+		border:none;
+		font-family: 'GmarketSansMedium';
+		background:darkgray;
+		color:white;
+		padding: 8px 8px 2px 8px;
+	}
+	
+	#follow:hover {
+		background:skyblue;
+		cursor:pointer;
+	}
 </style>
 <body>
     <!--사이드바 시작-->
@@ -118,7 +143,7 @@
                              </a>
                          </li>
                         <li>
-                           <a href="#">
+                           <a href="./mypage.go">
                                <p>마이페이지</p>
                             </a>
                         </li>
@@ -140,61 +165,101 @@
                 <!--여기에 <div class="row">로 시작해서 내용을 넣어주세요 -->
                 <div class="row">
                     <!--표 시작-->
-                    <div class="col-md-12">
-                        <form action="./follow.do" method="post">
+                    <form action="./follow.do" method="post">
+                    <div class="col-md-6">
                         <div class="card">
-                        <div class="content table-responsive table-full-width" style="height:170px">
-                                <div class="table table-hover table-striped">
-                           <div class="left" style="float: left; margin:20px;">
-                           			<input type="hidden" name="member_id" value="${list.member_id}">
-									<input type="hidden" name="profile_no" value="${list.profile_no}">
-                               		<img src="/photo/${photo.photo_newFileName}" width="150" height="100"/>
-                               	</div>
-                               	<div class="middle" style="float: left; margin:20px;">
-                               		${list.member_id }님의 마이페이지<br/>
-                               		등급 : ${list.grade_name }
-									팔로워 : <a href="./otherFollowerList.go?profile_no=${list.profile_no}" onclick="window.open(this.href, '_blank', 'width=400, height=450, left=500, top=200'); return false;">${follower }</a>
-									팔로잉 : <a href="./otherFollowingList.go?profile_no=${list.profile_no}" onclick="window.open(this.href, '_blank', 'width=400, height=450, left=500, top=200'); return false;">${following }</a>
-                               	</div>
-                               	<div class="right" style="float: left; margin:20px;">
+                        <div class="content" style="padding:30px;">
+                               <div class="top-section">
+	                          		<div>
+	                           			<input type="hidden" name="member_id" value="${list.member_id}">
+										<input type="hidden" name="profile_no" value="${list.profile_no}">
+	                               		<img src="/photo/${photo.photo_newFileName}" width="170px" height="100" style="float:left; weight:50px;"/>
+	                               	
+		                               	<div class="middle" style="margin:20px; font-size:16px;">
+		                               		<h4>${list.member_id}님의 마이페이지</h4><br/>
+		                               		<p>등급 : ${list.grade_name}</p>
+											<p>팔로워 : <a href="./otherFollowerList.go?profile_no=${list.profile_no}" onclick="window.open(this.href, '_blank', 'width=400, height=450, left=500, top=200'); return false;">${follower }</a></p>
+											<p>팔로잉 : <a href="./otherFollowingList.go?profile_no=${list.profile_no}" onclick="window.open(this.href, '_blank', 'width=400, height=450, left=500, top=200'); return false;">${following }</a></p>
+		                               	</div>
+	                               	</div>
+                               	<%-- <div class="right" style="float: left; margin:20px;">
                                		성별 : ${list.profile_gender }<br/>
 									직업 : ${list.profile_job }<br/>
 									선호 음식 : ${list.food_name }<br/>
 									식사 속도 : ${list.eat_speed }<br/>
 									블라인드 수 : ${blind }<br/>
 									<input id="follow" type="submit" name="follow" value="${follow }"/>
-                               	</div>
+                               	</div> --%>
                                 </div>
+                                
                             </div>
                         </div>
-                        </form>
+                        
                     </div>
                    <!--표 끝-->
+                   
+                   
+                   
+                   
+                   <div class="col-md-6">
+                        <div class="card">
+                            
+                            <div class="content" style="padding:30px;">
+
+                                <div class="top-section">
+                                	<div style="font-size:16px;">
+									성별 : ${list.profile_gender }<br/>
+									직업 : ${list.profile_job }<br/>
+									선호 음식 : ${list.food_name }<br/>
+									식사 속도 : ${list.eat_speed }<br/>
+									블라인드 수 : ${blind }<br/>
+                                	</div>
+                                </div>
+                                <div style="margin-top:15px; font-size:16px; border:none;">
+									<input id="follow" type="submit" name="follow" value="${follow}"/>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                   </form>
+                        
                 </div>
+
+
+
+
+
 
 
                 <!--게시글 양식 시작-->
                 <div class="row">
-                    <div class="col-md-12">
+                
+                
+                
+                    <div class="col-md-6">
                         <div class="card">
-                            <div class="content" style="height:350px">
-                                    <div class="typo-line" style="float:left;">
-                                    <h5 style="margin:40px; margin-left:50px; margin-right:100px"><p class="category">${list.member_id}의 게시글</p>
+                        
+                            <div class="content">
+                                    <div class="typo-line">
+                                    <h5 style="margin:40px; margin-left:50px; margin-right:100px"><p class="category" style="margin-bottom:15px; font-size:20px;">${list.member_id}의 게시글</p>
+                                    	<c:if test="${otherBoard.size() == 0}">등록된 게시글이 없습니다.</c:if>
                                     	<c:forEach items="${otherBoard }" var="list">
 											<ul>
 												<li>${list.review_title }</li>
 											</ul>
 										</c:forEach>
                                     </h5>
-                                    <h5 style="margin:40px; margin-left:50px; margin-right:100px"><p class="category">${list.member_id}의 쓴 댓글의 게시글</p>
-                                    <c:forEach items="${otherCom}" var="board">
-										<ul>
-											<li>${board.lightning_title}</li>
-										</ul>
-									</c:forEach>
-                                    </h5>
+                                    <h5 style="margin:40px; margin-left:50px; margin-right:100px"><p class="category" style="margin-bottom:15px; font-size:20px;">${list.member_id}의 쓴 댓글의 게시글</p>
+	                                    <c:if test="${otherCom.size() == 0}">등록된 게시글이 없습니다.</c:if>
+	                                    <c:forEach items="${otherCom}" var="board">
+											<ul>
+												<li>${board.lightning_title}</li>
+											</ul>
+										</c:forEach>
+                                  	</h5>
                                 </div>
-                                <div class="typo-line" style="float:left; margin:30px;" >
+                                <%-- <div class="typo-line" style="float:left; margin:30px;" >
                                     <h5 style="float:left; margin:30px;"><p class="category">모임</p>
                                     	<ul>
 											<li>생성한 방 - 번개</li>
@@ -208,13 +273,48 @@
 											</c:forEach>
 										</ul>
                                     </h5>
-                                </div>
+                                </div> --%>
                                 <div class="fol">
 									<h3>팔로워만 볼 수 있습니다.</h3>
 								</div>
                             </div>
                         </div>
                     </div>
+
+
+					<div class="col-md-6" id="hide2">
+                        <div class="card">
+                            <div class="content">
+                            
+                            	<div class="typo-line">
+                                    <h5><p class="category" style="font-size:20px;">모임</p>
+                                    	<ul>
+											<li>생성한 방 - 번개</li>
+											<c:if test="${lightRoom.size() == 0}"><i><p style="text-align:left">생성한 번개 모임이 없습니다.</p></i></c:if>
+											<c:forEach items="${lightRoom}" var="lightRoom">
+												<ul>
+													<li><a href="/lightningLeaderPage.go?lightning_no=${lightRoom.lightning_no}">${lightRoom.lightning_title }</a></li>
+												</ul>
+											</c:forEach>
+											
+											<li>생성한 방 - 도장</li>
+											<c:if test="${dojangRoom.size() == 0}"><i><p style="text-align:left">생성한 도장깨기가 없습니다.</p></i></c:if>
+											<c:forEach items="${dojangRoom}" var="dojangRoom">
+												<ul>
+													<li><a href="/dojangLeaderPage.go?dojang_no=${dojangRoom.dojang_no}">${dojangRoom.dojang_title }</a></li>
+												</ul>
+											</c:forEach>
+										</ul>
+                                    </h5>
+                                </div>
+                                <!-- <div class="fol">
+									<h3>팔로워만 볼 수 있습니다.</h3>
+								</div> -->
+                            
+                            </div>
+                         </div>
+                      </div>
+
 
                 </div>
                 <!--게시글 양식 끝-->
@@ -261,6 +361,7 @@
 		var follow = "${follow}";
 		if(follow == "팔로우"){
 			$(".typo-line").hide();
+			$("#hide2").hide();
 			$(".fol").show();
 		} else if (follow == "팔로잉") {
 			$(".typo-line").show();

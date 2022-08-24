@@ -93,8 +93,9 @@
 	</select>
 	
 	<select id="otherPage" resultType="member">
-		SELECT * FROM profile p INNER JOIN member m 
-			WHERE p.profile_no = #{param1} AND m.member_id = (SELECT member_id FROM profile p2 WHERE profile_no = #{param1})
+		SELECT profile_no, p.member_id , grade_name, food_name, eat_speed , profile_gender , profile_job 
+		FROM profile p JOIN member m ON m.member_id = p.member_id JOIN food f ON f.food_no = p.food_no 
+		JOIN grade g ON g.grade_no = p.grade_no where profile_no = #{param1}
 	</select>
 	
 	<select id="otherPhoto" resultType="photo">

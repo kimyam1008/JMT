@@ -54,7 +54,7 @@
 		LEFT OUTER JOIN food f ON p.food_no = f.food_no
 		LEFT OUTER JOIN lightningList l ON f.food_no = l.food_no
 		LEFT OUTER JOIN codeTable c ON l.class_no = c.class_no
-		WHERE l.food_no = p.food_no AND m.member_id = #{param1} ORDER BY RAND()
+		WHERE l.food_no = p.food_no AND l.lightning_status='모집중' AND m.member_id = #{param1} ORDER BY RAND()
 	</select>
 	
 	<select id="dojangReco" resultType="main">
@@ -64,6 +64,6 @@
 		LEFT OUTER JOIN food f ON p.food_no = f.food_no
 		LEFT OUTER JOIN dojangList d ON f.food_no = d.food_no
 		LEFT OUTER JOIN codeTable c ON d.class_no = c.class_no
-		WHERE d.food_no = p.food_no AND m.member_id = #{param1} ORDER BY RAND()		
+		WHERE d.food_no = p.food_no AND d.dojang_status='모집중' AND m.member_id = #{param1} ORDER BY RAND()		
 	</select>
 </mapper>
