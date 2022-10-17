@@ -43,7 +43,7 @@ body {
 <body>
 	<table>
 		<tr height="150">
-			<th>가입신청 하시겠습니까?</th>
+			<th>가입신청 하시겠습니까??</th>
 			<td></td>
 		</tr>
 		<tr>
