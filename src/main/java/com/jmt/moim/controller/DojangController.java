@@ -439,7 +439,7 @@ public class DojangController {
 				//글삭제(숨김)
 				//boolean success =  service.dojangPostDelete(dojangPost_no);
 			    //map.put("success", success);
-			    //logger.info("숨김처리 제발::"+dojangPost_no);
+			    //logger.info("숨김처리::"+dojangPost_no);
 
 				ArrayList<DojangDTO> dojangHomeMember = service.dojangHomeMember(dojang_no);
 				DojangDTO dojangHomeDetail = service.dojangHomeDetail(dojangPost_no);
